@@ -24,7 +24,7 @@ const { getOutstandingOrders } = usePayment();
 const orders = ref<PendingOrderRecord[]>([]);
 const loading = ref(true);
 const error = ref(false);
-const copy = computed(() => locale.value === 'zh-CN' ? {
+const copy = computed(() => String(locale.value) === 'zh-CN' ? {
   title: '待完成付款', refresh: '刷新', loading: '正在加载付款进度…', error: '无法加载付款进度，请刷新重试。', empty: '没有待完成的付款。', continue: '继续付款'
 } : {
   title: 'Payments to complete', refresh: 'Refresh', loading: 'Loading payment progress…', error: 'Payment progress could not be loaded. Please refresh to try again.', empty: 'No outstanding payments.', continue: 'Continue payment'

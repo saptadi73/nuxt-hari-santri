@@ -16,8 +16,8 @@
       </div>
       <OrderPaymentProgress v-if="order" :order="order" :attempts="paymentAttempts" @attempts-removed="ids => paymentAttempts = paymentAttempts.filter(attempt => !ids.includes(attempt.id))" />
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <NuxtLink v-if="status === 'success'" :to="registrationFlow.profilePendingType.value ? `/register/${registrationFlow.profilePendingType.value}` : invoiceTo" class="rounded-full bg-amber-300 px-5 py-3 font-semibold text-slate-950">{{ registrationFlow.profilePendingType.value ? (locale === 'zh-CN' ? '完善注册资料' : 'Complete registration details') : copy.viewInvoice }}</NuxtLink>
-        <button v-else-if="order && !isOrderFullyPaid(order) && (order.allowed_actions?.includes('continue_payment') || ['pending', 'partially_paid', 'draft'].includes(order.status))" class="rounded-full bg-cyan-300 px-5 py-3 font-semibold text-slate-950 disabled:opacity-50" :disabled="checking" @click="continuePayment">{{ locale === 'zh-CN' ? '继续付款' : 'Continue payment' }}</button>
+        <NuxtLink v-if="status === 'success'" :to="registrationFlow.profilePendingType.value ? `/register/${registrationFlow.profilePendingType.value}` : invoiceTo" class="rounded-full bg-amber-300 px-5 py-3 font-semibold text-slate-950">{{ registrationFlow.profilePendingType.value ? (String(locale) === 'zh-CN' ? '完善注册资料' : 'Complete registration details') : copy.viewInvoice }}</NuxtLink>
+        <button v-else-if="order && !isOrderFullyPaid(order) && (order.allowed_actions?.includes('continue_payment') || ['pending', 'partially_paid', 'draft'].includes(order.status))" class="rounded-full bg-cyan-300 px-5 py-3 font-semibold text-slate-950 disabled:opacity-50" :disabled="checking" @click="continuePayment">{{ String(locale) === 'zh-CN' ? '继续付款' : 'Continue payment' }}</button>
         <NuxtLink v-else-if="terminal" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="rounded-full bg-amber-300 px-5 py-3 font-semibold text-slate-950">{{ copy.tryAgain }}</NuxtLink>
         <button v-if="status !== 'success'" class="rounded-full border border-white/20 px-5 py-3" :disabled="checking" @click="checkStatus">{{ checking ? copy.checking : copy.checkAgain }}</button>
         <NuxtLink to="/dashboard" class="rounded-full border border-white/20 px-5 py-3">{{ copy.dashboard }}</NuxtLink>
@@ -58,7 +58,7 @@ const paymentMessages = {
     statuses: { ...messages.zh.statuses, draft: '待付款', payment_pending: '等待付款确认', partially_paid: '已部分付款', paid: '已付清', cancelled: '付款已取消' }
   }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN'
+const copy = computed(() => String(locale.value) === 'zh-CN'
   ? { ...messages.zh, ...paymentMessages.zh }
   : { ...messages.en, ...paymentMessages.en });
 useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
@@ -110,7 +110,7 @@ const invoiceTo = computed(() => registrationId.value
 const queryValue = (value: unknown) => Array.isArray(value) ? String(value[0] || '') : typeof value === 'string' ? value : '';
 const displayUnitPrice = (productId: string) => usdPricesByProductId.value.get(productId) || 0;
 const displayOrderUsdTotal = computed(() => orderItems.value.reduce((sum, item) => sum + (displayUnitPrice(item.product_id) * item.quantity), 0));
-const usd = (amount: number) => new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount || 0);
+const usd = (amount: number) => new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount || 0);
 const loadUsdOrderContext = async () => {
   if (!orderId.value) return;
   try {

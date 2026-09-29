@@ -65,7 +65,7 @@ const props = defineProps<{ orderId: string }>();
 const emit = defineEmits<{ close: []; created: [payment: DokuOrderPayment]; busy: [value: boolean] }>();
 const api = usePayment();
 const { locale } = useI18n();
-const text = computed(() => locale.value === 'zh-CN' ? {
+const text = computed(() => String(locale.value) === 'zh-CN' ? {
   title: 'DOKU 付款', subtitle: '请选择付款方式。', close: '关闭', loading: '正在加载…', card: '信用卡',
   unavailable: '暂未开通', selectBank: '选择银行', cardDetails: '在 DOKU 安全页面填写卡片信息', back: '返回付款方式',
   preparing: '正在向 DOKU 请求付款…', vaNumber: '虚拟账户号码', copy: '复制号码', copied: '已复制', expires: '有效期至',
@@ -93,7 +93,7 @@ const statusTo = computed(() => `/dashboard/payment-status?order_id=${encodeURIC
 let timer: ReturnType<typeof setInterval> | undefined;
 let checks = 0;
 let disposed = false;
-const money = (amount: number, currency: string) => new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency }).format(amount);
+const money = (amount: number, currency: string) => new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency }).format(amount);
 const message = (value: unknown) => {
   const err = value as { data?: { message?: string; request_id?: string } };
   return (err.data?.message || text.value.failure) + (err.data?.request_id ? ` (${err.data.request_id})` : '');

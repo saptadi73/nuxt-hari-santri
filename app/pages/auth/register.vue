@@ -78,9 +78,12 @@
 import { countryFlag, countryOptions, otherCountries, priorityCountries } from '~/config/countries';
 
 const {locale}=useI18n();
-const messages={en:{create:'Create account',title:'Register your IWBIF account',intro:'Create your user account first, then choose your package and continue securely to checkout.',fullName:'Full name',fullNamePlaceholder:'Your full name',email:'Email',country:'Country',mostSelected:'Most selected',phone:'Mobile phone',phoneCode:'Phone country code',phoneHelp:'Enter the number without the country code.',password:'Password',passwordPlaceholder:'Minimum 8 characters',confirmPassword:'Confirm password',confirmPlaceholder:'Re-enter your password',creating:'Creating account...',haveAccount:'Already have an account?',login:'Log in',required:'Complete all required fields.',invalidEmail:'Enter a valid email address.',phoneLength:'Enter a valid mobile phone number.',passwordLength:'Password must be at least 8 characters long.',passwordMismatch:'Passwords do not match.',success:'Account created successfully. Redirecting to package selection...',failed:'Account creation failed.'},'zh-CN':{create:'创建账户',title:'注册您的 IWBIF 账户',intro:'请先创建用户账户，然后选择套餐并安全进入结账流程。',fullName:'姓名',fullNamePlaceholder:'请输入您的姓名',email:'电子邮箱',country:'国家或地区',mostSelected:'常用选项',phone:'手机号码',phoneCode:'电话国家或地区代码',phoneHelp:'请输入不含国家或地区代码的号码。',password:'密码',passwordPlaceholder:'至少 8 个字符',confirmPassword:'确认密码',confirmPlaceholder:'请再次输入密码',creating:'正在创建账户…',haveAccount:'已有账户？',login:'登录',required:'请填写所有必填字段。',invalidEmail:'请输入有效的电子邮箱地址。',phoneLength:'请输入有效的手机号码。',passwordLength:'密码长度必须至少为 8 个字符。',passwordMismatch:'两次输入的密码不一致。',success:'账户创建成功。正在跳转至套餐选择…',failed:'账户创建失败。'}} as const;
-const copy=computed(()=>messages[locale.value==='zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.create} | IWBIF 2026`,description:()=>copy.value.intro});
+const messages={
+  id:{create:'Buat akun',title:'Daftar akun Hari Santri',intro:'Buat akun pemesan, lalu pilih kegiatan dan lengkapi data setiap peserta.',fullName:'Nama lengkap',fullNamePlaceholder:'Nama sesuai identitas',email:'Email',country:'Negara',mostSelected:'Pilihan utama',phone:'Nomor WhatsApp',phoneCode:'Kode negara telepon',phoneHelp:'Masukkan nomor tanpa kode negara.',password:'Kata sandi',passwordPlaceholder:'Minimal 8 karakter',confirmPassword:'Ulangi kata sandi',confirmPlaceholder:'Masukkan ulang kata sandi',creating:'Membuat akun…',haveAccount:'Sudah punya akun?',login:'Masuk',required:'Lengkapi semua kolom wajib.',invalidEmail:'Masukkan alamat email yang valid.',phoneLength:'Masukkan nomor telepon yang valid.',passwordLength:'Kata sandi minimal 8 karakter.',passwordMismatch:'Kata sandi tidak sama.',success:'Akun berhasil dibuat. Membuka pendaftaran…',failed:'Akun belum dapat dibuat.'},
+  en:{create:'Create account',title:'Create your Hari Santri account',intro:'Create the order owner account, then choose an activity and enter each participant.',fullName:'Full name',fullNamePlaceholder:'Name as shown on ID',email:'Email',country:'Country',mostSelected:'Popular choices',phone:'WhatsApp number',phoneCode:'Phone country code',phoneHelp:'Enter the number without its country code.',password:'Password',passwordPlaceholder:'At least 8 characters',confirmPassword:'Confirm password',confirmPlaceholder:'Enter your password again',creating:'Creating account…',haveAccount:'Already have an account?',login:'Sign in',required:'Complete all required fields.',invalidEmail:'Enter a valid email address.',phoneLength:'Enter a valid phone number.',passwordLength:'Password must be at least 8 characters.',passwordMismatch:'Passwords do not match.',success:'Account created. Opening registration…',failed:'The account could not be created.'}
+} as const;
+const copy=computed(()=>messages[locale.value==='id'?'id':'en']);
+useSeoMeta({title:()=>`${copy.value.create} | Hari Santri 2026`,description:()=>copy.value.intro});
 
 const form = reactive({
   full_name: '',
@@ -182,7 +185,7 @@ const onSubmit = async () => {
       country: form.country,
       phone: internationalPhone.value,
       password: form.password,
-      preferred_locale: locale.value === 'zh-CN' ? 'zh-CN' : 'en'
+      preferred_locale: locale.value === 'id' ? 'id' : 'en'
     });
 
     if (result.success) {

@@ -19,8 +19,8 @@
 definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
 const messages = { en: { eyebrow: 'Account security', title: 'Change password', description: 'Enter your current password, then choose a new password of at least eight characters.', current: 'Current password', newPassword: 'New password', confirm: 'Confirm new password', updating: 'Updating…', update: 'Update password', error: 'Password could not be updated.', mismatch: 'New password and confirmation do not match.', same: 'The new password must be different from the current password.', success: 'Password updated successfully.', seo: 'Change Password' }, zh: { eyebrow: '账户安全', title: '修改密码', description: '请输入当前密码，然后设置一个至少八个字符的新密码。', current: '当前密码', newPassword: '新密码', confirm: '确认新密码', updating: '正在更新…', update: '更新密码', error: '无法更新密码。', mismatch: '新密码与确认密码不一致。', same: '新密码必须与当前密码不同。', success: '密码已成功更新。', seo: '修改密码' } } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
-const validationCopy = computed(() => locale.value === 'zh-CN'
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
+const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有密码字段。', length: '每个密码必须至少包含 8 个字符。' }
   : { required: 'Complete all password fields.', length: 'Each password must contain at least 8 characters.' });
 useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });

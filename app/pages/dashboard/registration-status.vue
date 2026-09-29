@@ -75,7 +75,7 @@ const messages = {
     orderStatuses: { paid: '已付款', partially_paid: '部分付款', pending: '等待付款', payment_pending: '等待付款或确认', draft: '草稿', created: '已创建', failed: '失败', expired: '已过期', canceled: '已取消', cancelled: '已取消', refunded: '已退款' }
   }
 };
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
 useSeoMeta({ title: () => `${copy.value.title} | IWBIF 2026` });
 
 const participation = computed(() => (['delegate', 'exhibitor'] as PurchaseType[]).map(type => {

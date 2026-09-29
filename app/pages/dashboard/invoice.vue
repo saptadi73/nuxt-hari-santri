@@ -48,7 +48,7 @@ const messages = {
   en: { eyebrow: 'Payment and Invoice', title: 'Registration invoice', loading: 'Loading invoice…', noInvoice: 'No invoice is available yet.', invoice: 'Invoice', paid: 'Paid', registrationNumber: 'Registration number', participant: 'Participant', delegatePackage: 'Delegate package', paymentStatus: 'Payment status', packageTotal: 'Package total', paymentAmountGateway: 'Shown by payment gateway', preparingPdf: 'Preparing PDF…', downloadPdf: 'Download invoice PDF', finishProfile: 'Your payment is complete. Finish your profile so the backend can link this order to your registration and generate the invoice.', awaitingInvoice: 'Your invoice will appear after your payment and registration have been confirmed.', mismatchProfile: 'No invoice was found for this payment context yet. Please complete your profile if it is still pending.', mismatch: 'No invoice was found for this specific payment context yet.', completeExhibitor: 'Complete Exhibitor Profile', completeDelegate: 'Complete Delegate Profile', checkStatus: 'Check payment status', goPayment: 'Go to payment', unavailable: 'Your invoice is not available yet. Please contact the event organizer if your payment has already been confirmed.', exportError: 'The PDF export could not be prepared. Please try again.', invoiceSuffix: 'Invoice', seo: 'Invoice' },
   zh: { eyebrow: '付款与发票', title: '注册发票', loading: '正在加载发票…', noInvoice: '目前尚无可用发票。', invoice: '发票', paid: '已付款', registrationNumber: '注册编号', participant: '参与者', delegatePackage: '代表套餐', paymentStatus: '付款状态', packageTotal: '套餐总额', paymentAmountGateway: '由支付网关显示', preparingPdf: '正在准备 PDF…', downloadPdf: '下载发票 PDF', finishProfile: '您的付款已完成。请完善个人资料，以便后端将此订单关联到您的注册并生成发票。', awaitingInvoice: '付款和注册确认后，您的发票将显示在此处。', mismatchProfile: '尚未找到与此次付款对应的发票。如果资料仍未完成，请先完善资料。', mismatch: '尚未找到与此次付款信息对应的发票。', completeExhibitor: '完善参展商资料', completeDelegate: '完善代表资料', checkStatus: '查看付款状态', goPayment: '前往付款', unavailable: '您的发票目前尚不可用。如果付款已确认，请联系活动主办方。', exportError: '无法准备 PDF 导出，请重试。', invoiceSuffix: '发票', seo: '发票' }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
 useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
 
 const paymentApi = usePayment();
@@ -133,7 +133,7 @@ const persistCurrentInvoice = (value: Invoice | null) => {
   sessionStorage.setItem(CURRENT_INVOICE_KEY, JSON.stringify(value));
 };
 
-const amountCopy = computed(() => locale.value === 'zh-CN' ? {
+const amountCopy = computed(() => String(locale.value) === 'zh-CN' ? {
   orderTotal: '订单总额', totalPaid: '已付总额', remaining: '剩余应付金额', unavailable: '金额暂不可用'
 } : {
   orderTotal: 'Order total', totalPaid: 'Total paid', remaining: 'Remaining balance', unavailable: 'Amount unavailable'
@@ -149,7 +149,7 @@ const totalPaid = computed(() => {
 });
 const money = (amount: number | null | undefined, currency?: string) => {
   if (amount == null || !Number.isFinite(Number(amount)) || !currency) return amountCopy.value.unavailable;
-  return new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'id-ID', { style: 'currency', currency }).format(Number(amount));
+  return new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'id-ID', { style: 'currency', currency }).format(Number(amount));
 };
 const loadInvoiceContext = async () => {
   if (!invoice.value?.order?.id) return;
@@ -277,7 +277,7 @@ onMounted(async () => {
   }
 });
 
-const formatDate = (value?: string | null) => value ? new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'id-ID', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(value)) : '-';
+const formatDate = (value?: string | null) => value ? new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'id-ID', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(value)) : '-';
 
 const downloadInvoice = async () => {
   if (downloading.value || !invoiceElement.value || !invoice.value) return;

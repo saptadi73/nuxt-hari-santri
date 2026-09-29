@@ -18,5 +18,5 @@ const documents = {
 
 export const useLegalContent = (key: 'privacy'|'terms'|'conduct'|'refund') => {
   const {locale}=useI18n();
-  return computed<LegalDocument>(()=>documents[locale.value==='zh-CN'?'zh-CN':'en'][key]);
+  return computed<LegalDocument>(()=>documents[String(locale.value) === 'zh-CN'?'zh-CN':'en'][key]);
 };

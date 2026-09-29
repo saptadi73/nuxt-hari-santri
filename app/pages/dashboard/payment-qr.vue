@@ -32,7 +32,7 @@ const messages = {
   en: { title: 'Scan the QRIS Code to Complete Your Payment', description: 'Open a QRIS-compatible payment application, scan the code, and use your order number as the payment reference.', loading: 'Loading order reference…', paymentReference: 'Payment reference', paymentStatus: 'Payment status', pending: 'Pending verification', verification: 'Uploading proof does not automatically mark the order as paid; an organizer or administrator must verify and confirm the payment.', anotherMethod: 'Choose another method', dashboard: 'Return to dashboard', steps: ['1. Open a mobile banking or payment application that supports QRIS.', '2. Scan the QRIS code displayed above.', '3. Use the order number as the payment reference where applicable.', '4. Complete the payment and retain the transaction receipt.', '5. Upload your proof of payment using the form below.'], missing: 'Order reference was not found. Please return to your cart.', loadError: 'Order could not be loaded.' },
   zh: { title: '扫描 QRIS 二维码以完成付款', description: '打开支持 QRIS 的付款应用程序，扫描二维码，并使用订单编号作为付款参考。', loading: '正在加载订单参考信息…', paymentReference: '付款参考号', paymentStatus: '付款状态', pending: '等待审核', verification: '上传凭证不会自动将订单标记为已付款；主办方或管理员必须核实并确认付款。', anotherMethod: '选择其他付款方式', dashboard: '返回控制面板', steps: ['1. 打开支持 QRIS 的手机银行或付款应用程序。', '2. 扫描上方显示的 QRIS 二维码。', '3. 如需填写付款参考，请使用订单编号。', '4. 完成付款并保留交易回执。', '5. 使用下方表单上传付款凭证。'], missing: '未找到订单参考信息，请返回购物车。', loadError: '无法加载订单。' }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
 useSeoMeta({ title: () => `QR Code Direct | IWBIF 2026` });
 const route = useRoute();
 const orderId = ref('');

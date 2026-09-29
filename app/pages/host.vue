@@ -72,7 +72,7 @@ const messages = {
   en: { eyebrow: 'The people behind the forum', title: 'Meet the Host & Organizing Committee', intro: 'Meet the leaders bringing IWBIF 2026 to life—uniting experience, purpose, and international networks to create meaningful business outcomes.', eventLine: '14–17 October · Jakarta, Indonesia', teamLabel: 'Leadership & stewardship', teamTitle: 'The team shaping IWBIF 2026', loading: 'Loading the host committee…', error: 'The host committee could not be loaded.', errorHelp: 'Please check the API connection or try again.', retry: 'Try again', empty: 'Host and committee profiles will be published here soon.', featured: 'Featured', host: 'Host Committee', count: (value: number) => `${value} committee members` },
   'zh-CN': { eyebrow: '论坛背后的团队', title: '认识主办方与组委会', intro: '认识推动 IWBIF 2026 落地的领袖团队。他们汇聚经验、使命与国际网络，共同促成富有意义的商业成果。', eventLine: '10月14日至17日 · 印度尼西亚雅加达', teamLabel: '领导与协作', teamTitle: '共同塑造 IWBIF 2026 的团队', loading: '正在加载主办团队…', error: '无法加载主办团队。', errorHelp: '请检查 API 连接或稍后重试。', retry: '重试', empty: '主办方与组委会成员资料即将在此发布。', featured: '核心成员', host: '组委会', count: (value: number) => `${value} 位组委会成员` }
 } as const;
-const copy = computed(() => messages[locale.value === 'zh-CN' ? 'zh-CN' : 'en']);
+const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en']);
 const brokenPhotos = ref(new Set<string>());
 const initials = (name: string) => name.trim().split(/\s+/).map(part => part[0]).slice(0, 2).join('').toUpperCase();
 const markPhotoBroken = (id: string) => { brokenPhotos.value = new Set([...brokenPhotos.value, id]); };

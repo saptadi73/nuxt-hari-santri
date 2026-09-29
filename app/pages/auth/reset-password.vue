@@ -42,7 +42,7 @@ const messages = {
   en: { eyebrow: 'Password reset', title: 'Create a new password', intro: 'Choose a strong new password for your IWBIF account.', password: 'New password', passwordPlaceholder: 'Minimum 8 characters', confirmPassword: 'Confirm new password', confirmPlaceholder: 'Re-enter your new password', submit: 'Reset password', resetting: 'Resetting…', required: 'Enter and confirm your new password.', passwordLength: 'Password must be at least 8 characters long.', mismatch: 'Passwords do not match.', missingToken: 'This password reset link is incomplete or invalid.', rejected: 'This reset link is invalid, expired, or has already been used.', failed: 'The password could not be reset. Please try again.', requestNew: 'Request a new reset link' },
   'zh-CN': { eyebrow: '重置密码', title: '创建新密码', intro: '为您的 IWBIF 账户设置一个安全的新密码。', password: '新密码', passwordPlaceholder: '至少 8 个字符', confirmPassword: '确认新密码', confirmPlaceholder: '再次输入新密码', submit: '重置密码', resetting: '正在重置…', required: '请输入并确认您的新密码。', passwordLength: '密码长度必须至少为 8 个字符。', mismatch: '两次输入的密码不一致。', missingToken: '此密码重置链接不完整或无效。', rejected: '此重置链接无效、已过期或已被使用。', failed: '无法重置密码，请重试。', requestNew: '申请新的重置链接' }
 } as const;
-const copy = computed(() => messages[locale.value === 'zh-CN' ? 'zh-CN' : 'en']);
+const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en']);
 useSeoMeta({ title: () => `${copy.value.title} | IWBIF 2026`, description: () => copy.value.intro });
 
 const route = useRoute();

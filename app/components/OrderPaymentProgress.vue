@@ -24,7 +24,7 @@ const props = defineProps<{ order: OrderItem; attempts?: PaymentItem[] }>();
 const emit = defineEmits<{ 'attempts-removed': [ids: string[]] }>();
 const { locale } = useI18n();
 const progress = computed(() => orderPaymentProgress(props.order, props.attempts));
-const copy = computed(() => locale.value === 'zh-CN' ? {
+const copy = computed(() => String(locale.value) === 'zh-CN' ? {
   total: '订单总额', paid: '已支付', remaining: '待支付', completed: '已完成 {paid} / {count} 笔付款', part: '付款',
   notice: '订单保持不变。请先完成当前付款，确认后再继续下一笔。全部付清后再完善注册资料。',
   statuses: { paid: '已支付', pending: '待付款或确认', created: '待付款', not_started: '尚未开始', expired: '已过期，请重试', failed: '失败，请重试', canceled: '已取消', cancelled: '已取消' } as Record<string, string>
@@ -33,5 +33,5 @@ const copy = computed(() => locale.value === 'zh-CN' ? {
   notice: 'This remains one order. Complete the current payment, then continue the next part after confirmation. Finish all payments before completing your registration details.',
   statuses: { paid: 'Paid', pending: 'Awaiting payment / confirmation', created: 'Awaiting payment', not_started: 'Not started', expired: 'Expired — retry required', failed: 'Failed — retry required', canceled: 'Canceled', cancelled: 'Canceled' } as Record<string, string>
 });
-const money = (amount: number) => new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: props.order.currency || 'IDR', maximumFractionDigits: 0 }).format(amount);
+const money = (amount: number) => new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: props.order.currency || 'IDR', maximumFractionDigits: 0 }).format(amount);
 </script>

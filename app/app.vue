@@ -7,20 +7,11 @@
       <div class="mx-auto flex w-full max-w-[1440px] items-center gap-1.5 px-2 py-2 sm:gap-4 sm:px-6 lg:px-8">
         <NuxtLink to="/" class="brand-block flex min-w-0 shrink-0 items-center gap-3">
           <span class="brand-mark flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-sky-100 bg-white p-0.5 shadow-sm shadow-sky-900/10 sm:h-14 sm:w-14">
-            <img v-if="!logoHasError" :src="logoSrc" alt="IWBIF 2026" width="56" height="56" class="h-full w-full object-contain" @error="logoHasError = true">
-            <span v-else class="brand-fallback text-sm font-black">IWBIF</span>
+            <span class="brand-fallback text-sm font-black">HS</span>
           </span>
           <span class="brand-copy hidden sm:block">
-            <span class="brand-kicker block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.18em] text-[#07518f]">AWEC &amp; IWAPI PRESENTS</span>
-            <span class="brand-name block whitespace-nowrap text-base font-extrabold tracking-[0.04em] text-[#073b78]">IWBIF 2026</span>
-          </span>
-          <span class="partner-logos flex shrink-0 items-center gap-1 border-l border-sky-100 pl-1 sm:gap-2 sm:pl-3" aria-label="Presented by AWEC and IWAPI">
-            <span class="partner-logo partner-logo--awec" title="Asian Women Entrepreneurs Council">
-              <img :src="awecLogoSrc" alt="AWEC" width="44" height="44">
-            </span>
-            <span class="partner-logo partner-logo--iwapi" title="IWAPI">
-              <img :src="iwapiLogoSrc" alt="IWAPI" width="44" height="44">
-            </span>
+            <span class="brand-kicker block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.18em] text-[#07518f]">MWC NU TARUMAJAYA</span>
+            <span class="brand-name block whitespace-nowrap text-base font-extrabold tracking-[0.04em] text-[#073b78]">Hari Santri 2026</span>
           </span>
         </NuxtLink>
 
@@ -39,7 +30,7 @@
           </NuxtLink>
         </template>
           <details ref="desktopMenuRef" class="group relative" :open="desktopMenuOpen" @toggle="desktopMenuOpen = ($event.target as HTMLDetailsElement).open">
-            <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#073b78] transition hover:bg-sky-50 hover:text-sky-700">{{ t('nav.more') }} <span class="ml-1 text-[9px] transition group-open:rotate-180" aria-hidden="true">▼</span></summary>
+            <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#073b78] transition hover:bg-sky-50 hover:text-sky-700">{{ locale === 'id' ? 'Lainnya' : 'More' }} <span class="ml-1 text-[9px] transition group-open:rotate-180" aria-hidden="true">▼</span></summary>
             <div class="nav-menu-panel absolute right-0 top-12 grid w-48 gap-1 rounded-2xl border border-sky-100 bg-white/95 p-2 shadow-2xl shadow-sky-900/15 backdrop-blur-xl">
               <NuxtLink v-for="item in secondaryNav" :key="item.to" :to="item.to" class="rounded-xl px-4 py-3 text-sm text-sky-900 transition hover:bg-sky-50 hover:text-sky-700" @click="closeMenus">{{ item.label }}</NuxtLink>
             </div>
@@ -47,9 +38,9 @@
         </nav>
 
         <div class="header-actions ml-auto flex shrink-0 items-center gap-1 sm:gap-2 xl:ml-2">
-          <label v-if="!authStore.isAdminOrOrganizer" class="locale-switcher" :aria-label="t('language.label')">
-            <span class="sr-only">{{ t('language.label') }}</span>
-            <select :value="locale" @change="changeLocale"><option value="en">EN</option><option value="zh-CN">中文</option></select>
+          <label v-if="!authStore.isAdminOrOrganizer" class="locale-switcher" :aria-label="locale === 'id' ? 'Bahasa' : 'Language'">
+            <span class="sr-only">{{ locale === 'id' ? 'Bahasa' : 'Language' }}</span>
+            <select :value="locale" @change="changeLocale"><option value="id">ID</option><option value="en">EN</option></select>
           </label>
           <div v-if="isAuthenticated" class="relative">
             <button
@@ -120,22 +111,22 @@
             </div>
           </div>
           <NuxtLink v-if="!isAuthenticated" to="/auth/register" class="header-cta hidden whitespace-nowrap rounded-full border border-sky-200 bg-sky-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-800 shadow-[0_16px_40px_rgba(14,116,144,0.10)] transition hover:border-sky-300 hover:bg-sky-100 sm:inline-flex">
-            {{ t('actions.registerNow') }}
+            {{ locale === 'id' ? 'Daftar Peserta' : 'Register Participants' }}
           </NuxtLink>
           <NuxtLink v-if="!isAuthenticated" to="/auth/register" class="mobile-register-cta header-cta inline-flex whitespace-nowrap rounded-full bg-sky-700 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-800 sm:hidden">
-            {{ t('actions.register') }}
+            {{ locale === 'id' ? 'Daftar' : 'Register' }}
           </NuxtLink>
           <span v-if="isAuthenticated && isRegistrationPaid" class="header-cta hidden whitespace-nowrap rounded-full bg-sky-700 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-sky-500/20 opacity-90 lg:inline-flex">
             {{ localizedCtaLabel }}
           </span>
           <button v-if="isAuthenticated" type="button" class="header-cta hidden whitespace-nowrap rounded-full bg-sky-700 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-800 sm:px-5 lg:inline-flex" @click="handleLogout">
-            {{ t('actions.logOut') }}
+            {{ locale === 'id' ? 'Keluar' : 'Sign Out' }}
           </button>
           <NuxtLink v-else to="/auth/login" class="header-signin whitespace-nowrap rounded-full border border-sky-200 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-800 shadow-[0_12px_30px_rgba(14,116,144,0.08)] transition hover:border-sky-300 hover:bg-sky-50 sm:px-5">
-            {{ t('actions.signIn') }}
+            {{ locale === 'id' ? 'Masuk' : 'Sign In' }}
           </NuxtLink>
           <details ref="mobileMenuRef" class="relative xl:hidden" :open="mobileMenuOpen" @toggle="mobileMenuOpen = ($event.target as HTMLDetailsElement).open">
-            <summary :aria-label="t('nav.menu')" class="menu-button flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-sky-200 bg-sky-50 text-xs font-bold uppercase tracking-[0.12em] text-sky-800 shadow-lg shadow-sky-900/10 transition hover:border-sky-300 hover:bg-sky-100">{{ t('nav.menu') }}</summary>
+            <summary :aria-label="locale === 'id' ? 'Menu' : 'Menu'" class="menu-button flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full border border-sky-200 bg-sky-50 text-xs font-bold uppercase tracking-[0.12em] text-sky-800 shadow-lg shadow-sky-900/10 transition hover:border-sky-300 hover:bg-sky-100">{{ locale === 'id' ? 'Menu' : 'Menu' }}</summary>
             <nav class="nav-menu-panel absolute right-0 top-12 grid w-[min(80vw,18rem)] gap-1 rounded-2xl border border-sky-100 bg-white/95 p-3 shadow-2xl shadow-sky-900/15 backdrop-blur-xl">
               <template v-for="item in allNav" :key="item.to">
                 <details v-if="item.children" class="rounded-xl border border-sky-100">
@@ -181,40 +172,37 @@
     <footer class="relative z-10 border-t border-white/10 bg-slate-950/60">
       <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_1fr_1.35fr] lg:px-8">
         <div>
-          <p class="text-xs uppercase tracking-[0.3em] text-amber-200">IWBIF 2026</p>
-          <p class="mt-3 max-w-sm text-sm leading-7 text-slate-400">{{ t('footer.summary') }}</p>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-200">Hari Santri 2026</p>
+          <p class="mt-3 max-w-sm text-sm leading-7 text-slate-400">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
         </div>
         <div class="grid grid-cols-2 gap-3 text-sm text-slate-300">
-          <NuxtLink to="/about">{{ t('nav.about') }}</NuxtLink><NuxtLink to="/program">{{ t('nav.program') }}</NuxtLink>
-          <NuxtLink to="/venue">{{ t('nav.venue') }}</NuxtLink><NuxtLink to="/speakers">{{ t('nav.speakers') }}</NuxtLink>
-          <NuxtLink to="/business-matching">{{ t('nav.matching') }}</NuxtLink>
-          <NuxtLink to="/partners">{{ t('nav.partners') }}</NuxtLink><NuxtLink to="/faq">{{ t('nav.faq') }}</NuxtLink>
+          <NuxtLink to="/#tentang">{{ locale === 'id' ? 'Tentang' : 'About' }}</NuxtLink><NuxtLink to="/#kegiatan">{{ locale === 'id' ? 'Kegiatan' : 'Activities' }}</NuxtLink>
+          <NuxtLink to="/#rute">{{ locale === 'id' ? 'Rute' : 'Routes' }}</NuxtLink><NuxtLink to="/#agenda">{{ locale === 'id' ? 'Agenda' : 'Agenda' }}</NuxtLink>
+          <NuxtLink to="/#bazar">{{ locale === 'id' ? 'Bazar' : 'Bazaar' }}</NuxtLink>
+          <NuxtLink to="/#sejarah">{{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</NuxtLink><NuxtLink to="/#faq">FAQ</NuxtLink>
         </div>
         <div class="text-sm text-slate-400 md:text-right">
-          <p class="md:whitespace-nowrap">{{ t('footer.event') }}</p>
-          <p class="mt-1">14–17 October 2026 · Jakarta</p>
-          <div class="mt-3 flex flex-wrap gap-4 md:justify-end"><NuxtLink to="/privacy">{{ t('footer.privacy') }}</NuxtLink><NuxtLink to="/terms">{{ t('footer.terms') }}</NuxtLink><NuxtLink to="/code-of-conduct">{{ t('footer.conduct') }}</NuxtLink><NuxtLink to="/refund-policy">{{ t('footer.refunds') }}</NuxtLink></div>
+          <p class="md:whitespace-nowrap">{{ locale === 'id' ? 'MWC NU Tarumajaya menyelenggarakan' : 'Presented by MWC NU Tarumajaya' }}</p>
+          <p class="mt-1">{{ locale === 'id' ? 'Minggu, 25 Oktober 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' : 'Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' }}</p>
+          <div class="mt-3 flex flex-wrap gap-4 md:justify-end"><NuxtLink to="/privacy">{{ locale === 'id' ? 'Kebijakan Privasi' : 'Privacy' }}</NuxtLink><NuxtLink to="/terms">{{ locale === 'id' ? 'Syarat & Ketentuan' : 'Terms' }}</NuxtLink><NuxtLink to="/code-of-conduct">{{ locale === 'id' ? 'Tata Tertib' : 'Code of Conduct' }}</NuxtLink><NuxtLink to="/refund-policy">{{ locale === 'id' ? 'Pembatalan' : 'Cancellations' }}</NuxtLink></div>
         </div>
       </div>
-      <p class="border-t border-white/10 px-4 py-5 text-center text-xs text-slate-500">{{ t('footer.copyright') }}</p>
+      <p class="border-t border-white/10 px-4 py-5 text-center text-xs text-slate-500">{{ locale === 'id' ? '© 2026 MWC NU Tarumajaya. Hak cipta dilindungi.' : '© 2026 MWC NU Tarumajaya. All rights reserved.' }}</p>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import awecLogoSrc from '~/assets/images/awec_white.png';
-import iwapiLogoSrc from '~/assets/images/iwapi_transparant.png';
-import logoSrc from '~/assets/images/logo_iwbif_white.png';
 import { useCommunication } from '~/composables/useCommunication';
-const logoHasError = ref(false);
 const { t, locale, setLocale } = useI18n();
+const localeCookie = useCookie<'id' | 'en'>('hari_santri_locale', { default: () => 'id' });
 useHead(() => ({ htmlAttrs: { lang: locale.value } }));
 const changeLocale = async (event: Event) => {
-  if (authStore.isAdminOrOrganizer) return;
   const value = (event.target as HTMLSelectElement).value;
-  if (value !== 'en' && value !== 'zh-CN') return;
+  if (value !== 'id' && value !== 'en') return;
   await setLocale(value);
-  if (authStore.isAuthenticated && !authStore.isAdminOrOrganizer) {
+  localeCookie.value = value;
+  if (authStore.isAuthenticated) {
     try {
       await updatePreferredLocale(value);
     } catch {
@@ -228,13 +216,9 @@ const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
 const { logout, updatePreferredLocale } = useAuth();
 const registrationFlow = useRegistrationFlow();
-const { ctaLabel, ctaTo, isPaid: isRegistrationPaid } = registrationFlow;
-const paymentCtaTo = ctaTo;
-const localizedCtaLabel = computed(() => {
-  if (locale.value !== 'zh-CN') return ctaLabel.value;
-  const labels: Record<string,string> = {'Register Now!':'立即注册','Secure Your Seats':'立即预订席位','Complete Profile':'完善资料','Complete Payment':'完成付款','Open Dashboard':'打开用户中心','View Ticket':'查看门票'};
-  return labels[ctaLabel.value] || ctaLabel.value;
-});
+const isRegistrationPaid = computed(() => false);
+const paymentCtaTo = computed(() => '/dashboard/payment');
+const localizedCtaLabel = computed(() => locale.value === 'id' ? 'Lanjutkan Pendaftaran' : 'Continue Registration');
 const route = useRoute();
 const routeEventId = computed(() => {
   const queryEventId = route.query.event_id;
@@ -537,50 +521,40 @@ const closeMenus = () => {
   mobileMenuOpen.value = false;
 };
 
-const hasDelegatePackageSelected = computed(() => {
-  if (!isAuthenticated.value) return false;
-  return ['selected', 'payment_pending', 'paid_profile_incomplete', 'completed'].includes(registrationFlow.delegateStatus.value);
-});
-
 type NavItem = { to: string; label: string; disabled?: boolean; children?: NavItem[] };
 
-const primaryNav = computed<NavItem[]>(() => [
-  { to: '/', label: t('nav.home') },
-  { to: '/about', label: t('nav.about'), children: [
-    { to: '/about', label: t('nav.aboutIwbif') },
-    { to: '/host', label: t('nav.host') },
-    { to: '/venue', label: t('nav.theVenue') }
-  ] },
-  { to: '/program', label: t('nav.program') },
-  { to: '/speakers', label: t('nav.speakers') },
-  { to: '/tickets', label: t('nav.packages'), disabled: hasDelegatePackageSelected.value }
+const primaryNav = computed<NavItem[]>(() => locale.value === 'id' ? [
+  { to: '/', label: 'Beranda' },
+  { to: '/#tentang', label: 'Tentang Acara' },
+  { to: '/#kegiatan', label: 'Kegiatan & Paket' },
+  { to: '/#rute', label: 'Rute' },
+  { to: '/#agenda', label: 'Agenda' },
+  { to: '/#pengisi-acara', label: 'Pengisi Acara' },
+  { to: '/#hadiah', label: 'Hadiah' },
+  { to: '/#bazar', label: 'Bazar & Voucher' },
+  { to: '/#sejarah', label: 'Sejarah Hari Santri' }
+] : [
+  { to: '/', label: 'Home' },
+  { to: '/#tentang', label: 'About' },
+  { to: '/#kegiatan', label: 'Activities & Packages' },
+  { to: '/#rute', label: 'Routes' },
+  { to: '/#agenda', label: 'Agenda' },
+  { to: '/#pengisi-acara', label: 'Performers' },
+  { to: '/#hadiah', label: 'Prizes' },
+  { to: '/#bazar', label: 'Bazaar & Vouchers' },
+  { to: '/#sejarah', label: 'Santri Day History' }
 ]);
 const secondaryNav = computed<NavItem[]>(() => {
   const items: NavItem[] = [
-    { to: '/business-matching', label: t('nav.matching') },
-    { to: '/exhibition', label: t('nav.exhibition') },
-    { to: '/deal-room', label: t('nav.dealRoom') },
-    { to: '/participants', label: t('nav.participants') },
-    { to: '/contact', label: t('nav.contact') },
-    { to: '/faq', label: t('nav.faq') },
-    { to: '/dashboard', label: t('nav.dashboard') }
+    { to: '/#faq', label: 'FAQ' },
+    { to: '/daftar-tenant', label: locale.value === 'id' ? 'Daftar Tenant Bazar' : 'Apply as a Bazaar Tenant' },
+    { to: '/dashboard', label: 'Dashboard' }
   ];
 
   if (authStore.isAdminOrOrganizer) {
-    items.push({ to: '/admin/packages', label: t('nav.managePackages') });
-    items.push({ to: '/admin/transactions', label: t('nav.transactions') });
-    items.push({ to: '/admin/manual-payments', label: t('nav.manualPayments') });
-    items.push({ to: '/admin/reports', label: t('nav.salesReport') });
-    items.push({ to: '/admin/participants-report', label: t('nav.participantsReport') });
-    items.push({ to: '/admin/speakers', label: t('nav.manageSpeakers') });
-    items.push({ to: '/admin/hosts', label: t('nav.manageHosts') });
-    items.push({ to: '/admin/program', label: t('nav.manageProgram') });
-    items.push({ to: '/admin/translations', label: 'Chinese translations' });
-    items.push({ to: '/admin/users', label: t('nav.manageUsers') });
-    items.push({ to: '/admin/announcements', label: t('nav.announcements') });
-    items.push({ to: '/admin/certificates', label: t('nav.certificates') });
-    items.push({ to: '/admin/email-notifications', label: t('nav.emailNotifications') });
-    items.push({ to: '/admin/business-matching', label: t('nav.matchingOperations') });
+    items.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
+    items.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
+    items.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
   }
 
   return items;

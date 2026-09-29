@@ -1,145 +1,116 @@
-﻿<template>
-  <section class="dashboard-shell mx-auto max-w-7xl px-3 py-10 sm:px-6 lg:px-8">
-    <p class="text-sm uppercase tracking-[.35em] text-cyan-200">{{ canViewSalesReport ? 'Organizer Dashboard' : copy.eyebrow }}</p>
-    <div class="mt-3 flex flex-wrap items-end justify-between gap-5">
-      <div>
-        <h1 class="text-3xl font-black sm:text-4xl">{{ copy.title }}</h1>
-        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">{{ copy.description }}</p>
+<template>
+  <section class="dashboard-page">
+    <div class="dashboard-inner">
+      <p class="eyebrow">HARI SANTRI 2026 / {{ id ? 'DASHBOARD' : 'DASHBOARD' }}</p>
+      <div class="heading-row">
+        <div><h1>{{ id ? `Assalamu’alaikum, ${userName}` : `Welcome, ${userName}` }}</h1><p>{{ id ? 'Pesanan keluarga, tiket, dan informasi acara dalam satu tempat.' : 'Family orders, tickets, and event information in one place.' }}</p></div>
+        <div class="countdown"><span>{{ id ? 'MENUJU HARI ACARA' : 'UNTIL EVENT DAY' }}</span><strong>{{ daysUntil }}</strong><small>{{ id ? 'hari' : 'days' }}</small></div>
       </div>
-      <div class="glass-card rounded-2xl px-4 py-3 text-left sm:text-right">
-        <p class="text-[10px] uppercase tracking-[.25em] text-slate-400 sm:text-xs">{{ copy.startsIn }}</p>
-        <p class="mt-1 text-lg font-bold text-cyan-200 sm:text-xl">{{ countdown }}</p>
+
+      <div v-if="!isOrganizer" class="status-grid">
+        <article><span>{{ id ? 'PESANAN' : 'ORDERS' }}</span><strong>{{ orders.length }}</strong><p>{{ id ? 'Pesanan Hari Santri' : 'Hari Santri orders' }}</p></article>
+        <article><span>{{ id ? 'PESERTA' : 'PARTICIPANTS' }}</span><strong>{{ participantCount }}</strong><p>{{ id ? 'Anggota keluarga' : 'Family members' }}</p></article>
+        <article><span>{{ id ? 'TIKET' : 'TICKETS' }}</span><strong>{{ tickets.length }}</strong><p>{{ id ? 'Tiket digital tersedia' : 'Digital tickets available' }}</p></article>
       </div>
-    </div>
 
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <NuxtLink v-for="status in statuses" :key="status.label" :to="status.to" class="glass-card rounded-3xl p-5 transition hover:-translate-y-1 hover:border-cyan-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
-        <p class="text-xs uppercase tracking-[.2em] text-slate-400">{{ status.label }}</p>
-        <p class="mt-3 text-xl font-bold">{{ status.value }}</p>
-        <p class="mt-2 text-sm text-slate-400">{{ status.note }}</p>
-      </NuxtLink>
-    </div>
-
-    <OutstandingPayments v-if="!canViewSalesReport" />
-
-    <div v-if="canViewSalesReport" class="mt-8 rounded-3xl border border-amber-300/30 bg-amber-300/10 p-5 sm:p-6">
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p class="text-xs uppercase tracking-[.25em] text-amber-200">Organizer view</p>
-          <h2 class="mt-2 text-2xl font-bold">Ticket sales & revenue report</h2>
+      <p v-if="error" class="error" role="alert">{{ error }}</p>
+      <section class="quick-access">
+        <h2>{{ id ? 'Akses cepat' : 'Quick access' }}</h2>
+        <div class="quick-grid">
+          <NuxtLink to="/daftar"><span>01</span><strong>{{ id ? 'Daftar Peserta' : 'Register Participants' }}</strong><p>{{ id ? 'Pilih kegiatan dan isi data keluarga.' : 'Choose an activity and enter your family details.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/payment"><span>02</span><strong>{{ id ? 'Pesanan & Pembayaran' : 'Orders & Payment' }}</strong><p>{{ id ? 'Lanjutkan pembayaran melalui Portal Payment.' : 'Continue payment through the Payment Portal.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/tiket"><span>03</span><strong>{{ id ? 'Tiket Digital' : 'Digital Tickets' }}</strong><p>{{ id ? 'Satu QR untuk setiap peserta.' : 'One QR ticket per participant.' }}</p></NuxtLink>
+          <NuxtLink to="/#agenda"><span>04</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
         </div>
-      </div>
-      <div class="organizer-actions mt-4 flex flex-wrap gap-2.5">
-        <NuxtLink to="/admin/packages" class="inline-flex items-center justify-center rounded-full bg-amber-300 px-4 py-2.5 text-xs font-bold text-slate-950 transition hover:brightness-110 sm:px-5 sm:text-sm">Manage packages</NuxtLink>
-        <NuxtLink to="/admin/speakers" class="inline-flex items-center justify-center rounded-full border border-amber-300/40 px-4 py-2.5 text-xs font-bold text-amber-100 transition hover:bg-amber-300/10 sm:px-5 sm:text-sm">Manage speakers</NuxtLink>
-        <NuxtLink to="/admin/hosts" class="inline-flex items-center justify-center rounded-full border border-amber-300/40 px-4 py-2.5 text-xs font-bold text-amber-100 transition hover:bg-amber-300/10 sm:px-5 sm:text-sm">Manage hosts</NuxtLink>
-        <NuxtLink to="/admin/program" class="inline-flex items-center justify-center rounded-full border border-amber-300/40 px-4 py-2.5 text-xs font-bold text-amber-100 transition hover:bg-amber-300/10 sm:px-5 sm:text-sm">Program & agenda</NuxtLink>
-        <NuxtLink to="/admin/users" class="inline-flex items-center justify-center rounded-full border border-amber-300/40 px-4 py-2.5 text-xs font-bold text-amber-100 transition hover:bg-amber-300/10 sm:px-5 sm:text-sm">Manage users</NuxtLink>
-        <NuxtLink to="/admin/announcements" class="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-xs font-bold text-white transition hover:border-white/40 sm:px-5 sm:text-sm">Announcements</NuxtLink>
-        <NuxtLink to="/admin/certificates" class="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-xs font-bold text-white transition hover:border-white/40 sm:px-5 sm:text-sm">Certificates</NuxtLink>
-        <NuxtLink to="/admin/email-notifications" class="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-xs font-bold text-white transition hover:border-white/40 sm:px-5 sm:text-sm">Email notifications</NuxtLink>
-        <NuxtLink to="/admin/attendance" class="inline-flex items-center justify-center rounded-full border border-cyan-300/40 bg-cyan-300/10 px-4 py-2.5 text-xs font-bold text-cyan-100 transition hover:bg-cyan-300/20 sm:px-5 sm:text-sm">Attendance scanner</NuxtLink>
-        <NuxtLink to="/admin/business-matching" class="inline-flex items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/10 px-4 py-2.5 text-xs font-bold text-amber-100 transition hover:bg-amber-300/20 sm:px-5 sm:text-sm">Matching operations</NuxtLink>
-        <NuxtLink to="/admin/transactions" class="inline-flex items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-300/10 px-4 py-2.5 text-xs font-bold text-emerald-100 transition hover:bg-emerald-300/20 sm:px-5 sm:text-sm">Manage transactions</NuxtLink>
-        <NuxtLink to="/admin/reports" class="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-xs font-bold text-white transition hover:border-white/40 sm:px-5 sm:text-sm">Payment report</NuxtLink>
-        <NuxtLink to="/admin/participants-report" class="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2.5 text-xs font-bold text-white transition hover:border-white/40 sm:px-5 sm:text-sm">Participants report</NuxtLink>
-      </div>
-    </div>
+      </section>
 
-    <h2 class="mt-10 text-2xl font-bold">{{ copy.quickAccess }}</h2>
-    <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <NuxtLink v-for="item in menu" :key="item.to" :to="item.to" class="glass-card rounded-3xl p-5 transition hover:-translate-y-1 hover:border-cyan-300/40 sm:p-6">
-        <p class="text-xs uppercase tracking-[.25em] text-cyan-200">{{ item.label }}</p>
-        <h3 class="mt-3 text-xl font-bold">{{ item.title }}</h3>
-        <p class="mt-2 text-sm leading-6 text-slate-400">{{ item.text }}</p>
-      </NuxtLink>
+      <section v-if="isOrganizer" class="admin-panel">
+        <p class="eyebrow">{{ id ? 'OPERASIONAL' : 'OPERATIONS' }}</p>
+        <h2>{{ id ? 'Kelola acara' : 'Manage the event' }}</h2>
+        <div class="admin-links">
+          <NuxtLink to="/admin/paket-hari-santri">{{ id ? 'Paket & harga' : 'Packages & prices' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/admin/kaos">{{ id ? 'Ukuran & inventori kaos' : 'Shirt sizes & inventory' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/admin/participants-report">{{ id ? 'Peserta & laporan' : 'Participants & reports' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/staff/scan">{{ id ? 'Check-in tiket' : 'Ticket check-in' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/admin/program">{{ id ? 'Agenda & konten' : 'Agenda & content' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/admin/announcements">{{ id ? 'Pengumuman' : 'Announcements' }} <span aria-hidden="true">→</span></NuxtLink>
+        </div>
+        <p class="small-note">{{ id ? 'Laporan penyelesaian pembayaran dan settlement tetap bersumber dari Portal Payment.' : 'Payment and settlement reconciliation remains sourced from the Payment Portal.' }}</p>
+      </section>
     </div>
   </section>
 </template>
 
-<style scoped>
-.dashboard-shell {
-  padding-inline: 0.75rem;
-  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
-}
-
-.organizer-actions {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.organizer-actions a {
-  min-width: fit-content;
-}
-
-@media (max-width: 639px) {
-  .dashboard-shell {
-    padding-top: 2.5rem;
-  }
-
-  .dashboard-shell h1 {
-    font-size: clamp(2rem, 8vw, 2.5rem);
-    line-height: 1.1;
-  }
-
-  .dashboard-shell h2 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-
-  .dashboard-shell .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .organizer-actions {
-    gap: 0.6rem;
-  }
-
-  .organizer-actions a {
-    flex: 1 1 100%;
-    width: 100%;
-    min-height: 2.9rem;
-  }
-
-  .glass-card {
-    padding: 1rem;
-  }
-}
-</style>
-
 <script setup lang="ts">
-definePageMeta({middleware:'auth'});
-const {locale}=useI18n();
-const messages={
-  en:{eyebrow:'Participant Dashboard',title:'Welcome to IWBIF 2026',description:'Your ticket, schedule, profile, networking, payment, and event updates in one place.',startsIn:'Event starts in',days:'{count} days',eventDay:'Event day',quickAccess:'Quick access',statuses:[['Registration','Check your status','Complete all required participant details.'],['Payment','Payment center','Review transaction and confirmation status.'],['My Ticket','Digital QR pass','Keep your personal QR code secure.'],['Profile','Build your network','Complete your professional information.']],menu:[['Purchase','Shopping Cart','Review selected packages and create your checkout order.'],['Access','My Ticket & QR Code','Open your event pass and check-in information.'],['Identity','My Profile','Update professional details, expertise, and interests.'],['Networking','Participant Directory','Discover potential collaborators across IWBIF.'],['Agenda','My Schedule','Review the forum agenda and sessions.'],['Transaction','Payment','Create or continue your payment transaction.'],['Document','Invoice','Review invoice and registration details.'],['Recognition','Certificate','Access your certificate after attendance eligibility.'],['Updates','Announcements','Read important information from the organizing team.'],['Privacy','Directory Consent','Understand and manage profile visibility.'],['Account','Change Password','Update the password used to sign in to your account.']],seo:'Participant Dashboard'},
-  zh:{eyebrow:'参与者控制面板',title:'欢迎参加 IWBIF 2026',description:'在一个页面中查看您的门票、日程、个人资料、商务联系、付款和活动更新。',startsIn:'距离活动开始',days:'{count} 天',eventDay:'活动当天',quickAccess:'快速访问',statuses:[['注册','查看注册状态','请填写所有必需的参与者资料。'],['付款','付款中心','查看交易与确认状态。'],['我的门票','电子二维码通行证','请妥善保管您的个人二维码。'],['个人资料','拓展商务网络','完善您的专业信息。']],menu:[['购买','购物车','核对所选套餐并创建结账订单。'],['入场','我的门票与二维码','查看活动通行证和签到信息。'],['身份资料','我的个人资料','更新专业信息、专长与兴趣。'],['商务联系','参与者名录','在 IWBIF 寻找潜在合作伙伴。'],['议程','我的日程','查看论坛议程和会议安排。'],['交易','付款','创建或继续您的付款交易。'],['文件','发票','查看发票和注册详情。'],['荣誉','证书','满足出席资格后获取证书。'],['更新','公告','阅读主办团队发布的重要信息。'],['隐私','名录授权','了解并管理个人资料的可见性。'],['账户','修改密码','更新用于登录账户的密码。']],seo:'参与者控制面板'}
-} as const;
-const copy=computed(()=>locale.value==='zh-CN'?messages.zh:messages.en);
-useSeoMeta({title:()=>`${copy.value.seo} | IWBIF 2026`});
+import type { PendingOrderRecord } from '~/composables/usePayment';
+import type { HariSantriTicket } from '~/composables/useHariSantri';
 
-const authStore = useAuthStore();
-const canViewSalesReport = computed(() => authStore.isAdminOrOrganizer);
+definePageMeta({ middleware: 'auth' });
+const { locale } = useI18n();
+const id = computed(() => locale.value === 'id');
+const user = useAuthStore().user;
+const userName = computed(() => user?.full_name || user?.name || (id.value ? 'Peserta' : 'Participant'));
+const isOrganizer = useAuthStore().isAdminOrOrganizer;
+const runtime = useRuntimeConfig();
+const eventsApi = useEvent();
+const paymentApi = usePayment();
+const hariSantriApi = useHariSantri();
+const orders = ref<PendingOrderRecord[]>([]);
+const tickets = ref<HariSantriTicket[]>([]);
+const error = ref('');
+const eventDate = new Date('2026-10-25T07:00:00+07:00');
+const daysUntil = computed(() => Math.max(0, Math.ceil((eventDate.getTime() - Date.now()) / 86400000)));
+const participantCount = computed(() => orders.value.reduce((count, entry) => count + (entry.items[0]?.quantity || 0), 0));
 
-const eventDate=new Date('2026-10-14T09:00:00+07:00');
-const days=Math.max(0,Math.ceil((eventDate.getTime()-Date.now())/86400000));
-const countdown=computed(()=>days>0?copy.value.days.replace('{count}',String(days)):copy.value.eventDay);
-
-const statusRoutes=['/dashboard/registration-status','/dashboard/payment','/dashboard/ticket','/dashboard/profile'] as const;
-const registrationFlow = useRegistrationFlow();
-const registrationSummary = computed(() => {
-  const zh = locale.value === 'zh-CN';
-  if (registrationFlow.error.value) return zh ? '状态暂不可用' : 'Status unavailable';
-  if (!registrationFlow.loaded.value || registrationFlow.loading.value) return zh ? '正在查询状态…' : 'Checking status…';
-  const labels = zh
-    ? { not_selected: '尚未注册', selected: '等待结账', payment_pending: '尚未付清', paid_profile_incomplete: '已付款，请完善资料', completed: '注册已完成' }
-    : { not_selected: 'Not registered', selected: 'Checkout pending', payment_pending: 'Payment outstanding', paid_profile_incomplete: 'Paid — complete your details', completed: 'Registration complete' };
-  return labels[registrationFlow.primaryStatus.value];
-});
-const statuses=computed(()=>copy.value.statuses.map(([label,value,note],index)=>({to:statusRoutes[index]!,label,value:index===0&&!canViewSalesReport.value?registrationSummary.value:value,note})));
 onMounted(async () => {
-  if (canViewSalesReport.value) return;
-  try { await registrationFlow.loadFlow(true); } catch { /* The card shows the shared error state. */ }
+  if (isOrganizer) return;
+  try {
+    const eventList = await eventsApi.getEvents(1, 100);
+    const event = eventList.data.find(item => item.slug === runtime.public.eventSlug);
+    if (!event) return;
+    const [orderList, ticketList] = await Promise.all([
+      paymentApi.getPendingOrders(event.id, 1, 100),
+      hariSantriApi.getMyTickets()
+    ]);
+    orders.value = orderList.data.filter(item => item.order.event_id === event.id);
+    tickets.value = ticketList.data;
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : (id.value ? 'Informasi dashboard belum dapat dimuat.' : 'Dashboard information could not be loaded.');
+  }
 });
-
-const menuRoutes=['/dashboard/cart','/dashboard/ticket','/dashboard/profile','/dashboard/directory','/dashboard/schedule','/dashboard/payment','/dashboard/invoice','/dashboard/certificate','/dashboard/announcements','/directory-consent','/dashboard/security'] as const;
-const menu=computed(()=>copy.value.menu.map(([label,title,text],index)=>({to:menuRoutes[index]!,label,title,text})));
+useSeoMeta({ title: () => `${id.value ? 'Dashboard Peserta' : 'Participant Dashboard'} | Hari Santri 2026` });
 </script>
+
+<style scoped>
+.dashboard-page { min-height: 72vh; background: #f5f5ef; color: #17352c; padding: 3rem max(1rem, calc((100vw - 1120px) / 2)); }
+.dashboard-inner { max-width: 1120px; margin-inline: auto; }
+.eyebrow { color: #2d7258; font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+h1,h2 { font-family: Georgia, 'Times New Roman', serif; }
+h1 { margin-top: .7rem; font-size: clamp(2.3rem, 5vw, 3.7rem); line-height: 1.05; }
+.heading-row { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
+.heading-row p { margin-top: .7rem; color: #596d61; }
+.countdown { display: grid; min-width: 8rem; border-left: 2px solid #d4a938; padding-left: 1rem; }
+.countdown span { color: #697a70; font-size: .65rem; font-weight: 800; letter-spacing: .08em; }
+.countdown strong { margin-top: .2rem; font-family: Georgia, 'Times New Roman', serif; font-size: 2rem; }
+.countdown small { color: #697a70; }
+.status-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+.status-grid article { border-top: 1px solid #bdcfc2; padding: 1rem 0; }
+.status-grid span { color: #2d7258; font-size: .68rem; font-weight: 800; letter-spacing: .1em; }
+.status-grid strong { display: block; margin-top: .45rem; font-family: Georgia, 'Times New Roman', serif; font-size: 2rem; }
+.status-grid p { margin-top: .25rem; color: #697a70; font-size: .82rem; }
+.quick-access { margin-top: 3rem; }
+.quick-access h2,.admin-panel h2 { font-size: 2rem; }
+.quick-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 1rem; background: #d9e0d8; border: 1px solid #d9e0d8; }
+.quick-grid a { display: grid; min-height: 9.5rem; align-content: start; background: #fff; padding: 1.25rem; }
+.quick-grid a > span { color: #2d7258; font-size: .7rem; font-weight: 800; }
+.quick-grid strong { margin-top: .65rem; font-size: 1rem; }
+.quick-grid p { margin-top: .4rem; color: #697a70; font-size: .82rem; line-height: 1.5; }
+.admin-panel { margin-top: 3rem; border-top: 1px solid #bdcfc2; padding-top: 1.5rem; }
+.admin-panel h2 { margin-top: .6rem; }
+.admin-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; margin-top: 1rem; border-top: 1px solid #d9e0d8; }
+.admin-links a { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; font-size: .9rem; font-weight: 700; }
+.admin-links a span { color: #2d7258; }
+.small-note,.error { margin-top: 1rem; color: #697a70; font-size: .8rem; line-height: 1.6; }
+.error { color: #9a3022; }
+@media (max-width: 680px) { .heading-row { align-items: flex-start; flex-direction: column; gap: 1rem; } .status-grid { gap: .6rem; } .status-grid article { padding-top: .75rem; } .quick-grid,.admin-links { grid-template-columns: 1fr; } }
+</style>

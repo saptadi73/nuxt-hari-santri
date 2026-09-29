@@ -235,7 +235,7 @@ const aboutOverview={
   }
 } as const;
 const copy=computed(()=>{
-  const language=locale.value==='zh-CN'?'zh-CN':'en';
+  const language=String(locale.value) === 'zh-CN'?'zh-CN':'en';
   return {...messages[language],...aboutOverview[language]};
 });
 const focusAreas=computed(()=>copy.value.focus); const outcomes=computed(()=>copy.value.outcomes); const mission=computed(()=>copy.value.mission); const why=computed(()=>copy.value.why);

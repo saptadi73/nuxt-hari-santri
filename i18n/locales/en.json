@@ -1,5 +1,5 @@
 {
-  "language": { "label": "Language", "english": "English", "chinese": "Simplified Chinese" },
+  "language": { "label": "Language", "indonesian": "Bahasa Indonesia", "english": "English" },
   "nav": {
     "home": "Home", "about": "About", "aboutIwbif": "The EVENT", "host": "The HOST", "venue": "Venue", "theVenue": "The VENUE", "program": "Program", "speakers": "Speakers", "packages": "Delegate Packages",
     "matching": "Business Matching", "exhibition": "Exhibition", "dealRoom": "Deal Room", "participants": "Participants",
@@ -12,10 +12,10 @@
   "actions": { "registerNow": "Register Now!", "register": "Register", "signIn": "Sign In", "logOut": "Log Out", "refresh": "Refresh", "markAllRead": "Mark all as read" },
   "inbox": { "title": "Inbox", "activeAccount": "Active account", "loading": "Loading inbox...", "empty": "No notifications.", "unread": "Unread", "unknownUser": "Unknown user", "unknownEmail": "Unknown email" },
   "footer": {
-    "summary": "Connecting women-led businesses with global markets, finance, and trusted partnerships.",
-    "event": "International Women Business & Investment Forum", "datePlace": "14–17 October 2026 · Jakarta",
+    "summary": "Move together, strengthen friendship, and celebrate the spirit of the santri.",
+    "event": "Hari Santri 2026 — Healthy Cycling & Family Walk", "datePlace": "Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi",
     "privacy": "Privacy", "terms": "Terms", "conduct": "Code of Conduct", "refunds": "Refunds",
-    "copyright": "© 2026 International Women Business & Investment Forum. All rights reserved."
+    "copyright": "© 2026 MWC NU Tarumajaya. All rights reserved."
   },
   "legal": { "information": "Legal Information", "updated": "Last updated: August 1, 2026. Contact the organizer for the policy version that applies to your event." },
   "adminParticipants": {

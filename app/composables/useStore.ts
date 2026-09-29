@@ -6,7 +6,7 @@ export interface StoreProduct {
   code?: string;
   name: string;
   description?: string | null;
-  product_type: 'delegate' | 'exhibitor' | 'additional' | string;
+  product_type: 'delegate' | 'exhibitor' | 'additional' | 'hari_santri_package' | string;
   amount?: number;
   price?: number;
   currency: string;
@@ -14,6 +14,18 @@ export interface StoreProduct {
   max_quantity?: number | null;
   inclusions?: string[];
   metadata_json?: Record<string, unknown> | null;
+}
+
+export interface HariSantriProductWrite {
+  code: string;
+  name: string;
+  description: string;
+  product_type: 'hari_santri_package';
+  price: number;
+  currency: 'IDR';
+  max_quantity: number;
+  metadata_json: { activity_type: 'CYCLING' | 'FAMILY_WALK'; min_participants: number; max_participants: number; capacity_people: number };
+  is_active: boolean;
 }
 
 export type AdditionalPurchaseStatus = 'available' | 'pending' | 'partially_paid' | 'owned' | 'registration_required' | 'main_payment_required' | 'unavailable';
@@ -76,11 +88,14 @@ export interface ExhibitorAvailability {
 export function useStore() {
   const api = useNuxtApp().$api as ReturnType<typeof useApi>;
   const getProducts = (eventId: string) => api<ApiResponse<StoreProduct[]>>(`/store/events/${eventId}/products`);
+  const getAdminProducts = (eventId: string) => api<ApiResponse<StoreProduct[]>>(`/store/admin/events/${encodeURIComponent(eventId)}/products`);
+  const createProduct = (eventId: string, payload: HariSantriProductWrite) => api<ApiResponse<StoreProduct>>(`/store/admin/events/${encodeURIComponent(eventId)}/products`, { method: 'POST', body: payload });
+  const updateProduct = (productId: string, payload: HariSantriProductWrite) => api<ApiResponse<StoreProduct>>(`/store/admin/products/${encodeURIComponent(productId)}`, { method: 'PUT', body: payload });
   const getMyAdditionalProducts = (eventId: string) => api<ApiResponse<PersonalizedAdditionalProduct[]>>(`/store/events/${eventId}/additional-products/me`);
   const getExhibitorAvailability = (eventId: string) => api<ApiResponse<ExhibitorAvailability>>(`/store/events/${eventId}/exhibitor-availability/me`);
   const getCart = (eventId: string) => api<ApiResponse<StoreCart>>(`/store/events/${eventId}/cart`);
   const addCartItem = (eventId: string, productId: string, quantity = 1) => api<ApiResponse<StoreCart>>(`/store/events/${eventId}/cart/items`, { method: 'POST', body: { product_id: productId, quantity } });
   const removeCartItem = (eventId: string, productId: string) => api<ApiResponse<StoreCart>>(`/store/events/${eventId}/cart/items/${encodeURIComponent(productId)}`, { method: 'DELETE' });
-  const checkout = (eventId: string) => api<ApiResponse<StoreOrder>>(`/store/events/${eventId}/checkout`, { method: 'POST' });
-  return { getExhibitorAvailability, getProducts, getMyAdditionalProducts, getCart, addCartItem, removeCartItem, checkout };
+  const checkout = (eventId: string, termsAccepted = false) => api<ApiResponse<StoreOrder>>(`/store/events/${eventId}/checkout`, { method: 'POST', body: { terms_accepted: termsAccepted } });
+  return { getExhibitorAvailability, getProducts, getAdminProducts, createProduct, updateProduct, getMyAdditionalProducts, getCart, addCartItem, removeCartItem, checkout };
 }

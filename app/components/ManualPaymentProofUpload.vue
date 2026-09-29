@@ -25,7 +25,7 @@ const messages = {
   en: { title: 'Upload Proof of Payment', descriptionBefore: 'Upload your proof of payment for organizer verification. The payment will remain', pending: 'pending', descriptionAfter: 'until it has been confirmed by an organizer or administrator.', reference: 'Transaction Reference', optional: '(optional)', referencePlaceholder: 'Enter the transaction reference number', notes: 'Notes', notesPlaceholder: 'Add any relevant payment details', proof: 'Proof of Payment', formats: 'Accepted formats: JPG, PNG, or PDF. Maximum file size: 10 MB.', uploading: 'Uploading proof…', upload: 'Upload Proof of Payment', uploaded: 'Uploaded Proofs', storageError: 'The file could not be stored. Please contact the event administrator and provide the request ID below.', uploadError: 'The proof of payment could not be uploaded.', sizeError: 'The maximum file size is 10 MB.', success: 'Your proof of payment has been uploaded successfully and is awaiting organizer verification.', requestId: 'Request ID' },
   zh: { title: '上传付款凭证', descriptionBefore: '请上传付款凭证以供主办方审核。在主办方或管理员确认之前，付款状态将保持为', pending: '待处理', descriptionAfter: '。', reference: '交易参考号', optional: '（选填）', referencePlaceholder: '请输入交易参考号', notes: '备注', notesPlaceholder: '请填写相关付款说明', proof: '付款凭证', formats: '支持 JPG、PNG 或 PDF 格式，文件大小上限为 10 MB。', uploading: '正在上传凭证…', upload: '上传付款凭证', uploaded: '已上传的凭证', storageError: '文件无法保存。请联系活动管理员，并提供下方的请求 ID。', uploadError: '无法上传付款凭证。', sizeError: '文件大小不得超过 10 MB。', success: '付款凭证已成功上传，正在等待主办方审核。', requestId: '请求 ID' }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
 const paymentApi = usePayment();
 const transferReference = ref('');
 const notes = ref('');
@@ -35,7 +35,7 @@ const submitting = ref(false);
 const feedback = ref('');
 const feedbackTone = ref<'success' | 'error'>('success');
 const proofs = ref<ManualPaymentProof[]>([]);
-const fileTypeError = computed(() => locale.value === 'zh-CN'
+const fileTypeError = computed(() => String(locale.value) === 'zh-CN'
   ? '请选择 JPG、PNG 或 PDF 文件。'
   : 'Select a JPG, PNG, or PDF file.');
 const acceptedFileTypes = new Set(['image/jpeg', 'image/png', 'application/pdf']);
@@ -44,7 +44,7 @@ const apiError = (error: unknown) => { const value = error as { data?: { message
 const selectFile = (event: Event) => { feedback.value = ''; const file = (event.target as HTMLInputElement).files?.[0] || null; if (file && file.size > 10 * 1024 * 1024) { selectedFile.value = null; feedbackTone.value = 'error'; feedback.value = `${copy.value.sizeError} (${(Math.ceil(file.size / 1024 / 1024 * 10) / 10)} MB)`; if (fileInput.value) fileInput.value.value = ''; return; } if (file && !acceptedFileTypes.has(file.type)) { selectedFile.value = null; feedbackTone.value = 'error'; feedback.value = fileTypeError.value; if (fileInput.value) fileInput.value.value = ''; return; } selectedFile.value = file; };
 const loadProofs = async () => { if (!props.orderId) return; try { proofs.value = (await paymentApi.getManualProofs(props.orderId)).data || []; } catch { proofs.value = []; } };
 const submitProof = async () => { if (!selectedFile.value || submitting.value) return; submitting.value = true; feedback.value = ''; try { await paymentApi.uploadManualProof(props.orderId, props.paymentMethod, selectedFile.value, transferReference.value, notes.value); feedbackTone.value = 'success'; feedback.value = copy.value.success; selectedFile.value = null; transferReference.value = ''; notes.value = ''; if (fileInput.value) fileInput.value.value = ''; await loadProofs(); } catch (error) { feedbackTone.value = 'error'; feedback.value = apiError(error); } finally { submitting.value = false; } };
-const formatDate = (value: string) => new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+const formatDate = (value: string) => new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 onMounted(loadProofs);
 </script>
 

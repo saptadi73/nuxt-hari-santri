@@ -162,7 +162,7 @@ const messages = {
   en: { ticket: 'Ticket', title: 'My Ticket', description: 'View your ticket list, render the QR code, and reissue it when needed.', loadError: 'Failed to load tickets', showQr: 'Show QR', registrationId: 'Registration ID', processing: 'Processing…', reissue: 'Reissue', vipAccess: 'VIP Access', officialPass: 'Official Event Pass', confirmed: 'Confirmed', registered: 'You are officially registered for IWBIF 2026.', instructions: 'Please present this QR code during re-registration and check-in at the venue.', participant: 'Participant', event: 'Event', ticketNumber: 'Ticket Number', dateVenue: 'Date & Venue', eventDate: '14–17 October 2026', venue: 'Jakarta, Indonesia', downloading: 'Downloading…', download: 'Download Ticket', qrRenderError: 'QR could not be rendered. Please try reissuing the ticket.', scan: 'Scan for verification', registeredParticipant: 'Registered Participant', tokenUnavailable: 'QR token is not available.', failedQr: 'Failed to load QR', error: 'Error', qrCreateError: 'QR could not be created.', imageError: 'Unable to create ticket image.', downloadError: 'Ticket could not be downloaded. Please try again.', statuses: { active: 'Active', issued: 'Issued', used: 'Used', revoked: 'Revoked' }, seo: 'My Ticket' },
   zh: { ticket: '门票', title: '我的门票', description: '查看门票列表、显示二维码，并在需要时重新签发。', loadError: '无法加载门票', showQr: '显示二维码', registrationId: '注册 ID', processing: '处理中…', reissue: '重新签发', vipAccess: '贵宾通行', officialPass: '官方活动通行证', confirmed: '已确认', registered: '您已正式注册参加 IWBIF 2026。', instructions: '请在现场重新登记和签到时出示此二维码。', participant: '参与者', event: '活动', ticketNumber: '门票编号', dateVenue: '日期与地点', eventDate: '2026年10月14日至17日', venue: '印度尼西亚雅加达', downloading: '正在下载…', download: '下载门票', qrRenderError: '无法显示二维码，请尝试重新签发门票。', scan: '扫码验证', registeredParticipant: '已注册参与者', tokenUnavailable: '二维码令牌不可用。', failedQr: '无法加载二维码', error: '错误', qrCreateError: '无法创建二维码。', imageError: '无法生成门票图片。', downloadError: '无法下载门票，请重试。', statuses: { active: '有效', issued: '已签发', used: '已使用', revoked: '已撤销' }, seo: '我的门票' }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
 const statusLabel = (status: string) => (copy.value.statuses as Record<string, string>)[status.toLowerCase()] || status;
 useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
 
@@ -174,7 +174,7 @@ const isPaymentRequired = (cause: unknown) => {
   const data = (cause as { data?: { errors?: Array<{ code?: string }> } })?.data;
   return data?.errors?.some(item => item.code === 'REGISTRATION_PAYMENT_REQUIRED') === true;
 };
-const emptyCopy = computed(() => locale.value === 'zh-CN' ? {
+const emptyCopy = computed(() => String(locale.value) === 'zh-CN' ? {
   title: '门票二维码暂不可用',
   unpaid: '付款尚未完成。请先付清订单，包括所有分笔付款。付款确认并完成注册后，您才能获取门票二维码。',
   pending: '门票尚未签发。门票需要在付款全额确认并完成注册后才能获取。如果您已付款，请查看付款状态。',

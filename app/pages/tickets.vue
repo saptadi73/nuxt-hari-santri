@@ -88,12 +88,12 @@ const messages={
   en:{delegatePackages:'Delegate Packages',exhibitorPackages:'Exhibitor Packages',title:'Choose your IWBIF experience.',participationType:'Choose participation type',required:'Required',selectMain:'1. Select Main Package',selectionRequired:'Selection required',optional:'Optional add-on',additionalTrip:'2. Additional Trip',addTrip:'Available only with a Main Delegate Package.',standalone:'Independent participation',selectExhibitor:'Select Exhibitor Package',exhibitorIndependent:'Choose your Exhibitor Package here. No Delegate Main Package is required. Delegates can also become Exhibitors.',exhibitorPackage:'Exhibitor Package',exhibitorSelected:'Exhibitor Package selected. Review the official total in your cart.',updating:'Updating cart…',review:'Review cart',exhibitorUnavailable:'No active Exhibitor Package is available right now.',selectMessage:'Select Package A or B to continue.',paymentMissing:'Online payment is not configured for the selected rate. Please contact the organizer.',selected:'Your packages are selected. Review the official total in your cart.',single:'Single Occupancy',sharing:'Sharing Occupancy',standard:'Standard Access',updateError:'Package selection could not be updated.',saved:'Your package selection has been saved.',removed:'Package removed from your cart.',noEvent:'No event is currently published.',package:'Package',jakartaItinerary:'View Jakarta itinerary',bandungItinerary:'View Bandung itinerary',closeItinerary:'Close itinerary',highlights:'Event highlights',notes:'Important notes'},
   'zh-CN':{delegatePackages:'代表套餐',exhibitorPackages:'参展商套餐',title:'选择您的 IWBIF 体验。',participationType:'参与类型',required:'必选',selectMain:'1. 选择主套餐',selectionRequired:'必须选择',optional:'可选附加项',additionalTrip:'2. 附加行程',addTrip:'仅限已选择代表主套餐的用户。',standalone:'独立参与',selectExhibitor:'选择参展商套餐',exhibitorIndependent:'请在此选择参展商套餐，无需购买代表主套餐。代表也可以同时成为参展商。',exhibitorPackage:'参展商套餐',exhibitorSelected:'已选择参展商套餐。请在购物车中查看官方总额。',updating:'正在更新购物车…',review:'查看购物车',exhibitorUnavailable:'目前没有可购买的参展商套餐。',selectMessage:'请选择套餐 A 或 B 以继续。',paymentMissing:'所选价格尚未配置在线付款。请联系主办方。',selected:'已选择套餐。请在购物车中查看官方总额。',single:'单人住宿',sharing:'合住',standard:'标准参展权限',updateError:'无法更新套餐选择。',saved:'您的套餐选择已保存。',removed:'套餐已从购物车移除。',noEvent:'当前尚未发布活动。',package:'套餐',jakartaItinerary:'查看雅加达行程',bandungItinerary:'查看万隆行程',closeItinerary:'关闭行程',highlights:'活动亮点',notes:'重要说明'}
 } as const;
-const copy=computed(()=>messages[locale.value==='zh-CN'?'zh-CN':'en']);
+const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
 const route = useRoute();
 const selectedType = computed(() => route.query.type === 'exhibitor' ? 'exhibitor' : 'delegate');
 const packageIntro = computed(() => selectedType.value === 'exhibitor'
   ? copy.value.exhibitorIndependent
-  : locale.value === 'zh-CN'
+  : String(locale.value) === 'zh-CN'
     ? '请选择一个代表主套餐，并可选择附加行程。'
     : 'Choose one Main Delegate Package, with an optional Additional Trip.');
 useSeoMeta({title:()=>`${selectedType.value === 'exhibitor' ? copy.value.exhibitorPackages : copy.value.delegatePackages} | IWBIF 2026`,description:()=>packageIntro.value});
@@ -102,7 +102,7 @@ const { getEvents, getDelegatePackageCatalog } = useEvent();
 const store = useStore();
 const exhibitorAvailability = ref<import('~/composables/useStore').ExhibitorAvailability | null>(null);
 const exhibitorUnavailable = computed(() => auth.isAuthenticated && exhibitorAvailability.value?.is_purchasable === false);
-const exhibitorResumeCopy = computed(() => locale.value === 'zh-CN'
+const exhibitorResumeCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { message: '您已注册或已有参展商订单。请完善资料并完成现有订单的付款。', profile: '完善参展商资料', payment: '继续付款', dashboard: '前往仪表板' }
   : { message: 'You already have an exhibitor registration or order. Complete your profile and payment using your existing order.', profile: 'Complete exhibitor profile', payment: 'Continue payment', dashboard: 'Go to dashboard' });
 const paymentApi = usePayment();
@@ -140,7 +140,7 @@ const { data, pending, error } = await useAsyncData('delegate-package-selector',
 const catalog = computed(() => data.value?.data || emptyCatalog);
 const activeRates = (pkg: DelegatePackageCatalogItem) => pkg.rates.filter(rate => rate.is_active);
 const activeFacilities = (pkg: DelegatePackageCatalogItem) => pkg.facilities.filter(item => item.is_active).sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
-const isChineseFallback = (item: { translation_fallback?: boolean }) => locale.value === 'zh-CN' && item.translation_fallback === true;
+const isChineseFallback = (item: { translation_fallback?: boolean }) => String(locale.value) === 'zh-CN' && item.translation_fallback === true;
 const defaultRate = (pkg: DelegatePackageCatalogItem) => activeRates(pkg).find(rate => rate.is_default) || activeRates(pkg)[0];
 const isRatePreviewSelected = (pkg: DelegatePackageCatalogItem, rate: DelegatePackageRate) => {
   if (selection.mainPackageId === pkg.id) return selection.mainRateId === rate.id;
@@ -213,7 +213,7 @@ const selectExhibitorPackage = async (pkg: DelegatePackageCatalogItem) => { if (
 const selectAdditionalRate = (rate: DelegatePackageRate) => addRate(rate);
 const occupancyLabel = (occupancyType: DelegatePackageRate['occupancy_type']) => occupancyType === 'single' ? copy.value.single : occupancyType === 'standard' ? copy.value.standard : copy.value.sharing;
 const usd = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
-const openSchedule = (key: 'main' | 'additional') => { activeSchedule.value = (locale.value === 'zh-CN' ? delegatePackageSchedulesZh : delegatePackageSchedules)[key]; if (import.meta.client) document.body.style.overflow = 'hidden'; };
+const openSchedule = (key: 'main' | 'additional') => { activeSchedule.value = (String(locale.value) === 'zh-CN' ? delegatePackageSchedulesZh : delegatePackageSchedules)[key]; if (import.meta.client) document.body.style.overflow = 'hidden'; };
 const closeSchedule = () => { activeSchedule.value = null; if (import.meta.client) document.body.style.overflow = ''; };
 const handleEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') closeSchedule(); };
 onMounted(async () => { if (!eventId.value) eventId.value = (await getEvents(1, 1)).data[0]?.id || ''; if (auth.isAuthenticated && eventId.value) { await refreshExhibitorAvailability(); try { const [cartResponse, additionalResponse] = await Promise.all([store.getCart(eventId.value), store.getMyAdditionalProducts(eventId.value)]); cart.value = cartResponse.data; personalizedAdditional.value = additionalResponse.data || []; syncFromCart(cart.value); } catch { /* a new account may not have a cart or eligible registration yet */ } } });

@@ -228,7 +228,7 @@ const autoReloadTimer = ref<ReturnType<typeof setTimeout> | null>(null);
 
 const lastUpdatedLabel = computed(() => {
   if (!lastUpdated.value) return t('adminParticipants.notLoaded');
-  return new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(lastUpdated.value);
+  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(lastUpdated.value);
 });
 
 const hasDateRangeInvalid = computed(() => Boolean(dateFrom.value && dateTo.value && dateFrom.value > dateTo.value));
@@ -452,13 +452,13 @@ const filteredParticipants = computed(() => {
 });
 
 const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(value || 0));
+  return new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(value || 0));
 };
 
 const formatDateTime = (value: string) => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
 };
 
 const paymentStatusClass = (status?: string | null) => {

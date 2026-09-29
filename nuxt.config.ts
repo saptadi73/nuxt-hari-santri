@@ -1,14 +1,6 @@
-const productionApiBaseUrl = 'https://api.iwbif.id';
-const productionSiteUrl = 'https://iwbif.id';
 const isDevelopmentRuntime = process.env.npm_lifecycle_event === 'dev';
-// Production values are the unconditional fallback. Local development must opt
-// in through .env while running the explicit `npm run dev` script.
-const apiBaseUrl = isDevelopmentRuntime
-  ? process.env.NUXT_PUBLIC_API_BASE_URL || productionApiBaseUrl
-  : productionApiBaseUrl;
-const siteUrl = isDevelopmentRuntime
-  ? process.env.NUXT_PUBLIC_SITE_URL || productionSiteUrl
-  : productionSiteUrl;
+const apiBaseUrl = process.env.NUXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000';
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 const apiBasePath = process.env.NUXT_PUBLIC_API_BASE_PATH || '/api/v1';
 
 export default defineNuxtConfig({
@@ -25,17 +17,17 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
   i18n: {
     strategy: 'no_prefix',
-    defaultLocale: 'en',
+    defaultLocale: 'id',
     locales: [
-      { code: 'en', name: 'English', language: 'en-US', file: 'en.json' },
-      { code: 'zh-CN', name: '简体中文', language: 'zh-CN', file: 'zh-CN.json' }
+      { code: 'id', name: 'Bahasa Indonesia', language: 'id-ID', file: 'id.json' },
+      { code: 'en', name: 'English', language: 'en-US', file: 'en.json' }
     ],
     langDir: 'locales',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'iwbif_locale',
+      cookieKey: 'hari_santri_locale',
       redirectOn: 'root',
-      fallbackLocale: 'en'
+      fallbackLocale: 'id'
     },
     vueI18n: './i18n.config.ts'
   },
@@ -52,15 +44,15 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'IWBIF 2026',
+      title: 'Hari Santri 2026',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/logo_iwbif2.png' },
-        { rel: 'apple-touch-icon', href: '/logo_iwbif2.png' }
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
       ],
       meta: [
         {
           name: 'description',
-          content: 'International Women Business & Investment Forum 2026.'
+          content: 'Portal resmi Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026.'
         }
       ]
     }
@@ -70,10 +62,9 @@ export default defineNuxtConfig({
     public: {
       backendOrigin: apiBaseUrl,
       apiBasePath,
-      eventSlug: process.env.NUXT_PUBLIC_EVENT_SLUG || 'iwbif-2026',
+      eventSlug: process.env.NUXT_PUBLIC_EVENT_SLUG || 'hari-santri-2026',
       canonicalSiteUrl: siteUrl,
-      appName: process.env.NUXT_PUBLIC_APP_NAME || 'IWBIF 2026',
-      paymentProvider: (process.env.NUXT_PUBLIC_PAYMENT_PROVIDER || 'doku').toLowerCase()
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Hari Santri 2026'
     }
   },
   routeRules: {

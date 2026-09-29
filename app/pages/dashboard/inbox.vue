@@ -30,9 +30,12 @@ import { useEvent } from '~/composables/useEvent';
 definePageMeta({ middleware: 'auth' });
 const authStore = useAuthStore();
 const { locale } = useI18n();
-const messages = { en: { eyebrow: 'Inbox', title: 'Messages & notifications', description: 'Payment updates and Business Matching notifications are collected here.', refresh: 'Refresh', refreshing: 'Refreshing…', loading: 'Loading inbox…', empty: 'There are no notifications yet.', notification: 'Notification', openDetails: 'Open to view details.', new: 'New', error: 'Unable to load inbox.', seo: 'Inbox' }, zh: { eyebrow: '收件箱', title: '消息与通知', description: '付款更新和商务配对通知都会汇总在这里。', refresh: '刷新', refreshing: '正在刷新…', loading: '正在加载收件箱…', empty: '目前尚无通知。', notification: '通知', openDetails: '打开以查看详情。', new: '新消息', error: '无法加载收件箱。', seo: '收件箱' } } as const;
-const copy = computed(() => authStore.isAdminOrOrganizer || locale.value !== 'zh-CN' ? messages.en : messages.zh);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+const messages = {
+  id: { eyebrow: 'Pesan', title: 'Pesan & notifikasi', description: 'Pembaruan pesanan dan informasi acara tersedia di sini.', refresh: 'Muat ulang', refreshing: 'Memuat ulang…', loading: 'Memuat pesan…', empty: 'Belum ada notifikasi.', notification: 'Notifikasi', openDetails: 'Buka untuk melihat detail.', new: 'Baru', error: 'Pesan belum dapat dimuat.', seo: 'Pesan' },
+  en: { eyebrow: 'Inbox', title: 'Messages & notifications', description: 'Order updates and event information are collected here.', refresh: 'Refresh', refreshing: 'Refreshing…', loading: 'Loading inbox…', empty: 'There are no notifications yet.', notification: 'Notification', openDetails: 'Open to view details.', new: 'New', error: 'Unable to load inbox.', seo: 'Inbox' }
+} as const;
+const copy = computed(() => messages[authStore.isAdminOrOrganizer ? 'en' : locale.value === 'id' ? 'id' : 'en']);
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 const communication = useCommunication();
 const { getEvents } = useEvent();
 const notifications = ref<NotificationItem[]>([]);
@@ -86,7 +89,7 @@ const openNotification = async (item: NotificationItem) => {
   }
 };
 
-const formatDateTime = (value: string) => new Intl.DateTimeFormat(authStore.isAdminOrOrganizer ? 'en-GB' : locale.value === 'zh-CN' ? 'zh-CN' : 'id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+const formatDateTime = (value: string) => new Intl.DateTimeFormat(authStore.isAdminOrOrganizer || locale.value === 'en' ? 'en-GB' : 'id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 
 onMounted(loadNotifications);
 </script>

@@ -14,7 +14,7 @@ export const normalizePaymentProvider = (value?: string | null): PaymentProvider
 
 export const getPaymentProviderConfig = (providerOverride?: string | null) => {
   const config = useRuntimeConfig();
-  const provider = normalizePaymentProvider(providerOverride ?? config.public.paymentProvider);
+  const provider = normalizePaymentProvider(providerOverride ?? String(config.public.paymentProvider ?? ''));
 
   return {
     provider,

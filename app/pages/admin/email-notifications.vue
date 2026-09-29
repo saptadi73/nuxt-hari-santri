@@ -367,7 +367,7 @@ const appendVariable = (variable: string) => {
 };
 const userInitials = (user: AdminUserItem) => (user.full_name || user.email).split(/[\s@._-]+/).filter(Boolean).slice(0, 2).map(part => part[0]?.toUpperCase()).join('');
 const deliveryStatusLabel = (status: string) => ['sent', 'success'].includes(status.toLowerCase()) ? 'Berhasil' : ['failed', 'error'].includes(status.toLowerCase()) ? 'Gagal' : 'Menunggu';
-const formatDate = (value?: string | null) => value ? new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '—';
+const formatDate = (value?: string | null) => value ? new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)) : '—';
 
 watch(eventId, async () => {
   historyPage.value=1;

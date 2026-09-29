@@ -99,7 +99,7 @@ const messages = {
     eyebrow: '场地与住宿', title: 'IWBIF 2026 精彩启幕之地。', intro: '探索位于雅加达市中心的活动场地，以及为代表们精心挑选的雅加达和万隆住宿选择。', eventDate: '10月14日至17日 · 雅加达与万隆', eventVenue: '活动场地', fiveStar: '五星级酒店 ★★★★★', fourStar: '四星级酒店 ★★★★', openMap: '在 Google 地图中查看', ballroom: '大宴会厅', ballroomLayout: '大宴会厅布局', ballroomFoyer: '大宴会厅前厅', jakartaAccommodation: '住宿 · 雅加达', stayInJakarta: '雅加达市中心精选住宿', bandungAccommodation: '住宿 · 万隆', kempinskiVenueAddress: '雅加达首都特区中雅加达市丹纳阿邦区 Kebon Kacang，Jl. Kebon Kacang Raya Blok D6，邮编 10230', kempinskiStayAddress: '雅加达首都特区中雅加达市 Menteng，Jl. M.H. Thamrin No. 1，邮编 10310', sahidAddress: '雅加达首都特区中雅加达市丹纳阿邦区 Karet Tengsin，Jl. Jenderal Sudirman No. 86，邮编 10220', mercureAddress: '西爪哇省万隆市 Lengkong 区 Cikawao，Jl. Lengkong Besar No. 8，邮编 40261', twinSharing: '豪华客房 · 双床（合住）', singleRoom: '豪华客房 · 特大床（单住）', superiorSharing: '高级客房 · 双床（合住）', superiorSingle: '高级客房 · 大床（单住）', rooftop: '屋顶游泳池', lobby: '酒店大堂'
   }
 } as const;
-const copy = computed(() => messages[locale.value === 'zh-CN' ? 'zh-CN' : 'en']);
+const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en']);
 const kempinskiRooms = computed(() => [{ src: kempinskiTwinSharing, label: copy.value.twinSharing }, { src: kempinskiRoom, label: copy.value.singleRoom }]);
 const sahidRooms = computed(() => [{ src: sahidSharing, label: copy.value.twinSharing }, { src: sahidSingle, label: copy.value.singleRoom }]);
 const mercureImages = computed(() => [{ src: mercureSharing, label: copy.value.superiorSharing }, { src: mercureSingle, label: copy.value.superiorSingle }, { src: mercureRoof, label: copy.value.rooftop }, { src: mercureLobby, label: copy.value.lobby }]);

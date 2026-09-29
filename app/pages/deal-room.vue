@@ -30,7 +30,7 @@
 <script setup lang="ts">
 const {locale}=useI18n();
 const messages={en:{eyebrow:'Deal Room',title:'Move from introductions to outcomes.',intro:'The IWBIF Deal Room supports focused conversations, meeting requests, and follow-up actions between confirmed delegates.',outcomes:'Business outcomes',outcomesText:'A curated environment for partnership conversations, commercial follow-up, and measurable deal momentum.',open:'Open Participant Dashboard',steps:[{step:'01',title:'Discover',text:'Find aligned companies, buyers, investors, and partners.'},{step:'02',title:'Meet',text:'Request and manage curated business meetings.'},{step:'03',title:'Follow up',text:'Track commitments and 30/60/90-day next actions.'}],metrics:[{value:'1:1',label:'Curated meetings'},{value:'30/60',label:'Follow-up actions'},{value:'ROI',label:'Commercial momentum'}]},'zh-CN':{eyebrow:'洽谈室',title:'从初步介绍走向实质成果。',intro:'IWBIF 洽谈室为已确认代表提供专注洽谈、会议申请及后续行动支持。',outcomes:'商业成果',outcomesText:'精心打造的合作洽谈、商务跟进与可量化交易推进环境。',open:'打开参会者中心',steps:[{step:'01',title:'发现',text:'寻找目标匹配的企业、买家、投资者和合作伙伴。'},{step:'02',title:'会面',text:'申请并管理精准匹配的商务会议。'},{step:'03',title:'后续跟进',text:'跟踪合作承诺以及 30/60/90 天后续行动。'}],metrics:[{value:'1:1',label:'精准配对会议'},{value:'30/60',label:'后续行动'},{value:'ROI',label:'商业动能'}]}} as const;
-const copy=computed(()=>messages[locale.value==='zh-CN'?'zh-CN':'en']);
+const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
 const steps=computed(()=>copy.value.steps); const metrics=computed(()=>copy.value.metrics);
 useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
 </script>

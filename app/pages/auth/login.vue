@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <main class="login-shell">
     <div v-if="message && messageTone === 'error'" class="login-toast" role="alert" aria-live="assertive">
       <p class="font-semibold">{{ copy.failed }}</p>
@@ -42,7 +42,7 @@
 <script setup lang="ts">
 const {locale}=useI18n();
 const messages={en:{member:'Member access',title:'Login to IWBIF',intro:'Access your dashboard, tickets, payment status, and event updates.',email:'Email',password:'Password',passwordPlaceholder:'Enter your password',forgotPassword:'Forgot password?',resetSuccess:'Your password has been reset. You can now log in with your new password.',login:'Log In',needAccount:'Need an account?',create:'Create one',input:'Input',invalid:'Invalid value',processError:'Login could not be processed.',required:'Enter your email address and password.',invalidEmail:'Enter a valid email address.',passwordLength:'Password must be at least 8 characters long.',submitting:'Submitting login...',success:'Login successful.',failed:'Failed'},'zh-CN':{member:'会员入口',title:'登录 IWBIF',intro:'访问您的用户中心、门票、付款状态和活动更新。',email:'电子邮箱',password:'密码',passwordPlaceholder:'请输入密码',forgotPassword:'忘记密码？',resetSuccess:'密码已重置。您现在可以使用新密码登录。',login:'登录',needAccount:'还没有账户？',create:'创建账户',input:'输入',invalid:'无效值',processError:'无法处理登录请求。',required:'请输入电子邮箱和密码。',invalidEmail:'请输入有效的电子邮箱地址。',passwordLength:'密码长度必须至少为 8 个字符。',submitting:'正在登录…',success:'登录成功。',failed:'失败'}} as const;
-const copy=computed(()=>messages[locale.value==='zh-CN'?'zh-CN':'en']);
+const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
 useSeoMeta({title:()=>`${copy.value.login} | IWBIF 2026`,description:()=>copy.value.intro});
 const form = reactive({ email: '', password: '' });
 const { login } = useAuth();

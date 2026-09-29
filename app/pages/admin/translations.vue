@@ -2,38 +2,38 @@
   <section class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
     <header class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p class="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Content operations</p>
-        <h1 class="mt-3 text-3xl font-black text-white sm:text-4xl">Chinese translations</h1>
-        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">Create the Simplified Chinese content returned by public API requests with <code>locale=zh-CN</code>.</p>
+        <p class="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Pengelolaan Konten</p>
+        <h1 class="mt-3 text-3xl font-black text-white sm:text-4xl">Terjemahan Bahasa Indonesia</h1>
+        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">Kelola konten Indonesia untuk halaman event. Konten English tetap menjadi versi sumber.</p>
       </div>
-      <span class="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold text-cyan-100">Target locale: zh-CN</span>
+      <span class="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold text-cyan-100">Locale: id</span>
     </header>
 
     <p v-if="feedback" class="mt-6 rounded-xl border p-4 text-sm" :class="feedbackTone === 'error' ? 'border-red-300/30 bg-red-950/30 text-red-100' : 'border-emerald-300/30 bg-emerald-950/30 text-emerald-100'">{{ feedback }}</p>
 
     <form class="mt-8 grid gap-5 rounded-2xl border border-white/10 bg-white/[.04] p-5 sm:grid-cols-[1fr_1.5fr_auto]" @submit.prevent="loadTranslation">
-      <label class="field"><span>Entity type</span><select v-model="entityType"><option v-for="definition in definitions" :key="definition.entity_type" :value="definition.entity_type">{{ definition.entity_type }}</option></select></label>
-      <label class="field"><span>Resource ID</span><input v-model.trim="entityId" required placeholder="UUID from the relevant admin record" /></label>
-      <button class="action-secondary self-end" :disabled="loading" type="submit">{{ loading ? 'Loading...' : 'Load translation' }}</button>
+      <label class="field"><span>Jenis data</span><select v-model="entityType"><option v-for="definition in definitions" :key="definition.entity_type" :value="definition.entity_type">{{ definition.entity_type }}</option></select></label>
+      <label class="field"><span>ID data</span><input v-model.trim="entityId" required placeholder="UUID dari data admin" /></label>
+      <button class="action-secondary self-end" :disabled="loading" type="submit">{{ loading ? 'Memuat…' : 'Muat terjemahan' }}</button>
     </form>
 
     <section v-if="entityId" class="mt-6 rounded-2xl border border-white/10 bg-slate-950/45 p-5 sm:p-7">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
         <div><p class="text-xs uppercase tracking-[.18em] text-slate-400">{{ entityType }}</p><h2 class="mt-1 break-all text-lg font-bold text-white">{{ entityId }}</h2></div>
-        <span class="rounded-full px-3 py-1 text-xs font-bold" :class="translationExists ? 'bg-emerald-300/15 text-emerald-200' : 'bg-amber-300/15 text-amber-200'">{{ translationExists ? 'Translation exists' : 'Translation missing' }}</span>
+        <span class="rounded-full px-3 py-1 text-xs font-bold" :class="translationExists ? 'bg-emerald-300/15 text-emerald-200' : 'bg-amber-300/15 text-amber-200'">{{ translationExists ? 'Terjemahan tersedia' : 'Terjemahan belum ada' }}</span>
       </div>
 
-      <p v-if="loading" class="py-8 text-sm text-slate-400">Loading translation...</p>
+      <p v-if="loading" class="py-8 text-sm text-slate-400">Memuat terjemahan…</p>
       <form v-else class="mt-6 space-y-5" @submit.prevent="saveTranslation">
         <label v-for="field in fields" :key="field" class="field">
           <span>{{ fieldLabel(field) }}</span>
           <textarea v-if="isLongText(field)" v-model.trim="form[field]" rows="5" :placeholder="fieldPlaceholder(field)" />
           <input v-else v-model.trim="form[field]" :placeholder="fieldPlaceholder(field)" />
         </label>
-        <p v-if="!fields.length" class="rounded-xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm text-amber-100">This entity has no editable translation fields configured by the backend.</p>
+        <p v-if="!fields.length" class="rounded-xl border border-amber-300/25 bg-amber-300/10 p-4 text-sm text-amber-100">Belum ada kolom terjemahan yang dapat diedit untuk data ini.</p>
         <div class="flex flex-wrap justify-between gap-3 border-t border-white/10 pt-5">
-          <button v-if="translationExists" class="action-danger" :disabled="saving" type="button" @click="removeTranslation">Delete translation</button><span v-else />
-          <button class="action-primary" :disabled="saving || !fields.length">{{ saving ? 'Saving...' : 'Save Chinese translation' }}</button>
+          <button v-if="translationExists" class="action-danger" :disabled="saving" type="button" @click="removeTranslation">Hapus terjemahan</button><span v-else />
+          <button class="action-primary" :disabled="saving || !fields.length">{{ saving ? 'Menyimpan…' : 'Simpan Bahasa Indonesia' }}</button>
         </div>
       </form>
     </section>
@@ -44,7 +44,7 @@
 import { useAdminContent, type TranslatableEntityDefinition, type TranslatableEntityType } from '~/composables/useAdminContent';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Chinese Content Translations | IWBIF 2026' });
+useSeoMeta({ title: 'Terjemahan Konten Indonesia | Hari Santri 2026' });
 
 const fallbackDefinitions: TranslatableEntityDefinition[] = [
   { entity_type: 'event', fields: ['name', 'description', 'venue_name'] },
@@ -91,7 +91,7 @@ const apiError = (error: unknown) => {
   return value.data?.request_id ? `${message} (Request ID: ${value.data.request_id})` : message;
 };
 const fieldLabel = (field: string) => field.replaceAll('_', ' ');
-const fieldPlaceholder = (field: string) => field === 'expertise_tags' ? 'Separate values with commas' : `Chinese ${fieldLabel(field)}`;
+const fieldPlaceholder = (field: string) => field === 'expertise_tags' ? 'Pisahkan dengan koma' : `Terjemahan Indonesia untuk ${fieldLabel(field)}`;
 const isLongText = (field: string) => ['description', 'body', 'biography'].includes(field);
 const mergeDefinitions = (backendDefinitions: TranslatableEntityDefinition[]) => {
   const map = new Map<TranslatableEntityType, TranslatableEntityDefinition>();
@@ -107,7 +107,7 @@ const loadTranslation = async () => {
   translationExists.value = false;
   try {
     const translations = (await adminContent.getContentTranslations(entityType.value, entityId.value)).data || [];
-    const translation = translations.find((item) => item.locale === 'zh-CN');
+    const translation = translations.find((item) => item.locale === 'id');
     translationExists.value = Boolean(translation);
     for (const field of fields.value) {
       const value = translation?.fields[field];
@@ -120,23 +120,26 @@ const saveTranslation = async () => {
   if (!entityId.value || saving.value) return;
   saving.value = true;
   try {
-    const payload = Object.fromEntries(fields.value.map((field) => [field, field === 'expertise_tags' ? form[field].split(',').map((item) => item.trim()).filter(Boolean) : form[field].trim()]));
+    const payload = Object.fromEntries(fields.value.map((field) => {
+      const value = form[field] || '';
+      return [field, field === 'expertise_tags' ? value.split(',').map((item) => item.trim()).filter(Boolean) : value.trim()];
+    }));
     await adminContent.saveContentTranslation(entityType.value, entityId.value, payload);
     translationExists.value = true;
     feedbackTone.value = 'success';
-    feedback.value = 'Chinese translation saved.';
+    feedback.value = 'Terjemahan Bahasa Indonesia disimpan.';
   } catch (error) { feedbackTone.value = 'error'; feedback.value = apiError(error); }
   finally { saving.value = false; }
 };
 const removeTranslation = async () => {
-  if (!entityId.value || saving.value || !confirm('Delete this Chinese translation? Public pages will use the English fallback.')) return;
+  if (!entityId.value || saving.value || !confirm('Hapus terjemahan Bahasa Indonesia? Halaman publik akan memakai konten English.')) return;
   saving.value = true;
   try {
     await adminContent.deleteContentTranslation(entityType.value, entityId.value);
     resetForm();
     translationExists.value = false;
     feedbackTone.value = 'success';
-    feedback.value = 'Chinese translation deleted.';
+    feedback.value = 'Terjemahan Bahasa Indonesia dihapus.';
   } catch (error) { feedbackTone.value = 'error'; feedback.value = apiError(error); }
   finally { saving.value = false; }
 };

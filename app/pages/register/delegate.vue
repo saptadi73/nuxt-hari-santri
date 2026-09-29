@@ -114,8 +114,8 @@ const messages = {
     fields: ['姓名', '称谓', '职位', '公司／机构', '国籍', '行业领域', '电子邮箱', '公司网站', 'LinkedIn'], noEvent: '目前没有已发布的 IWBIF 活动。', loadError: '无法加载现有代表资料。', saveError: '无法保存注册资料。', saved: '注册资料 {number} 已成功保存。', offlineTitle: '已选择线下付款。', offlineDescription: '请完成并提交此注册资料。主办方收到现金、转账、刷卡或其他获批准的线下付款后，管理员将使用您的注册信息创建付款记录；只有在款项全部结清后才会签发票券。'
   }
 } as const;
-const copy = computed(() => locale.value === 'zh-CN' ? messages.zh : messages.en);
-const validationCopy = computed(() => locale.value === 'zh-CN'
+const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
+const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有必填字段并选择所需选项。', email: '请输入有效的电子邮箱地址。', url: '请输入包含 http:// 或 https:// 的有效网站地址。', dates: '离开日期不得早于抵达日期。', consent: '请确认信息准确性、接受条款并同意商务配对数据处理。' }
   : { required: 'Complete all required fields and selections.', email: 'Enter a valid email address.', url: 'Enter a valid website address beginning with http:// or https://.', dates: 'The departure date cannot be earlier than the arrival date.', consent: 'Confirm the information accuracy, accept the terms, and provide business matching consent.' });
 useSeoMeta({ title: () => `${copy.value.eyebrow} | IWBIF 2026`, description: () => copy.value.description });
@@ -163,7 +163,7 @@ const zhOptionLabels: Record<string, string> = {
   Indonesia: '印度尼西亚', Malaysia: '马来西亚', China: '中国', Singapore: '新加坡', Thailand: '泰国', Vietnam: '越南', Cambodia: '柬埔寨', Philippines: '菲律宾',
   'Twin Sharing': '双人合住房', 'Single Room (+Supplement)': '单人房（需补差价）', CGK: '苏加诺－哈达国际机场（CGK）', HLP: '哈利姆·珀达纳库苏马机场（HLP）'
 };
-const optionLabel = (value: string) => locale.value === 'zh-CN' ? (zhOptionLabels[value] || value) : value;
+const optionLabel = (value: string) => String(locale.value) === 'zh-CN' ? (zhOptionLabels[value] || value) : value;
 
 const form = reactive({
   event_id: '',
@@ -225,7 +225,7 @@ const passportFile = ref<File | null>(null);
 const passportInput = ref<HTMLInputElement | null>(null);
 const passportError = ref('');
 const passportDocuments = ref<Array<{ id: string; filename: string }>>([]);
-const passportCopy = computed(() => locale.value === 'zh-CN' ? {
+const passportCopy = computed(() => String(locale.value) === 'zh-CN' ? {
   title: '6. 护照复印件（选填）', help: '您可以上传护照复印件作为补充资料。不上传也可以提交注册。',
   choose: '选择文件', formats: 'PDF / JPG / PNG，最大 10 MB。', invalid: '请选择非空且不超过 10 MB 的 PDF、JPG 或 PNG 文件。',
   clear: '取消选择，跳过上传', uploaded: '已上传', submitted: '注册已提交。门票状态可在“我的门票”中查看。', viewTicket: '查看我的门票'
@@ -270,7 +270,7 @@ if (options.value?.event.id) {
 const formElement = ref<HTMLFormElement | null>(null);
 const feedbackElement = ref<HTMLElement | null>(null);
 const showRequiredErrors = ref(false);
-const validationDetails = computed(() => locale.value === 'zh-CN' ? {
+const validationDetails = computed(() => String(locale.value) === 'zh-CN' ? {
   activities: '参加的活动', chooseActivity: '请至少选择一项活动。',
   unavailable: '目前没有可选活动。请联系主办方开放活动后完成注册。'
 } : {

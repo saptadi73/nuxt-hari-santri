@@ -10,7 +10,7 @@
 <script setup lang="ts">
 withDefaults(defineProps<{ amount: number; compact?: boolean; showRate?: boolean }>(), { compact: false, showRate: false });
 const { locale } = useI18n();
-const copy = computed(() => locale.value === 'zh-CN'
+const copy = computed(() => String(locale.value) === 'zh-CN'
   ? { base: '印尼盾付款基准', rate: '固定参考汇率：1 人民币 = Rp2,445 · 1 马来西亚令吉 = Rp4,400' }
   : { base: 'IDR payment base', rate: 'Fixed reference rates: CNY 1 = IDR 2,445 · MYR 1 = IDR 4,400' });
 const idr = (value: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);

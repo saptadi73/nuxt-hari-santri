@@ -1,119 +1,168 @@
-﻿<template>
-  <div>
-    <section class="hero-stage" aria-labelledby="hero-title">
-      <h1 id="hero-title" class="sr-only">{{ t('home.heroAlt') }}</h1>
-      <div class="hero-halo hero-halo-left" />
-      <div class="hero-halo hero-halo-right" />
-
-      <div class="hero-frame">
-        <picture>
-          <source type="image/webp" :srcset="heroWebpSrcset" sizes="(max-width: 768px) 100vw, 100vw">
-          <img
-            :src="heroImage"
-            :alt="t('home.heroAlt')"
-            class="hero-image"
-            width="1672"
-            height="940"
-            sizes="(max-width: 768px) 100vw, 100vw"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            :style="{ objectPosition: heroObjectPosition }"
-            @error="onHeroImageError"
-          >
-        </picture>
-        <div class="hero-vignette" />
-      </div>
-
-      <nav class="hero-action-dock" :aria-label="t('home.mainEventAction')">
-        <div class="hero-action-status"><span class="hero-live-dot" aria-hidden="true" />{{ t('home.registrationOpen') }}</div>
-        <div class="hero-action-links">
-          <NuxtLink :to="homeCtaTo" class="hero-button hero-button-primary hero-button-primary-large">{{ homeCtaLabel }} <span aria-hidden="true">→</span></NuxtLink>
+<template>
+  <div class="portal-home">
+    <section class="hero" aria-labelledby="hero-title">
+      <img
+        class="hero__image"
+        src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2400&q=85"
+        alt="Pesepeda bergerak bersama di jalan terbuka"
+        fetchpriority="high"
+        width="2400"
+        height="1500"
+      >
+      <div class="hero__shade" aria-hidden="true" />
+      <div class="hero__content">
+        <p class="eyebrow">{{ locale === 'id' ? 'MWC NU Tarumajaya mempersembahkan' : 'Presented by MWC NU Tarumajaya' }}</p>
+        <h1 id="hero-title">Hari Santri 2026</h1>
+        <p class="hero__subtitle">{{ locale === 'id' ? 'Sepeda Sehat & Jalan Sehat Keluarga' : 'Healthy Cycling & Family Walk' }}</p>
+        <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
+        <div class="hero__facts">
+          <span>{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</span>
+          <span>Summarecon Crown Gading</span>
+          <span>Tarumajaya, Bekasi</span>
         </div>
-      </nav>
-    </section>
-
-    <section class="home-section mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div class="grid gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 sm:grid-cols-3">
-        <article v-for="(stat, index) in featuredStats" :key="stat.label" class="featured-stat-card p-6 sm:p-7">
-          <strong class="text-3xl text-[#d8ac59] sm:text-4xl">{{ displayedStats[index] }}{{ stat.suffix }}</strong>
-          <p class="mt-2 text-sm leading-6 text-slate-300">{{ stat.label }}</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="home-section mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:grid-cols-2 lg:px-8">
-      <div class="glass-card rounded-[2rem] border border-white/10 bg-slate-950/35 p-8">
-        <p class="text-xs uppercase tracking-[.35em] text-[#d8ac59]">{{ t('home.internationalPresence') }}</p>
-        <h2 class="premium-title mt-3">{{ t('home.ecosystemTitle') }}</h2>
-        <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">{{ t('home.ecosystemBody') }}</p>
-        <div class="mt-6 grid gap-3 sm:grid-cols-3">
-          <p v-for="network in globalNetworks" :key="network" class="rounded-full border border-white/15 px-4 py-2 text-sm">{{ network }}</p>
+        <div class="hero__actions">
+          <NuxtLink to="/daftar" class="button button--light">{{ locale === 'id' ? 'Daftar Peserta' : 'Register Participants' }}</NuxtLink>
+          <a href="#kegiatan" class="text-link">{{ locale === 'id' ? 'Lihat Kegiatan' : 'Explore Activities' }} <span aria-hidden="true">↓</span></a>
         </div>
       </div>
+      <p class="hero__index" aria-hidden="true">01 / 25.10.26</p>
     </section>
 
-    <section class="home-section why-indonesia-section mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div class="why-heading">
+    <section id="tentang" class="intro band">
+      <div class="content-grid">
+        <p class="section-number">01 <span>/ {{ locale === 'id' ? 'Tentang Acara' : 'About' }}</span></p>
         <div>
-          <p class="text-xs font-bold uppercase tracking-[.35em] text-[#d8ac59]">{{ t('home.whyIndonesia') }}</p>
-          <h2 class="premium-title mt-4 max-w-3xl leading-tight text-[#f8f6f1]">{{ t('home.whyTitle') }}</h2>
+          <h2>{{ locale === 'id' ? 'Satu hari untuk bergerak, bertemu, dan berbagi.' : 'A day to move, meet, and share.' }}</h2>
+          <p class="lead-copy">{{ locale === 'id' ? 'Dalam rangka Hari Santri, MWC NU Tarumajaya mengajak keluarga dan warga untuk menikmati Sepeda Sehat dan Jalan Sehat Keluarga. Rayakan kebersamaan, dukung bazar lokal, dan ikuti semangat belajar serta kepedulian yang diwariskan para santri.' : 'For Santri Day, MWC NU Tarumajaya welcomes families and neighbors to join a healthy cycling event and family walk. Celebrate together, support local vendors, and carry forward the spirit of learning and care.' }}</p>
+          <div class="event-facts">
+            <div><span>{{ locale === 'id' ? 'Penyelenggara' : 'Organizer' }}</span><strong>MWC NU Tarumajaya</strong></div>
+            <div><span>{{ locale === 'id' ? 'Tanggal' : 'Date' }}</span><strong>{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</strong></div>
+            <div><span>{{ locale === 'id' ? 'Lokasi' : 'Venue' }}</span><strong>Summarecon Crown Gading, Tarumajaya, Bekasi</strong></div>
+            <div><span>{{ locale === 'id' ? 'Waktu & titik kumpul' : 'Time & gathering point' }}</span><strong>{{ locale === 'id' ? 'Diumumkan panitia' : 'To be announced' }}</strong></div>
+          </div>
         </div>
-        <span class="why-coordinate" aria-hidden="true">06°12′S · 106°49′E</span>
-      </div>
-
-      <figure class="why-visual">
-        <div class="why-image-wrap">
-          <img src="/images/why-indonesia.png" :alt="t('home.whyAlt')" class="why-image" width="1672" height="941" loading="lazy">
-          <div class="why-image-overlay" aria-hidden="true" />
-          <span class="why-visual-label">{{ t('home.gateway') }}</span>
-        </div>
-
-        <figcaption class="why-content-card">
-          <p class="why-card-kicker">{{ t('home.strategicHome') }}</p>
-          <h3 class="mt-3 text-2xl font-black text-[#f8f6f1] sm:text-3xl">{{ t('home.scale') }}</h3>
-          <p class="mt-4 leading-7 text-[#cbd2dc]">{{ t('home.indonesiaBody') }}</p>
-          <div class="why-proof-grid">
-            <span><strong>283M+</strong> {{ t('home.domesticMarket') }}</span>
-            <span><strong>G20</strong> {{ t('home.globalPower') }}</span>
-            <span><strong>ASEAN</strong> {{ t('home.regionalGateway') }}</span>
-          </div>
-          <NuxtLink to="/about" class="why-link">{{ t('home.discover') }} <span aria-hidden="true">→</span></NuxtLink>
-        </figcaption>
-      </figure>
-    </section>
-
-    <section class="home-section mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div class="grid gap-6 lg:grid-cols-2">
-        <article class="glass-card rounded-[2rem] p-8">
-          <p class="text-xs uppercase tracking-[.35em] text-[#d8ac59]">{{ t('home.eventExperience') }}</p>
-          <h3 class="mt-3 text-3xl font-black">{{ t('home.agenda') }}</h3>
-          <div class="mt-6 grid gap-3 sm:grid-cols-2">
-            <p v-for="item in experiences" :key="item" class="rounded-2xl border border-white/10 px-4 py-3 text-sm">{{ item }}</p>
-          </div>
-        </article>
-
-        <article class="glass-card rounded-[2rem] p-8">
-          <p class="text-xs uppercase tracking-[.35em] text-[#d8ac59]">{{ t('home.programSnapshot') }}</p>
-          <h3 class="mt-3 text-3xl font-black">{{ t('home.fourDays') }}</h3>
-          <div class="mt-6 space-y-4">
-            <NuxtLink to="/program" class="block rounded-xl border border-white/15 px-4 py-3 transition hover:border-[#d8ac59]/60 hover:text-[#e6c477]">{{ t('home.exploreProgram') }}</NuxtLink>
-            <NuxtLink to="/business-matching" class="block rounded-xl border border-white/15 px-4 py-3 transition hover:border-[#d8ac59]/60 hover:text-[#e6c477]">{{ t('home.reviewMatching') }}</NuxtLink>
-            <NuxtLink to="/deal-room" class="block rounded-xl border border-white/15 px-4 py-3 transition hover:border-[#d8ac59]/60 hover:text-[#e6c477]">{{ t('home.seeDealRoom') }}</NuxtLink>
-          </div>
-        </article>
       </div>
     </section>
 
-    <section class="home-section mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-      <div class="rounded-[2.5rem] border border-[#d8ac59]/20 bg-[#d8ac59]/10 p-8 text-center sm:p-12">
-        <p class="text-sm uppercase tracking-[.35em] text-[#f8f6f1]">IWBIF 2026</p>
-        <h2 class="mt-4 text-4xl font-black">{{ t('home.connect') }}</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-slate-300">{{ t('home.closing') }}</p>
-        <div class="mt-7 flex flex-wrap justify-center gap-3">
-          <NuxtLink :to="homeCtaTo" class="rounded-full bg-[#e6c477] px-6 py-3 text-lg font-semibold text-[#04152d] sm:text-xl">{{ homeCtaLabel }}</NuxtLink>
-          <NuxtLink to="/participants" class="rounded-full border border-white/20 px-6 py-3 font-semibold">{{ t('home.exploreParticipants') }}</NuxtLink>
-          <NuxtLink to="/deal-room" class="rounded-full border border-white/20 px-6 py-3 font-semibold">{{ t('home.openDealRoom') }}</NuxtLink>
+    <section id="kegiatan" class="activities band band--paper">
+      <div class="section-heading">
+        <p class="section-number">02 <span>/ {{ locale === 'id' ? 'Kegiatan' : 'Activities' }}</span></p>
+        <h2>{{ locale === 'id' ? 'Pilih langkahmu untuk Hari Santri.' : 'Choose your way to celebrate.' }}</h2>
+      </div>
+      <div class="activity-grid">
+        <article class="activity activity--cycle">
+          <p class="activity__label">01 / CYCLING</p>
+          <h3>{{ locale === 'id' ? 'Sepeda Sehat' : 'Healthy Cycling' }}</h3>
+          <p>{{ locale === 'id' ? 'Kayuh semangat kebersamaan menyusuri rute yang ditetapkan panitia. Ketentuan peserta, keselamatan, dan paket resmi akan ditampilkan setelah dikonfirmasi.' : 'Ride together along the route approved by the organizers. Eligibility, safety guidance, and official package details will appear once confirmed.' }}</p>
+          <a href="#rute" class="text-link">{{ locale === 'id' ? 'Kenali rute' : 'View route' }} <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="activity activity--walk">
+          <p class="activity__label">02 / FAMILY WALK</p>
+          <h3>{{ locale === 'id' ? 'Jalan Sehat Keluarga' : 'Family Walk' }}</h3>
+          <p>{{ locale === 'id' ? 'Ajak orang tua, anak, dan sahabat berjalan bersama. Setiap anggota keluarga didaftarkan dengan data dan ukuran kaos masing-masing.' : 'Bring parents, children, and friends for a relaxed walk. Register each family member with their own details and shirt size.' }}</p>
+          <a href="#rute" class="text-link">{{ locale === 'id' ? 'Kenali rute' : 'View route' }} <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+
+      <div class="package-heading">
+        <div>
+          <p class="section-number">{{ locale === 'id' ? 'PAKET PESERTA' : 'PARTICIPANT PACKAGES' }}</p>
+          <h3>{{ locale === 'id' ? 'Harga dan kuota resmi' : 'Official prices and availability' }}</h3>
+        </div>
+        <p>{{ locale === 'id' ? 'Harga, manfaat, periode, dan kuota ditentukan panitia dan dimuat dari server.' : 'Prices, inclusions, sales period, and capacity are managed by the organizers and loaded from the server.' }}</p>
+      </div>
+      <p v-if="packagesLoading" class="package-state">{{ locale === 'id' ? 'Memuat paket…' : 'Loading packages…' }}</p>
+      <div v-else-if="products.length" class="package-list">
+        <article v-for="item in products" :key="item.id" class="package-row">
+          <div><h4>{{ item.name }}</h4><p>{{ item.description || (locale === 'id' ? 'Rincian paket mengikuti pengumuman resmi panitia.' : 'Package details will follow the organizers’ official announcement.') }}</p></div>
+          <div class="package-row__price">{{ formatPrice(Number(item.price ?? item.amount ?? 0), item.currency) }}</div>
+          <NuxtLink to="/daftar" class="button button--dark">{{ locale === 'id' ? 'Pilih Paket' : 'Select Package' }}</NuxtLink>
+        </article>
+      </div>
+      <div v-else class="package-state">
+        <p>{{ locale === 'id' ? 'Paket resmi, harga, isi, dan kuota akan diumumkan panitia.' : 'Official packages, prices, inclusions, and capacity will be announced by the organizers.' }}</p>
+        <NuxtLink to="/daftar" class="text-link">{{ locale === 'id' ? 'Lihat formulir pendaftaran' : 'Open registration' }} <span aria-hidden="true">→</span></NuxtLink>
+      </div>
+      <p class="small-note">{{ locale === 'id' ? 'Setiap peserta memilih ukuran kaos secara terpisah. Harga yang berlaku adalah harga pada ringkasan pesanan sebelum pembayaran.' : 'Each participant selects a shirt size separately. The price shown in the server-side order summary is final.' }}</p>
+    </section>
+
+    <section id="rute" class="routes band">
+      <div class="section-heading">
+        <p class="section-number">03 <span>/ {{ locale === 'id' ? 'Rute' : 'Routes' }}</span></p>
+        <h2>{{ locale === 'id' ? 'Kenali rute sebelum memulai.' : 'Know your route before setting out.' }}</h2>
+      </div>
+      <div class="route-grid">
+        <article><span>CYCLING</span><h3>{{ locale === 'id' ? 'Sepeda Sehat' : 'Healthy Cycling' }}</h3><p>{{ locale === 'id' ? 'Peta, jarak, titik start/finish, dan titik bantuan ditampilkan setelah disahkan panitia.' : 'Map, distance, start/finish, and assistance points will be published after organizer approval.' }}</p></article>
+        <article><span>FAMILY WALK</span><h3>{{ locale === 'id' ? 'Jalan Sehat Keluarga' : 'Family Walk' }}</h3><p>{{ locale === 'id' ? 'Periksa versi rute terbaru sebelum acara. Anak berjalan bersama orang tua atau wali.' : 'Check the latest route version before the event. Children should stay with a parent or guardian.' }}</p></article>
+      </div>
+      <p class="safety-note">{{ locale === 'id' ? 'Ikuti arahan petugas dan rambu. Bantuan medis tersedia melalui petugas di lapangan.' : 'Follow marshal instructions and route signs. Ask an on-site marshal for medical assistance.' }}</p>
+    </section>
+
+    <section id="agenda" class="agenda band band--paper">
+      <div class="content-grid">
+        <p class="section-number">04 <span>/ {{ locale === 'id' ? 'Agenda' : 'Agenda' }}</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Satu hari, banyak momen bersama.' : 'One day, many moments together.' }}</h2>
+          <p class="small-note">{{ locale === 'id' ? 'Daftar ini adalah susunan segmen CMS, bukan jadwal jam yang telah ditetapkan. Jam dan lokasi diterbitkan setelah terkonfirmasi.' : 'These are CMS program segments, not confirmed times. Times and locations will be published when confirmed.' }}</p>
+          <ol class="agenda-list">
+            <li v-for="(item, index) in agendaItems" :key="item.id"><span>0{{ index + 1 }}</span><strong>{{ item.id }}</strong><p>{{ item.copy }}</p><em>{{ locale === 'id' ? 'Waktu diumumkan' : 'Time to be announced' }}</em></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="pengisi-acara" class="performers band">
+      <div class="section-heading">
+        <p class="section-number">05 <span>/ {{ locale === 'id' ? 'Pengisi Acara' : 'Performers' }}</span></p>
+        <h2>{{ locale === 'id' ? 'Bertemu di panggung Hari Santri.' : 'Meet us at the Santri Day stage.' }}</h2>
+      </div>
+      <p class="lead-copy">{{ locale === 'id' ? 'Sholawat, pesan kebersamaan, penampilan komunitas, dan hiburan keluarga akan diumumkan setelah kehadiran pengisi acara dikonfirmasi.' : 'Sholawat, messages of togetherness, community performances, and family entertainment will be announced when confirmed.' }}</p>
+      <p class="performer-empty">{{ locale === 'id' ? 'Pengisi acara segera diumumkan.' : 'Performers will be announced soon.' }}</p>
+    </section>
+
+    <section id="hadiah" class="prizes band band--green">
+      <div class="content-grid">
+        <p class="section-number">06 <span>/ {{ locale === 'id' ? 'Hadiah' : 'Prizes' }}</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Kejutan menyenangkan sepanjang acara.' : 'A little excitement throughout the day.' }}</h2>
+          <p class="lead-copy">{{ locale === 'id' ? 'Hadiah, sponsor, jumlah, mekanisme pengundian, dan batas klaim akan ditampilkan setelah dikonfirmasi. Tiket tidak menjamin hadiah untuk setiap peserta.' : 'Prizes, sponsors, quantities, draw rules, and claim deadlines will be shown once confirmed. A ticket does not guarantee a prize.' }}</p>
+          <p class="prize-empty">{{ locale === 'id' ? 'Hadiah terkonfirmasi akan diumumkan di sini.' : 'Confirmed prizes will be listed here.' }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bazar" class="bazaar band band--paper">
+      <div class="content-grid">
+        <p class="section-number">07 <span>/ {{ locale === 'id' ? 'Bazar & Voucher' : 'Bazaar & Vouchers' }}</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Temui karya dan sajian pilihan.' : 'Discover local food, books, and makers.' }}</h2>
+          <p class="lead-copy">{{ locale === 'id' ? 'Jelajahi kuliner halal, buku Islam, produk pesantren, busana muslim, dan produk keluarga dari tenant yang dikurasi panitia.' : 'Explore halal food, Islamic books, pesantren products, modest wear, and family goods from vendors selected by the organizers.' }}</p>
+          <p class="small-note">{{ locale === 'id' ? 'Voucher hanya berlaku jika tercantum pada paket atau program resmi. Nilai, tenant penerima, dan masa berlaku diumumkan panitia.' : 'Vouchers apply only when included in an official package or program. Value, participating vendors, and expiry are set by the organizers.' }}</p>
+          <NuxtLink to="/daftar-tenant" class="button button--dark">{{ locale === 'id' ? 'Daftar Tenant Bazar' : 'Apply as a Bazaar Tenant' }}</NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <section id="sejarah" class="history band">
+      <div class="content-grid">
+        <p class="section-number">08 <span>/ {{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Semangat santri dalam perjalanan bangsa.' : 'The santri spirit in Indonesia’s story.' }}</h2>
+          <p>{{ locale === 'id' ? 'Hari Santri diperingati setiap 22 Oktober, berkaitan dengan Resolusi Jihad pada 22 Oktober 1945. Pemerintah menetapkannya melalui Keputusan Presiden Nomor 22 Tahun 2015.' : 'Santri Day is observed on 22 October, connected to the 22 October 1945 Resolution of Jihad. The government established the commemoration through Presidential Decree No. 22 of 2015.' }}</p>
+          <p>{{ locale === 'id' ? 'Perlawanan rakyat Surabaya pada 10 November 1945 dikenang sebagai peristiwa besar dan diperingati sebagai Hari Pahlawan. Kisah perjuangan mengingatkan bahwa kemerdekaan dijaga bersama oleh banyak unsur masyarakat.' : 'The people’s resistance in Surabaya on 10 November 1945 is commemorated as Heroes’ Day. These histories remind us that independence was defended by many parts of society.' }}</p>
+          <p>{{ locale === 'id' ? 'Semangat santri hidup dalam belajar, menjaga persaudaraan, peduli sesama, dan berbuat baik bagi lingkungan.' : 'The santri spirit lives on through learning, solidarity, care for others, and service to the community.' }}</p>
+          <div class="history__sources"><a href="https://cdn.kemenag.go.id/storage/archives/1665973491.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Kementerian Agama' : 'Ministry of Religious Affairs' }}</a><a href="https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Pedoman Hari Pahlawan' : 'Heroes’ Day guidance' }}</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq band band--paper">
+      <div class="content-grid">
+        <p class="section-number">09 <span>/ FAQ</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Yang sering ditanyakan.' : 'Frequently asked questions.' }}</h2>
+          <details v-for="item in faqItems" :key="item.question" class="faq-item"><summary>{{ item.question }}</summary><p>{{ item.answer }}</p></details>
+          <NuxtLink to="/daftar" class="button button--dark">{{ locale === 'id' ? 'Daftar Peserta' : 'Register Participants' }}</NuxtLink>
         </div>
       </div>
     </section>
@@ -121,360 +170,161 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import englishHero from '~/assets/images/hero_white_english.png';
-import englishHeroWebp from '~/assets/images/hero_white_english.webp';
-import englishHeroWebpSmall from '~/assets/images/hero_white_english_960.webp';
-import chineseHero from '~/assets/images/hero_white_china.png';
-import chineseHeroWebp from '~/assets/images/hero_white_china.webp';
-import chineseHeroWebpSmall from '~/assets/images/hero_white_china_960.webp';
+import type { StoreProduct } from '~/composables/useStore';
 
-const { t, tm, rt, locale } = useI18n();
-const runtimeConfig = useRuntimeConfig();
-const heroImage = computed(() => locale.value === 'zh-CN' ? chineseHero : englishHero);
-const socialImageUrl = computed(() => new URL(heroImage.value, runtimeConfig.public.canonicalSiteUrl).href);
-const heroWebpImage = computed(() => locale.value === 'zh-CN' ? chineseHeroWebp : englishHeroWebp);
-const heroWebpImageSmall = computed(() => locale.value === 'zh-CN' ? chineseHeroWebpSmall : englishHeroWebpSmall);
-const heroWebpSrcset = computed(() => `${heroWebpImageSmall.value} 960w, ${heroWebpImage.value} 1672w`);
-const heroObjectPosition = computed(() => locale.value === 'zh-CN' ? 'center center' : 'center 36%');
-const heroFallbackImage = computed(() => englishHero);
-const onHeroImageError = (event: Event) => {
-  const target = event.target as HTMLImageElement | null;
-  if (!target) return;
-  if (target.src !== new URL(heroFallbackImage.value, window.location.origin).toString()) {
-    target.src = heroFallbackImage.value;
-  }
-};
-const authStore = useAuthStore();
-const { isAuthenticated } = storeToRefs(authStore);
-const registrationFlow = useRegistrationFlow();
-const homeCtaTo = computed(() => (isAuthenticated.value ? registrationFlow.ctaTo.value : '/auth/register'));
-const homeCtaLabel = computed(() => {
-  if (!isAuthenticated.value) return t('actions.registerNow');
-  if (registrationFlow.primaryStatus.value === 'not_selected') return locale.value === 'zh-CN' ? '立即预订席位' : 'Secure Your Seats';
+const { locale } = useI18n();
+const runtime = useRuntimeConfig();
+const products = ref<StoreProduct[]>([]);
+const packagesLoading = ref(true);
+const eventService = useEvent();
+const store = useStore();
 
-  if (['selected', 'payment_pending'].includes(registrationFlow.primaryStatus.value)) {
-    if (locale.value === 'zh-CN') return registrationFlow.primaryType.value === 'exhibitor' ? '以参展商身份继续' : '以代表身份继续';
-    return `Continue as ${registrationFlow.primaryType.value === 'exhibitor' ? 'Exhibitor' : 'Delegate'}`;
-  }
+const agendaItems = computed(() => locale.value === 'id' ? [
+  { id: 'Kedatangan & registrasi', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
+  { id: 'Pembukaan', copy: 'Kita awali perayaan Hari Santri dengan sambutan dan doa bersama.' },
+  { id: 'Pelepasan kegiatan', copy: 'Bersiap di titik start dan ikuti arahan petugas untuk kegiatan pilihanmu.' },
+  { id: 'Bazar & aktivitas keluarga', copy: 'Singgah di stan kuliner, buku Islam, dan produk halal pilihan.' },
+  { id: 'Panggung acara', copy: 'Nikmati penampilan dari pengisi acara yang telah diumumkan.' },
+  { id: 'Doorprize & penutupan', copy: 'Simak pengumuman hadiah dan informasi penutup dari panitia.' }
+] : [
+  { id: 'Arrival & registration', copy: 'Arrive early, prepare your digital ticket, and follow signs to the event area.' },
+  { id: 'Opening', copy: 'We begin the Santri Day celebration with welcomes and prayers.' },
+  { id: 'Activity starts', copy: 'Gather at the start point and follow marshal guidance for your activity.' },
+  { id: 'Bazaar & family activities', copy: 'Visit halal food, Islamic books, and selected local products.' },
+  { id: 'Stage program', copy: 'Enjoy performances from announced guests and performers.' },
+  { id: 'Prize draw & closing', copy: 'Follow the official prize announcement and closing information.' }
+]);
+const faqItems = computed(() => locale.value === 'id' ? [
+  { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 25 Oktober 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
+  { question: 'Dapatkah saya mendaftarkan beberapa anggota keluarga?', answer: 'Ya, mengikuti batas peserta paket. Isi data dan ukuran kaos tiap anggota secara terpisah.' },
+  { question: 'Bagaimana memilih ukuran kaos?', answer: 'Pilih ukuran pada formulir setiap peserta. Perubahan setelah pembayaran mengikuti tenggat dan stok panitia.' },
+  { question: 'Bagaimana cara membayar?', answer: 'Pilih Lanjutkan Pembayaran untuk diarahkan ke Portal Payment. Status lunas tampil setelah konfirmasi sistem diterima.' },
+  { question: 'Kapan tiket terbit?', answer: 'Tiket digital setiap peserta tersedia setelah pembayaran terverifikasi.' },
+  { question: 'Bagaimana mendaftar bazar?', answer: 'Kirim pengajuan melalui halaman Daftar Tenant Bazar. Pengajuan tidak otomatis menjamin stan.' }
+] : [
+  { question: 'When and where is the event?', answer: 'Sunday, 25 October 2026 at Summarecon Crown Gading, Tarumajaya, Bekasi. The organizers will announce the time and gathering point.' },
+  { question: 'Can I register several family members?', answer: 'Yes, within the package limit. Enter each member’s details and shirt size separately.' },
+  { question: 'How do I choose a shirt size?', answer: 'Choose a size for each participant. Post-payment changes depend on the organizer’s deadline and stock.' },
+  { question: 'How do I pay?', answer: 'Continue to Payment to open the separate Payment Portal. Your status changes to paid only after system confirmation.' },
+  { question: 'When are tickets issued?', answer: 'Each participant’s digital ticket is available after payment is verified.' },
+  { question: 'How do I apply for a bazaar stall?', answer: 'Submit an application through Apply as a Bazaar Tenant. An application does not guarantee a stall.' }
+]);
+const formatPrice = (price: number, currency: string) => new Intl.NumberFormat(locale.value === 'id' ? 'id-ID' : 'en-US', {
+  style: 'currency', currency, maximumFractionDigits: 0
+}).format(price);
 
-  if (locale.value !== 'zh-CN') return registrationFlow.ctaLabel.value;
-  const labels: Record<string,string> = {'Complete Profile':'完善资料','Complete Payment':'完成付款','Open Dashboard':'打开用户中心','View Ticket':'查看门票'};
-  return labels[registrationFlow.ctaLabel.value] || registrationFlow.ctaLabel.value;
-});
-
-onMounted(() => {
-  if (isAuthenticated.value) {
-    registrationFlow.loadFlow();
+onMounted(async () => {
+  try {
+    const response = await eventService.getEvents(1, 100);
+    const event = response.data.find(item => item.slug === runtime.public.eventSlug);
+    if (event) products.value = (await store.getProducts(event.id)).data;
+  } catch {
+    products.value = [];
+  } finally {
+    packagesLoading.value = false;
   }
 });
 
 useSeoMeta({
-  title: 'IWBIF 2026 | International Women Business & Investment Forum',
-  description: 'Join IWBIF 2026 in Jakarta for global collaboration, women-led investment and market access, and curated business matching.',
-  ogTitle: 'International Women Business & Investment Forum 2026',
-  ogDescription: 'Empowering Women Entrepreneurs Through Finance, Global Collaboration, and Digital Transformation.',
-  ogType: 'website',
-  ogImage: () => socialImageUrl.value,
-  ogImageType: 'image/png',
-  ogImageAlt: () => t('home.heroAlt'),
-  twitterCard: 'summary_large_image',
-  twitterTitle: 'International Women Business & Investment Forum 2026',
-  twitterDescription: 'Empowering Women Entrepreneurs Through Finance, Global Collaboration, and Digital Transformation.',
-  twitterImage: () => socialImageUrl.value,
-  twitterImageAlt: () => t('home.heroAlt')
-})
-
-useHead(() => ({
-  link: [
-    {
-      rel: 'preload',
-      as: 'image',
-      href: heroWebpImage.value,
-      type: 'image/webp',
-      fetchpriority: 'high'
-    }
-  ]
-}));
-
-const statValues = [{ value: 500, suffix: '+' }, { value: 9, suffix: '+' }, { value: 6, suffix: '' }, { value: 3, suffix: '' }, { value: 1, suffix: '' }, { value: 4, suffix: '' }];
-const featuredStats = computed(() => {
-  const labels = tm('home.stats') as unknown[];
-  return statValues.map((stat, index) => ({ ...stat, label: labels[index] ? rt(labels[index]) : '' }));
+  title: () => locale.value === 'id'
+    ? 'Hari Santri 2026 | Sepeda Sehat & Jalan Sehat Keluarga'
+    : 'Hari Santri 2026 | Healthy Cycling & Family Walk',
+  description: () => locale.value === 'id'
+    ? 'Ikuti Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026 pada 25 Oktober di Summarecon Crown Gading. Lihat paket, rute, agenda, bazar, dan daftar peserta.'
+    : 'Join the Hari Santri 2026 healthy cycling and family walk on 25 October at Summarecon Crown Gading. Explore packages, routes, agenda, bazaar, and registration.'
 });
-
-const displayedStats = ref(statValues.map(() => 0));
-const hasAnimatedStats = ref(false);
-const durationMs = 1200;
-
-const globalNetworks = [
-  'AWEN',
-  'BRICS WBA',
-  'APEC BEST',
-  'International Chambers of Commerce',
-  'Global Business Organizations'
-]
-
-const experiences = computed(() => (tm('home.experiences') as unknown[]).map((item) => rt(item)));
-
-const animateStat = (index: number, to: number) => {
-  const start = performance.now();
-  const from = 0;
-
-  const step = (time: number) => {
-    const elapsed = time - start;
-    const progress = Math.min(elapsed / durationMs, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.round(from + (to - from) * eased);
-    displayedStats.value[index] = current;
-
-    if (progress < 1) {
-      requestAnimationFrame(step);
-    }
-  };
-
-  requestAnimationFrame(step);
-}
-
-const handleStatsSection = (entries: IntersectionObserverEntry[]) => {
-  if (!hasAnimatedStats.value && entries[0]?.isIntersecting) {
-    hasAnimatedStats.value = true;
-    featuredStats.value.forEach((stat, index) => animateStat(index, stat.value));
-  }
-}
-
-const observeStats = () => {
-  const sections = document.querySelectorAll('.home-section');
-  const statsSection = sections[1];
-  if (!statsSection || hasAnimatedStats.value) return;
-
-  const observer = new IntersectionObserver(handleStatsSection, {
-    root: null,
-    threshold: 0.35,
-  });
-  observer.observe(statsSection);
-}
-
-onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    displayedStats.value = statValues.map((stat) => stat.value);
-    return;
-  }
-
-  observeStats();
-})
 </script>
 
 <style scoped>
-.hero-stage { position: relative; margin-inline: auto; max-width: 1600px; padding: clamp(1rem, 2.5vw, 2.5rem); }
-  .hero-frame { position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 1672 / 941; border: 1px solid rgba(216, 172, 89, .22); border-radius: clamp(1.25rem, 3vw, 3rem); background: #04152d; box-shadow: 0 45px 120px rgba(2, 10, 24, .68), 0 0 80px rgba(224, 177, 98, .08); }
-.hero-frame picture { display: block; width: 100%; height: 100%; }
-.hero-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center center; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
-.hero-frame:hover .hero-image { transform: scale(1.012); }
-.hero-vignette { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(2, 10, 24, .08), transparent 22%, transparent 78%, rgba(2, 10, 24, .08)); box-shadow: inset 0 0 55px rgba(1, 8, 20, .18); pointer-events: none; }
-  .hero-live-dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--premium-gold); box-shadow: 0 0 0 4px rgba(232, 198, 125, .14), 0 0 18px var(--premium-gold); }
-.hero-action-dock { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; margin: clamp(.85rem, 1.5vw, 1.25rem) clamp(.5rem, 2.5vw, 2.5rem) 0; border: 1px solid rgba(216, 172, 89, .24); border-radius: 1.35rem; background: linear-gradient(135deg, rgba(7, 29, 58, .96), rgba(4, 21, 45, .98)); padding: 1rem; box-shadow: 0 22px 55px rgba(2, 10, 24, .42), inset 0 1px rgba(255, 255, 255, .04); }
-.hero-action-status { position:absolute; left:1.25rem; top:50%; display:flex; align-items:center; gap:.7rem; transform:translateY(-50%); color:#cbd2dc; font-size:.68rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; white-space:nowrap; }
-  .hero-action-links { display:flex; justify-content:center; }
-.hero-button { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; border-radius: 999px; padding: .85rem 1.25rem; font-size: .82rem; font-weight: 700; white-space: nowrap; }
-.hero-button:hover { transform: translateY(-2px); }
-  .hero-button-primary { background: linear-gradient(135deg, #e6c477, #d8ac59); color: #04152d; box-shadow: 0 12px 35px rgba(216, 172, 89, .3); }
-  .hero-button-primary-large { font-size: 1.12rem; min-height: 3.6rem; min-width: 0; }
-  .hero-button-secondary { border: 1px solid rgba(255, 255, 255, .25); background: rgba(11, 36, 71, .6); color: #f8f6f1; backdrop-filter: blur(12px); }
-  .hero-button-ghost { border: 1px solid rgba(232, 198, 125, .45); background: rgba(4, 21, 45, .45); color: #d8ac59; }
-
-.premium-title {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  font-size: clamp(2.3rem, 4vw, 4rem);
-  line-height: 0.96;
-  letter-spacing: -0.05em;
-  font-weight: 700;
-  text-wrap: balance;
-  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+.portal-home { color: #17352c; background: #f5f5ef; }
+.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: center; overflow: hidden; background: #163a30; color: #fff; }
+.hero__image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.hero__shade { position: absolute; z-index: -1; inset: 0; background: rgba(11, 32, 26, .48); }
+.hero__content { width: min(100%, 1280px); margin-inline: auto; padding: 5rem clamp(1.25rem, 6vw, 6rem) 6.5rem; }
+.eyebrow,.section-number,.activity__label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.hero h1 { max-width: 11ch; margin-top: 1.2rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3.2rem, 8vw, 7.25rem); font-weight: 700; line-height: .94; }
+.hero__subtitle { margin-top: 1.25rem; font-size: clamp(1.2rem, 2.4vw, 2rem); font-weight: 700; }
+.hero__lead { max-width: 42rem; margin-top: .8rem; color: #f2f3e9; font-size: 1rem; line-height: 1.7; }
+.hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.7rem; color: #f2f3e9; font-size: .84rem; }
+.hero__facts span + span::before { content: '·'; margin-inline: 1.2rem; color: #e7c06a; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
+.button { display: inline-flex; min-height: 2.9rem; align-items: center; justify-content: center; padding: .75rem 1.1rem; font-size: .88rem; font-weight: 800; transition: background .18s ease, color .18s ease; }
+.button--light { background: #f4d578; color: #17352c; }
+.button--light:hover { background: #ffe69b; }
+.button--dark { background: #17352c; color: #fff; }
+.button--dark:hover { background: #285442; }
+.text-link { display: inline-flex; align-items: center; gap: .5rem; color: inherit; font-size: .88rem; font-weight: 800; text-decoration: underline; text-underline-offset: .25rem; }
+.hero__index { position: absolute; right: clamp(1rem, 4vw, 4rem); bottom: 1.4rem; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
+.band { padding: clamp(3.5rem, 7vw, 7rem) max(1.25rem, calc((100vw - 1200px) / 2)); }
+.band--paper { background: #fff; }
+.band--green { background: #173f32; color: #fff; }
+.content-grid { display: grid; grid-template-columns: minmax(9rem, .35fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); max-width: 1200px; margin: 0 auto; }
+.section-heading { max-width: 1200px; margin: 0 auto 2.5rem; }
+.section-number { color: #2d7258; }
+.section-number span { color: #738278; }
+h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
+.band h2 { max-width: 18ch; margin-top: .8rem; font-size: clamp(2.1rem, 4.3vw, 4rem); line-height: 1.08; }
+.lead-copy { max-width: 58rem; margin-top: 1.3rem; color: #52665b; font-size: 1.08rem; line-height: 1.85; }
+.event-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 2rem; margin-top: 2rem; border-top: 1px solid #d9e0d8; padding-top: 1.4rem; }
+.event-facts div { display: grid; gap: .3rem; }
+.event-facts span,.package-heading p,.small-note { color: #697a70; font-size: .82rem; line-height: 1.65; }
+.event-facts strong { font-size: .9rem; line-height: 1.5; }
+.section-heading h2 { max-width: 22ch; margin-top: .8rem; font-size: clamp(2.1rem, 4.3vw, 3.5rem); line-height: 1.08; }
+.activity-grid,.route-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1200px; margin: 0 auto; border-top: 1px solid #d9e0d8; }
+.activity { display: flex; min-height: 18rem; flex-direction: column; align-items: flex-start; padding: 1.8rem; }
+.activity + .activity { border-left: 1px solid #d9e0d8; }
+.activity__label { color: #8a6b20; }
+.activity h3 { margin-top: 1.1rem; font-size: 2rem; }
+.activity p:not(.activity__label) { max-width: 34rem; margin: .8rem 0 1.5rem; color: #596d61; line-height: 1.7; }
+.activity .text-link { margin-top: auto; }
+.package-heading { display: flex; max-width: 1200px; align-items: end; justify-content: space-between; gap: 2rem; margin: 3rem auto 1rem; }
+.package-heading h3 { margin-top: .6rem; font-size: 1.8rem; }
+.package-heading p { max-width: 26rem; }
+.package-list { max-width: 1200px; margin: 0 auto; border-top: 1px solid #d9e0d8; }
+.package-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 1.5rem; border-bottom: 1px solid #d9e0d8; padding: 1.25rem 0; }
+.package-row h4 { font-size: 1.35rem; }
+.package-row p { margin-top: .4rem; color: #697a70; font-size: .84rem; }
+.package-row__price { font-weight: 800; white-space: nowrap; }
+.package-state { max-width: 1200px; margin: 0 auto; border-block: 1px solid #d9e0d8; padding: 1.4rem 0; color: #596d61; }
+.package-state .text-link { margin-top: .8rem; }
+.small-note { max-width: 1200px; margin: 1rem auto 0; }
+.route-grid article { padding: 1.5rem 1.8rem; }
+.route-grid article + article { border-left: 1px solid #d9e0d8; }
+.route-grid span { color: #8a6b20; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
+.route-grid h3 { margin-top: .8rem; font-size: 1.8rem; }
+.route-grid p,.history p { margin-top: .8rem; color: #596d61; line-height: 1.75; }
+.safety-note { max-width: 1200px; margin: 1.5rem auto 0; border-left: 3px solid #d4a938; padding-left: 1rem; color: #596d61; font-size: .9rem; }
+.agenda-list { margin-top: 1.5rem; border-top: 1px solid #d9e0d8; list-style: none; }
+.agenda-list li { display: grid; grid-template-columns: 2rem minmax(10rem, .7fr) minmax(0, 1.2fr) auto; align-items: baseline; gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
+.agenda-list li > span { color: #2d7258; font-size: .72rem; font-weight: 800; }
+.agenda-list strong { font-size: .95rem; }
+.agenda-list p { color: #596d61; font-size: .86rem; line-height: 1.55; }
+.agenda-list em { color: #8a6b20; font-size: .72rem; font-style: normal; }
+.performer-empty,.prize-empty { margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1.2rem 0; color: #738278; font-weight: 700; }
+.prizes .section-number,.prizes .section-number span { color: #dbe9dc; }
+.prizes .lead-copy { color: #dbe9dc; }
+.prizes .prize-empty { border-color: rgb(255 255 255 / 24%); color: #e6d18b; }
+.history__sources { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.4rem; }
+.history__sources a { color: #2d7258; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
+.faq-item { border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
+.faq-item:first-of-type { margin-top: 1.2rem; border-top: 1px solid #d9e0d8; }
+.faq-item summary { cursor: pointer; font-size: .98rem; font-weight: 800; }
+.faq-item p { margin-top: .75rem; color: #596d61; line-height: 1.7; }
+.faq .button { margin-top: 1.8rem; }
+@media (max-width: 760px) {
+  .hero { min-height: 68svh; }
+  .hero__content { padding-top: 4.5rem; padding-bottom: 5rem; }
+  .hero__facts { display: grid; gap: .45rem; }
+  .hero__facts span + span::before { content: none; }
+  .content-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .activity-grid,.route-grid { grid-template-columns: 1fr; }
+  .activity + .activity,.route-grid article + article { border-left: 0; border-top: 1px solid #d9e0d8; }
+  .package-heading { display: block; }
+  .package-heading p { margin-top: .6rem; }
+  .package-row { grid-template-columns: minmax(0, 1fr) auto; gap: .8rem; }
+  .package-row .button { grid-column: 1 / -1; }
+  .agenda-list li { grid-template-columns: 2rem minmax(0, 1fr); gap: .4rem .8rem; }
+  .agenda-list p,.agenda-list em { grid-column: 2; }
 }
-
-.title-highlight {
-  position: relative;
-  display: inline-block;
-  color: #e6c477;
-  text-shadow: 0 0 24px rgba(230, 196, 119, 0.18);
-}
-
-.title-highlight::after {
-  content: "";
-  position: absolute;
-  left: 0.05em;
-  right: 0.1em;
-  bottom: -0.08em;
-  height: 0.12em;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(230, 196, 119, 0.18), rgba(230, 196, 119, 0.54), rgba(230, 196, 119, 0.18));
-  filter: blur(0.08em);
-  opacity: 0.85;
-}
-
-.featured-stat-card {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(4, 21, 45, 0.9), rgba(5, 18, 36, 0.96));
-  border: 1px solid rgba(216, 172, 89, 0.12);
-  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
-}
-
-.featured-stat-card::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(230, 196, 119, 0.7), transparent);
-  opacity: 0.8;
-}
-
-.featured-stat-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(230, 196, 119, 0.28);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04), 0 18px 40px rgba(2, 10, 24, 0.34);
-}
-
-.featured-stat-card strong {
-  display: block;
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  letter-spacing: -0.05em;
-}
-
-.featured-stat-card p {
-  color: rgba(203, 210, 220, 0.95);
-}
-
-@media (max-width: 767px) {
-  .hero-stage {
-    padding-inline: 0.75rem;
-  }
-
-  .hero-image {
-    object-position: center 35%;
-  }
-
-  .hero-action-dock {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.85rem;
-    padding: 1rem;
-    margin-inline: 0;
-  }
-
-  .hero-action-status {
-    position: static;
-    transform: none;
-    justify-content: center;
-    white-space: normal;
-    letter-spacing: 0.09em;
-    text-align: center;
-  }
-
-  .hero-action-links {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: stretch;
-  }
-
-  .hero-button {
-    width: 100%;
-    padding-block: 0.95rem;
-  }
-
-  .why-heading {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .why-coordinate {
-    white-space: normal;
-    letter-spacing: 0.08em;
-  }
-
-  .why-content-card {
-    position: relative;
-    width: 100%;
-    right: auto;
-    bottom: auto;
-    margin-top: 1rem;
-  }
-
-  .why-proof-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.hero-halo { position: absolute; width: 22rem; height: 22rem; border-radius: 50%; filter: blur(90px); pointer-events: none; }
-  .hero-halo-left { left: -10rem; top: 15%; background: rgba(7, 29, 58, .26); }
-  .hero-halo-right { right: -10rem; bottom: 0; background: rgba(216, 172, 89, .20); }
-
-.why-indonesia-section { position:relative; }
-.why-indonesia-section::before { content:''; position:absolute; right:4%; top:5rem; width:20rem; height:20rem; border-radius:999px; background:rgba(216,172,89,.09); filter:blur(85px); pointer-events:none; }
-.why-heading { position:relative; display:flex; align-items:end; justify-content:space-between; gap:2rem; margin-bottom:2rem; }
-.why-coordinate { color:#8290a3; font-family:monospace; font-size:.72rem; letter-spacing:.16em; white-space:nowrap; }
-.why-visual { position:relative; padding:0 0 clamp(0rem,5vw,4.5rem); }
-.why-visual::before { content:''; position:absolute; inset:-.65rem 2.5rem 3.75rem -.65rem; border:1px solid rgba(216,172,89,.26); border-radius:2.25rem; pointer-events:none; }
-.why-image-wrap { position:relative; overflow:hidden; aspect-ratio:1672/941; border:1px solid rgba(230,196,119,.2); border-radius:2rem; background:#04152d; box-shadow:0 35px 95px rgba(0,0,0,.48),0 0 55px rgba(216,172,89,.07); }
-.why-image { width:100%; height:100%; object-fit:cover; transition:transform 900ms cubic-bezier(.2,.7,.2,1); }
-.why-visual:hover .why-image { transform:scale(1.018); }
-.why-image-overlay { position:absolute; inset:0; background:linear-gradient(180deg,rgba(4,21,45,.02) 52%,rgba(2,14,33,.7) 100%),linear-gradient(90deg,rgba(4,21,45,.12),transparent 28%); box-shadow:inset 0 0 65px rgba(2,10,24,.18); pointer-events:none; }
-.why-visual-label { position:absolute; left:1.5rem; top:1.5rem; border:1px solid rgba(230,196,119,.28); border-radius:999px; background:rgba(4,21,45,.82); padding:.65rem .9rem; color:#e6c477; font-size:.65rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; backdrop-filter:blur(12px); }
-.why-content-card { position:absolute; right:clamp(1rem,3vw,3rem); bottom:0; width:min(42rem,58%); border:1px solid rgba(216,172,89,.3); border-radius:1.75rem; background:linear-gradient(135deg,rgba(7,29,58,.97),rgba(3,17,39,.98)); padding:clamp(1.5rem,3vw,2.5rem); box-shadow:0 28px 70px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.05); backdrop-filter:blur(18px); }
-.why-card-kicker { color:#d8ac59; font-size:.7rem; font-weight:800; letter-spacing:.24em; text-transform:uppercase; }
-.why-proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,.1); }
-.why-proof-grid span { color:#9eacbd; font-size:.65rem; line-height:1.5; }
-.why-proof-grid strong { display:block; color:#e6c477; font-family:'Playfair Display',serif; font-size:1.25rem; }
-.why-link { display:inline-flex; align-items:center; gap:.6rem; margin-top:1.5rem; color:#e6c477; font-size:.82rem; font-weight:700; }
-.why-link:hover { gap:.85rem; color:#f8f6f1; }
-
-@media (max-width: 767px) {
-  .hero-stage { padding: 1rem; }
-  .hero-frame { border-radius: 1.25rem; }
-  .hero-action-dock {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 0.85rem;
-    margin: 0.75rem 0 0;
-    padding: 1rem;
-  }
-  .hero-action-status {
-    position: static;
-    transform: none;
-    justify-content: center;
-    text-align: center;
-    white-space: normal;
-    letter-spacing: 0.08em;
-  }
-  .hero-action-links {
-    display: grid;
-    grid-template-columns: 1fr;
-    width: 100%;
-  }
-  .hero-button {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-  }
-  .hero-button-primary-large {
-    min-height: 3.2rem;
-    font-size: 1rem;
-  }
-  .why-heading { align-items:start; flex-direction:column; gap:1rem; }
-  .why-coordinate { display:none; }
-  .why-visual { padding-bottom:0; }
-  .why-visual::before { inset:-.4rem 1rem auto -.4rem; height:55vw; border-radius:1.4rem; }
-  .why-image-wrap { border-radius:1.25rem; }
-  .why-visual-label { left:.75rem; top:.75rem; padding:.48rem .65rem; font-size:.5rem; }
-  .why-content-card { position:relative; right:auto; bottom:auto; width:calc(100% - 1rem); margin:-1rem auto 0; border-radius:1.35rem; padding:1.35rem; }
-  .why-proof-grid { grid-template-columns:1fr; }
-  .why-proof-grid span { display:grid; grid-template-columns:4.25rem 1fr; align-items:center; }
-}
-
-@media (min-width: 768px) and (max-width: 1050px) { .hero-action-dock { align-items:flex-start; flex-direction:column; } .hero-action-links { justify-content:center; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-image, .why-image, .home-section { transition: none; animation: none; transform: none; opacity: 1; }
-}
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
 </style>

@@ -34,7 +34,7 @@ const done = ref(false);
 const eligible = computed(() => isOrderFullyPaid(props.order)
   ? props.attempts.filter(attempt => ['created', 'pending', 'failed', 'expired', 'canceled'].includes(attempt.transaction_status)) : []);
 watch(eligible, attempts => { selected.value = selected.value.filter(id => attempts.some(attempt => attempt.id === id)); });
-const copy = computed(() => locale.value === 'zh-CN' ? {
+const copy = computed(() => String(locale.value) === 'zh-CN' ? {
   title: '清理付款记录', help: '订单已付清。可删除不再需要的付款尝试；成功付款和退款记录将保留。',
   select: '选择付款尝试', remove: '删除所选记录', deleting: '正在删除',
   confirm: '从记录中删除所选的付款尝试？', failed: '无法删除，请刷新后重试。', done: '所选记录已删除。',
@@ -45,7 +45,7 @@ const copy = computed(() => locale.value === 'zh-CN' ? {
   confirm: 'Delete the selected payment attempts from your history?', failed: 'Unable to delete. Refresh and try again.', done: 'Selected attempts deleted.',
   statuses: { created: 'Created', pending: 'Awaiting confirmation', failed: 'Failed', expired: 'Expired', canceled: 'Canceled' } as Record<string, string>
 });
-const money = (attempt: PaymentItem) => new Intl.NumberFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: attempt.currency || 'IDR' }).format(Number(attempt.gross_amount));
+const money = (attempt: PaymentItem) => new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-US', { style: 'currency', currency: attempt.currency || 'IDR' }).format(Number(attempt.gross_amount));
 const removeSelected = async () => {
   if (busy.value || !selected.value.length || !window.confirm(copy.value.confirm)) return;
   busy.value = true;

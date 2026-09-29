@@ -402,7 +402,7 @@ const reportScopeLabel = computed(() => isOrganizer.value && eventFilter.value
 const formatDateShort = (value: string) => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' }).format(date);
 };
 
 const buildReportParams = () => {
@@ -741,7 +741,7 @@ const hasActiveFilters = computed(() => {
 
 const lastUpdatedLabel = computed(() => {
   if (!lastUpdated.value) return t('adminReports.notLoaded');
-  return new Intl.DateTimeFormat(locale.value === 'zh-CN' ? 'zh-CN' : 'en-GB', {
+  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', {
     dateStyle: 'medium',
     timeStyle: 'short'
   }).format(lastUpdated.value);

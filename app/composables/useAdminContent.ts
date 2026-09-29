@@ -102,7 +102,7 @@ export interface ContentTranslation<TFields extends Record<string, unknown> = Re
   id: string;
   entity_type: TranslatableEntityType;
   entity_id: string;
-  locale: 'zh-CN';
+  locale: 'id' | 'en' | 'zh-CN';
   fields: TFields;
   created_at?: string;
   updated_at?: string;
@@ -117,14 +117,14 @@ export function useAdminContent() {
   const createDelegatePackage = (eventId: string, payload: DelegatePackageMutationPayload) => api<ApiResponse<DelegatePackageCatalogItem>>(`/admin/events/${eventId}/delegate-packages`, { method: 'POST', body: payload });
   const updateDelegatePackage = (eventId: string, packageId: string, payload: DelegatePackageMutationPayload) => api<ApiResponse<DelegatePackageCatalogItem>>(`/admin/events/${eventId}/delegate-packages/${packageId}`, { method: 'PUT', body: payload });
   const deleteDelegatePackage = (eventId: string, packageId: string) => api<ApiResponse<Record<string, unknown>>>(`/admin/events/${encodeURIComponent(eventId)}/delegate-packages/${encodeURIComponent(packageId)}`, { method: 'DELETE' });
-  const getDelegatePackageCatalog = (eventId: string, locale?: 'en' | 'zh-CN') => api<ApiResponse<DelegatePackageCatalog>>(`/admin/events/${eventId}/delegate-package-catalog`, { query: locale ? { locale } : undefined });
+  const getDelegatePackageCatalog = (eventId: string, locale?: 'id' | 'en') => api<ApiResponse<DelegatePackageCatalog>>(`/admin/events/${eventId}/delegate-package-catalog`, { query: locale ? { locale } : undefined });
   const createDelegatePackageRate = (eventId: string, packageId: string, payload: DelegatePackageRatePayload) => api<ApiResponse<DelegatePackageRate>>(`/admin/events/${eventId}/delegate-packages/${packageId}/rates`, { method: 'POST', body: payload });
   const updateDelegatePackageRate = (rateId: string, payload: DelegatePackageRatePayload) => api<ApiResponse<DelegatePackageRate>>(`/admin/delegate-package-rates/${rateId}`, { method: 'PUT', body: payload });
   const deleteDelegatePackageRate = (rateId: string) => api(`/admin/delegate-package-rates/${rateId}`, { method: 'DELETE' });
   const createDelegatePackageFacility = (eventId: string, packageId: string, payload: DelegatePackageFacilityPayload) => api<ApiResponse<DelegatePackageFacility>>(`/admin/events/${eventId}/delegate-packages/${packageId}/facilities`, { method: 'POST', body: payload });
   const updateDelegatePackageFacility = (facilityId: string, payload: DelegatePackageFacilityPayload) => api<ApiResponse<DelegatePackageFacility>>(`/admin/delegate-package-facilities/${facilityId}`, { method: 'PUT', body: payload });
   const deleteDelegatePackageFacility = (facilityId: string) => api(`/admin/delegate-package-facilities/${facilityId}`, { method: 'DELETE' });
-  const getSessions = (eventSlug: string, locale?: 'en' | 'zh-CN', params: { search?: string; page?: number; size?: number } = {}) => api<ApiResponse<SessionItem[]>>(`/events/${eventSlug}/sessions`, { query: { locale, ...params } });
+  const getSessions = (eventSlug: string, locale?: 'id' | 'en', params: { search?: string; page?: number; size?: number } = {}) => api<ApiResponse<SessionItem[]>>(`/events/${eventSlug}/sessions`, { query: { locale, ...params } });
   const createSession = (payload: SessionMutationPayload & { event_id: string }) => api<ApiResponse<SessionItem>>('/sessions', { method: 'POST', body: payload });
   const updateSession = (sessionId: string, payload: SessionMutationPayload) => api<ApiResponse<SessionItem>>(`/sessions/${sessionId}`, { method: 'PUT', body: payload });
   const deleteSession = (sessionId: string) => api(`/sessions/${sessionId}`, { method: 'DELETE' });
@@ -132,7 +132,7 @@ export function useAdminContent() {
   const updateSpeaker = (speakerId: string, payload: SpeakerMutationPayload) => api<ApiResponse<SpeakerItem>>(`/speakers/${speakerId}`, { method: 'PUT', body: payload });
   const deleteSpeaker = (speakerId: string) => api(`/speakers/${speakerId}`, { method: 'DELETE' });
   const attachSpeakerToEvent = (speakerId: string, eventId: string) => api(`/speakers/${speakerId}/events`, { method: 'POST', body: { event_id: eventId } });
-  const getCommittee = (eventId: string, locale: 'en' | 'zh-CN' = 'en', params: { search?: string; page?: number; size?: number } = {}) => api<ApiResponse<CommitteeMemberItem[]>>('/admin/committee', { query: { event_id: eventId, locale, ...params } });
+  const getCommittee = (eventId: string, locale: 'id' | 'en' = 'id', params: { search?: string; page?: number; size?: number } = {}) => api<ApiResponse<CommitteeMemberItem[]>>('/admin/committee', { query: { event_id: eventId, locale, ...params } });
   const createCommitteeMember = (payload: CommitteeMemberMutationPayload) => api<ApiResponse<CommitteeMemberItem>>('/admin/committee', { method: 'POST', body: payload });
   const updateCommitteeMember = (memberId: string, payload: CommitteeMemberMutationPayload) => api<ApiResponse<CommitteeMemberItem>>(`/admin/committee/${encodeURIComponent(memberId)}`, { method: 'PUT', body: payload });
   const uploadCommitteePhoto = (memberId: string, file: File) => { const body = new FormData(); body.append('file', file); return api<ApiResponse<CommitteeMemberItem>>(`/admin/committee/${encodeURIComponent(memberId)}/photo`, { method: 'POST', body }); };
@@ -142,9 +142,9 @@ export function useAdminContent() {
   const getContentTranslations = <TFields extends Record<string, unknown> = Record<string, unknown>>(entityType: TranslatableEntityType, entityId: string) =>
     api<ApiResponse<ContentTranslation<TFields>[]>>(`/admin/content-translations/${encodeURIComponent(entityType)}/${encodeURIComponent(entityId)}`);
   const saveContentTranslation = <TFields extends Record<string, unknown>>(entityType: TranslatableEntityType, entityId: string, fields: TFields) =>
-    api<ApiResponse<ContentTranslation<TFields>>>(`/admin/content-translations/${encodeURIComponent(entityType)}/${encodeURIComponent(entityId)}/zh-CN`, { method: 'PUT', body: { fields } });
+    api<ApiResponse<ContentTranslation<TFields>>>(`/admin/content-translations/${encodeURIComponent(entityType)}/${encodeURIComponent(entityId)}/id`, { method: 'PUT', body: { fields } });
   const deleteContentTranslation = (entityType: TranslatableEntityType, entityId: string) =>
-    api<ApiResponse<Record<string, unknown>>>(`/admin/content-translations/${encodeURIComponent(entityType)}/${encodeURIComponent(entityId)}/zh-CN`, { method: 'DELETE' });
+    api<ApiResponse<Record<string, unknown>>>(`/admin/content-translations/${encodeURIComponent(entityType)}/${encodeURIComponent(entityId)}/id`, { method: 'DELETE' });
 
   return { getProducts, createProduct, updateProduct, createDelegatePackage, updateDelegatePackage, deleteDelegatePackage, getDelegatePackageCatalog, createDelegatePackageRate, updateDelegatePackageRate, deleteDelegatePackageRate, createDelegatePackageFacility, updateDelegatePackageFacility, deleteDelegatePackageFacility, getSessions, createSession, updateSession, deleteSession, createSpeaker, updateSpeaker, deleteSpeaker, attachSpeakerToEvent, getCommittee, createCommitteeMember, updateCommitteeMember, uploadCommitteePhoto, deleteCommitteeMember, getTranslatableEntities, getContentTranslations, saveContentTranslation, deleteContentTranslation };
 }

@@ -31,7 +31,7 @@ const messages = {
   en: { eyebrow: 'Password recovery', title: 'Forgot your password?', intro: 'Enter your account email. If it is registered, we will send instructions to reset your password.', email: 'Email', submit: 'Send reset instructions', sending: 'Sending…', invalidEmail: 'Enter a valid email address.', neutral: 'If this email is registered, password reset instructions will be sent shortly.', back: 'Back to login' },
   'zh-CN': { eyebrow: '密码找回', title: '忘记密码？', intro: '请输入您的账户邮箱。如果该邮箱已注册，我们将发送密码重置说明。', email: '电子邮箱', submit: '发送重置说明', sending: '正在发送…', invalidEmail: '请输入有效的电子邮箱地址。', neutral: '如果该邮箱已注册，密码重置说明将很快发送。', back: '返回登录' }
 } as const;
-const copy = computed(() => messages[locale.value === 'zh-CN' ? 'zh-CN' : 'en']);
+const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en']);
 useSeoMeta({ title: () => `${copy.value.title} | IWBIF 2026`, description: () => copy.value.intro });
 
 const email = ref('');

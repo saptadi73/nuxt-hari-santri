@@ -1,0 +1,21 @@
+{
+  "language": {"label": "Bahasa", "indonesian": "Indonesia", "english": "English"},
+  "nav": {
+    "home": "Beranda", "about": "Tentang Acara", "activities": "Kegiatan & Paket", "routes": "Rute", "agenda": "Agenda", "performers": "Pengisi Acara", "prizes": "Hadiah", "bazaar": "Bazar & Voucher", "history": "Sejarah Hari Santri", "faq": "FAQ", "dashboard": "Dashboard", "more": "Lainnya", "menu": "Menu"
+  },
+  "actions": {"registerNow": "Daftar Peserta", "register": "Daftar", "signIn": "Masuk", "logOut": "Keluar", "refresh": "Muat ulang", "markAllRead": "Tandai semua dibaca"},
+  "inbox": {"title": "Pesan", "activeAccount": "Akun aktif", "loading": "Memuat pesan…", "empty": "Belum ada pesan.", "unread": "Belum dibaca", "unknownUser": "Pengguna", "unknownEmail": "Email tidak tersedia"},
+  "footer": {
+    "summary": "Sehat bersama, eratkan persaudaraan, rayakan semangat santri.",
+    "event": "Hari Santri 2026 — Sepeda Sehat & Jalan Sehat Keluarga",
+    "datePlace": "Minggu, 25 Oktober 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi",
+    "privacy": "Kebijakan Privasi", "terms": "Syarat dan Ketentuan", "conduct": "Tata Tertib", "refunds": "Pembatalan",
+    "copyright": "© 2026 MWC NU Tarumajaya. Hak cipta dilindungi."
+  },
+  "legal": {"information": "Informasi Kebijakan", "updated": "Tanggal pembaruan dan ketentuan mengikuti dokumen resmi yang disahkan panitia."},
+  "register": {
+    "title": "Buat akun peserta", "intro": "Daftarkan akun pemesan, lalu pilih kegiatan dan lengkapi data setiap peserta.",
+    "fullName": "Nama lengkap", "email": "Email", "phone": "Nomor WhatsApp", "password": "Kata sandi", "confirmPassword": "Ulangi kata sandi",
+    "country": "Negara", "submit": "Buat akun", "haveAccount": "Sudah punya akun?", "login": "Masuk"
+  }
+}

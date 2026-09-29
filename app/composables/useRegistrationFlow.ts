@@ -131,9 +131,9 @@ export function useRegistrationFlow() {
   });
 
   const ctaLabel = computed(() => {
-    if (!authStore.isAuthenticated) return locale.value === 'zh-CN' ? '立即注册' : 'Register Now!';
+    if (!authStore.isAuthenticated) return String(locale.value) === 'zh-CN' ? '立即注册' : 'Register Now!';
     if (authStore.isAdminOrOrganizer) return 'Organizer Dashboard';
-    const zh = locale.value === 'zh-CN';
+    const zh = String(locale.value) === 'zh-CN';
     if (primaryStatus.value === 'not_selected') return zh ? '立即预订席位' : 'Secure your Seat!';
     if (primaryStatus.value === 'selected') return zh ? '继续结账' : 'Continue to Checkout';
     if (primaryStatus.value === 'payment_pending') return zh ? '继续付款' : 'Continue Payment';
@@ -174,7 +174,7 @@ export function useRegistrationFlow() {
         authStore.setUser(user as Parameters<typeof authStore.setUser>[0]);
         authStore.hydrateUserFromToken();
         const userId = typeof user.id === 'string' ? user.id : '';
-        if (!userId) throw new Error(locale.value === 'zh-CN' ? '后端未返回用户 ID。' : 'User ID was not returned by the backend.');
+        if (!userId) throw new Error(String(locale.value) === 'zh-CN' ? '后端未返回用户 ID。' : 'User ID was not returned by the backend.');
         const detail = await api<ApiResponse<RegistrationFlowState>>(`/auth/users/${encodeURIComponent(userId)}`);
         state.value = detail.data;
         const detailUser = detail.data.user;
@@ -188,7 +188,7 @@ export function useRegistrationFlow() {
         const value = cause as { data?: { message?: string } };
         error.value = value.data?.message || (cause instanceof Error
           ? cause.message
-          : locale.value === 'zh-CN' ? '无法加载注册进度。' : 'Registration progress could not be loaded.');
+          : String(locale.value) === 'zh-CN' ? '无法加载注册进度。' : 'Registration progress could not be loaded.');
         throw cause;
       } finally {
         loading.value = false;
