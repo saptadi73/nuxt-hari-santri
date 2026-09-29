@@ -23,7 +23,7 @@ definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
 const messages = { en: { eyebrow: 'Event Announcements', title: 'Important participant updates', loading: 'Loading announcements…', empty: 'No announcements have been published yet.', announcement: 'Announcement', error: 'Announcements could not be loaded.', seo: 'Announcements' }, zh: { eyebrow: '活动公告', title: '参与者重要更新', loading: '正在加载公告…', empty: '目前尚未发布公告。', announcement: '公告', error: '无法加载公告。', seo: '公告' } } as const;
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 const config = useRuntimeConfig();
 const { getEvents } = useEvent();
 const { getAnnouncements } = useEventUpdates();

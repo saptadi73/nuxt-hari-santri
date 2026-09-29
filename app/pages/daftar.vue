@@ -38,6 +38,10 @@
                 <label><span>{{ text.fullName }}</span><input v-model.trim="person.full_name" required minlength="2" maxlength="255" autocomplete="name"></label>
                 <label><span>{{ text.birthDate }}</span><input v-model="person.birth_date" type="date" :max="today"></label>
                 <label><span>{{ text.shirtSize }}</span><select v-model="person.shirt_size_code" required><option value="" disabled>{{ text.selectSize }}</option><option v-for="size in availableSizes" :key="size.id" :value="size.code">{{ size.label }} · {{ size.available }} {{ text.left }}</option></select></label>
+                <label><span>{{ text.province }}</span><select v-model="person.province_code" required @change="changeRegion(person, 'province')"><option value="" disabled>{{ text.selectProvince }}</option><option v-for="region in regionsFor(person, 'province')" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+                <label><span>{{ text.regency }}</span><select v-model="person.regency_code" required :disabled="!person.province_code" @change="changeRegion(person, 'regency')"><option value="" disabled>{{ text.selectRegency }}</option><option v-for="region in regionsFor(person, 'regency')" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+                <label><span>{{ text.district }}</span><select v-model="person.district_code" required :disabled="!person.regency_code" @change="changeRegion(person, 'district')"><option value="" disabled>{{ text.selectDistrict }}</option><option v-for="region in regionsFor(person, 'district')" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+                <label><span>{{ text.village }}</span><select v-model="person.village_code" required :disabled="!person.district_code" @change="changeRegion(person, 'village')"><option value="" disabled>{{ text.selectVillage }}</option><option v-for="region in regionsFor(person, 'village')" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
                 <template v-if="isMinor(person.birth_date)">
                   <label><span>{{ text.guardianName }}</span><input v-model.trim="person.guardian_name" required maxlength="255"></label>
                   <label><span>{{ text.guardianContact }}</span><input v-model.trim="person.guardian_contact" required maxlength="40" type="tel"></label>
@@ -69,7 +73,7 @@
 
 <script setup lang="ts">
 import type { StoreProduct } from '~/composables/useStore';
-import type { ActivityType, OrderParticipantInput, ShirtSizeOption } from '~/composables/useHariSantri';
+import type { ActivityType, AdministrativeRegion, OrderParticipantInput, RegionLevel, ShirtSizeOption } from '~/composables/useHariSantri';
 
 definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
@@ -90,8 +94,14 @@ const selectedProductId = ref(typeof route.query.product_id === 'string' ? route
 const activity = ref<ActivityType>(route.query.activity === 'CYCLING' ? 'CYCLING' : 'FAMILY_WALK');
 const termsAccepted = ref(false);
 let participantKey = 0;
-const newParticipant = () => ({ key: ++participantKey, full_name: '', birth_date: '', guardian_name: '', guardian_contact: '', shirt_size_code: '' });
-const participants = ref([newParticipant()]);
+type ParticipantDraft = { key: number; full_name: string; birth_date: string; guardian_name: string; guardian_contact: string; shirt_size_code: string; province_code: string; regency_code: string; district_code: string; village_code: string };
+type RegionBucket = Record<'province' | 'regency' | 'district' | 'village', AdministrativeRegion[]>;
+const newParticipant = (): ParticipantDraft => ({ key: ++participantKey, full_name: '', birth_date: '', guardian_name: '', guardian_contact: '', shirt_size_code: '', province_code: '', regency_code: '', district_code: '', village_code: '' });
+const participants = ref<ParticipantDraft[]>([newParticipant()]);
+const regionBuckets = reactive<Record<number, RegionBucket | undefined>>({});
+const emptyRegionBucket = (): RegionBucket => ({ province: [], regency: [], district: [], village: [] });
+const ensureRegionBucket = (person: ParticipantDraft): RegionBucket => { if (!regionBuckets[person.key]) regionBuckets[person.key] = emptyRegionBucket(); return regionBuckets[person.key]!; };
+const regionsFor = (person: ParticipantDraft, level: keyof RegionBucket) => ensureRegionBucket(person)[level];
 const isIndonesian = computed(() => locale.value === 'id');
 const today = new Date().toISOString().slice(0, 10);
 const availableSizes = computed(() => shirtSizes.value.filter(size => size.active && size.available > 0));
@@ -109,8 +119,8 @@ const activityOptions = computed(() => isIndonesian.value ? [
   { code: 'FAMILY_WALK' as const, title: 'Family Walk', summary: 'Walk together according to package rules.' }
 ]);
 const copy = {
-  id: { eyebrow: 'PENDAFTARAN PESERTA', title: 'Ajak keluarga, pilih kegiatan.', intro: 'Pilih paket yang tersedia, isi data setiap peserta, lalu periksa ukuran kaos sebelum melanjutkan pembayaran.', accountRequired: 'Masuk ke akun pemesan untuk mengelola pesanan dan tiket keluarga.', signIn: 'Masuk', createAccount: 'Buat akun', loading: 'Memuat paket dan ukuran kaos…', chooseActivity: 'Pilih kegiatan', package: 'Paket', choosePackage: 'Pilih paket', packagesNotPublished: 'Paket resmi belum diterbitkan', packageNote: 'Harga, manfaat, dan kuota yang berlaku ditetapkan panitia dan berasal dari server.', participants: 'Data peserta', person: 'Peserta', remove: 'Hapus', fullName: 'Nama lengkap', birthDate: 'Tanggal lahir (opsional)', shirtSize: 'Ukuran kaos', selectSize: 'Pilih ukuran', left: 'tersedia', guardianName: 'Nama orang tua/wali', guardianContact: 'Kontak orang tua/wali', addParticipant: 'Tambah peserta', familyNote: 'Setiap peserta memiliki pilihan ukuran kaos sendiri. Peserta di bawah 18 tahun perlu data wali.', review: 'Periksa pesanan', selectedPackage: 'Paket', notSelected: 'Belum dipilih', total: 'Total pesanan', paymentNote: 'Pembayaran diproses oleh Portal Payment terpisah. Tiket terbit setelah status lunas diverifikasi oleh sistem.', acceptTerms: 'Saya menyetujui syarat pendaftaran dan kebijakan privasi.', submitting: 'Menyiapkan pesanan…', payButton: 'Lanjutkan ke Pembayaran', sizeUnavailable: 'Ukuran kaos belum tersedia. Silakan hubungi panitia.', noEvent: 'Pendaftaran belum dibuka. Event belum diterbitkan panitia.', paymentUrlInvalid: 'Tautan pembayaran tidak valid. Hubungi panitia.' },
-  en: { eyebrow: 'PARTICIPANT REGISTRATION', title: 'Bring your family. Choose your activity.', intro: 'Choose an available package, enter each participant, then review shirt sizes before continuing to payment.', accountRequired: 'Sign in to the order owner account to manage family orders and tickets.', signIn: 'Sign in', createAccount: 'Create account', loading: 'Loading packages and shirt sizes…', chooseActivity: 'Choose an activity', package: 'Package', choosePackage: 'Choose a package', packagesNotPublished: 'Official packages are not published yet', packageNote: 'Prices, inclusions, and capacity are set by organizers and loaded from the server.', participants: 'Participant details', person: 'Participant', remove: 'Remove', fullName: 'Full name', birthDate: 'Date of birth (optional)', shirtSize: 'Shirt size', selectSize: 'Select size', left: 'available', guardianName: 'Parent/guardian name', guardianContact: 'Parent/guardian contact', addParticipant: 'Add participant', familyNote: 'Each participant has an individual shirt size. Participants under 18 need guardian details.', review: 'Review your order', selectedPackage: 'Package', notSelected: 'Not selected', total: 'Order total', paymentNote: 'Payment is handled by a separate Payment Portal. Tickets are issued after the system verifies payment.', acceptTerms: 'I agree to the registration terms and privacy policy.', submitting: 'Preparing order…', payButton: 'Continue to Payment', sizeUnavailable: 'Shirt sizes are not available yet. Contact the organizers.', noEvent: 'Registration is not open. The organizers have not published the event.', paymentUrlInvalid: 'The payment link is invalid. Contact the organizers.' }
+  id: { eyebrow: 'PENDAFTARAN PESERTA', title: 'Ajak keluarga, pilih kegiatan.', intro: 'Pilih paket yang tersedia, isi data setiap peserta, wilayah tempat tinggal, lalu periksa ukuran kaos sebelum melanjutkan pembayaran.', accountRequired: 'Masuk ke akun pemesan untuk mengelola pesanan dan tiket keluarga.', signIn: 'Masuk', createAccount: 'Buat akun', loading: 'Memuat paket, ukuran kaos, dan wilayah…', chooseActivity: 'Pilih kegiatan', package: 'Paket', choosePackage: 'Pilih paket', packagesNotPublished: 'Paket resmi belum diterbitkan', packageNote: 'Harga, manfaat, dan kuota yang berlaku ditetapkan panitia dan berasal dari server.', participants: 'Data peserta', person: 'Peserta', remove: 'Hapus', fullName: 'Nama lengkap', birthDate: 'Tanggal lahir (opsional)', shirtSize: 'Ukuran kaos', selectSize: 'Pilih ukuran', left: 'tersedia', province: 'Provinsi', regency: 'Kabupaten/Kota', district: 'Kecamatan', village: 'Desa/Kelurahan', selectProvince: 'Pilih provinsi', selectRegency: 'Pilih kabupaten/kota', selectDistrict: 'Pilih kecamatan', selectVillage: 'Pilih desa/kelurahan', guardianName: 'Nama orang tua/wali', guardianContact: 'Kontak orang tua/wali', addParticipant: 'Tambah peserta', familyNote: 'Setiap peserta memiliki wilayah tempat tinggal dan ukuran kaos sendiri. Pilih wilayah secara berurutan dari provinsi sampai desa.', regionRequired: 'Pilih provinsi, kabupaten/kota, kecamatan, dan desa untuk setiap peserta.', review: 'Periksa pesanan', selectedPackage: 'Paket', notSelected: 'Belum dipilih', total: 'Total pesanan', paymentNote: 'Pembayaran diproses oleh Portal Payment terpisah. Tiket terbit setelah status lunas diverifikasi oleh sistem.', acceptTerms: 'Saya menyetujui syarat pendaftaran dan kebijakan privasi.', submitting: 'Menyiapkan pesanan…', payButton: 'Lanjutkan ke Pembayaran', sizeUnavailable: 'Ukuran kaos belum tersedia. Silakan hubungi panitia.', noEvent: 'Pendaftaran belum dibuka. Event belum diterbitkan panitia.', paymentUrlInvalid: 'Tautan pembayaran tidak valid. Hubungi panitia.' },
+  en: { eyebrow: 'PARTICIPANT REGISTRATION', title: 'Bring your family. Choose your activity.', intro: 'Choose an available package, enter each participant, select their residential area, then review shirt sizes before continuing to payment.', accountRequired: 'Sign in to the order owner account to manage family orders and tickets.', signIn: 'Sign in', createAccount: 'Create account', loading: 'Loading packages, shirt sizes, and regions…', chooseActivity: 'Choose an activity', package: 'Package', choosePackage: 'Choose a package', packagesNotPublished: 'Official packages are not published yet', packageNote: 'Prices, inclusions, and capacity are set by organizers and loaded from the server.', participants: 'Participant details', person: 'Participant', remove: 'Remove', fullName: 'Full name', birthDate: 'Date of birth (optional)', shirtSize: 'Shirt size', selectSize: 'Select size', left: 'available', province: 'Province', regency: 'Regency/City', district: 'District', village: 'Village', selectProvince: 'Select province', selectRegency: 'Select regency/city', selectDistrict: 'Select district', selectVillage: 'Select village', guardianName: 'Parent/guardian name', guardianContact: 'Parent/guardian contact', addParticipant: 'Add participant', familyNote: 'Each participant has an individual residential area and shirt size. Select the region in order from province to village.', regionRequired: 'Select a province, regency/city, district, and village for every participant.', review: 'Review your order', selectedPackage: 'Package', notSelected: 'Not selected', total: 'Order total', paymentNote: 'Payment is handled by a separate Payment Portal. Tickets are issued after the system verifies payment.', acceptTerms: 'I agree to the registration terms and privacy policy.', submitting: 'Preparing order…', payButton: 'Continue to Payment', sizeUnavailable: 'Shirt sizes are not available yet. Contact the organizers.', noEvent: 'Registration is not open. The organizers have not published the event.', paymentUrlInvalid: 'The payment link is invalid. Contact the organizers.' }
 } as const;
 const text = computed(() => isIndonesian.value ? copy.id : copy.en);
 const money = (value: number, currency: string) => new Intl.NumberFormat(isIndonesian.value ? 'id-ID' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
@@ -121,8 +131,19 @@ const isMinor = (birthDate: string) => {
   cutoff.setFullYear(cutoff.getFullYear() - 18);
   return date > cutoff;
 };
-const addParticipant = () => { if (participants.value.length < 20) participants.value.push(newParticipant()); };
-const removeParticipant = (index: number) => { if (participants.value.length > 1) participants.value.splice(index, 1); };
+const addParticipant = () => { if (participants.value.length < 20) { const source = participants.value[0]; const person = newParticipant(); participants.value.push(person); ensureRegionBucket(person).province = source ? ensureRegionBucket(source).province : []; } };
+const removeParticipant = (index: number) => { if (participants.value.length > 1) { const [person] = participants.value.splice(index, 1); if (person) regionBuckets[person.key] = undefined; } };
+const loadRegions = async (person: ParticipantDraft, level: RegionLevel, parentCode?: string) => {
+  const bucket = ensureRegionBucket(person);
+  bucket[level] = (await hariSantriApi.getRegions(level, parentCode)).data;
+};
+const changeRegion = async (person: ParticipantDraft, level: RegionLevel) => {
+  const bucket = ensureRegionBucket(person);
+  if (level === 'province') { person.regency_code = ''; person.district_code = ''; person.village_code = ''; bucket.regency = []; bucket.district = []; bucket.village = []; await loadRegions(person, 'regency', person.province_code); }
+  if (level === 'regency') { person.district_code = ''; person.village_code = ''; bucket.district = []; bucket.village = []; await loadRegions(person, 'district', person.regency_code); }
+  if (level === 'district') { person.village_code = ''; bucket.village = []; await loadRegions(person, 'village', person.district_code); }
+};
+const allRegionsSelected = computed(() => participants.value.every(person => person.province_code && person.regency_code && person.district_code && person.village_code));
 watch(activity, () => { selectedProductId.value = activityProducts.value[0]?.id || ''; });
 watch([() => participants.value.length, packageParticipantLimit], ([count, limit]) => {
   if (count > limit.max) participants.value.splice(limit.max);
@@ -134,12 +155,16 @@ onMounted(async () => {
     const event = events.data.find(item => item.slug === runtime.public.eventSlug);
     if (!event) { loadError.value = text.value.noEvent; return; }
     eventId.value = event.id;
-    const [productsResponse, sizesResponse] = await Promise.all([
+    const [productsResponse, sizesResponse, regionsResponse] = await Promise.all([
       storeApi.getProducts(event.id),
-      hariSantriApi.getShirtSizes(event.id)
+      hariSantriApi.getShirtSizes(event.id),
+      hariSantriApi.getRegions('province')
     ]);
     products.value = productsResponse.data;
     shirtSizes.value = sizesResponse.data;
+    for (const person of participants.value) {
+      ensureRegionBucket(person).province = regionsResponse.data;
+    }
     if (!selectedProductId.value || !activityProducts.value.some(item => item.id === selectedProductId.value)) {
       selectedProductId.value = activityProducts.value[0]?.id || '';
     }
@@ -152,8 +177,8 @@ onMounted(async () => {
 
 const submitRegistration = async () => {
   submitError.value = '';
-  if (!termsAccepted.value || !selectedProduct.value || !availableSizes.value.length) {
-    submitError.value = availableSizes.value.length ? text.value.packageNote : text.value.sizeUnavailable;
+  if (!termsAccepted.value || !selectedProduct.value || !availableSizes.value.length || !allRegionsSelected.value) {
+    submitError.value = !allRegionsSelected.value ? text.value.regionRequired : availableSizes.value.length ? text.value.packageNote : text.value.sizeUnavailable;
     return;
   }
   if (participants.value.some(person => !person.shirt_size_code || !availableSizes.value.some(size => size.code === person.shirt_size_code))) {
@@ -177,7 +202,11 @@ const submitRegistration = async () => {
       guardian_name: person.guardian_name || null,
       guardian_contact: person.guardian_contact || null,
       activity_type: activity.value,
-      shirt_size_code: person.shirt_size_code
+      shirt_size_code: person.shirt_size_code,
+      province_code: person.province_code,
+      regency_code: person.regency_code,
+      district_code: person.district_code,
+      village_code: person.village_code
     }));
     await hariSantriApi.saveParticipants(orderId, roster);
     const checkout = (await hariSantriApi.createCheckout(orderId)).data;

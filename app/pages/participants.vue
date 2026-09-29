@@ -15,5 +15,5 @@
 const { locale } = useI18n();
 const messages={en:{eyebrow:'Participants',title:'Trusted international delegate network for business matching.',intro:'Connect with women entrepreneurs, investors, strategic partners, and ecosystem leaders ready for qualified cross-border opportunities.',directory:'Privacy-led directory',privacy:'Profile visibility is governed by registration status and explicit participant consent for a safe and credible B2B environment.',open:'Open Delegate Directory'},'zh-CN':{eyebrow:'参会者',title:'值得信赖的国际代表商务配对网络。',intro:'与女性企业家、投资者、战略合作伙伴及生态系统领袖建立联系，共同把握优质跨境机遇。',directory:'隐私优先的代表名录',privacy:'资料可见性取决于注册状态和参会者的明确同意，以确保安全可信的 B2B 环境。',open:'打开代表名录'}} as const;
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro});
 </script>

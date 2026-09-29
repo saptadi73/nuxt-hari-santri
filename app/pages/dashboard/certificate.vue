@@ -30,7 +30,7 @@ definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
 const messages = { en: { eyebrow: 'Digital Certificate', title: 'Recognition for your participation', checking: 'Checking certificate…', number: 'Certificate number', issued: 'Issued', download: 'Download certificate', fileUnavailable: 'The certificate has been issued, but its download file is not available yet.', participation: 'Certificate of Participation', requirements: 'Certificates are available after attendance verification and required profile completion.', notAvailable: 'Certificate not yet available', eventDetails: '14–17 October 2026 · Hotel Kempinski Indonesia, Jakarta', error: 'Certificate could not be loaded.', seo: 'Certificate' }, zh: { eyebrow: '电子证书', title: '参与荣誉认证', checking: '正在检查证书…', number: '证书编号', issued: '签发日期', download: '下载证书', fileUnavailable: '证书已签发，但下载文件目前尚不可用。', participation: '参与证书', requirements: '完成出席验证和必填个人资料后即可获取证书。', notAvailable: '证书尚不可用', eventDetails: '2026年10月14日至17日 · 印度尼西亚雅加达凯宾斯基酒店', error: '无法加载证书。', seo: '证书' } } as const;
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 const { getMyCertificates } = useEventUpdates();
 const errorMessage = ref('');
 const { data: certificate, pending } = await useAsyncData<CertificateItem | null>('my-certificate', async () => {

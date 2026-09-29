@@ -23,7 +23,7 @@ const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : mes
 const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有密码字段。', length: '每个密码必须至少包含 8 个字符。' }
   : { required: 'Complete all password fields.', length: 'Each password must contain at least 8 characters.' });
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 
 const { changePassword } = useAuth();
 const form = reactive({ current_password: '', new_password: '', confirm_password: '' });

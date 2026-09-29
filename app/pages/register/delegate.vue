@@ -118,7 +118,7 @@ const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : mes
 const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有必填字段并选择所需选项。', email: '请输入有效的电子邮箱地址。', url: '请输入包含 http:// 或 https:// 的有效网站地址。', dates: '离开日期不得早于抵达日期。', consent: '请确认信息准确性、接受条款并同意商务配对数据处理。' }
   : { required: 'Complete all required fields and selections.', email: 'Enter a valid email address.', url: 'Enter a valid website address beginning with http:// or https://.', dates: 'The departure date cannot be earlier than the arrival date.', consent: 'Confirm the information accuracy, accept the terms, and provide business matching consent.' });
-useSeoMeta({ title: () => `${copy.value.eyebrow} | IWBIF 2026`, description: () => copy.value.description });
+useSeoMeta({ title: () => `${copy.value.eyebrow} | Hari Santri 2026`, description: () => copy.value.description });
 
 const { getEvents, getEventActivities } = useEvent();
 const { createRegistration, getMyRegistrations, getRegistration, updateRegistration, submitRegistration, uploadPassport, getRegistrationDocuments } = useRegistration();

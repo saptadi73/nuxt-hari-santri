@@ -69,7 +69,7 @@ import { useEvent, type SessionItem } from '~/composables/useEvent';
 const {locale}=useI18n();
 const messages={en:{eyebrow:'Live Event Program',titleLead:'Four days from meaningful insight to',titleHighlight:'deal execution.',date:'14–17 October 2026',place:'Jakarta, Indonesia',intro:'Sessions are delivered by forum leaders and updated from the official event operations source. Prepare your business materials early for every matching window.',loading:'Loading event program...',error:'The event schedule could not be loaded.',empty:'No program sessions have been published yet.',day:'Day',daySuffix:'',session:'session'},'zh-CN':{eyebrow:'实时活动议程',titleLead:'四天议程，从深度洞察走向',titleHighlight:'交易落地。',date:'2026年10月14日至17日',place:'印度尼西亚·雅加达',intro:'各专场由论坛领袖主导，并从官方活动运营数据源实时更新。请提前为每个配对时段准备商业资料。',loading:'正在加载活动议程…',error:'无法加载活动日程。',empty:'尚未发布议程专场。',day:'第',daySuffix:' 天',session:'专场'}} as const;
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro});
 
 const config = useRuntimeConfig();
 const { getEventSessions, getSessionsByEventId, getEvents } = useEvent();

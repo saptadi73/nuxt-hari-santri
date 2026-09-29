@@ -2,7 +2,7 @@
   <section class="mx-auto max-w-7xl px-3 py-10 sm:px-6 lg:px-8">
     <div class="flex flex-wrap items-end justify-between gap-5">
       <div><p class="text-sm uppercase tracking-[.3em] text-cyan-200">Event operations</p><h1 class="mt-3 text-3xl font-black sm:text-4xl">Speakers</h1><p class="mt-3 text-sm leading-7 text-slate-300">Manage speaker profiles, publication, event placement, and photos.</p></div>
-      <div class="flex flex-wrap gap-3"><NuxtLink to="/speakers" class="action-secondary">View public speakers</NuxtLink><button class="action-primary" :disabled="!selectedEventId" :title="selectedEventId ? 'Add speaker' : 'Select event first'" @click="openCreate">+ New speaker</button></div>
+      <div class="flex flex-wrap gap-3"><NuxtLink to="/#pengisi-acara" class="action-secondary">View event performers</NuxtLink><button class="action-primary" :disabled="!selectedEventId" :title="selectedEventId ? 'Add speaker' : 'Select event first'" @click="openCreate">+ New speaker</button></div>
     </div>
     <p v-if="feedback" class="mt-5 rounded-2xl border p-4 text-sm" :class="feedbackTone === 'error' ? 'border-red-300/30 bg-red-950/30 text-red-100' : 'border-emerald-300/30 bg-emerald-950/30 text-emerald-100'">{{ feedback }}</p>
 
@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { useTableReload } from '~/composables/useTableReload';
 import { useSpeaker } from '~/composables/useSpeaker'; import { useAdminContent, type SpeakerMutationPayload } from '~/composables/useAdminContent'; import { useEvent, type EventItem, type SpeakerItem } from '~/composables/useEvent';
-definePageMeta({ middleware: ['auth','admin'] }); useSeoMeta({ title:'Manage Speakers | IWBIF 2026' });
+definePageMeta({ middleware: ['auth','admin'] }); useSeoMeta({ title:'Manage Speakers | Hari Santri 2026' });
 const {getSpeakers,uploadSpeakerPhoto}=useSpeaker(); const adminApi=useAdminContent(); const {getEvents}=useEvent(); const {mediaUrl}=useMediaUrl();
 const pending=ref(false); const speakers=ref<SpeakerItem[]>([]); const {data:eventResponse}=useAsyncData('admin-speaker-events',()=>getEvents(1,100)); const events=computed<EventItem[]>(()=>eventResponse.value?.data||[]); const selectedEventId=ref('');
 const search=ref(''); const filteredSpeakers=computed(()=>speakers.value);

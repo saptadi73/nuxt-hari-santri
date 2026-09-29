@@ -288,7 +288,7 @@ const config = useRuntimeConfig();
 const { locale, t } = useI18n();
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Sales Report | IWBIF 2026' });
+useSeoMeta({ title: 'Sales Report | Hari Santri 2026' });
 
 const authStore = useAuthStore();
 const { getReport, isMidtransReport } = useAdminReport();

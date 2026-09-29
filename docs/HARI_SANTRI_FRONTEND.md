@@ -8,9 +8,9 @@ Jangan menerbitkan harga, isi paket, kuota, rute, jam, pengisi acara, hadiah, vo
 
 ## Alur peserta
 
-1. Buat akun pemesan atau masuk. Satu pemesan dapat mengelola beberapa peserta keluarga.
-2. Pilih `CYCLING` atau `FAMILY_WALK`; frontend memuat produk untuk event `hari-santri-2026` dari API. Jenis kegiatan dan harga final harus ditentukan backend.
-3. Isi satu peserta per anggota keluarga: nama, tanggal lahir bila diperlukan, wali anak, dan kode ukuran kaos. Pilihan size berasal dari `/events/{event_id}/shirt-sizes`; jangan mengarang size/stock di client.
+1. Buat akun pemesan atau masuk. Tidak ada langkah pendaftaran `ParticipantProfile` terpisah untuk Hari Santri; satu pemesan dapat mengelola beberapa peserta keluarga.
+2. Pilih tepat satu `CYCLING` atau `FAMILY_WALK`; frontend memuat satu produk aktif untuk event `hari-santri-2026` dari API. Jenis kegiatan dan harga final harus ditentukan backend.
+3. Isi satu peserta per anggota keluarga: nama, tanggal lahir bila diperlukan, wali anak, provinsi, kabupaten/kota, kecamatan, desa/kelurahan, dan kode ukuran kaos. Wilayah dimuat berantai dari `/regions?level=...&parent_code=...`; jangan mengarang kode atau label wilayah di client.
 4. Keranjang/order harus berisi tepat satu paket Hari Santri untuk satu activity. Kirim roster ke `PUT /orders/{order_id}/participants`; backend memvalidasi batas peserta, activity, dan reservasi stok.
 5. Lanjutkan melalui `POST /hari-santri/orders/{order_id}/checkout`; simpan URL order seperlunya dan arahkan browser ke `payment_url` yang diterima. Browser tidak memiliki Portal Payment client secret, OAuth token, callback secret, nominal query, atau gateway API.
 6. Halaman `/pembayaran/hasil` membaca `GET /hari-santri/orders/{order_id}/payment-status`. `PENDING` tetap pending; redirect atau query tidak pernah menandai lunas.
@@ -41,4 +41,4 @@ Jalankan `npm install`, `npm run dev`, lalu buka `http://localhost:3000`. Produc
 
 ## Implementasi sekarang dan gap
 
-Halaman beranda, register akun, daftar keluarga, dashboard, pembayaran, hasil callback, tiket, scanner dan pengajuan tenant sudah dipetakan. UI paket dinamis bergantung pada event dan produk yang dibuat admin. Belum lengkap: editor metadata activity/min/max, edit roster sampai deadline, payment status lookup server-to-server jika callback hilang, tenant media/keputusan lanjutan, privacy/terms Hari Santri yang disahkan, peta GeoJSON dan CMS konten. Detail backlog lintas repo ada di `fastapi-hari-santri/docs/HARI_SANTRI_TODO.md`.
+Halaman beranda, register akun, daftar keluarga dengan selector wilayah berantai, dashboard, pembayaran, hasil callback, tiket, scanner dan pengajuan tenant sudah dipetakan. UI paket dinamis bergantung pada event dan produk yang dibuat admin. Belum lengkap: editor metadata activity/min/max, edit roster sampai deadline, payment status lookup server-to-server jika callback hilang, tenant media/keputusan lanjutan, privacy/terms Hari Santri yang disahkan, peta GeoJSON dan CMS konten. Detail backlog lintas repo ada di `fastapi-hari-santri/docs/HARI_SANTRI_TODO.md`.

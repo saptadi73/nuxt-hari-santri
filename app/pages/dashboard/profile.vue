@@ -63,7 +63,7 @@ const messages = {
   zh: { eyebrow: '我的个人资料', title: '更新参与者资料', description: '完善您的商务身份、个人简介和头像，方便相关合作伙伴与代表找到您。', photoAlt: '您的个人头像', photo: '个人头像', photoRequirements: '支持 JPG、PNG 或 WebP，文件最大为 5 MB。', photoTooLarge: '照片大小为 {size} MB，超过 5 MB 上限。', photoEmpty: '所选照片为空文件。', photoType: '不支持此格式。请使用 JPG、PNG 或 WebP。', fullName: '姓名', organization: '公司／机构', biography: '个人简介', saveAll: '保存全部', savePartial: '保存部分内容', you: '您', photoUpdated: '个人头像已更新。', photoError: '无法上传个人头像。', saved: '个人资料已保存。ID={id}', saveError: '无法保存个人资料。', seo: '我的个人资料' }
 } as const;
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 
 const { getMyProfile, upsertMyProfile, patchMyProfile, uploadMyPhoto } = useParticipant();
 const { mediaUrl } = useMediaUrl();

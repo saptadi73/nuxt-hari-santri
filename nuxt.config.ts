@@ -46,8 +46,8 @@ export default defineNuxtConfig({
     head: {
       title: 'Hari Santri 2026',
       link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+        { rel: 'icon', type: 'image/png', href: '/logo_santri_2026.png' },
+        { rel: 'apple-touch-icon', href: '/logo_santri_2026.png' }
       ],
       meta: [
         {
@@ -69,18 +69,20 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
-    '/about': { prerender: true },
-    '/workshops': { prerender: true },
+    '/about': { redirect: { to: '/#tentang', statusCode: 301 } },
+    '/workshops': { redirect: { to: '/#kegiatan', statusCode: 301 } },
     // Package prices can be updated at any time. Fetch them in the browser
     // instead of embedding the API response into the production build.
     '/tickets': { ssr: false },
-    '/partners': { prerender: true },
+    '/partners': { redirect: { to: '/#bazar', statusCode: 301 } },
     '/business-matching': { ssr: false },
     '/deal-room': { prerender: true },
-    '/participants': { prerender: true },
-    '/exhibition': { prerender: true },
-    '/faq': { prerender: true },
-    '/contact': { prerender: true },
+    '/participants': { redirect: { to: '/#tentang', statusCode: 301 } },
+    '/exhibition': { redirect: { to: '/#bazar', statusCode: 301 } },
+    '/faq': { redirect: { to: '/#faq', statusCode: 301 } },
+    '/contact': { redirect: { to: '/', statusCode: 301 } },
+    '/host': { redirect: { to: '/#tentang', statusCode: 301 } },
+    '/venue': { redirect: { to: '/#rute', statusCode: 301 } },
     '/privacy': { prerender: true },
     '/terms': { prerender: true },
     '/code-of-conduct': { prerender: true },

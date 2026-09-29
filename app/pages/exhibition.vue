@@ -45,7 +45,7 @@
 const {locale}=useI18n();
 const messages={en:{eyebrow:'IWBIF Exhibition',title:'Where women-led brands meet the world.',intro:'Showcase products, services, MSMEs, innovation, digital businesses, and investment opportunities to an international business audience.',alt:'IWBIF exhibition showcasing women-led businesses and Indonesian products',showcase:'Showcase',connect:'Connect',grow:'Grow',categoriesLabel:'Exhibition categories',categoriesTitle:'A curated showcase of enterprise and innovation.',categoriesText:'Discover businesses ready to build visibility, partnerships, market access, and meaningful investment relationships.',present:'Present your business',become:'Become an exhibitor',profile:'Create a complete exhibitor profile with your company, industry, products, booth information, website, and product media.',register:'Register Your Interest',categories:['Products','Services','MSMEs','Innovation','Digital Businesses','Investment Opportunities']},'zh-CN':{eyebrow:'IWBIF 展览',title:'女性主导品牌与世界相遇之地。',intro:'向国际商业受众展示产品、服务、中小微企业、创新成果、数字企业与投资机遇。',alt:'IWBIF 女性主导企业与印度尼西亚产品展览',showcase:'展示',connect:'连接',grow:'成长',categoriesLabel:'展览类别',categoriesTitle:'精心策划的企业与创新展示。',categoriesText:'发现致力于提升影响力、建立合作、开拓市场及发展高价值投资关系的企业。',present:'展示您的企业',become:'成为参展商',profile:'建立完整的参展商资料，包括企业、行业、产品、展位信息、网站及产品媒体。',register:'登记参展意向',categories:['产品','服务','中小微企业','创新','数字企业','投资机遇']}} as const;
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']); const categories=computed(()=>copy.value.categories);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro});
 </script>
 
 <style scoped>

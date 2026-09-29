@@ -30,7 +30,7 @@ definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
 const messages = { en: { eyebrow: 'Participant Directory', title: 'Connect With IWBIF Professionals', description: 'Find collaborators, investors, business partners, and delegates aligned with your growth goals. Private contact information is never displayed.', search: 'Search participants', placeholder: 'Search name, organization, or biography', independent: 'Independent participant', empty: 'No participants match these filters.', seo: 'Participant Directory' }, zh: { eyebrow: '参与者名录', title: '联系 IWBIF 专业人士', description: '寻找符合您发展目标的合作伙伴、投资者、商业伙伴和代表。私人联系方式绝不会公开显示。', search: '搜索参与者', placeholder: '搜索姓名、公司／机构或个人简介', independent: '独立参与者', empty: '没有符合这些筛选条件的参与者。', seo: '参与者名录' } } as const;
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 
 const { getParticipants } = useParticipant();
 const { mediaUrl } = useMediaUrl();

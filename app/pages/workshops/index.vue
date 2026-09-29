@@ -22,7 +22,7 @@ import {useEvent} from '~/composables/useEvent';
 const {locale}=useI18n();
 const messages={en:{eyebrow:'Delegate Activities',title:'Build your IWBIF experience.',intro:'Select from the forum, business matching, exhibition, networking, and industrial visit activities published by the organizer.',empty:'Activities will be published soon.',noEvent:'No IWBIF event is currently published.'},'zh-CN':{eyebrow:'代表活动',title:'打造您的 IWBIF 体验。',intro:'从主办方发布的论坛、商务配对、展览、人脉交流及产业参访活动中进行选择。',empty:'活动将于近期发布。',noEvent:'当前尚未发布 IWBIF 活动。'}} as const;
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`});
 const {getEvents,getEventActivities}=useEvent();
 const {data:response,pending,error}=await useAsyncData('iwbif-activities',async()=>{
   const events=await getEvents(1,1);

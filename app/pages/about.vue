@@ -239,7 +239,7 @@ const copy=computed(()=>{
   return {...messages[language],...aboutOverview[language]};
 });
 const focusAreas=computed(()=>copy.value.focus); const outcomes=computed(()=>copy.value.outcomes); const mission=computed(()=>copy.value.mission); const why=computed(()=>copy.value.why);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro,ogImage:'/images/about-iwbif.png'});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro,ogImage:'/images/about-iwbif.png'});
 </script>
 
 <style scoped>

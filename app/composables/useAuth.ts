@@ -10,7 +10,11 @@ interface LoginPayload {
 interface RegisterPayload {
   email: string;
   full_name: string;
-  country: string;
+  country?: string;
+  province_code?: string;
+  regency_code?: string;
+  district_code?: string;
+  village_code?: string;
   phone: string;
   password: string;
   preferred_locale?: 'id' | 'en';

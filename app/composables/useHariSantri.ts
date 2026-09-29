@@ -2,6 +2,15 @@ import type { useApi, ApiResponse } from '~/composables/useApi';
 
 export type ActivityType = 'CYCLING' | 'FAMILY_WALK';
 
+export type RegionLevel = 'province' | 'regency' | 'district' | 'village';
+
+export interface AdministrativeRegion {
+  code: string;
+  name: string;
+  level: RegionLevel;
+  parent_code: string | null;
+}
+
 export interface ShirtSizeOption {
   id: string;
   event_id: string;
@@ -21,6 +30,10 @@ export interface OrderParticipantInput {
   birth_date?: string | null;
   guardian_name?: string | null;
   guardian_contact?: string | null;
+  province_code: string;
+  regency_code: string;
+  district_code: string;
+  village_code: string;
   activity_type: ActivityType;
   shirt_size_code: string;
 }
@@ -90,6 +103,11 @@ export function useHariSantri() {
   const getShirtSizes = (eventId: string) =>
     api<ApiResponse<ShirtSizeOption[]>>(`/events/${encodeURIComponent(eventId)}/shirt-sizes`);
 
+  const getRegions = (level: RegionLevel, parentCode?: string) =>
+    api<ApiResponse<AdministrativeRegion[]>>('/regions', {
+      query: { level, ...(parentCode ? { parent_code: parentCode } : {}) }
+    });
+
   const getAdminShirtSizes = (eventId: string) =>
     api<ApiResponse<ShirtSizeOption[]>>(`/admin/events/${encodeURIComponent(eventId)}/shirt-sizes`);
 
@@ -128,5 +146,5 @@ export function useHariSantri() {
   const getMyBazaarApplications = () =>
     api<ApiResponse<BazaarApplicationRecord[]>>('/bazaar/me/applications');
 
-  return { getShirtSizes, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
+  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
 }

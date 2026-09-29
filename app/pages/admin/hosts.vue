@@ -2,7 +2,7 @@
   <section class="mx-auto max-w-7xl px-3 py-10 sm:px-6 lg:px-8">
     <header class="flex flex-wrap items-end justify-between gap-5">
       <div><p class="text-sm uppercase tracking-[.3em] text-amber-200">Event operations</p><h1 class="mt-3 text-3xl font-black sm:text-4xl">Host & Committee</h1><p class="mt-3 text-sm text-slate-300">Manage the public Host page, ordering, publication, photos, and bilingual content.</p></div>
-      <div class="flex gap-3"><NuxtLink to="/host" class="action-secondary">View public page</NuxtLink><button class="action-primary" :disabled="!selectedEventId" @click="openCreate">+ New member</button></div>
+      <div class="flex gap-3"><NuxtLink to="/#tentang" class="action-secondary">View event overview</NuxtLink><button class="action-primary" :disabled="!selectedEventId" @click="openCreate">+ New member</button></div>
     </header>
     <p v-if="feedback" class="mt-5 rounded-2xl border p-4 text-sm" :class="feedbackTone === 'error' ? 'border-red-300/30 bg-red-950/30 text-red-100' : 'border-emerald-300/30 bg-emerald-950/30 text-emerald-100'">{{ feedback }}</p>
     <div class="mt-8 flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[.04] p-4 sm:flex-row sm:items-end">
@@ -30,7 +30,7 @@
 import { useTableReload } from '~/composables/useTableReload';
 import { useAdminContent, type CommitteeMemberMutationPayload } from '~/composables/useAdminContent';
 import { useEvent, type CommitteeMemberItem, type EventItem } from '~/composables/useEvent';
-definePageMeta({ middleware:['auth','admin'] }); useSeoMeta({ title:'Manage Hosts | IWBIF 2026' });
+definePageMeta({ middleware:['auth','admin'] }); useSeoMeta({ title:'Manage Hosts | Hari Santri 2026' });
 const admin=useAdminContent(); const {getEvents}=useEvent(); const {mediaUrl}=useMediaUrl();
 const {data:eventResponse}=await useAsyncData('admin-host-events',()=>getEvents(1,100)); const events=computed<EventItem[]>(()=>eventResponse.value?.data||[]); const selectedEventId=ref(''); const members=ref<CommitteeMemberItem[]>([]),loading=ref(false),search=ref(''),feedback=ref(''),feedbackTone=ref<'success'|'error'>('success');
 const filteredMembers=computed(()=>members.value);

@@ -39,7 +39,7 @@
 const {locale}=useI18n();
 const messages={en:{eyebrow:'Contact',title:'Connect with the IWBIF team',intro:'Partnerships, media inquiries, speaking opportunities, and registration assistance for IWBIF 2026 can be directed to the event operations desk.',help:'Need assistance?',helpText:'We can help with registration, partnerships, and event logistics.',email:'Email the team',general:'General',generalInquiry:'General Inquiry',support:'Support desk',partnerships:'Partnerships',sponsors:'Partnership & Sponsors',visibility:'Visibility and collaboration',media:'Media',press:'Press & Media',coverage:'Announcements and coverage'},'zh-CN':{eyebrow:'联系我们',title:'与 IWBIF 团队取得联系',intro:'如需咨询 IWBIF 2026 合作、媒体、演讲机会或注册协助，请联系活动运营团队。',help:'需要帮助？',helpText:'我们可为您提供注册、合作及活动后勤支持。',email:'向团队发送邮件',general:'综合咨询',generalInquiry:'一般咨询',support:'支持服务台',partnerships:'合作',sponsors:'合作与赞助',visibility:'品牌曝光与合作',media:'媒体',press:'新闻与媒体',coverage:'公告与媒体报道'}} as const;
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro});
 </script>
 
 <style scoped>

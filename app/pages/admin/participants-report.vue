@@ -192,7 +192,7 @@ const router = useRouter();
 const { locale, t } = useI18n();
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Participants Report | IWBIF 2026' });
+useSeoMeta({ title: 'Participants Report | Hari Santri 2026' });
 
 const authStore = useAuthStore();
 const selectedProfile = ref<ParticipantReportItem | null>(null);

@@ -1,38 +1,38 @@
 <template>
-  <main class="login-shell">
+  <main class="login-shell text-[#17352c]">
     <div v-if="message && messageTone === 'error'" class="login-toast" role="alert" aria-live="assertive">
       <p class="font-semibold">{{ copy.failed }}</p>
       <p class="mt-1 text-sm leading-5">{{ message }}</p>
     </div>
     <section class="mx-auto max-w-5xl px-3 py-10 sm:px-6 lg:px-8">
-      <div class="login-card mx-auto max-w-md rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/80 via-slate-950/70 to-slate-900/70 p-5 shadow-[0_28px_60px_rgba(0,0,0,0.35)] sm:p-8">
-        <div class="mb-4 inline-flex rounded-full border border-amber-200/20 bg-amber-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-amber-200">{{ copy.member }}</div>
-        <h1 class="mt-3 text-3xl font-black text-white sm:text-4xl">{{ copy.title }}</h1>
-        <p class="mt-3 text-sm leading-7 text-slate-300">{{ copy.intro }}</p>
+      <div class="login-card mx-auto max-w-md rounded-lg border border-emerald-950/10 bg-white p-5 shadow-xl shadow-emerald-950/5 sm:p-8">
+        <div class="mb-4 inline-flex rounded border border-emerald-800/15 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-emerald-900">{{ copy.member }}</div>
+        <h1 class="mt-3 text-3xl font-black text-[#17352c] sm:text-4xl">{{ copy.title }}</h1>
+        <p class="mt-3 text-sm leading-7 text-slate-600">{{ copy.intro }}</p>
 
         <form class="mt-6 space-y-4" novalidate @submit.prevent="onSubmit">
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.email }}</span>
-            <input v-model.trim="form.email" type="email" autocomplete="email" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20" placeholder="you@example.com" minlength="6" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.email }}</span>
+            <input v-model.trim="form.email" type="email" autocomplete="email" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" placeholder="you@example.com" minlength="6" required />
           </label>
 
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.password }}</span>
-            <input v-model="form.password" type="password" autocomplete="current-password" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20" :placeholder="copy.passwordPlaceholder" minlength="8" maxlength="128" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.password }}</span>
+            <input v-model="form.password" type="password" autocomplete="current-password" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.passwordPlaceholder" minlength="8" maxlength="128" required />
           </label>
 
           <div class="text-right">
-            <NuxtLink to="/auth/forgot-password" class="text-sm font-semibold text-amber-200 underline-offset-4 hover:underline">{{ copy.forgotPassword }}</NuxtLink>
+            <NuxtLink to="/auth/forgot-password" class="text-sm font-semibold text-emerald-800 underline-offset-4 hover:underline">{{ copy.forgotPassword }}</NuxtLink>
           </div>
 
-          <button type="submit" class="w-full rounded-full bg-gradient-to-r from-amber-300 to-amber-400 px-4 py-3 text-sm font-bold uppercase tracking-[.18em] text-slate-950 shadow-[0_18px_35px_rgba(216,172,89,0.22)] transition duration-200 hover:brightness-110 active:scale-[0.99]">{{ copy.login }}</button>
+          <button type="submit" class="w-full rounded-md bg-[#173f32] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#285442] active:scale-[0.99]">{{ copy.login }}</button>
         </form>
 
-        <div v-if="message" class="mt-4 rounded-2xl border p-3 text-sm" :class="messageTone === 'success' ? 'border-emerald-300/30 bg-emerald-950/30 text-emerald-100' : messageTone === 'error' ? 'border-red-300/30 bg-red-950/30 text-red-100' : 'border-white/10 bg-slate-950/60 text-slate-200'">{{ message }}</div>
+        <div v-if="message" class="mt-4 rounded-md border p-3 text-sm" :class="messageTone === 'success' ? 'border-emerald-300 bg-emerald-50 text-emerald-900' : messageTone === 'error' ? 'border-red-300 bg-red-50 text-red-900' : 'border-slate-200 bg-slate-50 text-slate-700'">{{ message }}</div>
 
-        <p class="mt-5 text-center text-sm text-slate-300">
+        <p class="mt-5 text-center text-sm text-slate-600">
           {{ copy.needAccount }}
-          <NuxtLink to="/auth/register" class="font-semibold text-amber-200 underline-offset-4 hover:underline">{{ copy.create }}</NuxtLink>
+          <NuxtLink to="/auth/register" class="font-semibold text-emerald-800 underline-offset-4 hover:underline">{{ copy.create }}</NuxtLink>
         </p>
       </div>
     </section>
@@ -41,9 +41,16 @@
 
 <script setup lang="ts">
 const {locale}=useI18n();
-const messages={en:{member:'Member access',title:'Login to IWBIF',intro:'Access your dashboard, tickets, payment status, and event updates.',email:'Email',password:'Password',passwordPlaceholder:'Enter your password',forgotPassword:'Forgot password?',resetSuccess:'Your password has been reset. You can now log in with your new password.',login:'Log In',needAccount:'Need an account?',create:'Create one',input:'Input',invalid:'Invalid value',processError:'Login could not be processed.',required:'Enter your email address and password.',invalidEmail:'Enter a valid email address.',passwordLength:'Password must be at least 8 characters long.',submitting:'Submitting login...',success:'Login successful.',failed:'Failed'},'zh-CN':{member:'会员入口',title:'登录 IWBIF',intro:'访问您的用户中心、门票、付款状态和活动更新。',email:'电子邮箱',password:'密码',passwordPlaceholder:'请输入密码',forgotPassword:'忘记密码？',resetSuccess:'密码已重置。您现在可以使用新密码登录。',login:'登录',needAccount:'还没有账户？',create:'创建账户',input:'输入',invalid:'无效值',processError:'无法处理登录请求。',required:'请输入电子邮箱和密码。',invalidEmail:'请输入有效的电子邮箱地址。',passwordLength:'密码长度必须至少为 8 个字符。',submitting:'正在登录…',success:'登录成功。',failed:'失败'}} as const;
-const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.login} | IWBIF 2026`,description:()=>copy.value.intro});
+const messages = {
+  en: {
+    member: 'Participant access', title: 'Log in to Hari Santri 2026', intro: 'Manage your registration, ticket, payment status, and event updates.', email: 'Email', password: 'Password', passwordPlaceholder: 'Enter your password', forgotPassword: 'Forgot password?', resetSuccess: 'Your password has been reset. You can now log in with your new password.', login: 'Log in', needAccount: 'Need an account?', create: 'Create one', input: 'Input', invalid: 'Invalid value', processError: 'Login could not be processed.', required: 'Enter your email address and password.', invalidEmail: 'Enter a valid email address.', passwordLength: 'Password must be at least 8 characters long.', submitting: 'Signing in...', success: 'Login successful.', failed: 'Failed'
+  },
+  id: {
+    member: 'Akses peserta', title: 'Masuk ke Hari Santri 2026', intro: 'Kelola pendaftaran, tiket, status pembayaran, dan informasi acara.', email: 'Email', password: 'Kata sandi', passwordPlaceholder: 'Masukkan kata sandi', forgotPassword: 'Lupa kata sandi?', resetSuccess: 'Kata sandi berhasil diubah. Silakan masuk dengan kata sandi baru.', login: 'Masuk', needAccount: 'Belum punya akun?', create: 'Daftar sekarang', input: 'Input', invalid: 'Nilai tidak valid', processError: 'Login tidak dapat diproses.', required: 'Masukkan email dan kata sandi.', invalidEmail: 'Masukkan alamat email yang valid.', passwordLength: 'Kata sandi minimal 8 karakter.', submitting: 'Sedang masuk...', success: 'Berhasil masuk.', failed: 'Gagal'
+  }
+} as const;
+const copy = computed(() => messages[String(locale.value) === 'id' ? 'id' : 'en']);
+useSeoMeta({ title: () => `${copy.value.login} | Hari Santri 2026`, description: () => copy.value.intro });
 const form = reactive({ email: '', password: '' });
 const { login } = useAuth();
 const flow = useRegistrationFlow();
@@ -127,7 +134,7 @@ const onSubmit = async () => {
 <style scoped>
 .login-shell {
   min-height: calc(100vh - 140px);
-  background: radial-gradient(circle at top, rgba(216, 172, 89, 0.12), transparent 24rem), linear-gradient(180deg, #031127 0%, #061a35 48%, #020e21 100%);
+  background: #f5f5ef;
 }
 .login-toast {
   position: fixed;
@@ -137,14 +144,13 @@ const onSubmit = async () => {
   width: min(24rem, calc(100vw - 2rem));
   border: 1px solid rgba(252, 165, 165, 0.5);
   border-radius: 0.75rem;
-  background: rgba(69, 10, 10, 0.96);
+  background: #fff;
   padding: 0.875rem 1rem;
-  color: #fee2e2;
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.35);
+  color: #7f1d1d;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
 }
 .login-card {
-  backdrop-filter: blur(18px);
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 18px 48px rgba(23, 63, 50, 0.08);
 }
 
 @media (max-width: 767px) {

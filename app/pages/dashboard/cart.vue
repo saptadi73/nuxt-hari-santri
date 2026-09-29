@@ -46,7 +46,7 @@ const messages={
 } as const;
 const copy=computed(()=>String(locale.value) === 'zh-CN'?messages.zh:messages.en);
 const statusLabel=(status:string)=>String(locale.value) === 'zh-CN'?({created:'已创建',pending:'待处理',failed:'失败',expired:'已过期',canceled:'已取消',cancelled:'已取消'}[status.toLowerCase()]||status):status;
-useSeoMeta({title:()=>`${copy.value.seo} | IWBIF 2026`});
+useSeoMeta({title:()=>`${copy.value.seo} | Hari Santri 2026`});
 const {getEvents,getDelegatePackageCatalog}=useEvent();const storeApi=useStore();const paymentApi=usePayment();const eventId=ref('');const cart=ref<StoreCart|null>(null);const usdPricesByProductId=ref(new Map<string,number>());const idrPricesByProductId=ref(new Map<string,number>());const additionalOnlyEligible=ref(false);const loading=ref(true),checkingOut=ref(false),removingId=ref(''),errorMessage=ref('');
 const pendingOrders=ref<PendingOrderRecord[]>([]),ordersLoading=ref(false),processingOrderId=ref(''),ordersError=ref('');const paymentProviderLabel=computed(()=>paymentApi.paymentProviderLabel||copy.value.onlinePayment);
 const items=computed(()=>cart.value?.items||[]);const itemCount=computed(()=>items.value.reduce((total,item)=>total+item.quantity,0));const displayUnitPrice=(productId:string)=>usdPricesByProductId.value.get(productId)||0;const displayTotal=computed(()=>items.value.reduce((sum,item)=>sum+(displayUnitPrice(item.product_id)*item.quantity),0));

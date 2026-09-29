@@ -33,7 +33,7 @@ import { useEvent, type EventItem } from '~/composables/useEvent';
 import { useBusinessMatching, type BusinessMatchingProfile, type MatchingParty, type MatchingReport, type MatchingReportItem, type MatchingSettings, type MatchingSlot, type MeetingResource } from '~/composables/useBusinessMatching';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Business Matching Operations | IWBIF 2026' });
+useSeoMeta({ title: 'Business Matching Operations | Hari Santri 2026' });
 const { getEvents } = useEvent();
 const matching = useBusinessMatching();
 const events = ref<EventItem[]>([]), eventId = ref(''), participants = ref<BusinessMatchingProfile[]>([]), slots = ref<MatchingSlot[]>([]), resources = ref<MeetingResource[]>([]);

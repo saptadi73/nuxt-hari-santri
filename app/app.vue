@@ -7,7 +7,7 @@
       <div class="mx-auto flex w-full max-w-[1440px] items-center gap-1.5 px-2 py-2 sm:gap-4 sm:px-6 lg:px-8">
         <NuxtLink to="/" class="brand-block flex min-w-0 shrink-0 items-center gap-3">
           <span class="brand-mark flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-sky-100 bg-white p-0.5 shadow-sm shadow-sky-900/10 sm:h-14 sm:w-14">
-            <span class="brand-fallback text-sm font-black">HS</span>
+            <img :src="siteLogo" alt="Logo Hari Santri 2026">
           </span>
           <span class="brand-copy hidden sm:block">
             <span class="brand-kicker block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.18em] text-[#07518f]">MWC NU TARUMAJAYA</span>
@@ -155,7 +155,7 @@
     </header>
 
     <NuxtLink
-      v-if="!authStore.isAdminOrOrganizer && !isRegistrationPaid"
+      v-if="!authStore.isAdminOrOrganizer && !isRegistrationPaid && !route.path.startsWith('/auth/')"
       :to="paymentCtaTo"
       class="registration-floating-cta fixed top-1/2 right-6 z-40 hidden max-w-sm -translate-y-1/2 items-center gap-3 rounded-full border border-orange-300/40 bg-orange-500 px-6 py-4 text-sm font-bold text-white shadow-xl shadow-orange-950/30 transition hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-400 lg:inline-flex"
     >
@@ -169,30 +169,31 @@
       <NuxtPage />
     </main>
 
-    <footer class="relative z-10 border-t border-white/10 bg-slate-950/60">
+    <footer class="relative z-10 border-t border-emerald-900/10 bg-[#f5f5ef] text-[#17352c]">
       <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_1fr_1.35fr] lg:px-8">
         <div>
-          <p class="text-xs uppercase tracking-[0.3em] text-amber-200">Hari Santri 2026</p>
-          <p class="mt-3 max-w-sm text-sm leading-7 text-slate-400">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
+          <p class="text-xs uppercase tracking-[0.3em] text-emerald-800">Hari Santri 2026</p>
+          <p class="mt-3 max-w-sm text-sm leading-7 text-slate-600">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
         </div>
-        <div class="grid grid-cols-2 gap-3 text-sm text-slate-300">
+        <div class="grid grid-cols-2 gap-3 text-sm text-slate-700">
           <NuxtLink to="/#tentang">{{ locale === 'id' ? 'Tentang' : 'About' }}</NuxtLink><NuxtLink to="/#kegiatan">{{ locale === 'id' ? 'Kegiatan' : 'Activities' }}</NuxtLink>
           <NuxtLink to="/#rute">{{ locale === 'id' ? 'Rute' : 'Routes' }}</NuxtLink><NuxtLink to="/#agenda">{{ locale === 'id' ? 'Agenda' : 'Agenda' }}</NuxtLink>
           <NuxtLink to="/#bazar">{{ locale === 'id' ? 'Bazar' : 'Bazaar' }}</NuxtLink>
           <NuxtLink to="/#sejarah">{{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</NuxtLink><NuxtLink to="/#faq">FAQ</NuxtLink>
         </div>
-        <div class="text-sm text-slate-400 md:text-right">
+        <div class="text-sm text-slate-600 md:text-right">
           <p class="md:whitespace-nowrap">{{ locale === 'id' ? 'MWC NU Tarumajaya menyelenggarakan' : 'Presented by MWC NU Tarumajaya' }}</p>
           <p class="mt-1">{{ locale === 'id' ? 'Minggu, 25 Oktober 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' : 'Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' }}</p>
           <div class="mt-3 flex flex-wrap gap-4 md:justify-end"><NuxtLink to="/privacy">{{ locale === 'id' ? 'Kebijakan Privasi' : 'Privacy' }}</NuxtLink><NuxtLink to="/terms">{{ locale === 'id' ? 'Syarat & Ketentuan' : 'Terms' }}</NuxtLink><NuxtLink to="/code-of-conduct">{{ locale === 'id' ? 'Tata Tertib' : 'Code of Conduct' }}</NuxtLink><NuxtLink to="/refund-policy">{{ locale === 'id' ? 'Pembatalan' : 'Cancellations' }}</NuxtLink></div>
         </div>
       </div>
-      <p class="border-t border-white/10 px-4 py-5 text-center text-xs text-slate-500">{{ locale === 'id' ? '© 2026 MWC NU Tarumajaya. Hak cipta dilindungi.' : '© 2026 MWC NU Tarumajaya. All rights reserved.' }}</p>
+      <p class="border-t border-emerald-900/10 px-4 py-5 text-center text-xs text-slate-600">{{ locale === 'id' ? '© 2026 MWC NU Tarumajaya. Hak cipta dilindungi.' : '© 2026 MWC NU Tarumajaya. All rights reserved.' }}</p>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+import siteLogo from '~/assets/images/logo_santri_2026.png';
 import { useCommunication } from '~/composables/useCommunication';
 const { t, locale, setLocale } = useI18n();
 const localeCookie = useCookie<'id' | 'en'>('hari_santri_locale', { default: () => 'id' });

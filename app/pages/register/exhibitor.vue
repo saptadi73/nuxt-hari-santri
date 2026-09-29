@@ -95,7 +95,7 @@ const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有必填字段。', terms: '您必须接受参展商条款与条件。' }
   : { required: 'Complete all required fields.', terms: 'You must accept the exhibitor terms and conditions.' });
 useSeoMeta({
-  title: () => `${copy.value.eyebrow} | IWBIF 2026`,
+  title: () => `${copy.value.eyebrow} | Hari Santri 2026`,
   description: () => copy.value.description
 });
 

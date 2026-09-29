@@ -96,7 +96,7 @@ const packageIntro = computed(() => selectedType.value === 'exhibitor'
   : String(locale.value) === 'zh-CN'
     ? '请选择一个代表主套餐，并可选择附加行程。'
     : 'Choose one Main Delegate Package, with an optional Additional Trip.');
-useSeoMeta({title:()=>`${selectedType.value === 'exhibitor' ? copy.value.exhibitorPackages : copy.value.delegatePackages} | IWBIF 2026`,description:()=>packageIntro.value});
+useSeoMeta({title:()=>`${selectedType.value === 'exhibitor' ? copy.value.exhibitorPackages : copy.value.delegatePackages} | Hari Santri 2026`,description:()=>packageIntro.value});
 const auth = useAuthStore();
 const { getEvents, getDelegatePackageCatalog } = useEvent();
 const store = useStore();

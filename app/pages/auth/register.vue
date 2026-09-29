@@ -1,39 +1,34 @@
 <template>
-  <main class="auth-shell">
+  <main class="auth-shell text-[#17352c]">
     <section class="mx-auto max-w-5xl px-3 py-10 sm:px-6 lg:px-8">
-      <div class="auth-card mx-auto max-w-md rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/80 via-slate-950/70 to-slate-900/70 p-5 shadow-[0_28px_60px_rgba(0,0,0,0.35)] sm:p-8">
-        <div class="mb-4 inline-flex rounded-full border border-amber-200/20 bg-amber-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-amber-200">{{ copy.create }}</div>
-        <h1 class="mt-3 text-3xl font-black text-white sm:text-4xl">{{ copy.title }}</h1>
-        <p class="mt-3 text-sm leading-7 text-slate-300">{{ copy.intro }}</p>
+      <div class="auth-card mx-auto max-w-md rounded-lg border border-emerald-950/10 bg-white p-5 shadow-xl shadow-emerald-950/5 sm:p-8">
+        <div class="mb-4 inline-flex rounded border border-emerald-800/15 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-emerald-900">{{ copy.create }}</div>
+        <h1 class="mt-3 text-3xl font-black text-[#17352c] sm:text-4xl">{{ copy.title }}</h1>
+        <p class="mt-3 text-sm leading-7 text-slate-600">{{ copy.intro }}</p>
 
         <form class="mt-6 space-y-4" novalidate @submit.prevent="onSubmit">
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.fullName }}</span>
-            <input v-model="form.full_name" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20" :placeholder="copy.fullNamePlaceholder" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.fullName }}</span>
+            <input v-model="form.full_name" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.fullNamePlaceholder" required />
           </label>
 
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.email }}</span>
-            <input v-model.trim="form.email" type="email" autocomplete="email" class="w-full rounded-2xl border bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:outline-none focus:ring-2" :class="emailError ? 'border-red-300/60 focus:border-red-300/70 focus:ring-red-300/20' : 'border-white/10 focus:border-amber-300/60 focus:ring-amber-300/20'" :aria-invalid="emailError ? 'true' : undefined" placeholder="you@example.com" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.email }}</span>
+            <input v-model.trim="form.email" type="email" autocomplete="email" class="w-full rounded-md border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:outline-none focus:ring-2" :class="emailError ? 'border-red-400 focus:border-red-500 focus:ring-red-500/15' : 'border-slate-300 focus:border-emerald-700 focus:ring-emerald-700/15'" :aria-invalid="emailError ? 'true' : undefined" placeholder="you@example.com" required />
           </label>
 
           <div class="space-y-4">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.province }}</span><select v-model="form.province_code" class="registration-field w-full" required @change="changeRegion('province')"><option value="" disabled>{{ copy.selectProvince }}</option><option v-for="region in regions.province" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.regency }}</span><select v-model="form.regency_code" class="registration-field w-full" :disabled="!form.province_code" required @change="changeRegion('regency')"><option value="" disabled>{{ copy.selectRegency }}</option><option v-for="region in regions.regency" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.district }}</span><select v-model="form.district_code" class="registration-field w-full" :disabled="!form.regency_code" required @change="changeRegion('district')"><option value="" disabled>{{ copy.selectDistrict }}</option><option v-for="region in regions.district" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.village }}</span><select v-model="form.village_code" class="registration-field w-full" :disabled="!form.district_code" required><option value="" disabled>{{ copy.selectVillage }}</option><option v-for="region in regions.village" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+            </div>
+            <p class="text-xs text-slate-600">{{ copy.regionHelp }}</p>
             <label class="block">
-              <span class="mb-2 block text-sm text-slate-300">{{ copy.country }}</span>
-              <select v-model="form.country" autocomplete="country-name" class="registration-field w-full" required>
-                <optgroup :label="copy.mostSelected">
-                  <option v-for="country in priorityCountries" :key="country.iso" :value="country.name">{{ country.name }}</option>
-                </optgroup>
-                <optgroup label="──────────">
-                  <option v-for="country in otherCountries" :key="country.iso" :value="country.name">{{ country.name }}</option>
-                </optgroup>
-              </select>
-            </label>
-
-            <label class="block">
-              <span class="mb-2 block text-sm text-slate-300">{{ copy.phone }}</span>
-              <div class="phone-field flex overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 transition focus-within:border-amber-300/60 focus-within:ring-2 focus-within:ring-amber-300/20">
-                <select v-model="form.phoneCountryIso" :aria-label="copy.phoneCode" class="phone-country min-w-32 border-r border-white/10 bg-slate-950 px-3 py-3 text-white focus:outline-none">
+              <span class="mb-2 block text-sm text-slate-700">{{ copy.phone }}</span>
+              <div class="phone-field flex overflow-hidden rounded-md border border-slate-300 bg-white transition focus-within:border-emerald-700 focus-within:ring-2 focus-within:ring-emerald-700/15">
+                <select v-model="form.phoneCountryIso" :aria-label="copy.phoneCode" class="phone-country min-w-32 border-r border-slate-200 bg-white px-3 py-3 text-slate-900 focus:outline-none">
                   <optgroup :label="copy.mostSelected">
                     <option v-for="country in priorityCountries" :key="country.iso" :value="country.iso">{{ countryFlag(country.iso) }} {{ country.iso }} {{ country.dialCode }}</option>
                   </optgroup>
@@ -41,33 +36,33 @@
                     <option v-for="country in otherCountries" :key="country.iso" :value="country.iso">{{ countryFlag(country.iso) }} {{ country.iso }} {{ country.dialCode }}</option>
                   </optgroup>
                 </select>
-                <span class="flex items-center pl-3 text-sm font-semibold text-slate-300">{{ selectedPhoneCountry.dialCode }}</span>
-                <input v-model.trim="form.phoneLocal" type="tel" inputmode="numeric" autocomplete="tel-national" minlength="5" class="min-w-0 flex-1 bg-transparent px-3 py-3 text-white placeholder:text-slate-500 focus:outline-none" placeholder="812 3456 7890" required />
+                <span class="flex items-center pl-3 text-sm font-semibold text-slate-600">{{ selectedPhoneCountry.dialCode }}</span>
+                <input v-model.trim="form.phoneLocal" type="tel" inputmode="numeric" autocomplete="tel-national" minlength="5" class="min-w-0 flex-1 bg-transparent px-3 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none" placeholder="812 3456 7890" required />
               </div>
-              <span class="mt-1.5 block text-xs text-slate-500">{{ copy.phoneHelp }}</span>
+              <span class="mt-1.5 block text-xs text-slate-600">{{ copy.phoneHelp }}</span>
             </label>
           </div>
 
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.password }}</span>
-            <input v-model="form.password" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20" :placeholder="copy.passwordPlaceholder" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.password }}</span>
+            <input v-model="form.password" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.passwordPlaceholder" required />
           </label>
 
           <label class="block">
-            <span class="mb-2 block text-sm text-slate-300">{{ copy.confirmPassword }}</span>
-            <input v-model="form.confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white placeholder:text-slate-500 transition focus:border-amber-300/60 focus:outline-none focus:ring-2 focus:ring-amber-300/20" :placeholder="copy.confirmPlaceholder" required />
+            <span class="mb-2 block text-sm text-slate-700">{{ copy.confirmPassword }}</span>
+            <input v-model="form.confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.confirmPlaceholder" required />
           </label>
 
-          <button type="submit" class="w-full rounded-full bg-gradient-to-r from-amber-300 to-amber-400 px-4 py-3 text-sm font-bold uppercase tracking-[.18em] text-slate-950 shadow-[0_18px_35px_rgba(216,172,89,0.22)] transition duration-200 hover:brightness-110 active:scale-[0.99]" :disabled="submitting">
+          <button type="submit" class="w-full rounded-md bg-[#173f32] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#285442] active:scale-[0.99]" :disabled="submitting">
             {{ submitting ? copy.creating : copy.create }}
           </button>
         </form>
 
-        <div v-if="message" class="mt-4 rounded-2xl border p-3 text-sm" :class="messageTone === 'success' ? 'border-emerald-300/30 bg-emerald-950/30 text-emerald-100' : messageTone === 'error' ? 'border-red-300/30 bg-red-950/30 text-red-100' : 'border-white/10 bg-slate-950/60 text-slate-200'">{{ message }}</div>
+        <div v-if="message" class="mt-4 rounded-md border p-3 text-sm" :class="messageTone === 'success' ? 'border-emerald-300 bg-emerald-50 text-emerald-900' : messageTone === 'error' ? 'border-red-300 bg-red-50 text-red-900' : 'border-slate-200 bg-slate-50 text-slate-700'">{{ message }}</div>
 
-        <p class="mt-5 text-center text-sm text-slate-300">
+        <p class="mt-5 text-center text-sm text-slate-600">
           {{ copy.haveAccount }}
-          <NuxtLink to="/auth/login" class="font-semibold text-amber-200 underline-offset-4 hover:underline">{{ copy.login }}</NuxtLink>
+          <NuxtLink to="/auth/login" class="font-semibold text-emerald-800 underline-offset-4 hover:underline">{{ copy.login }}</NuxtLink>
         </p>
       </div>
     </section>
@@ -76,11 +71,12 @@
 
 <script setup lang="ts">
 import { countryFlag, countryOptions, otherCountries, priorityCountries } from '~/config/countries';
+import type { AdministrativeRegion, RegionLevel } from '~/composables/useHariSantri';
 
 const {locale}=useI18n();
 const messages={
-  id:{create:'Buat akun',title:'Daftar akun Hari Santri',intro:'Buat akun pemesan, lalu pilih kegiatan dan lengkapi data setiap peserta.',fullName:'Nama lengkap',fullNamePlaceholder:'Nama sesuai identitas',email:'Email',country:'Negara',mostSelected:'Pilihan utama',phone:'Nomor WhatsApp',phoneCode:'Kode negara telepon',phoneHelp:'Masukkan nomor tanpa kode negara.',password:'Kata sandi',passwordPlaceholder:'Minimal 8 karakter',confirmPassword:'Ulangi kata sandi',confirmPlaceholder:'Masukkan ulang kata sandi',creating:'Membuat akun…',haveAccount:'Sudah punya akun?',login:'Masuk',required:'Lengkapi semua kolom wajib.',invalidEmail:'Masukkan alamat email yang valid.',phoneLength:'Masukkan nomor telepon yang valid.',passwordLength:'Kata sandi minimal 8 karakter.',passwordMismatch:'Kata sandi tidak sama.',success:'Akun berhasil dibuat. Membuka pendaftaran…',failed:'Akun belum dapat dibuat.'},
-  en:{create:'Create account',title:'Create your Hari Santri account',intro:'Create the order owner account, then choose an activity and enter each participant.',fullName:'Full name',fullNamePlaceholder:'Name as shown on ID',email:'Email',country:'Country',mostSelected:'Popular choices',phone:'WhatsApp number',phoneCode:'Phone country code',phoneHelp:'Enter the number without its country code.',password:'Password',passwordPlaceholder:'At least 8 characters',confirmPassword:'Confirm password',confirmPlaceholder:'Enter your password again',creating:'Creating account…',haveAccount:'Already have an account?',login:'Sign in',required:'Complete all required fields.',invalidEmail:'Enter a valid email address.',phoneLength:'Enter a valid phone number.',passwordLength:'Password must be at least 8 characters.',passwordMismatch:'Passwords do not match.',success:'Account created. Opening registration…',failed:'The account could not be created.'}
+  id:{create:'Buat akun',title:'Daftar akun Hari Santri',intro:'Buat akun pemesan, pilih wilayah tempat tinggal, lalu pilih kegiatan dan lengkapi data peserta.',fullName:'Nama lengkap',fullNamePlaceholder:'Nama sesuai identitas',email:'Email',province:'Provinsi',regency:'Kabupaten/Kota',district:'Kecamatan',village:'Desa/Kelurahan',selectProvince:'Pilih provinsi',selectRegency:'Pilih kabupaten/kota',selectDistrict:'Pilih kecamatan',selectVillage:'Pilih desa/kelurahan',regionHelp:'Pilih wilayah secara berurutan dari provinsi sampai desa/kelurahan.',mostSelected:'Pilihan utama',phone:'Nomor WhatsApp',phoneCode:'Kode negara telepon',phoneHelp:'Masukkan nomor tanpa kode negara.',password:'Kata sandi',passwordPlaceholder:'Minimal 8 karakter',confirmPassword:'Ulangi kata sandi',confirmPlaceholder:'Masukkan ulang kata sandi',creating:'Membuat akun…',haveAccount:'Sudah punya akun?',login:'Masuk',required:'Lengkapi semua kolom wajib.',invalidEmail:'Masukkan alamat email yang valid.',phoneLength:'Masukkan nomor telepon yang valid.',passwordLength:'Kata sandi minimal 8 karakter.',passwordMismatch:'Kata sandi tidak sama.',success:'Akun berhasil dibuat. Membuka pendaftaran…',failed:'Akun belum dapat dibuat.'},
+  en:{create:'Create account',title:'Create your Hari Santri account',intro:'Create the order owner account, choose your residential area, then choose an activity and enter each participant.',fullName:'Full name',fullNamePlaceholder:'Name as shown on ID',email:'Email',province:'Province',regency:'Regency/City',district:'District',village:'Village',selectProvince:'Select province',selectRegency:'Select regency/city',selectDistrict:'Select district',selectVillage:'Select village',regionHelp:'Select the area in order from province to village.',mostSelected:'Popular choices',phone:'WhatsApp number',phoneCode:'Phone country code',phoneHelp:'Enter the number without its country code.',password:'Password',passwordPlaceholder:'At least 8 characters',confirmPassword:'Confirm password',confirmPlaceholder:'Enter your password again',creating:'Creating account…',haveAccount:'Already have an account?',login:'Sign in',required:'Complete all required fields.',invalidEmail:'Enter a valid email address.',phoneLength:'Enter a valid phone number.',passwordLength:'Password must be at least 8 characters.',passwordMismatch:'Passwords do not match.',success:'Account created. Opening registration…',failed:'The account could not be created.'}
 } as const;
 const copy=computed(()=>messages[locale.value==='id'?'id':'en']);
 useSeoMeta({title:()=>`${copy.value.create} | Hari Santri 2026`,description:()=>copy.value.intro});
@@ -88,7 +84,10 @@ useSeoMeta({title:()=>`${copy.value.create} | Hari Santri 2026`,description:()=>
 const form = reactive({
   full_name: '',
   email: '',
-  country: 'Indonesia',
+  province_code: '',
+  regency_code: '',
+  district_code: '',
+  village_code: '',
   phoneCountryIso: 'ID',
   phoneLocal: '',
   password: '',
@@ -100,6 +99,14 @@ const submitting = ref(false);
 const message = ref('');
 const messageTone = ref<'neutral' | 'success' | 'error'>('neutral');
 const emailError = ref(false);
+const hariSantriApi = useHariSantri();
+const regions = reactive<Record<RegionLevel, AdministrativeRegion[]>>({ province: [], regency: [], district: [], village: [] });
+const changeRegion = async (level: RegionLevel) => {
+  if (level === 'province') { form.regency_code = ''; form.district_code = ''; form.village_code = ''; regions.regency = []; regions.district = []; regions.village = []; regions.regency = (await hariSantriApi.getRegions('regency', form.province_code)).data; }
+  if (level === 'regency') { form.district_code = ''; form.village_code = ''; regions.district = []; regions.village = []; regions.district = (await hariSantriApi.getRegions('district', form.regency_code)).data; }
+  if (level === 'district') { form.village_code = ''; regions.village = (await hariSantriApi.getRegions('village', form.district_code)).data; }
+};
+onMounted(async () => { regions.province = (await hariSantriApi.getRegions('province')).data; });
 
 type ApiErrorDetail = { field?: string; code?: string; message?: string };
 type ApiErrorPayload = {
@@ -136,15 +143,10 @@ const internationalPhone = computed(() => {
   return `${selectedPhoneCountry.value.dialCode}${localNumber}`;
 });
 
-watch(() => form.country, (countryName) => {
-  const country = countryOptions.find(option => option.name === countryName);
-  if (country) form.phoneCountryIso = country.iso;
-});
-
 const onSubmit = async () => {
   emailError.value = false;
 
-  if (!form.full_name.trim() || !form.email || !form.country || !form.phoneLocal || !form.password || !form.confirmPassword) {
+  if (!form.full_name.trim() || !form.email || !form.province_code || !form.regency_code || !form.district_code || !form.village_code || !form.phoneLocal || !form.password || !form.confirmPassword) {
     message.value = copy.value.required;
     messageTone.value = 'error';
     return;
@@ -182,7 +184,10 @@ const onSubmit = async () => {
     const result = await register({
       email: form.email,
       full_name: form.full_name,
-      country: form.country,
+      province_code: form.province_code,
+      regency_code: form.regency_code,
+      district_code: form.district_code,
+      village_code: form.village_code,
       phone: internationalPhone.value,
       password: form.password,
       preferred_locale: locale.value === 'id' ? 'id' : 'en'
@@ -211,31 +216,30 @@ const onSubmit = async () => {
 <style scoped>
 .auth-shell {
   min-height: calc(100vh - 140px);
-  background: radial-gradient(circle at top, rgba(216, 172, 89, 0.12), transparent 24rem), linear-gradient(180deg, #031127 0%, #061a35 48%, #020e21 100%);
+  background: #f5f5ef;
 }
 .auth-card {
-  backdrop-filter: blur(18px);
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.35), inset 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 18px 48px rgba(23, 63, 50, 0.08);
 }
 .registration-field {
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-radius: 1rem;
-  background: rgb(2 6 23 / 80%);
+  border: 1px solid #cbd5e1;
+  border-radius: .375rem;
+  background: #fff;
   padding: .75rem 1rem;
-  color: white;
+  color: #0f172a;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .registration-field:focus {
-  border-color: rgb(252 211 77 / 60%);
+  border-color: #047857;
   outline: none;
-  box-shadow: 0 0 0 2px rgb(252 211 77 / 20%);
+  box-shadow: 0 0 0 2px rgb(4 120 87 / 15%);
 }
 .registration-field option,
 .registration-field optgroup,
 .phone-country option,
 .phone-country optgroup {
-  background: #020617;
-  color: white;
+  background: #fff;
+  color: #0f172a;
 }
 
 @media (max-width: 767px) {

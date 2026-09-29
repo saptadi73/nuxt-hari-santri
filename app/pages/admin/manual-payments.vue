@@ -56,7 +56,7 @@
 import { useAdminReport, type OfflinePaymentMethod, type ParticipantReportItem, type PaymentReportTransaction } from '~/composables/useAdminReport';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Create Offline Payment | IWBIF 2026' });
+useSeoMeta({ title: 'Create Offline Payment | Hari Santri 2026' });
 
 const { createOfflineRegistrationPayment, getManualPaymentReport, downloadManualProof, getParticipantReport } = useAdminReport();
 const form = reactive<{ payment_method: Exclude<OfflinePaymentMethod, 'manual_qr_code'>; registrationId: string; receipt_number: string; amount: number | null; notes: string; paid_at: string }>({ payment_method: 'cash', registrationId: '', receipt_number: '', amount: null, notes: '', paid_at: '' });

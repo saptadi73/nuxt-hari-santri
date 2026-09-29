@@ -61,7 +61,7 @@ const config = useRuntimeConfig();
 const {locale}=useI18n();
 const messages={en:{eyebrow:'Speakers',title:'Featured Speakers & Ecosystem Leaders',loading:'Loading...',loadingSpeakers:'Loading speakers...',count:(count:number)=>`${count} speakers`,error:'Unable to load speakers from backend.',errorHelp:'Please check the API connection or try again.',retry:'Retry',empty:'No speakers found.',speaker:'Speaker',topic:'Forum Topic'},'zh-CN':{eyebrow:'演讲嘉宾',title:'特邀演讲嘉宾与生态系统领袖',loading:'正在加载…',loadingSpeakers:'正在加载演讲嘉宾…',count:(count:number)=>`${count} 位演讲嘉宾`,error:'无法从后端加载演讲嘉宾。',errorHelp:'请检查 API 连接或重试。',retry:'重试',empty:'未找到演讲嘉宾。',speaker:'演讲嘉宾',topic:'论坛主题'}};
 const copy=computed(()=>messages[String(locale.value) === 'zh-CN'?'zh-CN':'en']);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.title});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.title});
 const { getEventSpeakers } = useEvent();
 const { mediaUrl } = useMediaUrl();
 const unavailablePhotos = ref(new Set<string>());

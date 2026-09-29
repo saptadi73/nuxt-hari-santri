@@ -61,7 +61,7 @@ const paymentMessages = {
 const copy = computed(() => String(locale.value) === 'zh-CN'
   ? { ...messages.zh, ...paymentMessages.zh }
   : { ...messages.en, ...paymentMessages.en });
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 
 const route = useRoute();
 const paymentApi = usePayment();

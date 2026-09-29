@@ -78,7 +78,7 @@ import { useDebouncedReload } from '~/composables/useTableReload';
 import { useAdminReport, type PaymentReportResponse, type PaymentReportTransaction } from '~/composables/useAdminReport';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Transaction Management | IWBIF 2026' });
+useSeoMeta({ title: 'Transaction Management | Hari Santri 2026' });
 
 type TransactionAction = 'success' | 'canceled' | 'delete';
 const { getAdminTransactions, updateTransactionStatus, deleteTransaction, bulkTransactionAction } = useAdminReport();

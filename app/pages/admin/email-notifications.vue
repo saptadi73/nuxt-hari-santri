@@ -188,7 +188,7 @@ import { useEvent, type EventItem } from '~/composables/useEvent';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
 const { locale, t, te } = useI18n();
-useSeoMeta({ title: () => `${t('nav.emailNotifications')} | IWBIF 2026` });
+useSeoMeta({ title: () => `${t('nav.emailNotifications')} | Hari Santri 2026` });
 
 type Section = 'general' | 'account' | 'history';
 type PreferenceChoice = 'default' | 'enabled' | 'disabled';

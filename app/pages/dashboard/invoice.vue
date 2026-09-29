@@ -14,7 +14,7 @@
     <article v-else id="invoice" ref="invoiceElement" class="glass-card mt-8 rounded-[2rem] p-5 sm:p-7">
       <div class="flex flex-wrap justify-between gap-5 border-b border-white/10 pb-6">
         <div class="flex min-w-0 items-center gap-4">
-          <img src="/logo_iwbif2.png" alt="IWBIF" class="h-16 w-16 shrink-0 object-contain" data-invoice-logo>
+          <img src="/logo_santri_2026.png" alt="Hari Santri 2026" class="h-16 w-16 shrink-0 object-contain" data-invoice-logo>
           <div class="min-w-0"><p class="break-words text-sm text-slate-400">{{ invoice.registration.event_name }}</p><p class="mt-1 break-words font-semibold">{{ copy.invoice }} {{ invoice.order.order_number }}</p></div>
         </div>
         <span class="h-fit rounded-full bg-emerald-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-emerald-200">{{ copy.paid }}</span>
@@ -49,7 +49,7 @@ const messages = {
   zh: { eyebrow: '付款与发票', title: '注册发票', loading: '正在加载发票…', noInvoice: '目前尚无可用发票。', invoice: '发票', paid: '已付款', registrationNumber: '注册编号', participant: '参与者', delegatePackage: '代表套餐', paymentStatus: '付款状态', packageTotal: '套餐总额', paymentAmountGateway: '由支付网关显示', preparingPdf: '正在准备 PDF…', downloadPdf: '下载发票 PDF', finishProfile: '您的付款已完成。请完善个人资料，以便后端将此订单关联到您的注册并生成发票。', awaitingInvoice: '付款和注册确认后，您的发票将显示在此处。', mismatchProfile: '尚未找到与此次付款对应的发票。如果资料仍未完成，请先完善资料。', mismatch: '尚未找到与此次付款信息对应的发票。', completeExhibitor: '完善参展商资料', completeDelegate: '完善代表资料', checkStatus: '查看付款状态', goPayment: '前往付款', unavailable: '您的发票目前尚不可用。如果付款已确认，请联系活动主办方。', exportError: '无法准备 PDF 导出，请重试。', invoiceSuffix: '发票', seo: '发票' }
 } as const;
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | IWBIF 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 
 const paymentApi = usePayment();
 const { getMyInvoices, getInvoiceByRegistration } = paymentApi;

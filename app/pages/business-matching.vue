@@ -83,7 +83,7 @@ const copy=computed(()=>({
     ? {respondBy:'请于此日期前回复：',join:'参加商务配对',jakarta:'雅加达',date:'2026年10月15日至16日'}
     : {respondBy:'Respond by',join:'Join Business Matching',jakarta:'Jakarta',date:'15–16 October 2026'})
 }));
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.intro});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.intro});
 
 const registrationFlow = useRegistrationFlow();
 const { getEvents } = useEvent();

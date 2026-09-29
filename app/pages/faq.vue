@@ -18,5 +18,5 @@ const messages = {
 } as const;
 const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en']);
 const faqs = computed(() => copy.value.faqs);
-useSeoMeta({title:()=>`${copy.value.eyebrow} | IWBIF 2026`,description:()=>copy.value.title});
+useSeoMeta({title:()=>`${copy.value.eyebrow} | Hari Santri 2026`,description:()=>copy.value.title});
 </script>

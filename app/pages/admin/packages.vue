@@ -72,7 +72,7 @@ import { useAdminContent, type DelegatePackageFacilityPayload, type DelegatePack
 import { useEvent, type DelegatePackageCatalogItem, type DelegatePackageFacility, type DelegatePackageRate, type EventItem } from '~/composables/useEvent';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Manage Delegate Packages | IWBIF 2026' });
+useSeoMeta({ title: 'Manage Delegate Packages | Hari Santri 2026' });
 
 const { getEvents } = useEvent();
 const adminApi = useAdminContent();

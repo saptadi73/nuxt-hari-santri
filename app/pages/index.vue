@@ -3,7 +3,7 @@
     <section class="hero" aria-labelledby="hero-title">
       <img
         class="hero__image"
-        src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=2400&q=85"
+        :src="heroImage"
         alt="Pesepeda bergerak bersama di jalan terbuka"
         fetchpriority="high"
         width="2400"
@@ -12,8 +12,8 @@
       <div class="hero__shade" aria-hidden="true" />
       <div class="hero__content">
         <p class="eyebrow">{{ locale === 'id' ? 'MWC NU Tarumajaya mempersembahkan' : 'Presented by MWC NU Tarumajaya' }}</p>
-        <h1 id="hero-title">Hari Santri 2026</h1>
-        <p class="hero__subtitle">{{ locale === 'id' ? 'Sepeda Sehat & Jalan Sehat Keluarga' : 'Healthy Cycling & Family Walk' }}</p>
+        <h1 id="hero-title">{{ locale === 'id' ? 'Sepeda Sehat dan Jalan Sehat Keluarga' : 'Healthy Cycling & Family Walk' }}</h1>
+        <p class="hero__subtitle">Hari Santri 2026</p>
         <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
         <div class="hero__facts">
           <span>{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</span>
@@ -170,6 +170,7 @@
 </template>
 
 <script setup lang="ts">
+import heroImage from '~/assets/images/hero_image_hari_santri.png';
 import type { StoreProduct } from '~/composables/useStore';
 
 const { locale } = useI18n();
@@ -237,12 +238,12 @@ useSeoMeta({
 
 <style scoped>
 .portal-home { color: #17352c; background: #f5f5ef; }
-.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: center; overflow: hidden; background: #163a30; color: #fff; }
+.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: flex-end; overflow: hidden; background: #163a30; color: #fff; }
 .hero__image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
 .hero__shade { position: absolute; z-index: -1; inset: 0; background: rgba(11, 32, 26, .48); }
-.hero__content { width: min(100%, 1280px); margin-inline: auto; padding: 5rem clamp(1.25rem, 6vw, 6rem) 6.5rem; }
+.hero__content { width: min(100%, 1280px); margin-inline: auto; padding: 5rem clamp(1.25rem, 6vw, 6rem) 4.5rem; }
 .eyebrow,.section-number,.activity__label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.hero h1 { max-width: 11ch; margin-top: 1.2rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3.2rem, 8vw, 7.25rem); font-weight: 700; line-height: .94; }
+.hero h1 { max-width: 19ch; margin-top: 1.2rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.8rem, 6vw, 6rem); font-weight: 700; line-height: .98; }
 .hero__subtitle { margin-top: 1.25rem; font-size: clamp(1.2rem, 2.4vw, 2rem); font-weight: 700; }
 .hero__lead { max-width: 42rem; margin-top: .8rem; color: #f2f3e9; font-size: 1rem; line-height: 1.7; }
 .hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.7rem; color: #f2f3e9; font-size: .84rem; }
@@ -313,7 +314,7 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .faq .button { margin-top: 1.8rem; }
 @media (max-width: 760px) {
   .hero { min-height: 68svh; }
-  .hero__content { padding-top: 4.5rem; padding-bottom: 5rem; }
+  .hero__content { padding-top: 7rem; padding-bottom: 4rem; }
   .hero__facts { display: grid; gap: .45rem; }
   .hero__facts span + span::before { content: none; }
   .content-grid { grid-template-columns: 1fr; gap: 1.4rem; }

@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { useTableReload } from '~/composables/useTableReload';
 import { useAdminOperations, type AdminUserCreatePayload, type AdminUserItem } from '~/composables/useAdminOperations';
-definePageMeta({middleware:['auth','admin']});useSeoMeta({title:'Manage Users | IWBIF 2026'});const authStore=useAuthStore();const api=useAdminOperations();
+definePageMeta({middleware:['auth','admin']});useSeoMeta({title:'Manage Users | Hari Santri 2026'});const authStore=useAuthStore();const api=useAdminOperations();
 const users=ref<AdminUserItem[]>([]),loading=ref(false),saving=ref(false),modalOpen=ref(false),editingId=ref(''),feedback=ref(''),tone=ref<'success'|'error'>('success');const page=ref(1),roleFilter=ref(''),statusFilter=ref(''),search=ref('');const meta=reactive({total:0,pages:1});
 const filteredUsers=computed(()=>users.value);
 const empty=():AdminUserCreatePayload=>({email:'',password:'',full_name:'',phone:'',country:'',role:'participant',status:'active',is_email_verified:false});const form=reactive(empty());const errorText=(error:unknown)=>{const value=error as {data?:{message?:string;errors?:Array<{message:string}>}};return value.data?.errors?.[0]?.message||value.data?.message||(error instanceof Error?error.message:'User could not be saved.');};

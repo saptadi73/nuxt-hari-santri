@@ -89,7 +89,7 @@ const { data, pending, error, refresh } = await useAsyncData(
 );
 const members = computed(() => data.value ?? []);
 
-useSeoMeta({ title: () => `${copy.value.eyebrow} | IWBIF 2026`, description: () => copy.value.intro });
+useSeoMeta({ title: () => `${copy.value.eyebrow} | Hari Santri 2026`, description: () => copy.value.intro });
 </script>
 
 <style scoped>

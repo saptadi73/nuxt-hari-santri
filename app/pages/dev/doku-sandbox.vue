@@ -139,5 +139,5 @@ watch([paymentMethod, orderNumber], async ([method, order]) => {
   if (method !== 'QRIS' || !order) { dummyQrisUrl.value = ''; return; }
   dummyQrisUrl.value = await QRCode.toDataURL(`DOKU-SANDBOX|${order}|IDR${totalIdr.value}|NOT-A-REAL-PAYMENT`, { width: 512, margin: 2 });
 });
-useSeoMeta({ title: 'DOKU Payment | IWBIF 2026', robots: 'noindex, nofollow' });
+useSeoMeta({ title: 'DOKU Payment | Hari Santri 2026', robots: 'noindex, nofollow' });
 </script>

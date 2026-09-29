@@ -103,7 +103,7 @@ const copy = computed(() => messages[String(locale.value) === 'zh-CN' ? 'zh-CN' 
 const kempinskiRooms = computed(() => [{ src: kempinskiTwinSharing, label: copy.value.twinSharing }, { src: kempinskiRoom, label: copy.value.singleRoom }]);
 const sahidRooms = computed(() => [{ src: sahidSharing, label: copy.value.twinSharing }, { src: sahidSingle, label: copy.value.singleRoom }]);
 const mercureImages = computed(() => [{ src: mercureSharing, label: copy.value.superiorSharing }, { src: mercureSingle, label: copy.value.superiorSingle }, { src: mercureRoof, label: copy.value.rooftop }, { src: mercureLobby, label: copy.value.lobby }]);
-useSeoMeta({ title: () => `${copy.value.eyebrow} | IWBIF 2026`, description: () => copy.value.intro });
+useSeoMeta({ title: () => `${copy.value.eyebrow} | Hari Santri 2026`, description: () => copy.value.intro });
 </script>
 
 <style scoped>

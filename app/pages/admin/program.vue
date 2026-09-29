@@ -2,7 +2,7 @@
   <section class="mx-auto max-w-7xl px-3 py-10 sm:px-6 lg:px-8">
     <div class="flex flex-wrap items-end justify-between gap-5">
       <div><p class="text-sm uppercase tracking-[.3em] text-cyan-200">Event operations</p><h1 class="mt-3 text-3xl font-black sm:text-4xl">Program & agenda</h1><p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Manage schedules, rooms, capacity, and publication status.</p></div>
-      <div class="flex flex-wrap gap-3"><NuxtLink to="/program" class="action-secondary">View public program</NuxtLink><button class="action-primary" :disabled="!selectedEventId" @click="openCreate">+ New session</button></div>
+      <div class="flex flex-wrap gap-3"><NuxtLink to="/#agenda" class="action-secondary">View event agenda</NuxtLink><button class="action-primary" :disabled="!selectedEventId" @click="openCreate">+ New session</button></div>
     </div>
 
     <div class="mt-8 flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/[.04] p-4 sm:flex-row sm:items-end">
@@ -54,7 +54,7 @@
 import { useTableReload } from '~/composables/useTableReload';
 import { useEvent, type EventItem, type SessionItem } from '~/composables/useEvent';
 import { useAdminContent, type SessionMutationPayload } from '~/composables/useAdminContent';
-definePageMeta({ middleware: ['auth', 'admin'] }); useSeoMeta({ title: 'Manage Program | IWBIF 2026' });
+definePageMeta({ middleware: ['auth', 'admin'] }); useSeoMeta({ title: 'Manage Program | Hari Santri 2026' });
 const { getEvents } = useEvent(); const adminApi = useAdminContent();
 const { data: eventResponse } = await useAsyncData('admin-program-events', () => getEvents(1, 100));
 const events = computed<EventItem[]>(() => eventResponse.value?.data || []); const selectedEventId = ref(events.value[0]?.id || ''); const selectedEvent = computed(() => events.value.find(item => item.id === selectedEventId.value));
