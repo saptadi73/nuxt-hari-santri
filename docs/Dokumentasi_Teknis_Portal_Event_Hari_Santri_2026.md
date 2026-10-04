@@ -4,7 +4,7 @@
 
 ## 1. Ringkasan dan batas sistem
 
-Portal untuk **Sepeda Sehat dan Jalan Sehat Keluarga**, diselenggarakan **MWC NU Tarumajaya**, Minggu **25 Oktober 2026** di **Summarecon Crown Gading, Tarumajaya, Bekasi**. Jam, titik start/finish, lintasan, harga, kuota, dan daftar pengisi acara harus ditetapkan panitia di CMS; jangan mengambilnya sebagai fakta operasional dari poster ilustratif.
+Portal untuk **Sepeda Santai dan Jalan Sehat Keluarga** (**Leisure Bike Ride & Family Fun Walk**), diselenggarakan **MWC NU Tarumajaya**, Minggu **15 November 2026** di **Summarecon Crown Gading, Tarumajaya, Bekasi**. Jam, titik kumpul, arahan kegiatan, harga, kuota, dan daftar pengisi acara harus ditetapkan panitia di CMS; jangan mengambilnya sebagai fakta operasional dari poster ilustratif.
 
 Stack: Nuxt 3 (TypeScript) untuk situs publik dan dashboard, FastAPI untuk API bisnis, PostgreSQL untuk data, Redis dan worker untuk antrean serta cache, object storage untuk gambar/dokumen. Konvensi waktu tampilan `Asia/Jakarta`; simpan timestamp `timestamptz` UTC. Nominal IDR sebagai integer rupiah.
 

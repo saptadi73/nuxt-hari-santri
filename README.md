@@ -1,6 +1,6 @@
 # Nuxt Hari Santri 2026
 
-Frontend Nuxt 4 untuk Portal Event Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026. Sumber copy publik: [Konten Web Portal Hari Santri](../fastapi-hari-santri/docs/Konten_Web_Portal_Hari_Santri_2026.md). Batas backend/payment, endpoint peserta/kaos, alur checkout, locale, dan gap release ada di [Frontend Contract](docs/HARI_SANTRI_FRONTEND.md) dan [TODO lintas repo](../fastapi-hari-santri/docs/HARI_SANTRI_TODO.md).
+Frontend Nuxt 4 untuk Portal Event Sepeda Santai dan Jalan Sehat Keluarga Hari Santri 2026 (Leisure Bike Ride & Family Fun Walk). Sumber copy publik: [Konten Web Portal Hari Santri](../fastapi-hari-santri/docs/Konten_Web_Portal_Hari_Santri_2026.md). Batas backend/payment, endpoint peserta/kaos, alur checkout, locale, dan gap release ada di [Frontend Contract](docs/HARI_SANTRI_FRONTEND.md) dan [TODO lintas repo](../fastapi-hari-santri/docs/HARI_SANTRI_TODO.md).
 
 ## Menjalankan lokal
 
@@ -27,3 +27,13 @@ npm run build
 ```
 
 Gunakan dokumentasi pada folder `docs` sebagai kontrak Portal Hari Santri. Dokumen lama dan integrasi gateway langsung tidak lagi menjadi bagian dari proyek ini.
+
+## Wallet voucher bazar
+
+Halaman yang tersedia:
+
+- `/dashboard/voucher`: kartu QR voucher, saldo, dan riwayat peserta.
+- `/exhibitor/scanner`: scanner QR, nominal belanja, password peserta, saldo, dan riwayat tenant; lapak aktif diambil dari akun exhibitor yang login sehingga tidak perlu UUID.
+- `/admin/vouchers`: penerbitan reward manual, adjustment/revoke voucher, serta settlement exhibitor dengan dropdown peserta, voucher, exhibitor, dan settlement; UUID tidak diisi manual.
+
+Endpoint backend wallet menggunakan kontrak pada `fastapi-hari-santri/docs/HARI_SANTRI_VOUCHER_WALLET.md`. Jalankan migration backend sebelum menguji halaman ini. Kamera scanner membutuhkan HTTPS atau localhost; input token manual tetap tersedia sebagai fallback.

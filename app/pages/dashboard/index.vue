@@ -20,6 +20,7 @@
           <NuxtLink to="/daftar"><span>01</span><strong>{{ id ? 'Daftar Peserta' : 'Register Participants' }}</strong><p>{{ id ? 'Pilih kegiatan dan isi data keluarga.' : 'Choose an activity and enter your family details.' }}</p></NuxtLink>
           <NuxtLink to="/dashboard/payment"><span>02</span><strong>{{ id ? 'Pesanan & Pembayaran' : 'Orders & Payment' }}</strong><p>{{ id ? 'Lanjutkan pembayaran melalui Portal Payment.' : 'Continue payment through the Payment Portal.' }}</p></NuxtLink>
           <NuxtLink to="/dashboard/tiket"><span>03</span><strong>{{ id ? 'Tiket Digital' : 'Digital Tickets' }}</strong><p>{{ id ? 'Satu QR untuk setiap peserta.' : 'One QR ticket per participant.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/voucher"><span>04</span><strong>{{ id ? 'Voucher Bazar' : 'Bazaar Vouchers' }}</strong><p>{{ id ? 'QR voucher, saldo, dan riwayat belanja.' : 'Voucher QR, balance, and spending history.' }}</p></NuxtLink>
           <NuxtLink to="/#agenda"><span>04</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
         </div>
       </section>
@@ -58,7 +59,7 @@ const hariSantriApi = useHariSantri();
 const orders = ref<PendingOrderRecord[]>([]);
 const tickets = ref<HariSantriTicket[]>([]);
 const error = ref('');
-const eventDate = new Date('2026-10-25T07:00:00+07:00');
+const eventDate = new Date('2026-11-15T07:00:00+07:00');
 const daysUntil = computed(() => Math.max(0, Math.ceil((eventDate.getTime() - Date.now()) / 86400000)));
 const participantCount = computed(() => orders.value.reduce((count, entry) => count + (entry.items[0]?.quantity || 0), 0));
 

@@ -53,7 +53,7 @@ const copy = computed(() => messages[String(locale.value) === 'id' ? 'id' : 'en'
 useSeoMeta({ title: () => `${copy.value.login} | Hari Santri 2026`, description: () => copy.value.intro });
 const form = reactive({ email: '', password: '' });
 const { login } = useAuth();
-const flow = useRegistrationFlow();
+const flow = useHariSantriRegistration();
 const message = ref('');
 const messageTone = ref<'neutral' | 'success' | 'error'>('neutral');
 const route = useRoute();
@@ -118,7 +118,9 @@ const onSubmit = async () => {
     if (result.success) {
       message.value = copy.value.success;
       messageTone.value = 'success';
-      await navigateTo(flow.ctaTo.value);
+      await flow.refresh();
+      const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '';
+      await navigateTo(redirect.startsWith('/') && !redirect.startsWith('//') && !redirect.includes('\\') ? redirect : flow.ctaTo.value);
       return;
     }
 

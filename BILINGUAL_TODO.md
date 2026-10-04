@@ -11,6 +11,7 @@
 
 ## Berikutnya
 
+- [ ] Tambahkan copy bilingual untuk halaman `/dashboard/voucher`, `/exhibitor/scanner`, dan `/admin/vouchers` yang saat ini sudah tersedia dalam Bahasa Indonesia.
 - [ ] Review copy Indonesia dan English oleh penutur yang ditunjuk panitia.
 - [ ] Lengkapi terjemahan untuk konten CMS dinamis setelah agenda, rute, paket, hadiah, dan sponsor disahkan.
 - [ ] Audit aksesibilitas keyboard, screen reader, alt text, dan pesan validasi pada setiap halaman baru.

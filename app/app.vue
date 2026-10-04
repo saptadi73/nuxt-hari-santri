@@ -116,9 +116,9 @@
           <NuxtLink v-if="!isAuthenticated" to="/auth/register" class="mobile-register-cta header-cta inline-flex whitespace-nowrap rounded-full bg-sky-700 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-800 sm:hidden">
             {{ locale === 'id' ? 'Daftar' : 'Register' }}
           </NuxtLink>
-          <span v-if="isAuthenticated && isRegistrationPaid" class="header-cta hidden whitespace-nowrap rounded-full bg-sky-700 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-sky-500/20 opacity-90 lg:inline-flex">
+          <NuxtLink v-if="isAuthenticated" :to="paymentCtaTo" :aria-busy="hariSantriRegistration.loading.value" class="header-cta hidden whitespace-nowrap rounded-full bg-sky-700 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-sky-500/20 lg:inline-flex">
             {{ localizedCtaLabel }}
-          </span>
+          </NuxtLink>
           <button v-if="isAuthenticated" type="button" class="header-cta hidden whitespace-nowrap rounded-full bg-sky-700 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-800 sm:px-5 lg:inline-flex" @click="handleLogout">
             {{ locale === 'id' ? 'Keluar' : 'Sign Out' }}
           </button>
@@ -138,12 +138,9 @@
                 <NuxtLink v-else :to="item.to" :class="item.disabled ? 'pointer-events-none cursor-not-allowed opacity-50' : 'hover:bg-sky-50 hover:text-sky-700'" class="rounded-xl px-4 py-3 text-sm text-sky-900 transition" @click="item.disabled ? $event.preventDefault() : closeMenus()">{{ item.label }}</NuxtLink>
               </template>
               <div v-if="isAuthenticated" class="mt-2 grid gap-2 border-t border-sky-100 pt-3 lg:hidden">
-                <NuxtLink v-if="!isRegistrationPaid" :to="paymentCtaTo" class="rounded-xl bg-sky-700 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-sky-800" @click="closeMenus">
+                <NuxtLink :to="paymentCtaTo" class="rounded-xl bg-sky-700 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-sky-800" @click="closeMenus">
                   {{ localizedCtaLabel }}
                 </NuxtLink>
-                <span v-else class="rounded-xl bg-sky-50 px-4 py-3 text-center text-sm font-bold text-sky-800">
-                  {{ localizedCtaLabel }}
-                </span>
                 <button type="button" class="rounded-xl border border-sky-200 px-4 py-3 text-left text-sm font-bold text-sky-900 transition hover:bg-sky-50" @click="handleLogout">
                   {{ t('actions.logOut') }}
                 </button>
@@ -153,6 +150,11 @@
         </div>
       </div>
     </header>
+
+    <p v-if="hariSantriRegistration.error.value && isAuthenticated" class="relative z-10 bg-red-50 px-4 py-3 text-center text-sm text-red-800" role="alert">
+      {{ hariSantriRegistration.error.value }}
+      <button type="button" class="ml-2 underline" @click="hariSantriRegistration.refresh()">{{ locale === 'id' ? 'Coba lagi' : 'Retry' }}</button>
+    </p>
 
     <NuxtLink
       v-if="!authStore.isAdminOrOrganizer && !isRegistrationPaid && !route.path.startsWith('/auth/')"
@@ -177,14 +179,14 @@
         </div>
         <div class="grid grid-cols-2 gap-3 text-sm text-slate-700">
           <NuxtLink to="/#tentang">{{ locale === 'id' ? 'Tentang' : 'About' }}</NuxtLink><NuxtLink to="/#kegiatan">{{ locale === 'id' ? 'Kegiatan' : 'Activities' }}</NuxtLink>
-          <NuxtLink to="/#rute">{{ locale === 'id' ? 'Rute' : 'Routes' }}</NuxtLink><NuxtLink to="/#agenda">{{ locale === 'id' ? 'Agenda' : 'Agenda' }}</NuxtLink>
+          <NuxtLink to="/#syarat-ketentuan">{{ locale === 'id' ? 'Syarat & Ketentuan' : 'Terms & Conditions' }}</NuxtLink><NuxtLink to="/#agenda">{{ locale === 'id' ? 'Agenda' : 'Agenda' }}</NuxtLink>
           <NuxtLink to="/#bazar">{{ locale === 'id' ? 'Bazar' : 'Bazaar' }}</NuxtLink>
           <NuxtLink to="/#sejarah">{{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</NuxtLink><NuxtLink to="/#faq">FAQ</NuxtLink>
         </div>
         <div class="text-sm text-slate-600 md:text-right">
           <p class="md:whitespace-nowrap">{{ locale === 'id' ? 'MWC NU Tarumajaya menyelenggarakan' : 'Presented by MWC NU Tarumajaya' }}</p>
-          <p class="mt-1">{{ locale === 'id' ? 'Minggu, 25 Oktober 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' : 'Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' }}</p>
-          <div class="mt-3 flex flex-wrap gap-4 md:justify-end"><NuxtLink to="/privacy">{{ locale === 'id' ? 'Kebijakan Privasi' : 'Privacy' }}</NuxtLink><NuxtLink to="/terms">{{ locale === 'id' ? 'Syarat & Ketentuan' : 'Terms' }}</NuxtLink><NuxtLink to="/code-of-conduct">{{ locale === 'id' ? 'Tata Tertib' : 'Code of Conduct' }}</NuxtLink><NuxtLink to="/refund-policy">{{ locale === 'id' ? 'Pembatalan' : 'Cancellations' }}</NuxtLink></div>
+          <p class="mt-1">{{ locale === 'id' ? 'Minggu, 15 November 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' : 'Sunday, 15 November 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi' }}</p>
+          <div class="mt-3 flex flex-wrap gap-4 md:justify-end"><NuxtLink to="/privacy">{{ locale === 'id' ? 'Kebijakan Privasi' : 'Privacy' }}</NuxtLink><NuxtLink to="/terms">{{ locale === 'id' ? 'Ketentuan Layanan' : 'Terms of Service' }}</NuxtLink><NuxtLink to="/code-of-conduct">{{ locale === 'id' ? 'Tata Tertib' : 'Code of Conduct' }}</NuxtLink><NuxtLink to="/refund-policy">{{ locale === 'id' ? 'Pembatalan' : 'Cancellations' }}</NuxtLink></div>
         </div>
       </div>
       <p class="border-t border-emerald-900/10 px-4 py-5 text-center text-xs text-slate-600">{{ locale === 'id' ? '© 2026 MWC NU Tarumajaya. Hak cipta dilindungi.' : '© 2026 MWC NU Tarumajaya. All rights reserved.' }}</p>
@@ -196,13 +198,11 @@
 import siteLogo from '~/assets/images/logo_santri_2026.png';
 import { useCommunication } from '~/composables/useCommunication';
 const { t, locale, setLocale } = useI18n();
-const localeCookie = useCookie<'id' | 'en'>('hari_santri_locale', { default: () => 'id' });
 useHead(() => ({ htmlAttrs: { lang: locale.value } }));
 const changeLocale = async (event: Event) => {
   const value = (event.target as HTMLSelectElement).value;
   if (value !== 'id' && value !== 'en') return;
   await setLocale(value);
-  localeCookie.value = value;
   if (authStore.isAuthenticated) {
     try {
       await updatePreferredLocale(value);
@@ -217,9 +217,10 @@ const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
 const { logout, updatePreferredLocale } = useAuth();
 const registrationFlow = useRegistrationFlow();
-const isRegistrationPaid = computed(() => false);
-const paymentCtaTo = computed(() => '/dashboard/payment');
-const localizedCtaLabel = computed(() => locale.value === 'id' ? 'Lanjutkan Pendaftaran' : 'Continue Registration');
+const hariSantriRegistration = useHariSantriRegistration();
+const isRegistrationPaid = computed(() => hariSantriRegistration.status.value === 'paid');
+const paymentCtaTo = hariSantriRegistration.ctaTo;
+const localizedCtaLabel = hariSantriRegistration.ctaLabel;
 const route = useRoute();
 const routeEventId = computed(() => {
   const queryEventId = route.query.event_id;
@@ -444,12 +445,7 @@ const handleMarkAllRead = async () => {
 };
 
 const refreshRegistrationFlow = async () => {
-  if (!isAuthenticated.value) return;
-  try {
-    await registrationFlow.loadFlow(true);
-  } catch {
-    // A temporary progress request failure must not break navigation or authentication.
-  }
+  await hariSantriRegistration.refresh();
 };
 
 const handleWindowFocus = () => { void refreshRegistrationFlow(); };
@@ -480,6 +476,7 @@ onBeforeUnmount(() => {
 
 watch(isAuthenticated, (value) => {
   if (!value) {
+    hariSantriRegistration.reset();
     showInbox.value = false;
     inboxNotifications.value = [];
     inboxUnreadCount.value = 0;
@@ -495,6 +492,10 @@ watch(isAuthenticated, (value) => {
   inboxPoller.value = window.setInterval(() => {
     void refreshUnreadOnly();
   }, 60000);
+});
+
+watch(() => route.fullPath, () => {
+  if (isAuthenticated.value) void refreshRegistrationFlow();
 });
 
 watch(showInbox, (open) => {
@@ -528,7 +529,7 @@ const primaryNav = computed<NavItem[]>(() => locale.value === 'id' ? [
   { to: '/', label: 'Beranda' },
   { to: '/#tentang', label: 'Tentang Acara' },
   { to: '/#kegiatan', label: 'Kegiatan & Paket' },
-  { to: '/#rute', label: 'Rute' },
+  { to: '/#syarat-ketentuan', label: 'Syarat & Ketentuan' },
   { to: '/#agenda', label: 'Agenda' },
   { to: '/#pengisi-acara', label: 'Pengisi Acara' },
   { to: '/#hadiah', label: 'Hadiah' },
@@ -538,7 +539,7 @@ const primaryNav = computed<NavItem[]>(() => locale.value === 'id' ? [
   { to: '/', label: 'Home' },
   { to: '/#tentang', label: 'About' },
   { to: '/#kegiatan', label: 'Activities & Packages' },
-  { to: '/#rute', label: 'Routes' },
+  { to: '/#syarat-ketentuan', label: 'Terms & Conditions' },
   { to: '/#agenda', label: 'Agenda' },
   { to: '/#pengisi-acara', label: 'Performers' },
   { to: '/#hadiah', label: 'Prizes' },
@@ -548,13 +549,14 @@ const primaryNav = computed<NavItem[]>(() => locale.value === 'id' ? [
 const secondaryNav = computed<NavItem[]>(() => {
   const items: NavItem[] = [
     { to: '/#faq', label: 'FAQ' },
-    { to: '/daftar-tenant', label: locale.value === 'id' ? 'Daftar Tenant Bazar' : 'Apply as a Bazaar Tenant' },
+    { to: '/daftar-tenant', label: hariSantriRegistration.tenantLabel.value },
     { to: '/dashboard', label: 'Dashboard' }
   ];
 
   if (authStore.isAdminOrOrganizer) {
     items.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
     items.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
+    items.push({ to: '/admin/audit-vouchers', label: locale.value === 'id' ? 'Audit Voucher' : 'Voucher Audit' });
     items.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
   }
 

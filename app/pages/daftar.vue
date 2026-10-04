@@ -83,6 +83,7 @@ const auth = useAuthStore();
 const eventApi = useEvent();
 const storeApi = useStore();
 const hariSantriApi = useHariSantri();
+const registrationProgress = useHariSantriRegistration();
 const loading = ref(true);
 const submitting = ref(false);
 const loadError = ref('');
@@ -112,11 +113,11 @@ const packageParticipantLimit = computed(() => {
   return { min: Number(metadata.min_participants || 1), max: Number(metadata.max_participants || 20) };
 });
 const activityOptions = computed(() => isIndonesian.value ? [
-  { code: 'CYCLING' as const, title: 'Sepeda Sehat', summary: 'Kayuh bersama mengikuti rute resmi panitia.' },
+  { code: 'CYCLING' as const, title: 'Sepeda Santai', summary: 'Kayuh bersama di dalam kawasan acara sesuai arahan panitia.' },
   { code: 'FAMILY_WALK' as const, title: 'Jalan Sehat Keluarga', summary: 'Berjalan bersama keluarga sesuai ketentuan paket.' }
 ] : [
-  { code: 'CYCLING' as const, title: 'Healthy Cycling', summary: 'Ride together on the official route.' },
-  { code: 'FAMILY_WALK' as const, title: 'Family Walk', summary: 'Walk together according to package rules.' }
+  { code: 'CYCLING' as const, title: 'Leisure Bike Ride', summary: 'Ride together within the event area and follow the organizers’ guidance.' },
+  { code: 'FAMILY_WALK' as const, title: 'Family Fun Walk', summary: 'Walk together within the event area and follow the organizers’ guidance.' }
 ]);
 const copy = {
   id: { eyebrow: 'PENDAFTARAN PESERTA', title: 'Ajak keluarga, pilih kegiatan.', intro: 'Pilih paket yang tersedia, isi data setiap peserta, wilayah tempat tinggal, lalu periksa ukuran kaos sebelum melanjutkan pembayaran.', accountRequired: 'Masuk ke akun pemesan untuk mengelola pesanan dan tiket keluarga.', signIn: 'Masuk', createAccount: 'Buat akun', loading: 'Memuat paket, ukuran kaos, dan wilayah…', chooseActivity: 'Pilih kegiatan', package: 'Paket', choosePackage: 'Pilih paket', packagesNotPublished: 'Paket resmi belum diterbitkan', packageNote: 'Harga, manfaat, dan kuota yang berlaku ditetapkan panitia dan berasal dari server.', participants: 'Data peserta', person: 'Peserta', remove: 'Hapus', fullName: 'Nama lengkap', birthDate: 'Tanggal lahir (opsional)', shirtSize: 'Ukuran kaos', selectSize: 'Pilih ukuran', left: 'tersedia', province: 'Provinsi', regency: 'Kabupaten/Kota', district: 'Kecamatan', village: 'Desa/Kelurahan', selectProvince: 'Pilih provinsi', selectRegency: 'Pilih kabupaten/kota', selectDistrict: 'Pilih kecamatan', selectVillage: 'Pilih desa/kelurahan', guardianName: 'Nama orang tua/wali', guardianContact: 'Kontak orang tua/wali', addParticipant: 'Tambah peserta', familyNote: 'Setiap peserta memiliki wilayah tempat tinggal dan ukuran kaos sendiri. Pilih wilayah secara berurutan dari provinsi sampai desa.', regionRequired: 'Pilih provinsi, kabupaten/kota, kecamatan, dan desa untuk setiap peserta.', review: 'Periksa pesanan', selectedPackage: 'Paket', notSelected: 'Belum dipilih', total: 'Total pesanan', paymentNote: 'Pembayaran diproses oleh Portal Payment terpisah. Tiket terbit setelah status lunas diverifikasi oleh sistem.', acceptTerms: 'Saya menyetujui syarat pendaftaran dan kebijakan privasi.', submitting: 'Menyiapkan pesanan…', payButton: 'Lanjutkan ke Pembayaran', sizeUnavailable: 'Ukuran kaos belum tersedia. Silakan hubungi panitia.', noEvent: 'Pendaftaran belum dibuka. Event belum diterbitkan panitia.', paymentUrlInvalid: 'Tautan pembayaran tidak valid. Hubungi panitia.' },
@@ -209,6 +210,7 @@ const submitRegistration = async () => {
       village_code: person.village_code
     }));
     await hariSantriApi.saveParticipants(orderId, roster);
+    await registrationProgress.refresh();
     const checkout = (await hariSantriApi.createCheckout(orderId)).data;
     if (checkout.already_paid) {
       await navigateTo(`/dashboard/tiket?order_id=${encodeURIComponent(orderId)}`);

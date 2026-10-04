@@ -12,13 +12,14 @@
 
       <template v-else>
         <p v-if="loading" class="state">{{ id ? 'Memeriksa pengajuan…' : 'Checking applications…' }}</p>
+        <p v-if="error" class="error" role="alert">{{ error }} <button v-if="loadError" type="button" class="text-link" @click="loadApplications">{{ id ? 'Coba lagi' : 'Retry' }}</button></p>
         <div v-for="application in applications" :key="application.id" class="application-status">
           <div><span>{{ id ? 'STATUS PENGAJUAN' : 'APPLICATION STATUS' }}</span><strong>{{ statusLabel(application.status) }}</strong></div>
           <p>{{ application.business_name }} · {{ application.category }}</p>
           <p v-if="application.organizer_notes">{{ application.organizer_notes }}</p>
         </div>
 
-        <form v-if="!applications.length" class="tenant-form" @submit.prevent="submit">
+        <form v-if="!loading && !loadError && !applications.length" class="tenant-form" @submit.prevent="submit">
           <div class="form-grid">
             <label><span>{{ id ? 'Nama usaha' : 'Business name' }}</span><input v-model.trim="form.business_name" required minlength="2" maxlength="180"></label>
             <label><span>{{ id ? 'Nama penanggung jawab' : 'Representative name' }}</span><input v-model.trim="form.representative_name" required minlength="2" maxlength="180"></label>
@@ -32,7 +33,6 @@
             <label v-for="need in stallNeedOptions" :key="need.value" class="check-option"><input v-model="form.stall_needs" type="checkbox" :value="need.value"><span>{{ need.label }}</span></label>
           </fieldset>
           <p class="field-note">{{ id ? 'Pengajuan tidak otomatis menjamin stan. Panitia akan mengirim keputusan, fasilitas, serta biaya jika berlaku melalui dashboard/kontak resmi.' : 'An application does not guarantee a stall. Organizers will share the decision, facilities, and any applicable fee through the dashboard or official contact.' }}</p>
-          <p v-if="error" class="error" role="alert">{{ error }}</p>
           <button type="submit" class="button button--dark" :disabled="submitting">{{ submitting ? (id ? 'Mengirim…' : 'Submitting…') : (id ? 'Kirim pengajuan' : 'Submit application') }}</button>
         </form>
       </template>
@@ -48,9 +48,11 @@ const id = computed(() => locale.value === 'id');
 const auth = useAuthStore();
 const route = useRoute();
 const api = useHariSantri();
+const registrationProgress = useHariSantriRegistration();
 const loading = ref(false);
 const submitting = ref(false);
 const error = ref('');
+const loadError = ref(false);
 const applications = ref<BazaarApplicationRecord[]>([]);
 const form = reactive<BazaarApplicationInput>({
   business_name: '', representative_name: '', contact_email: auth.user?.email || '', contact_phone: '',
@@ -72,8 +74,10 @@ const statusLabel = (value: string) => {
 const loadApplications = async () => {
   if (!auth.isAuthenticated) return;
   loading.value = true;
+  error.value = '';
+  loadError.value = false;
   try { applications.value = (await api.getMyBazaarApplications()).data; }
-  catch (cause) { error.value = cause instanceof Error ? cause.message : 'Unable to load tenant applications.'; }
+  catch (cause) { loadError.value = true; error.value = cause instanceof Error ? cause.message : 'Unable to load tenant applications.'; }
   finally { loading.value = false; }
 };
 
@@ -82,12 +86,17 @@ const submit = async () => {
   error.value = '';
   try {
     applications.value = [(await api.submitBazaarApplication(form)).data];
+    await registrationProgress.refresh();
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : (id.value ? 'Pengajuan belum dapat dikirim.' : 'The application could not be submitted.');
   } finally { submitting.value = false; }
 };
 
 onMounted(() => { void loadApplications(); });
+watch(() => auth.isAuthenticated, (authenticated) => {
+  if (authenticated) void loadApplications();
+  else { applications.value = []; error.value = ''; }
+});
 useSeoMeta({ title: () => `${id.value ? 'Daftar Tenant Bazar' : 'Bazaar Tenant Application'} | Hari Santri 2026`, description: () => id.value ? 'Ajukan usaha untuk bazar Hari Santri 2026.' : 'Apply to join the Hari Santri 2026 bazaar.' });
 </script>
 

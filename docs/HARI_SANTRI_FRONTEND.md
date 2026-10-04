@@ -18,11 +18,28 @@ Jangan menerbitkan harga, isi paket, kuota, rute, jam, pengisi acara, hadiah, vo
 
 Jika checkout timeout/hasil belum diketahui, periksa status order dan minta backend melanjutkan payment existing dengan idempotency yang sama. Jangan membuat order baru otomatis. Jika callback terlambat, tunggu status backend atau arahkan peserta ke kontak resmi.
 
+### Pelacakan status akun dan tombol tindakan
+
+Header, menu mobile, dan tombol mengambang menggunakan `useHariSantriRegistration`, bukan status tetap atau pelacakan paket delegate/exhibitor legacy. Status dibaca ulang saat login, navigasi, fokus tab, dan setelah penyimpanan peserta/pengajuan tenant.
+
+- Tanpa akun: **Daftar Peserta / Register Participants** menuju pembuatan akun.
+- Akun tanpa order aktif: **Lanjutkan Pendaftaran / Continue Registration** menuju `/daftar`.
+- Order draft/pending/partially_paid atau memiliki tindakan `continue_payment`: **Lanjutkan Pembayaran / Continue Payment** menuju pembayaran dengan `order_id` yang sama.
+- Order lunas tanpa order tertunda lain: **Lihat Tiket / View Tickets**; tombol mengambang pendaftaran disembunyikan.
+- Kegagalan API ditampilkan sebagai peringatan dengan tombol coba lagi; tidak dianggap sebagai belum mendaftar.
+
+Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, hanya order milik akun), dan `GET /bazaar/me/applications`. Order dibatasi event yang dikonfigurasi; kelunasan mengikuti status/progres server, bukan redirect checkout. Pengajuan tenant dilacak terpisah dan mengubah menu menjadi **Status Pengajuan Tenant / Tenant Application Status**, tanpa menganggapnya sebagai order pembayaran peserta.
+
 ## Alur bazar dan staf
 
 - `/daftar-tenant` mengirim pengajuan terpisah ke `POST /bazaar/applications`; pengajuan bukan order tiket dan belum memicu pembayaran biaya stan.
 - `/dashboard/tiket` membuat QR lokal dari signed opaque token API. QR dapat dibagikan, sehingga scanner tetap online.
 - `/staff/scan` menggunakan ZXing untuk kamera dan fallback input token. `POST /hari-santri/staff/checkins` memvalidasi tiket dan menolak pemakaian ulang.
+- `/dashboard/voucher` menampilkan seluruh voucher reward peserta, QR voucher, saldo, expiry 15 November 2026, dan riwayat pemakaian.
+- `/exhibitor/scanner` menggunakan ZXing untuk scan kamera/fallback input, memilih salah satu lapak akun, mengirim nominal serta password peserta ke endpoint self-service, dan menampilkan saldo/riwayat lapak tanpa input UUID. Tenant dapat mengajukan settlement seluruh saldo dan mengonfirmasi pembayaran yang diterima dari panel yang sama. Jika API mengembalikan HTTP 429, UI menampilkan pesan server dan mengunci tombol transaksi selama nilai `Retry-After`.
+- Rate limit scan dihitung bersama oleh backend melalui PostgreSQL, jadi batas akun tetap berlaku ketika request dilayani worker API yang berbeda. Frontend mengikuti `Retry-After` dari response 429 sebelum mengaktifkan kembali tombol transaksi.
+- `/admin/vouchers` mendukung penerbitan reward manual, adjustment saldo, revoke voucher bersaldo nol, pembuatan settlement, dan konfirmasi pembayaran settlement. Peserta, voucher, exhibitor, dan settlement dipilih dari dropdown hasil API; admin tidak perlu menyalin UUID.
+- `/admin/audit-vouchers` menampilkan jejak penerbitan voucher, scan berhasil/gagal, adjustment saldo, dan settlement. Admin dapat memfilter jenis aktivitas, memilih jumlah baris, serta melihat nama actor dan payload tanpa token QR atau password.
 - Saat ini check-in dibatasi role `admin`/`organizer`; role petugas khusus belum tersedia.
 
 ## Environment dan menjalankan
@@ -41,4 +58,4 @@ Jalankan `npm install`, `npm run dev`, lalu buka `http://localhost:3000`. Produc
 
 ## Implementasi sekarang dan gap
 
-Halaman beranda, register akun, daftar keluarga dengan selector wilayah berantai, dashboard, pembayaran, hasil callback, tiket, scanner dan pengajuan tenant sudah dipetakan. UI paket dinamis bergantung pada event dan produk yang dibuat admin. Belum lengkap: editor metadata activity/min/max, edit roster sampai deadline, payment status lookup server-to-server jika callback hilang, tenant media/keputusan lanjutan, privacy/terms Hari Santri yang disahkan, peta GeoJSON dan CMS konten. Detail backlog lintas repo ada di `fastapi-hari-santri/docs/HARI_SANTRI_TODO.md`.
+Halaman beranda, register akun, daftar keluarga dengan selector wilayah berantai, dashboard, pembayaran, hasil callback, tiket, scanner check-in, voucher peserta, scanner voucher tenant, admin voucher/settlement/audit, dan pengajuan tenant sudah dipetakan. UI paket dinamis bergantung pada event dan produk yang dibuat admin. Admin juga melihat rekonsiliasi kredit, settlement, dan saldo wallet per tenant. Payment status lookup server-to-server jika callback hilang, tenant media/keputusan lanjutan, privacy/terms Hari Santri yang disahkan, peta GeoJSON dan CMS konten masih menjadi backlog. Detail backlog lintas repo ada di `fastapi-hari-santri/docs/HARI_SANTRI_TODO.md`.

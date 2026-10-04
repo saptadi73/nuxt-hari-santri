@@ -2,11 +2,11 @@
 
 **Naskah siap masuk CMS/Nuxt · Versi 1.0 · 29 September 2026**
 
-> **Catatan editorial:** Teks dalam `[kurung siku]` wajib diisi panitia sebelum terbit. Harga paket, rute, hadiah spesifik, pengisi acara, jam rinci, dan nilai voucher belum dikonfirmasi. Jangan menampilkan contoh sebagai janji kepada peserta. Portal pembayaran berada di layanan Payment Portal terpisah.
+> **Catatan editorial:** Teks dalam `[kurung siku]` wajib diisi panitia sebelum terbit. Harga paket, arahan kegiatan/checkpoint, hadiah spesifik, pengisi acara, jam rinci, dan nilai voucher belum dikonfirmasi. Jangan menampilkan contoh sebagai janji kepada peserta. Portal pembayaran berada di layanan Payment Portal terpisah.
 
 ## Navigasi utama
 
-**Beranda · Tentang Acara · Kegiatan & Paket · Rute · Agenda · Pengisi Acara · Hadiah · Bazar & Voucher · Sejarah Hari Santri · FAQ**
+**Beranda · Tentang Acara · Kegiatan & Paket · Syarat & Ketentuan · Agenda · Pengisi Acara · Hadiah · Bazar & Voucher · Sejarah Hari Santri · FAQ**
 
 Tombol utama: **Daftar Peserta** · **Daftar Tenant Bazar** · **Masuk / Dashboard**
 
@@ -19,13 +19,15 @@ Tombol utama: **Daftar Peserta** · **Daftar Tenant Bazar** · **Masuk / Dashboa
 **Label kecil:** MWC NU Tarumajaya mempersembahkan
 
 # Hari Santri 2026
-## Sepeda Sehat & Jalan Sehat Keluarga
+## Sepeda Santai & Jalan Sehat Keluarga
+
+**English event title:** Leisure Bike Ride & Family Fun Walk
 
 **Sehat bersama, eratkan persaudaraan, rayakan semangat santri.**
 
 Mari berkumpul bersama keluarga, sahabat, dan warga Tarumajaya dalam perayaan Hari Santri yang penuh gerak, kebersamaan, dan kegembiraan. Pilih kegiatan favoritmu, nikmati suasana bazar, ikuti rangkaian acara, dan rayakan hari istimewa ini bersama.
 
-**Minggu, 25 Oktober 2026** · **Summarecon Crown Gading, Tarumajaya, Bekasi**
+**Minggu, 15 November 2026** · **Summarecon Crown Gading, Tarumajaya, Bekasi**
 
 Tombol: **Daftar Sekarang** · **Lihat Kegiatan**
 
@@ -33,15 +35,16 @@ Teks pendamping: *Pendaftaran paket dan kuota dapat dilihat pada halaman kegiata
 
 ### Dua cara merayakan
 
-**Sepeda Sehat**  
-Kayuh semangat kebersamaan! Jelajahi rute yang ditetapkan panitia, temui peserta lain, dan jadikan pagi Hari Santri lebih aktif. Cocok bagi peserta yang ingin bersepeda bersama komunitas maupun keluarga sesuai ketentuan paket.
+**Sepeda Santai**
 
-Tombol: **Lihat Paket Sepeda** · **Lihat Rute Sepeda**
+Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ikuti petunjuk panitia dan ketentuan kegiatan untuk menikmati pagi Hari Santri dengan aman dan penuh kebersamaan.
+
+Tombol: **Lihat Paket Sepeda** · **Syarat & Ketentuan**
 
 **Jalan Sehat Keluarga**  
 Ajak orang tua, anak, dan sahabat berjalan bersama dalam suasana santai. Langkah kecil bersama keluarga menjadi awal hari yang hangat dan berkesan.
 
-Tombol: **Lihat Paket Jalan Sehat** · **Lihat Rute Jalan Sehat**
+Tombol: **Lihat Paket Jalan Sehat** · **Syarat & Ketentuan**
 
 ### Yang menanti di lokasi
 
@@ -66,14 +69,14 @@ Tombol: **Daftar Peserta**
 
 Hari Santri menjadi kesempatan untuk mengenang peran ulama, pesantren, dan santri dalam perjalanan bangsa, sekaligus menghidupkan semangat belajar, kepedulian, dan persaudaraan hari ini.
 
-Dalam rangka memperingatinya, MWC NU Tarumajaya mengajak masyarakat mengikuti **Sepeda Sehat & Jalan Sehat Keluarga** pada **Minggu, 25 Oktober 2026** di **Summarecon Crown Gading**. Acara ini dirancang sebagai ruang perjumpaan lintas generasi: bergerak bersama, menikmati hiburan, mengenal kisah perjuangan, serta mendukung pelaku bazar setempat.
+Dalam rangka memperingatinya, MWC NU Tarumajaya mengajak masyarakat mengikuti **Sepeda Santai & Jalan Sehat Keluarga** pada **Minggu, 15 November 2026** di **Summarecon Crown Gading**. Acara ini dirancang sebagai ruang perjumpaan lintas generasi: bergerak bersama, menikmati hiburan, mengenal kisah perjuangan, serta mendukung pelaku bazar setempat.
 
 **Informasi singkat:**
 
 | Item | Isi |
 |---|---|
 | Penyelenggara | MWC NU Tarumajaya |
-| Tanggal | Minggu, 25 Oktober 2026 |
+| Tanggal | Minggu, 15 November 2026 |
 | Lokasi | Summarecon Crown Gading, Tarumajaya, Bekasi |
 | Waktu mulai dan titik kumpul | [Diisi panitia] |
 | Kontak panitia | [WhatsApp/email resmi] |
@@ -86,7 +89,7 @@ Tombol: **Lihat Agenda** · **Daftar Sekarang**
 
 ### Judul: Pilih langkahmu untuk Hari Santri 2026
 
-**Kartu Paket Sepeda Sehat**
+**Kartu Paket Sepeda Santai**
 
 - Untuk: [perorangan/keluarga, sesuai keputusan panitia]
 - Harga: **[Harga resmi]**
@@ -95,7 +98,7 @@ Tombol: **Lihat Agenda** · **Daftar Sekarang**
 - Periode pendaftaran: [tanggal]
 - Ketentuan peserta anak dan perlengkapan keselamatan: [aturan resmi]
 
-Tombol: **Daftar Sepeda Sehat** · **Lihat Rute**
+Tombol: **Daftar Sepeda Santai** · **Syarat & Ketentuan**
 
 **Kartu Paket Jalan Sehat Keluarga**
 
@@ -106,7 +109,7 @@ Tombol: **Daftar Sepeda Sehat** · **Lihat Rute**
 - Periode pendaftaran: [tanggal]
 - Ketentuan pendamping anak: [aturan resmi]
 
-Tombol: **Daftar Jalan Sehat** · **Lihat Rute**
+Tombol: **Daftar Jalan Sehat** · **Syarat & Ketentuan**
 
 **Catatan tepat di bawah kartu:** Harga dan ketersediaan yang berlaku adalah yang tampil pada ringkasan pesanan sebelum pembayaran. Setiap peserta yang didaftarkan perlu memilih ukuran kaos sesuai pilihan yang tersedia.
 
@@ -122,23 +125,28 @@ Tombol: **Mulai Pendaftaran**
 
 ---
 
-## 4. Halaman rute
+## 4. Syarat & Ketentuan
 
-### Judul: Kenali rute sebelum memulai
+### Judul: Syarat & Ketentuan Peserta Sepeda Santai dan Jalan Sehat Keluarga
 
-**Rute Sepeda Sehat**  
-Peta lintasan, titik start dan finish, jarak, titik istirahat, dan petunjuk keselamatan akan ditampilkan setelah rute disahkan panitia. Pastikan memeriksa versi rute terbaru menjelang hari acara.
+Mari meriahkan rangkaian acara di **Summarecon Crown Gading, Bekasi**. Kegiatan Sepeda Santai dan Jalan Sehat Keluarga berlangsung di dalam kawasan Summarecon Crown Gading. Pastikan peserta menyimak ketentuan berikut sebelum mendaftar.
 
-Data CMS: `[nama rute]` · `[jarak]` · `[titik start]` · `[titik finish]` · `[titik air/medis]` · `[peta GeoJSON/GPX]` · `[tanggal pembaruan]`.
+#### Pendaftaran & keikutsertaan
 
-**Rute Jalan Sehat Keluarga**  
-Nikmati perjalanan sesuai rute yang disiapkan untuk peserta jalan sehat. Perhatikan petunjuk petugas, area penyeberangan, dan titik istirahat di peta.
+1. **Pendaftaran resmi:** Seluruh peserta wajib mendaftarkan diri melalui situs web resmi HeroFunWalk.com.
+2. **Data registrasi:** Proses registrasi dilakukan dengan memasukkan alamat email dan nomor HP yang aktif.
+3. **Pilihan paket:** Saat mendaftar, pilih salah satu paket yang tersedia: Sepeda Santai atau Jalan Sehat.
+4. **Kategori peserta:** Keikutsertaan diutamakan bersama pasangan dan keluarga untuk memupuk semangat kebersamaan.
+5. **Kehadiran hari-H:** Peserta wajib hadir pada hari pelaksanaan dan melakukan absensi kedatangan menggunakan Tanda Peserta.
 
-Data CMS: `[nama rute]` · `[jarak]` · `[titik start]` · `[titik finish]` · `[aksesibilitas]` · `[peta GeoJSON/GPX]` · `[tanggal pembaruan]`.
+#### Aktivitas, checkpoint, fasilitas & hadiah
 
-**Pesan keamanan:** Ikuti arahan petugas dan rambu di lapangan. Orang tua atau wali mendampingi peserta anak. Bila membutuhkan bantuan medis saat kegiatan, hubungi petugas terdekat.
+1. **Aktivitas di kawasan acara:** Peserta Sepeda Santai dan Jalan Sehat akan berkeliling menikmati suasana di dalam kawasan Summarecon Crown Gading.
+2. **Sistem checkpoint:** Peserta diharapkan mengisi checkpoint selama mengikuti rute kegiatan. Hadiah hiburan disediakan bagi keluarga yang aktif mengikuti seluruh rangkaian rute.
+3. **Doorprize & voucher UMKM:** Peserta yang hadir berhak mengikuti kesempatan memenangkan doorprize. Penukaran doorprize dan penggunaan voucher belanja di booth UMKM acara dapat dilakukan menggunakan QR Code yang tertera di web.
+4. **Keluarga Favorit:** Panitia akan memilih tiga Keluarga Paling Favorit untuk menerima hadiah spesial.
 
-Tombol: **Lihat Paket Sepeda** · **Lihat Paket Jalan Sehat**
+Ikuti terus informasi dan pembaruan acara melalui situs web resmi HeroFunWalk.com.
 
 ---
 
@@ -152,7 +160,7 @@ Tombol: **Lihat Paket Sepeda** · **Lihat Paket Jalan Sehat**
 |---|---|
 | Kedatangan & registrasi | Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara. |
 | Pembukaan | Kita awali perayaan Hari Santri dengan sambutan dan doa bersama. |
-| Pelepasan Sepeda Sehat | Bersiap di titik start sesuai arahan petugas dan ikuti rute resmi. |
+| Pelepasan Sepeda Santai | Bersiap di titik start sesuai arahan petugas dan ikuti arahan panitia. |
 | Pelepasan Jalan Sehat Keluarga | Saatnya melangkah bersama keluarga dan menikmati suasana pagi. |
 | Bazar & aktivitas keluarga | Singgah di stan kuliner, buku Islam, dan produk halal pilihan. |
 | Panggung acara | Nikmati penampilan dan sesi inspiratif dari pengisi acara yang telah diumumkan. |
@@ -222,14 +230,36 @@ Tombol: **Daftar Tenant Bazar** · **Lihat Ketentuan Tenant**
 
 ### Judul: Semangat santri dalam perjalanan bangsa
 
-**Mengapa 22 Oktober diperingati sebagai Hari Santri?**  
-Hari Santri diperingati setiap **22 Oktober**. Tanggal ini berkaitan dengan **Resolusi Jihad pada 22 Oktober 1945**, yang menjadi salah satu penanda peran ulama dan santri dalam mempertahankan kemerdekaan Indonesia. Pemerintah menetapkan Hari Santri melalui **Keputusan Presiden Nomor 22 Tahun 2015**.
+Hari Santri diperingati setiap **22 Oktober** untuk mengenang peran ulama dan santri dalam perjalanan bangsa. Jejak perjuangan itu terkait dengan Resolusi Jihad, perlawanan di Surabaya, dan upaya rakyat di berbagai daerah dalam mempertahankan kemerdekaan.
 
-**Apa hubungannya dengan 10 November?**  
-Setelah proklamasi, perjuangan mempertahankan kemerdekaan terus berlangsung. Perlawanan rakyat di Surabaya pada **10 November 1945** dikenang sebagai peristiwa besar dan diperingati sebagai **Hari Pahlawan**. Resolusi Jihad merupakan bagian penting dari konteks mobilisasi perjuangan saat itu; kisahnya mengingatkan kita bahwa kemerdekaan dijaga bersama oleh banyak unsur masyarakat.
+#### Resolusi Jihad: seruan menjaga kemerdekaan
 
-**Pesan untuk hari ini**  
-Semangat santri hidup dalam belajar dengan tekun, menjaga persaudaraan, peduli sesama, dan berbuat baik bagi lingkungan. Mari merayakannya dengan kegiatan yang sehat, tertib, dan terbuka bagi keluarga.
+Setelah Proklamasi 17 Agustus 1945, kedatangan Sekutu yang disertai NICA membuat keadaan di Indonesia kembali genting. Pada 21–22 Oktober 1945, para ulama dan wakil cabang NU bermusyawarah di Surabaya. Resolusi Jihad yang diserukan pada 22 Oktober mengajak umat dan masyarakat untuk mempertahankan kemerdekaan.
+
+#### Pertempuran Surabaya
+
+Ketegangan meningkat setelah Brigadir Jenderal A.W.S. Mallaby tewas dalam insiden pada 30 Oktober. Ultimatum Sekutu agar rakyat menyerahkan senjata ditolak, lalu pertempuran besar pecah pada 10 November. Bung Tomo mengobarkan semangat melalui siaran radio, sementara Gubernur Suryo menegaskan sikap rakyat Surabaya. Perlawanan pada 10 November dikenang sebagai Hari Pahlawan.
+
+#### Perjuangan berlanjut di berbagai daerah
+
+Perlawanan mempertahankan kemerdekaan juga berlangsung di Palagan Ambarawa, Medan Area, dan Bandung. Perjuangan berlanjut menghadapi Agresi Militer Belanda I dan II. Di tengah peristiwa-peristiwa itu, jalur diplomasi dan perjuangan rakyat sama-sama menjadi bagian dari upaya menjaga kedaulatan.
+
+#### Jejak perlawanan di Nusantara
+
+Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusantara telah menghadapi kolonialisme dan berjuang menjaga kedaulatan. Jejak panjang perlawanan itu menjadi bagian dari sejarah bangsa yang kemudian diteruskan dalam perjuangan mempertahankan kemerdekaan.
+
+**Pesan untuk hari ini:** Pemerintah menetapkan 22 Oktober sebagai Hari Santri melalui **Keputusan Presiden Nomor 22 Tahun 2015**. Semangat santri terus hidup dalam ketekunan belajar, persaudaraan, kepedulian, dan pengabdian kepada masyarakat.
+
+**Pasangan gambar pada halaman web:**
+
+| Kisah | Gambar |
+|---|---|
+| Resolusi Jihad | `app/assets/images/resolusi jihad.jpg` |
+| Pertempuran Surabaya | `app/assets/images/perang daerah.jpg` |
+| Perjuangan di berbagai daerah | `app/assets/images/santri dan ulama.jpg` |
+| Perlawanan di Nusantara | `app/assets/images/adu domba.jpg` |
+
+**Keterangan gambar:** Ilustrasi sejarah, bukan foto dokumentasi peristiwa.
 
 Tombol: **Ikuti Kegiatan Hari Santri**
 
@@ -249,7 +279,7 @@ Tombol: **Ikuti Kegiatan Hari Santri**
 | Tiket | **Lihat Tiket** untuk setiap peserta setelah pembayaran terverifikasi |
 | Kaos | `Ukuran [nama peserta]: [ukuran]` · `Dapat diubah sampai [batas]` bila berlaku |
 | Voucher | `Voucher aktif [n]` atau `Belum tersedia untuk paket ini` |
-| Acara | **Lihat Agenda**, **Lihat Rute**, **Baca Pengumuman** |
+| Acara | **Lihat Agenda**, **Syarat & Ketentuan**, **Baca Pengumuman** |
 
 **Pesan status:**
 
@@ -279,10 +309,11 @@ Kartu: **Status Pengajuan**, **Profil Produk**, **Persyaratan/Tagihan** (jika be
 ## 12. FAQ
 
 **Kapan dan di mana acara berlangsung?**  
-Minggu, 25 Oktober 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam hadir, titik kumpul, dan peta lokasi akan diumumkan panitia.
+Minggu, 15 November 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam hadir, titik kumpul, dan peta lokasi akan diumumkan panitia.
 
-**Apa perbedaan Sepeda Sehat dan Jalan Sehat Keluarga?**  
-Keduanya memiliki kegiatan, paket, dan rute masing-masing. Periksa rincian paket sebelum mendaftar.
+**Apa perbedaan Sepeda Santai dan Jalan Sehat Keluarga?**
+
+Pilih kegiatan dan paket yang sesuai. Kedua kegiatan berlangsung di dalam kawasan Summarecon Crown Gading; baca syarat dan ketentuan sebelum mendaftar.
 
 **Dapatkah saya mendaftarkan beberapa anggota keluarga?**  
 Ya, sesuai batas peserta pada paket yang dipilih. Isi data dan ukuran kaos tiap anggota secara terpisah.
@@ -299,8 +330,9 @@ Tiket digital tersedia di dashboard setelah pembayaran terverifikasi. Setiap pes
 **Apakah peserta anak boleh ikut?**  
 Ketentuan usia dan pendampingan mengikuti paket serta arahan panitia. Peserta anak harus didampingi orang tua atau wali sesuai aturan yang ditampilkan saat pendaftaran.
 
-**Bagaimana mengetahui rute?**  
-Buka halaman **Rute** untuk kegiatan yang dipilih. Panitia akan menampilkan peta resmi dan pembaruannya.
+**Di mana kegiatan Sepeda Santai dan Jalan Sehat berlangsung?**
+
+Kedua kegiatan berkeliling di dalam kawasan Summarecon Crown Gading. Ikuti arahan panitia dan lengkapi checkpoint selama kegiatan.
 
 **Apakah semua peserta mendapat hadiah atau voucher?**  
 Hadiah mengikuti mekanisme dan syarat pengundian. Voucher hanya berlaku jika tercantum dalam paket atau program yang diumumkan panitia.
@@ -316,21 +348,25 @@ Hubungi panitia melalui `[nomor WhatsApp/email resmi]` dan sertakan nomor pesana
 ## 13. Footer dan metadata SEO
 
 **Footer:**  
-*Hari Santri 2026 — Sepeda Sehat & Jalan Sehat Keluarga*  
+*Hari Santri 2026 — Sepeda Santai & Jalan Sehat Keluarga*
+
+*Hari Santri 2026 — Leisure Bike Ride & Family Fun Walk*
 Diselenggarakan oleh **MWC NU Tarumajaya**  
-**Minggu, 25 Oktober 2026 · Summarecon Crown Gading**  
-Tautan: Tentang · Kegiatan · Agenda · Rute · Bazar · FAQ · Syarat dan Ketentuan · Kebijakan Privasi · Kontak.
+**Minggu, 15 November 2026 · Summarecon Crown Gading**
+Tautan: Tentang · Kegiatan · Syarat & Ketentuan · Agenda · Bazar · FAQ · Sejarah Hari Santri · Kebijakan Privasi · Kontak.
 
-**Meta title beranda:** Hari Santri 2026 | Sepeda Sehat & Jalan Sehat Keluarga — MWC NU Tarumajaya
+**Meta title beranda:** Hari Santri 2026 | Sepeda Santai & Jalan Sehat Keluarga — MWC NU Tarumajaya
 
-**Meta description:** Ikuti Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026 pada 25 Oktober di Summarecon Crown Gading. Lihat paket, rute, agenda, bazar, dan daftar peserta.
+**English meta title:** Hari Santri 2026 | Leisure Bike Ride & Family Fun Walk — MWC NU Tarumajaya
+
+**Meta description:** Ikuti Sepeda Santai dan Jalan Sehat Keluarga Hari Santri 2026 pada 15 November di dalam kawasan Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.
 
 **Open Graph:** judul di atas; gambar poster resmi setelah final; deskripsi singkat; tanggal/lokasi konsisten dengan CMS. Jangan masukkan harga atau pengisi acara yang belum disahkan.
 
 ## 14. Daftar isian panitia sebelum terbit
 
 - Harga, manfaat, kuota dan batas jumlah anggota per paket.
-- Waktu mulai, titik kumpul, jadwal agenda, peta rute terverifikasi.
+- Waktu mulai, titik kumpul, jadwal agenda, dan arahan kegiatan/checkpoint di kawasan Summarecon Crown Gading.
 - Pengisi acara yang telah menyetujui publikasi nama/foto.
 - Hadiah, sponsor, jumlah, aturan undian dan klaim.
 - Voucher: nilai, kategori, tenant, masa berlaku, syarat pakai.

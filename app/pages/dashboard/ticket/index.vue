@@ -110,7 +110,7 @@
             </div>
             <div class="rounded-md border border-slate-200 bg-[#f8faf8] px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.3em] text-emerald-800">{{ copy.dateVenue }}</p>
-              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-[15px]">{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</p>
+              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-[15px]">{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</p>
               <p class="mt-1 text-xs leading-5 text-slate-600 sm:leading-6">Summarecon Crown Gading, Tarumajaya, Bekasi</p>
             </div>
           </div>

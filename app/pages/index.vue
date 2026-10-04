@@ -12,11 +12,11 @@
       <div class="hero__shade" aria-hidden="true" />
       <div class="hero__content">
         <p class="eyebrow">{{ locale === 'id' ? 'MWC NU Tarumajaya mempersembahkan' : 'Presented by MWC NU Tarumajaya' }}</p>
-        <h1 id="hero-title">{{ locale === 'id' ? 'Sepeda Sehat dan Jalan Sehat Keluarga' : 'Healthy Cycling & Family Walk' }}</h1>
+        <h1 id="hero-title">{{ locale === 'id' ? 'Sepeda Santai dan Jalan Sehat Keluarga' : 'Leisure Bike Ride & Family Fun Walk' }}</h1>
         <p class="hero__subtitle">Hari Santri 2026</p>
         <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
         <div class="hero__facts">
-          <span>{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</span>
+          <span>{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</span>
           <span>Summarecon Crown Gading</span>
           <span>Tarumajaya, Bekasi</span>
         </div>
@@ -33,10 +33,10 @@
         <p class="section-number">01 <span>/ {{ locale === 'id' ? 'Tentang Acara' : 'About' }}</span></p>
         <div>
           <h2>{{ locale === 'id' ? 'Satu hari untuk bergerak, bertemu, dan berbagi.' : 'A day to move, meet, and share.' }}</h2>
-          <p class="lead-copy">{{ locale === 'id' ? 'Dalam rangka Hari Santri, MWC NU Tarumajaya mengajak keluarga dan warga untuk menikmati Sepeda Sehat dan Jalan Sehat Keluarga. Rayakan kebersamaan, dukung bazar lokal, dan ikuti semangat belajar serta kepedulian yang diwariskan para santri.' : 'For Santri Day, MWC NU Tarumajaya welcomes families and neighbors to join a healthy cycling event and family walk. Celebrate together, support local vendors, and carry forward the spirit of learning and care.' }}</p>
+          <p class="lead-copy">{{ locale === 'id' ? 'Dalam rangka Hari Santri, MWC NU Tarumajaya mengajak keluarga dan warga untuk menikmati Sepeda Santai dan Jalan Sehat Keluarga di kawasan Summarecon Crown Gading. Rayakan kebersamaan, dukung bazar lokal, dan ikuti semangat belajar serta kepedulian yang diwariskan para santri.' : 'For Santri Day, MWC NU Tarumajaya welcomes families and neighbors to enjoy a leisure cycling event and family walk within Summarecon Crown Gading. Celebrate together, support local vendors, and carry forward the spirit of learning and care.' }}</p>
           <div class="event-facts">
             <div><span>{{ locale === 'id' ? 'Penyelenggara' : 'Organizer' }}</span><strong>MWC NU Tarumajaya</strong></div>
-            <div><span>{{ locale === 'id' ? 'Tanggal' : 'Date' }}</span><strong>{{ locale === 'id' ? 'Minggu, 25 Oktober 2026' : 'Sunday, 25 October 2026' }}</strong></div>
+            <div><span>{{ locale === 'id' ? 'Tanggal' : 'Date' }}</span><strong>{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</strong></div>
             <div><span>{{ locale === 'id' ? 'Lokasi' : 'Venue' }}</span><strong>Summarecon Crown Gading, Tarumajaya, Bekasi</strong></div>
             <div><span>{{ locale === 'id' ? 'Waktu & titik kumpul' : 'Time & gathering point' }}</span><strong>{{ locale === 'id' ? 'Diumumkan panitia' : 'To be announced' }}</strong></div>
           </div>
@@ -52,15 +52,15 @@
       <div class="activity-grid">
         <article class="activity activity--cycle">
           <p class="activity__label">01 / CYCLING</p>
-          <h3>{{ locale === 'id' ? 'Sepeda Sehat' : 'Healthy Cycling' }}</h3>
-          <p>{{ locale === 'id' ? 'Kayuh semangat kebersamaan menyusuri rute yang ditetapkan panitia. Ketentuan peserta, keselamatan, dan paket resmi akan ditampilkan setelah dikonfirmasi.' : 'Ride together along the route approved by the organizers. Eligibility, safety guidance, and official package details will appear once confirmed.' }}</p>
-          <a href="#rute" class="text-link">{{ locale === 'id' ? 'Kenali rute' : 'View route' }} <span aria-hidden="true">→</span></a>
+          <h3>{{ locale === 'id' ? 'Sepeda Santai' : 'Leisure Bike Ride' }}</h3>
+          <p>{{ locale === 'id' ? 'Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ketentuan peserta dan paket resmi tersedia sebelum mendaftar.' : 'Ride with family and friends within Summarecon Crown Gading. Participant terms and official packages are available before registration.' }}</p>
+          <a href="#syarat-ketentuan" class="text-link">{{ locale === 'id' ? 'Baca syarat & ketentuan' : 'Read terms & conditions' }} <span aria-hidden="true">→</span></a>
         </article>
         <article class="activity activity--walk">
           <p class="activity__label">02 / FAMILY WALK</p>
           <h3>{{ locale === 'id' ? 'Jalan Sehat Keluarga' : 'Family Walk' }}</h3>
           <p>{{ locale === 'id' ? 'Ajak orang tua, anak, dan sahabat berjalan bersama. Setiap anggota keluarga didaftarkan dengan data dan ukuran kaos masing-masing.' : 'Bring parents, children, and friends for a relaxed walk. Register each family member with their own details and shirt size.' }}</p>
-          <a href="#rute" class="text-link">{{ locale === 'id' ? 'Kenali rute' : 'View route' }} <span aria-hidden="true">→</span></a>
+          <a href="#syarat-ketentuan" class="text-link">{{ locale === 'id' ? 'Baca syarat & ketentuan' : 'Read terms & conditions' }} <span aria-hidden="true">→</span></a>
         </article>
       </div>
 
@@ -86,16 +86,27 @@
       <p class="small-note">{{ locale === 'id' ? 'Setiap peserta memilih ukuran kaos secara terpisah. Harga yang berlaku adalah harga pada ringkasan pesanan sebelum pembayaran.' : 'Each participant selects a shirt size separately. The price shown in the server-side order summary is final.' }}</p>
     </section>
 
-    <section id="rute" class="routes band">
-      <div class="section-heading">
-        <p class="section-number">03 <span>/ {{ locale === 'id' ? 'Rute' : 'Routes' }}</span></p>
-        <h2>{{ locale === 'id' ? 'Kenali rute sebelum memulai.' : 'Know your route before setting out.' }}</h2>
+    <section id="syarat-ketentuan" class="terms band">
+      <div class="content-grid">
+        <p class="section-number">03 <span>/ {{ locale === 'id' ? 'Syarat & Ketentuan' : 'Terms & Conditions' }}</span></p>
+        <div>
+          <h2>{{ locale === 'id' ? 'Syarat & Ketentuan Peserta Sepeda Santai dan Jalan Sehat Keluarga' : 'Terms & Conditions for Leisure Cycling and Family Walk Participants' }}</h2>
+          <p class="terms__intro">{{ locale === 'id' ? 'Mari meriahkan rangkaian acara di Summarecon Crown Gading, Bekasi. Kegiatan Sepeda Santai dan Jalan Sehat Keluarga berlangsung di dalam kawasan Summarecon Crown Gading. Pastikan Anda menyimak ketentuan berikut sebelum mendaftar.' : 'Join the celebration at Summarecon Crown Gading, Bekasi. The Leisure Cycling and Family Walk activities take place within the Summarecon Crown Gading area. Please read these terms before registering.' }}</p>
+          <div class="terms__group">
+            <h3>{{ locale === 'id' ? 'Pendaftaran & keikutsertaan' : 'Registration & participation' }}</h3>
+            <ol class="terms__list">
+              <li v-for="(item, index) in termsRegistrationItems" :key="item.title"><span>0{{ index + 1 }}</span><div><h4>{{ item.title }}</h4><p>{{ item.copy }}</p></div></li>
+            </ol>
+          </div>
+          <div class="terms__group">
+            <h3>{{ locale === 'id' ? 'Aktivitas, checkpoint, fasilitas & hadiah' : 'Activity, checkpoints, benefits & prizes' }}</h3>
+            <ol class="terms__list">
+              <li v-for="(item, index) in termsActivityItems" :key="item.title"><span>0{{ index + 1 }}</span><div><h4>{{ item.title }}</h4><p>{{ item.copy }}</p></div></li>
+            </ol>
+          </div>
+          <p class="terms__closing">{{ locale === 'id' ? 'Ikuti terus informasi dan pembaruan acara melalui situs web resmi HeroFunWalk.com.' : 'Follow event news and updates through the official HeroFunWalk.com website.' }}</p>
+        </div>
       </div>
-      <div class="route-grid">
-        <article><span>CYCLING</span><h3>{{ locale === 'id' ? 'Sepeda Sehat' : 'Healthy Cycling' }}</h3><p>{{ locale === 'id' ? 'Peta, jarak, titik start/finish, dan titik bantuan ditampilkan setelah disahkan panitia.' : 'Map, distance, start/finish, and assistance points will be published after organizer approval.' }}</p></article>
-        <article><span>FAMILY WALK</span><h3>{{ locale === 'id' ? 'Jalan Sehat Keluarga' : 'Family Walk' }}</h3><p>{{ locale === 'id' ? 'Periksa versi rute terbaru sebelum acara. Anak berjalan bersama orang tua atau wali.' : 'Check the latest route version before the event. Children should stay with a parent or guardian.' }}</p></article>
-      </div>
-      <p class="safety-note">{{ locale === 'id' ? 'Ikuti arahan petugas dan rambu. Bantuan medis tersedia melalui petugas di lapangan.' : 'Follow marshal instructions and route signs. Ask an on-site marshal for medical assistance.' }}</p>
     </section>
 
     <section id="agenda" class="agenda band band--paper">
@@ -148,9 +159,21 @@
         <p class="section-number">08 <span>/ {{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</span></p>
         <div>
           <h2>{{ locale === 'id' ? 'Semangat santri dalam perjalanan bangsa.' : 'The santri spirit in Indonesia’s story.' }}</h2>
-          <p>{{ locale === 'id' ? 'Hari Santri diperingati setiap 22 Oktober, berkaitan dengan Resolusi Jihad pada 22 Oktober 1945. Pemerintah menetapkannya melalui Keputusan Presiden Nomor 22 Tahun 2015.' : 'Santri Day is observed on 22 October, connected to the 22 October 1945 Resolution of Jihad. The government established the commemoration through Presidential Decree No. 22 of 2015.' }}</p>
-          <p>{{ locale === 'id' ? 'Perlawanan rakyat Surabaya pada 10 November 1945 dikenang sebagai peristiwa besar dan diperingati sebagai Hari Pahlawan. Kisah perjuangan mengingatkan bahwa kemerdekaan dijaga bersama oleh banyak unsur masyarakat.' : 'The people’s resistance in Surabaya on 10 November 1945 is commemorated as Heroes’ Day. These histories remind us that independence was defended by many parts of society.' }}</p>
-          <p>{{ locale === 'id' ? 'Semangat santri hidup dalam belajar, menjaga persaudaraan, peduli sesama, dan berbuat baik bagi lingkungan.' : 'The santri spirit lives on through learning, solidarity, care for others, and service to the community.' }}</p>
+          <p class="history__intro">{{ locale === 'id' ? 'Hari Santri diperingati setiap 22 Oktober untuk mengenang peran ulama dan santri dalam perjalanan bangsa. Jejak perjuangan itu terkait dengan Resolusi Jihad, perlawanan di Surabaya, dan upaya rakyat di berbagai daerah dalam mempertahankan kemerdekaan.' : 'Santri Day is observed every 22 October to remember the role of ulama and santri in Indonesia’s history. Their legacy is connected to the Resolution of Jihad, the resistance in Surabaya, and people’s efforts across the archipelago to defend independence.' }}</p>
+          <div class="history__stories">
+            <article v-for="story in historyItems" :key="story.title" class="history-story">
+              <figure class="history-story__figure">
+                <img :src="story.image" :alt="story.alt" loading="lazy" decoding="async">
+                <figcaption>{{ locale === 'id' ? 'Ilustrasi sejarah, bukan foto dokumentasi peristiwa.' : 'Historical illustration, not a documentary photograph.' }}</figcaption>
+              </figure>
+              <div class="history-story__body">
+                <p class="history-story__date">{{ story.date }}</p>
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.copy }}</p>
+              </div>
+            </article>
+          </div>
+          <p class="history__closing">{{ locale === 'id' ? 'Pemerintah menetapkan 22 Oktober sebagai Hari Santri melalui Keputusan Presiden Nomor 22 Tahun 2015. Semangat santri terus hidup dalam ketekunan belajar, persaudaraan, kepedulian, dan pengabdian kepada masyarakat.' : 'The government designated 22 October as Santri Day through Presidential Decree No. 22 of 2015. The santri spirit lives on through learning, solidarity, care, and service to the community.' }}</p>
           <div class="history__sources"><a href="https://cdn.kemenag.go.id/storage/archives/1665973491.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Kementerian Agama' : 'Ministry of Religious Affairs' }}</a><a href="https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Pedoman Hari Pahlawan' : 'Heroes’ Day guidance' }}</a></div>
         </div>
       </div>
@@ -171,6 +194,10 @@
 
 <script setup lang="ts">
 import heroImage from '~/assets/images/hero_image_hari_santri.png';
+import aduDombaImage from '~/assets/images/adu domba.jpg';
+import perangDaerahImage from '~/assets/images/perang daerah.jpg';
+import resolusiJihadImage from '~/assets/images/resolusi jihad.jpg';
+import santriDanUlamaImage from '~/assets/images/santri dan ulama.jpg';
 import type { StoreProduct } from '~/composables/useStore';
 
 const { locale } = useI18n();
@@ -179,6 +206,91 @@ const products = ref<StoreProduct[]>([]);
 const packagesLoading = ref(true);
 const eventService = useEvent();
 const store = useStore();
+
+const historyItems = computed(() => locale.value === 'id' ? [
+  {
+    date: '22 Oktober 1945',
+    title: 'Resolusi Jihad: seruan menjaga kemerdekaan',
+    image: resolusiJihadImage,
+    alt: 'Ilustrasi pertemuan ulama dan santri pada masa perjuangan kemerdekaan',
+    copy: 'Setelah Proklamasi 17 Agustus 1945, kedatangan Sekutu yang disertai NICA membuat keadaan di Indonesia kembali genting. Pada 21–22 Oktober 1945, para ulama dan wakil cabang NU bermusyawarah di Surabaya. Resolusi Jihad yang diserukan pada 22 Oktober mengajak umat dan masyarakat untuk mempertahankan kemerdekaan.'
+  },
+  {
+    date: '10 November 1945',
+    title: 'Pertempuran Surabaya',
+    image: perangDaerahImage,
+    alt: 'Ilustrasi pejuang Surabaya pada November 1945',
+    copy: 'Ketegangan meningkat setelah Brigadir Jenderal A.W.S. Mallaby tewas dalam insiden pada 30 Oktober. Ultimatum Sekutu agar rakyat menyerahkan senjata ditolak, lalu pertempuran besar pecah pada 10 November. Bung Tomo mengobarkan semangat melalui siaran radio, sementara Gubernur Suryo menegaskan sikap rakyat Surabaya.'
+  },
+  {
+    date: '1945 dan sesudahnya',
+    title: 'Perjuangan berlanjut di berbagai daerah',
+    image: santriDanUlamaImage,
+    alt: 'Ilustrasi perjuangan rakyat di berbagai daerah untuk mempertahankan kemerdekaan',
+    copy: 'Perlawanan mempertahankan kemerdekaan juga berlangsung di Palagan Ambarawa, Medan Area, dan Bandung. Perjuangan berlanjut menghadapi Agresi Militer Belanda I dan II. Di tengah peristiwa-peristiwa itu, jalur diplomasi dan perjuangan rakyat sama-sama menjadi bagian dari upaya menjaga kedaulatan.'
+  },
+  {
+    date: 'Sebelum 17 Agustus 1945',
+    title: 'Jejak perlawanan di Nusantara',
+    image: aduDombaImage,
+    alt: 'Ilustrasi perlawanan masyarakat Nusantara terhadap kolonialisme',
+    copy: 'Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusantara telah menghadapi kolonialisme dan berjuang menjaga kedaulatan. Jejak panjang perlawanan itu menjadi bagian dari sejarah bangsa yang kemudian diteruskan dalam perjuangan mempertahankan kemerdekaan.'
+  }
+] : [
+  {
+    date: '22 October 1945',
+    title: 'The Resolution of Jihad: a call to defend independence',
+    image: resolusiJihadImage,
+    alt: 'Illustration of ulama and santri meeting during the struggle for independence',
+    copy: 'After the Proclamation of 17 August 1945, the arrival of Allied forces accompanied by the NICA made the situation tense again. On 21–22 October 1945, ulama and NU branch representatives met in Surabaya. The Resolution of Jihad, proclaimed on 22 October, called on the community to defend independence.'
+  },
+  {
+    date: '10 November 1945',
+    title: 'The Battle of Surabaya',
+    image: perangDaerahImage,
+    alt: 'Illustration of Surabaya fighters in November 1945',
+    copy: 'Tensions escalated after Brigadier General A.W.S. Mallaby was killed in an incident on 30 October. The Allied ultimatum demanding that residents surrender their weapons was rejected, and a major battle broke out on 10 November. Bung Tomo rallied people through radio broadcasts, while Governor Suryo voiced the people of Surabaya’s resolve.'
+  },
+  {
+    date: '1945 and after',
+    title: 'The struggle continued across the archipelago',
+    image: santriDanUlamaImage,
+    alt: 'Illustration of people across the archipelago defending independence',
+    copy: 'The struggle to defend independence also took place at Ambarawa, Medan Area, and Bandung. It continued through the First and Second Dutch Military Aggressions. Throughout these events, diplomacy and popular resistance both formed part of the effort to safeguard sovereignty.'
+  },
+  {
+    date: 'Before 17 August 1945',
+    title: 'A legacy of resistance across the archipelago',
+    image: aduDombaImage,
+    alt: 'Illustration of people across the archipelago resisting colonialism',
+    copy: 'Long before independence was proclaimed, people in many parts of the archipelago faced colonialism and fought to protect their sovereignty. This long history of resistance became part of the national story carried forward in the struggle to defend independence.'
+  }
+]);
+
+const termsRegistrationItems = computed(() => locale.value === 'id' ? [
+  { title: 'Pendaftaran resmi', copy: 'Seluruh peserta wajib mendaftarkan diri melalui situs web resmi HeroFunWalk.com.' },
+  { title: 'Data registrasi', copy: 'Gunakan alamat email dan nomor HP yang aktif saat melakukan registrasi.' },
+  { title: 'Pilihan paket', copy: 'Saat mendaftar, pilih salah satu paket yang tersedia: Sepeda Santai atau Jalan Sehat.' },
+  { title: 'Kategori peserta', copy: 'Keikutsertaan diutamakan bersama pasangan dan keluarga untuk memupuk semangat kebersamaan.' },
+  { title: 'Kehadiran hari-H', copy: 'Peserta wajib hadir pada hari pelaksanaan dan melakukan absensi kedatangan menggunakan Tanda Peserta.' }
+] : [
+  { title: 'Official registration', copy: 'All participants must register through the official HeroFunWalk.com website.' },
+  { title: 'Registration details', copy: 'Use an active email address and mobile phone number when registering.' },
+  { title: 'Choose a package', copy: 'Select one of the available packages when registering: Leisure Cycling or Family Walk.' },
+  { title: 'Participant category', copy: 'Participation with a partner and family is encouraged to foster togetherness.' },
+  { title: 'Event-day attendance', copy: 'Participants must attend on event day and record their arrival using their Participant Pass.' }
+]);
+const termsActivityItems = computed(() => locale.value === 'id' ? [
+  { title: 'Aktivitas di kawasan acara', copy: 'Peserta Sepeda Santai dan Jalan Sehat akan berkeliling menikmati suasana di dalam kawasan Summarecon Crown Gading.' },
+  { title: 'Sistem checkpoint', copy: 'Peserta wajib mengisi checkpoint selama mengikuti kegiatan. Hadiah hiburan disediakan bagi keluarga yang aktif mengikuti seluruh rangkaian aktivitas.' },
+  { title: 'Doorprize & voucher UMKM', copy: 'Peserta yang hadir berhak mengikuti kesempatan memenangkan doorprize. Penukaran doorprize dan penggunaan voucher belanja di booth UMKM dapat dilakukan menggunakan QR Code yang tertera di web.' },
+  { title: 'Keluarga Favorit', copy: 'Panitia akan memilih tiga Keluarga Paling Favorit untuk menerima hadiah spesial.' }
+] : [
+  { title: 'Activities within the event area', copy: 'Leisure Cycling and Family Walk participants will explore the surroundings within Summarecon Crown Gading.' },
+  { title: 'Checkpoint system', copy: 'Participants must check in at checkpoints throughout the activity. Entertainment prizes are available for families who actively complete all activities.' },
+  { title: 'Door prizes & MSME vouchers', copy: 'Attending participants are eligible for a chance to win door prizes. Door prizes and shopping vouchers at event MSME booths can be redeemed using the QR Code shown on the website.' },
+  { title: 'Favorite Families', copy: 'The organizers will select three Favorite Families to receive special prizes.' }
+]);
 
 const agendaItems = computed(() => locale.value === 'id' ? [
   { id: 'Kedatangan & registrasi', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
@@ -196,14 +308,14 @@ const agendaItems = computed(() => locale.value === 'id' ? [
   { id: 'Prize draw & closing', copy: 'Follow the official prize announcement and closing information.' }
 ]);
 const faqItems = computed(() => locale.value === 'id' ? [
-  { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 25 Oktober 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
+  { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 15 November 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
   { question: 'Dapatkah saya mendaftarkan beberapa anggota keluarga?', answer: 'Ya, mengikuti batas peserta paket. Isi data dan ukuran kaos tiap anggota secara terpisah.' },
   { question: 'Bagaimana memilih ukuran kaos?', answer: 'Pilih ukuran pada formulir setiap peserta. Perubahan setelah pembayaran mengikuti tenggat dan stok panitia.' },
   { question: 'Bagaimana cara membayar?', answer: 'Pilih Lanjutkan Pembayaran untuk diarahkan ke Portal Payment. Status lunas tampil setelah konfirmasi sistem diterima.' },
   { question: 'Kapan tiket terbit?', answer: 'Tiket digital setiap peserta tersedia setelah pembayaran terverifikasi.' },
   { question: 'Bagaimana mendaftar bazar?', answer: 'Kirim pengajuan melalui halaman Daftar Tenant Bazar. Pengajuan tidak otomatis menjamin stan.' }
 ] : [
-  { question: 'When and where is the event?', answer: 'Sunday, 25 October 2026 at Summarecon Crown Gading, Tarumajaya, Bekasi. The organizers will announce the time and gathering point.' },
+  { question: 'When and where is the event?', answer: 'Sunday, 15 November 2026 at Summarecon Crown Gading, Tarumajaya, Bekasi. The organizers will announce the time and gathering point.' },
   { question: 'Can I register several family members?', answer: 'Yes, within the package limit. Enter each member’s details and shirt size separately.' },
   { question: 'How do I choose a shirt size?', answer: 'Choose a size for each participant. Post-payment changes depend on the organizer’s deadline and stock.' },
   { question: 'How do I pay?', answer: 'Continue to Payment to open the separate Payment Portal. Your status changes to paid only after system confirmation.' },
@@ -228,11 +340,11 @@ onMounted(async () => {
 
 useSeoMeta({
   title: () => locale.value === 'id'
-    ? 'Hari Santri 2026 | Sepeda Sehat & Jalan Sehat Keluarga'
-    : 'Hari Santri 2026 | Healthy Cycling & Family Walk',
+    ? 'Hari Santri 2026 | Sepeda Santai & Jalan Sehat Keluarga'
+    : 'Hari Santri 2026 | Leisure Bike Ride & Family Fun Walk',
   description: () => locale.value === 'id'
-    ? 'Ikuti Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026 pada 25 Oktober di Summarecon Crown Gading. Lihat paket, rute, agenda, bazar, dan daftar peserta.'
-    : 'Join the Hari Santri 2026 healthy cycling and family walk on 25 October at Summarecon Crown Gading. Explore packages, routes, agenda, bazaar, and registration.'
+    ? 'Ikuti Sepeda Santai dan Jalan Sehat Keluarga Hari Santri 2026 pada 15 November di Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.'
+    : 'Join the Hari Santri 2026 leisure cycling and family walk on 15 November at Summarecon Crown Gading. Explore packages, terms, agenda, bazaar, and registration.'
 });
 </script>
 
@@ -271,7 +383,7 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .event-facts span,.package-heading p,.small-note { color: #697a70; font-size: .82rem; line-height: 1.65; }
 .event-facts strong { font-size: .9rem; line-height: 1.5; }
 .section-heading h2 { max-width: 22ch; margin-top: .8rem; font-size: clamp(2.1rem, 4.3vw, 3.5rem); line-height: 1.08; }
-.activity-grid,.route-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1200px; margin: 0 auto; border-top: 1px solid #d9e0d8; }
+.activity-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1200px; margin: 0 auto; border-top: 1px solid #d9e0d8; }
 .activity { display: flex; min-height: 18rem; flex-direction: column; align-items: flex-start; padding: 1.8rem; }
 .activity + .activity { border-left: 1px solid #d9e0d8; }
 .activity__label { color: #8a6b20; }
@@ -289,12 +401,15 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .package-state { max-width: 1200px; margin: 0 auto; border-block: 1px solid #d9e0d8; padding: 1.4rem 0; color: #596d61; }
 .package-state .text-link { margin-top: .8rem; }
 .small-note { max-width: 1200px; margin: 1rem auto 0; }
-.route-grid article { padding: 1.5rem 1.8rem; }
-.route-grid article + article { border-left: 1px solid #d9e0d8; }
-.route-grid span { color: #8a6b20; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
-.route-grid h3 { margin-top: .8rem; font-size: 1.8rem; }
-.route-grid p,.history p { margin-top: .8rem; color: #596d61; line-height: 1.75; }
-.safety-note { max-width: 1200px; margin: 1.5rem auto 0; border-left: 3px solid #d4a938; padding-left: 1rem; color: #596d61; font-size: .9rem; }
+.history p { margin-top: .8rem; color: #596d61; line-height: 1.75; }
+.terms__intro,.terms__closing { margin-top: 1rem; color: #596d61; line-height: 1.75; }
+.terms__group { margin-top: 2rem; }
+.terms__group h3 { font-size: 1.5rem; }
+.terms__list { margin-top: .8rem; border-top: 1px solid #d9e0d8; list-style: none; }
+.terms__list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
+.terms__list li > span { color: #2d7258; font-size: .72rem; font-weight: 800; }
+.terms__list h4 { font-size: 1rem; }
+.terms__list p { margin-top: .35rem; color: #596d61; font-size: .9rem; line-height: 1.7; }
 .agenda-list { margin-top: 1.5rem; border-top: 1px solid #d9e0d8; list-style: none; }
 .agenda-list li { display: grid; grid-template-columns: 2rem minmax(10rem, .7fr) minmax(0, 1.2fr) auto; align-items: baseline; gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
 .agenda-list li > span { color: #2d7258; font-size: .72rem; font-weight: 800; }
@@ -305,6 +420,16 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .prizes .section-number,.prizes .section-number span { color: #dbe9dc; }
 .prizes .lead-copy { color: #dbe9dc; }
 .prizes .prize-empty { border-color: rgb(255 255 255 / 24%); color: #e6d18b; }
+.history__intro,.history__closing { margin-top: 1rem; color: #596d61; line-height: 1.75; }
+.history__stories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.8rem; }
+.history-story { overflow: hidden; border: 1px solid #d9e0d8; background: #fff; }
+.history-story__figure { margin: 0; }
+.history-story__figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.history-story__figure figcaption { padding: .55rem 1rem 0; color: #738278; font-size: .7rem; line-height: 1.4; }
+.history-story__body { padding: 1rem; }
+.history-story__date { color: #8a6b20 !important; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.history-story__body h3 { margin-top: .4rem; font-size: 1.25rem; line-height: 1.25; }
+.history-story__body > p:last-child { margin-top: .6rem; color: #596d61; font-size: .86rem; line-height: 1.7; }
 .history__sources { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.4rem; }
 .history__sources a { color: #2d7258; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
 .faq-item { border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
@@ -318,14 +443,15 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
   .hero__facts { display: grid; gap: .45rem; }
   .hero__facts span + span::before { content: none; }
   .content-grid { grid-template-columns: 1fr; gap: 1.4rem; }
-  .activity-grid,.route-grid { grid-template-columns: 1fr; }
-  .activity + .activity,.route-grid article + article { border-left: 0; border-top: 1px solid #d9e0d8; }
+  .activity-grid { grid-template-columns: 1fr; }
+  .activity + .activity { border-left: 0; border-top: 1px solid #d9e0d8; }
   .package-heading { display: block; }
   .package-heading p { margin-top: .6rem; }
   .package-row { grid-template-columns: minmax(0, 1fr) auto; gap: .8rem; }
   .package-row .button { grid-column: 1 / -1; }
   .agenda-list li { grid-template-columns: 2rem minmax(0, 1fr); gap: .4rem .8rem; }
   .agenda-list p,.agenda-list em { grid-column: 2; }
+  .history__stories { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
 </style>
