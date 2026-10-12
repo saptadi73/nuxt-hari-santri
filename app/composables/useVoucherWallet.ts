@@ -45,6 +45,7 @@ export interface MyExhibitor extends ExhibitorWalletTarget { status: string }
 export interface AdminSettlement extends Settlement { business_name: string }
 export interface SettlementReconciliation { exhibitor_id: string; business_name: string; total_credits: number; pending_settlement: number; confirmed_settlement: number; wallet_balance: number; expected_balance: number; status: 'matched' | 'mismatch' }
 export interface HariSantriAuditLog { id: string; actor_user_id: string | null; actor_name: string | null; action: string; entity_type: string; entity_id: string | null; payload: Record<string, unknown>; created_at: string }
+export interface CallbackOutboxItem { id: string; request_id: string; event_id: string | null; status: 'pending' | 'processing' | 'completed' | 'dead'; attempts: number; max_attempts: number; available_at: string; last_error_code: string | null; last_error_message: string | null; created_at: string; completed_at: string | null }
 
 export function useVoucherWallet() {
   const api = useNuxtApp().$api as ReturnType<typeof useApi>;
@@ -74,6 +75,8 @@ export function useVoucherWallet() {
   const settlements = () => api<ApiResponse<AdminSettlement[]>>('/admin/hari-santri/settlements');
   const settlementReconciliation = () => api<ApiResponse<SettlementReconciliation[]>>('/admin/hari-santri/settlements/reconciliation');
   const auditLogs = (filters?: { action?: string; limit?: number }) => api<ApiResponse<HariSantriAuditLog[]>>('/admin/hari-santri/audit-logs', { query: filters });
+  const callbackOutbox = (filters?: { status?: string; limit?: number }) => api<ApiResponse<CallbackOutboxItem[]>>('/admin/hari-santri/operations/callback-outbox', { query: filters });
+  const retryCallbackOutbox = (outboxId: string) => api<ApiResponse<{ id: string; status: string; attempts: number }>>(`/admin/hari-santri/operations/callback-outbox/${encodeURIComponent(outboxId)}/retry`, { method: 'POST' });
 
-  return { listMyVouchers, myTransfers, exhibitorWallet, exhibitorTransfers, charge, myExhibitorWallet, myExhibitorTransfers, chargeMyExhibitor, myExhibitors, selectedExhibitorWallet, selectedExhibitorTransfers, chargeSelectedExhibitor, requestMySettlement, confirmMySettlement, adminVouchers, voucherParticipants, approvedExhibitors, settlements, settlementReconciliation, auditLogs, createVoucher, adjustVoucher, revokeVoucher, createSettlement, confirmSettlement };
+  return { listMyVouchers, myTransfers, exhibitorWallet, exhibitorTransfers, charge, myExhibitorWallet, myExhibitorTransfers, chargeMyExhibitor, myExhibitors, selectedExhibitorWallet, selectedExhibitorTransfers, chargeSelectedExhibitor, requestMySettlement, confirmMySettlement, adminVouchers, voucherParticipants, approvedExhibitors, settlements, settlementReconciliation, auditLogs, callbackOutbox, retryCallbackOutbox, createVoucher, adjustVoucher, revokeVoucher, createSettlement, confirmSettlement };
 }

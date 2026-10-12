@@ -7,7 +7,7 @@ export interface AdminUserItem {
   full_name?: string | null;
   phone?: string | null;
   country?: string | null;
-  role: 'participant' | 'organizer' | 'admin';
+  role: 'participant' | 'organizer' | 'admin' | 'checkin_staff';
   status: 'active' | 'inactive' | 'suspended';
   is_email_verified?: boolean;
   created_at?: string;

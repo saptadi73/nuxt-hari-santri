@@ -5,7 +5,7 @@
       <h1>{{ id ? 'Pindai tiket peserta' : 'Scan participant ticket' }}</h1>
       <p class="intro">{{ id ? 'Tiket diperiksa langsung ke server. Setiap tiket hanya dapat digunakan satu kali.' : 'Tickets are checked online. Each ticket can only be used once.' }}</p>
 
-      <p v-if="!isOrganizer" class="error" role="alert">{{ id ? 'Halaman ini khusus petugas acara.' : 'This page is for event staff only.' }}</p>
+      <p v-if="!canCheckIn" class="error" role="alert">{{ id ? 'Halaman ini khusus petugas check-in acara.' : 'This page is for event check-in staff only.' }}</p>
       <template v-else>
         <div class="scanner-frame">
           <video ref="video" autoplay muted playsinline />
@@ -36,7 +36,7 @@ definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
 const id = computed(() => locale.value === 'id');
 const auth = useAuthStore();
-const isOrganizer = auth.isAdminOrOrganizer;
+const canCheckIn = computed(() => ['admin', 'organizer', 'checkin_staff'].includes(auth.userRole || ''));
 const api = useHariSantri();
 const video = ref<HTMLVideoElement | null>(null);
 const manualToken = ref('');

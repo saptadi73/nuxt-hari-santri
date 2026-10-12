@@ -9,6 +9,8 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [x] Beranda memakai naskah CMS dan tidak menampilkan harga/jadwal/rute/hadiah/pengisi acara yang belum disahkan.
 - [x] Form peserta mengambil paket dan shirt inventory dari API; mengirim roster keluarga per orang, tanggal lahir/wali, activity, dan shirt size.
 - [x] Checkout memakai endpoint backend Hari Santri dan redirect ke `payment_url` Portal Payment; browser tidak memilih DOKU/Midtrans.
+- [x] Tampilkan state checkout UNKNOWN dengan arahan resume order yang sama; jangan buat order baru atau mengubah status dari browser.
+- [x] Tampilkan `paid_needs_review` tanpa akses tiket, dan berikan aksi rekonsiliasi callback terlambat admin berbasis nomor referensi order.
 - [x] Hasil pembayaran memeriksa status order server; dashboard menampilkan status/tiket QR per peserta.
 - [x] Admin mengelola kapasitas size dan metadata paket; halaman bazar mengirim pengajuan terpisah.
 - [x] Scanner check-in memakai kamera dengan fallback input manual dan validasi online.
@@ -27,7 +29,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Verifikasi visualisasi peta/GeoJSON, start/finish, petugas medis, aksesibilitas dan versi rute.
 - [ ] Sambungkan CRUD agenda, performer confirmed-only, hadiah/sponsor/claim, voucher, tenant/stall, galeri/media consent, FAQ dan announcements ke CMS backend.
 - [ ] Buat halaman legal Hari Santri yang disetujui panitia; saat ini route terms/privacy yang diwarisi masih perlu audit isi.
-- [ ] Tambahkan polling status lookup server-to-server backend untuk kasus callback hilang; browser hanya menampilkan state dari backend.
+- [x] Sediakan aksi admin rekonsiliasi manual dari halaman operasi menggunakan nomor referensi order; lookup dilakukan backend ke Payment Portal dan status browser tidak mengubah order.
 - [ ] Lengkapi halaman dashboard profil/pesanan/email dengan data peserta Hari Santri; pensiunkan rute IWBIF yang tidak digunakan.
 - [ ] Perluas copy/SEO/social metadata dan sitemap per route; verifikasi `id/en`, consent wali, keyboard, screen reader, image loading, reduced motion, dan viewport mobile.
 - [ ] Setelah tersedia, UAT frontend dengan client Payment Portal sandbox dan fixture harga/kuota yang disetujui.

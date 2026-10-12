@@ -557,6 +557,7 @@ const secondaryNav = computed<NavItem[]>(() => {
     items.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
     items.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
     items.push({ to: '/admin/audit-vouchers', label: locale.value === 'id' ? 'Audit Voucher' : 'Voucher Audit' });
+    items.push({ to: '/admin/hari-santri-operations', label: locale.value === 'id' ? 'Operasional Callback' : 'Callback Operations' });
     items.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
   }
 

@@ -13,6 +13,7 @@
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <div class="actions">
         <button type="button" class="button button--dark" :disabled="loading" @click="refresh">{{ loading ? (id ? 'Memeriksa…' : 'Checking…') : (id ? 'Periksa status' : 'Refresh status') }}</button>
+        <NuxtLink v-if="canResumeCheckout" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="button button--dark">{{ id ? 'Lanjutkan checkout yang sama' : 'Resume the same checkout' }}</NuxtLink>
         <NuxtLink v-if="status?.order_status === 'paid'" to="/dashboard/tiket" class="button button--gold">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
         <NuxtLink to="/dashboard" class="text-link">{{ id ? 'Kembali ke dashboard' : 'Back to dashboard' }}</NuxtLink>
       </div>
@@ -44,11 +45,15 @@ const message = computed(() => {
   if (status.value?.order_status === 'paid_needs_review') return id.value
     ? 'Pembayaran diterima dan sedang ditinjau panitia. Tiket belum diterbitkan.'
     : 'Payment received and under organizer review. Tickets have not been issued yet.';
+  if (status.value?.payment_status.toLowerCase() === 'unknown') return id.value
+    ? 'Hasil checkout belum diketahui. Lanjutkan checkout yang sama agar backend memakai idempotency key order yang sama; jangan buat pesanan baru.'
+    : 'Checkout outcome is unknown. Resume this checkout so the backend reuses the order idempotency key; do not create a new order.';
   return id.value
     ? 'Konfirmasi mungkin memerlukan waktu. Status akan diperbarui setelah sistem menerima notifikasi pembayaran.'
     : 'Confirmation can take a little time. This page updates after the system receives the payment notification.';
 });
 const statusLabel = (value: string) => value.replaceAll('_', ' ').toUpperCase();
+const canResumeCheckout = computed(() => Boolean(orderId.value) && ['unknown', 'pending', 'created', 'initiated'].includes(status.value?.payment_status.toLowerCase() || '') && !['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || ''));
 
 const refresh = async () => {
   if (!orderId.value || loading.value) return;
