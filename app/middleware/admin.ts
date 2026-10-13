@@ -1,6 +1,5 @@
 export default defineNuxtRouteMiddleware(async () => {
   const auth = useAuthStore();
-  const i18n = useNuxtApp().$i18n as { locale: string | { value: string }; setLocale: (locale: string) => Promise<void> };
   if (import.meta.client) auth.syncTokensFromCookies();
   else auth.hydrateUserFromToken();
 
@@ -12,8 +11,4 @@ export default defineNuxtRouteMiddleware(async () => {
     return navigateTo('/dashboard');
   }
 
-  const locale = typeof i18n.locale === 'string' ? i18n.locale : i18n.locale.value;
-  if (locale !== 'en') {
-    await i18n.setLocale('en');
-  }
 });

@@ -34,7 +34,7 @@ const messages = {
   id: { eyebrow: 'Pesan', title: 'Pesan & notifikasi', description: 'Pembaruan pesanan dan informasi acara tersedia di sini.', refresh: 'Muat ulang', refreshing: 'Memuat ulang…', loading: 'Memuat pesan…', empty: 'Belum ada notifikasi.', notification: 'Notifikasi', openDetails: 'Buka untuk melihat detail.', new: 'Baru', error: 'Pesan belum dapat dimuat.', seo: 'Pesan' },
   en: { eyebrow: 'Inbox', title: 'Messages & notifications', description: 'Order updates and event information are collected here.', refresh: 'Refresh', refreshing: 'Refreshing…', loading: 'Loading inbox…', empty: 'There are no notifications yet.', notification: 'Notification', openDetails: 'Open to view details.', new: 'New', error: 'Unable to load inbox.', seo: 'Inbox' }
 } as const;
-const copy = computed(() => messages[authStore.isAdminOrOrganizer ? 'en' : locale.value === 'id' ? 'id' : 'en']);
+const copy = computed(() => messages.id);
 useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
 const communication = useCommunication();
 const { getEvents } = useEvent();
@@ -89,7 +89,7 @@ const openNotification = async (item: NotificationItem) => {
   }
 };
 
-const formatDateTime = (value: string) => new Intl.DateTimeFormat(authStore.isAdminOrOrganizer || locale.value === 'en' ? 'en-GB' : 'id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
+const formatDateTime = (value: string) => new Intl.DateTimeFormat('id-ID', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 
 onMounted(loadNotifications);
 </script>

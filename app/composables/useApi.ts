@@ -24,11 +24,7 @@ export interface LocalizedContentMeta {
 
 export function useApi() {
   const config = useRuntimeConfig();
-  const route = useRoute();
   const authStore = useAuthStore();
-  // @nuxtjs/i18n owns this cookie. Read it without a default so SSR does not
-  // attempt to write a competing value while locale detection is running.
-  const localeCookie = useCookie<'id' | 'en'>('hari_santri_locale');
   let refreshPromise: Promise<boolean> | null = null;
 
   const normalizeBaseUrl = (value: string) => value.replace(/\/+$/, '');
@@ -42,21 +38,14 @@ export function useApi() {
 
   const buildAuthHeaders = (headers?: HeadersInit) => {
     const nextHeaders = new Headers(headers);
-    if (!nextHeaders.has('Accept-Language')) {
-      const locale = route.path.startsWith('/admin')
-        ? 'en'
-        : localeCookie.value === 'en' ? 'en' : 'id';
-      nextHeaders.set('Accept-Language', locale);
-    }
+    nextHeaders.set('Accept-Language', 'id');
     if (authStore.accessToken) {
       nextHeaders.set('Authorization', `Bearer ${authStore.accessToken}`);
     }
     return nextHeaders;
   };
 
-  const requestLocale = () => route.path.startsWith('/admin')
-    ? 'en'
-    : localeCookie.value === 'en' ? 'en' : 'id';
+  const requestLocale = () => 'id';
 
   const rawApi = $fetch.create({
     baseURL: requestBaseUrl,
@@ -158,9 +147,7 @@ export function useApi() {
       refreshAttempted = true;
       const refreshed = await refreshAccessToken();
       if (!refreshed && (!authStore.accessToken || authStore.isAccessTokenExpired)) {
-        throw new Error(localeCookie.value === 'id' && !route.path.startsWith('/admin')
-          ? 'Sesi Anda telah berakhir. Silakan masuk kembali untuk melanjutkan.'
-          : 'Your session has expired. Please sign in again to continue.');
+        throw new Error('Sesi Anda telah berakhir. Silakan masuk kembali untuk melanjutkan.');
       }
     }
 

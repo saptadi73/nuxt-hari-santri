@@ -4,7 +4,7 @@
       <div>
         <p class="text-xs font-bold uppercase tracking-[.24em] text-cyan-200">Pengelolaan Konten</p>
         <h1 class="mt-3 text-3xl font-black text-white sm:text-4xl">Terjemahan Bahasa Indonesia</h1>
-        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">Kelola konten Indonesia untuk halaman event. Konten English tetap menjadi versi sumber.</p>
+        <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-400">Kelola konten Bahasa Indonesia untuk halaman acara.</p>
       </div>
       <span class="rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold text-cyan-100">Locale: id</span>
     </header>
@@ -87,7 +87,7 @@ const resetForm = () => {
 };
 const apiError = (error: unknown) => {
   const value = error as { data?: { message?: string; request_id?: string; errors?: Array<{ message?: string }> } };
-  const message = value.data?.errors?.[0]?.message || value.data?.message || (error instanceof Error ? error.message : 'The translation could not be processed.');
+  const message = value.data?.errors?.[0]?.message || value.data?.message || (error instanceof Error ? error.message : 'Terjemahan tidak dapat diproses.');
   return value.data?.request_id ? `${message} (Request ID: ${value.data.request_id})` : message;
 };
 const fieldLabel = (field: string) => field.replaceAll('_', ' ');
@@ -132,7 +132,7 @@ const saveTranslation = async () => {
   finally { saving.value = false; }
 };
 const removeTranslation = async () => {
-  if (!entityId.value || saving.value || !confirm('Hapus terjemahan Bahasa Indonesia? Halaman publik akan memakai konten English.')) return;
+  if (!entityId.value || saving.value || !confirm('Hapus konten Bahasa Indonesia?')) return;
   saving.value = true;
   try {
     await adminContent.deleteContentTranslation(entityType.value, entityId.value);

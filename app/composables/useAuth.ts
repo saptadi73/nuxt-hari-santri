@@ -17,7 +17,7 @@ interface RegisterPayload {
   village_code?: string;
   phone: string;
   password: string;
-  preferred_locale?: 'id' | 'en';
+  preferred_locale?: 'id';
 }
 
 interface ChangePasswordPayload {
@@ -37,7 +37,7 @@ interface AuthUserPayload {
   email: string;
   full_name?: string;
   role?: string;
-  preferred_locale?: 'id' | 'en';
+  preferred_locale?: 'id';
 }
 
 type LoginResponse = RegistrationFlowState & {
@@ -65,10 +65,7 @@ export function useAuth() {
       });
       authStore.setUser(result.data.user);
       authStore.hydrateUserFromToken();
-      const preferredLocale = result.data.user.preferred_locale;
-      if (!authStore.isAdminOrOrganizer && (preferredLocale === 'id' || preferredLocale === 'en')) {
-        await setLocale(preferredLocale);
-      }
+      await setLocale('id');
       registrationFlow.primeFlow(result.data);
     }
     return result;
@@ -117,10 +114,10 @@ export function useAuth() {
       body: payload
     });
 
-  const updatePreferredLocale = async (preferredLocale: 'id' | 'en') => {
+  const updatePreferredLocale = async (_preferredLocale: 'id' = 'id') => {
     const result = await api<ApiResponse<AuthUserPayload>>('/auth/me', {
       method: 'PUT',
-      body: { preferred_locale: preferredLocale }
+      body: { preferred_locale: 'id' }
     });
     if (result.success) authStore.setUser(result.data);
     return result;

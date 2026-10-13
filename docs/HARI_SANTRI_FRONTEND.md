@@ -2,7 +2,7 @@
 
 ## Sumber konten dan bahasa
 
-Copy publik mengikuti `fastapi-hari-santri/docs/Konten_Web_Portal_Hari_Santri_2026.md`. Bahasa aktif adalah Indonesia (`id`, default) dan English (`en`); locale disimpan pada cookie `hari_santri_locale` dan dikirim sebagai query/header API.
+Copy publik mengikuti `fastapi-hari-santri/docs/Konten_Web_Portal_Hari_Santri_2026.md`. Bahasa portal Hari Santri hanya Bahasa Indonesia (`id`). Pemilihan bahasa browser dan cookie locale dinonaktifkan; frontend mengirim `Accept-Language: id` dan locale API `id`.
 
 Jangan menerbitkan harga, isi paket, kuota, rute, jam, pengisi acara, hadiah, voucher, biaya tenant, atau titik kumpul dari contoh. Bagian yang belum disahkan memakai copy “diumumkan panitia”/“to be announced”. Nama/foto tokoh hanya tampil jika hak dan persetujuan publikasi sudah ada.
 

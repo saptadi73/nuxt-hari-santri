@@ -38,10 +38,6 @@
         </nav>
 
         <div class="header-actions ml-auto flex shrink-0 items-center gap-1 sm:gap-2 xl:ml-2">
-          <label v-if="!authStore.isAdminOrOrganizer" class="locale-switcher" :aria-label="locale === 'id' ? 'Bahasa' : 'Language'">
-            <span class="sr-only">{{ locale === 'id' ? 'Bahasa' : 'Language' }}</span>
-            <select :value="locale" @change="changeLocale"><option value="id">ID</option><option value="en">EN</option></select>
-          </label>
           <div v-if="isAuthenticated" class="relative">
             <button
               type="button"
@@ -197,25 +193,12 @@
 <script setup lang="ts">
 import siteLogo from '~/assets/images/logo_santri_2026.png';
 import { useCommunication } from '~/composables/useCommunication';
-const { t, locale, setLocale } = useI18n();
+const { t, locale } = useI18n();
 useHead(() => ({ htmlAttrs: { lang: locale.value } }));
-const changeLocale = async (event: Event) => {
-  const value = (event.target as HTMLSelectElement).value;
-  if (value !== 'id' && value !== 'en') return;
-  await setLocale(value);
-  if (authStore.isAuthenticated) {
-    try {
-      await updatePreferredLocale(value);
-    } catch {
-      // The locale cookie remains authoritative for this browser session if
-      // synchronizing the account preference is temporarily unavailable.
-    }
-  }
-};
 
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
-const { logout, updatePreferredLocale } = useAuth();
+const { logout } = useAuth();
 const registrationFlow = useRegistrationFlow();
 const hariSantriRegistration = useHariSantriRegistration();
 const isRegistrationPaid = computed(() => hariSantriRegistration.status.value === 'paid');

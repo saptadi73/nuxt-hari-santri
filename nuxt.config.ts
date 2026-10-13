@@ -19,16 +19,10 @@ export default defineNuxtConfig({
     strategy: 'no_prefix',
     defaultLocale: 'id',
     locales: [
-      { code: 'id', name: 'Bahasa Indonesia', language: 'id-ID', file: 'id.json' },
-      { code: 'en', name: 'English', language: 'en-US', file: 'en.json' }
+      { code: 'id', name: 'Bahasa Indonesia', language: 'id-ID', file: 'id.json' }
     ],
     langDir: 'locales',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'hari_santri_locale',
-      redirectOn: 'root',
-      fallbackLocale: 'id'
-    },
+    detectBrowserLanguage: false,
     vueI18n: './i18n.config.ts'
   },
   nitro: {

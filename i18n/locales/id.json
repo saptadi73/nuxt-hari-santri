@@ -1,5 +1,5 @@
 {
-  "language": {"label": "Bahasa", "indonesian": "Indonesia", "english": "English"},
+  "language": {"label": "Bahasa", "indonesian": "Bahasa Indonesia"},
   "nav": {
     "home": "Beranda", "about": "Tentang Acara", "activities": "Kegiatan & Paket", "routes": "Rute", "agenda": "Agenda", "performers": "Pengisi Acara", "prizes": "Hadiah", "bazaar": "Bazar & Voucher", "history": "Sejarah Hari Santri", "faq": "FAQ", "dashboard": "Dashboard", "more": "Lainnya", "menu": "Menu"
   },

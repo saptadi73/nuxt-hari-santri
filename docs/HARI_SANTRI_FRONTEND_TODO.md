@@ -5,7 +5,8 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 ## Selesai
 
 - [x] Rebrand navigasi, metadata, footer, env, dan halaman utama dari IWBIF ke Hari Santri 2026.
-- [x] Bahasa aktif Indonesia (`id`, default) dan English (`en`); API `Accept-Language` mengikuti locale aktif.
+- [x] Bahasa aktif portal Hari Santri hanya Indonesia (`id`); deteksi bahasa browser dimatikan dan API selalu menerima locale `id`.
+- [ ] Terjemahkan seluruh halaman, komponen, navigasi, formulir admin/peserta, notifikasi, dan konten warisan IWBIF ke Bahasa Indonesia; hapus pemilih/aksi terjemahan English/Chinese setelah konten Indonesian siap.
 - [x] Beranda memakai naskah CMS dan tidak menampilkan harga/jadwal/rute/hadiah/pengisi acara yang belum disahkan.
 - [x] Form peserta mengambil paket dan shirt inventory dari API; mengirim roster keluarga per orang, tanggal lahir/wali, activity, dan shirt size.
 - [x] Checkout memakai endpoint backend Hari Santri dan redirect ke `payment_url` Portal Payment; browser tidak memilih DOKU/Midtrans.
@@ -31,11 +32,12 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Buat halaman legal Hari Santri yang disetujui panitia; saat ini route terms/privacy yang diwarisi masih perlu audit isi.
 - [x] Sediakan aksi admin rekonsiliasi manual dari halaman operasi menggunakan nomor referensi order; lookup dilakukan backend ke Payment Portal dan status browser tidak mengubah order.
 - [ ] Lengkapi halaman dashboard profil/pesanan/email dengan data peserta Hari Santri; pensiunkan rute IWBIF yang tidak digunakan.
-- [ ] Perluas copy/SEO/social metadata dan sitemap per route; verifikasi `id/en`, consent wali, keyboard, screen reader, image loading, reduced motion, dan viewport mobile.
+- [ ] Perluas copy/SEO/social metadata dan sitemap per route; verifikasi UI Indonesia, consent wali, keyboard, screen reader, image loading, reduced motion, dan viewport mobile.
+- [ ] Audit 44 halaman/komponen legacy IWBIF yang masih memuat salinan English/Chinese; terjemahkan seluruh alur (bukan hanya mengunci locale) sebelum portal dinyatakan sepenuhnya satu bahasa.
 - [ ] Setelah tersedia, UAT frontend dengan client Payment Portal sandbox dan fixture harga/kuota yang disetujui.
 
 ## Release checks
 
 - [ ] `npx vue-tsc --noEmit` dan `npm run build` lulus.
 - [ ] Lint file Hari Santri aktif lulus; full lint legacy masih memiliki tiga error di `useMediaUrl.ts`, `useRegistrationDocuments.ts`, dan `useTicket.ts` yang dicatat pada audit.
-- [ ] Smoke test URL desktop/mobile, `id/en`, register, package availability, checkout link, payment result, QR, scanner, bazaar submission, admin pages.
+- [ ] Smoke test URL desktop/mobile, bahasa Indonesia, register, package availability, checkout link, payment result, QR, scanner, bazaar submission, admin pages.

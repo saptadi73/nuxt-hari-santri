@@ -190,7 +190,7 @@ const onSubmit = async () => {
       village_code: form.village_code,
       phone: internationalPhone.value,
       password: form.password,
-      preferred_locale: locale.value === 'id' ? 'id' : 'en'
+      preferred_locale: 'id'
     });
 
     if (result.success) {

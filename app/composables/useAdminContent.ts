@@ -102,6 +102,7 @@ export interface ContentTranslation<TFields extends Record<string, unknown> = Re
   id: string;
   entity_type: TranslatableEntityType;
   entity_id: string;
+  /** Locale of a preserved historical translation row; writes are Indonesian-only. */
   locale: 'id' | 'en' | 'zh-CN';
   fields: TFields;
   created_at?: string;
