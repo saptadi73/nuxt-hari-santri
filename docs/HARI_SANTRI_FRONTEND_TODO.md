@@ -9,6 +9,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Terjemahkan seluruh halaman, komponen, navigasi, formulir admin/peserta, notifikasi, dan konten warisan IWBIF ke Bahasa Indonesia; hapus pemilih/aksi terjemahan English/Chinese setelah konten Indonesian siap.
 - [x] Beranda memakai naskah CMS dan tidak menampilkan harga/jadwal/rute/hadiah/pengisi acara yang belum disahkan.
 - [x] Form peserta mengambil paket dan shirt inventory dari API; mengirim roster keluarga per orang, tanggal lahir/wali, activity, dan shirt size.
+- [x] Hilangkan pilihan wilayah dari form order; backend memakai wilayah profil pemesan yang dikumpulkan saat akun pertama dibuat.
 - [x] Checkout memakai endpoint backend Hari Santri dan redirect ke `payment_url` Portal Payment; browser tidak memilih DOKU/Midtrans.
 - [x] Tambahkan menu dan halaman donasi publik dengan nominal pilihan donatur, idempotency request ID, redirect ke URL Payment Portal dari server, dan tampilan status lokal tanpa menandai lunas dari browser.
 - [x] Tampilkan state checkout UNKNOWN dengan arahan resume order yang sama; jangan buat order baru atau mengubah status dari browser.

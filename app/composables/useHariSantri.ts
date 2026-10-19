@@ -30,10 +30,10 @@ export interface OrderParticipantInput {
   birth_date?: string | null;
   guardian_name?: string | null;
   guardian_contact?: string | null;
-  province_code: string;
-  regency_code: string;
-  district_code: string;
-  village_code: string;
+  province_code?: string;
+  regency_code?: string;
+  district_code?: string;
+  village_code?: string;
   activity_type: ActivityType;
   shirt_size_code: string;
 }
