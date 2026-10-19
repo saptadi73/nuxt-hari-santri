@@ -123,6 +123,11 @@ const isMinor = (birthDate: string) => {
   cutoff.setFullYear(cutoff.getFullYear() - 18);
   return date > cutoff;
 };
+const addParticipant = () => {
+  if (participants.value.length < packageParticipantLimit.value.max) {
+    participants.value.push(newParticipant());
+  }
+};
 const removeParticipant = (index: number) => { if (participants.value.length > 1) participants.value.splice(index, 1); };
 watch(activity, () => { selectedProductId.value = activityProducts.value[0]?.id || ''; });
 watch([() => participants.value.length, packageParticipantLimit], ([count, limit]) => {
