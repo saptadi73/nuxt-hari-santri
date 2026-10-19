@@ -19,6 +19,7 @@
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <div class="actions">
         <button type="button" class="button button--dark" :disabled="loading" @click="refresh">{{ loading ? (id ? 'Memeriksa…' : 'Checking…') : (id ? 'Periksa status' : 'Refresh status') }}</button>
+        <button v-if="!donationMode && orderId && canReconcile" type="button" class="button button--gold" :disabled="reconciling" @click="reconcileNow">{{ reconciling ? 'Memeriksa Payment Portal…' : 'Periksa ke Payment Portal' }}</button>
         <NuxtLink v-if="!donationMode && canResumeCheckout" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="button button--dark">{{ id ? 'Lanjutkan checkout yang sama' : 'Resume the same checkout' }}</NuxtLink>
         <NuxtLink v-if="!donationMode && status?.order_status === 'paid'" to="/dashboard/tiket" class="button button--gold">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
         <NuxtLink v-if="donationMode" to="/donasi" class="text-link">Kembali ke halaman donasi</NuxtLink>
@@ -43,6 +44,7 @@ const donationMode = computed(() => Boolean(donationReference.value));
 const status = ref<HariSantriPaymentStatus | null>(null);
 const donationStatus = ref<DonationStatus | null>(null);
 const loading = ref(false);
+const reconciling = ref(false);
 const error = ref('');
 let poller: ReturnType<typeof setInterval> | undefined;
 const title = computed(() => {
@@ -73,6 +75,21 @@ const message = computed(() => {
 const statusLabel = (value: string) => value.replaceAll('_', ' ').toUpperCase();
 const formatRupiah = (value: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);
 const canResumeCheckout = computed(() => Boolean(orderId.value) && ['unknown', 'pending', 'created', 'initiated'].includes(status.value?.payment_status.toLowerCase() || '') && !['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || ''));
+const canReconcile = computed(() => !['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || ''));
+
+const reconcileNow = async () => {
+  if (!orderId.value || reconciling.value) return;
+  reconciling.value = true;
+  error.value = '';
+  try {
+    await api.reconcileOrderPayment(orderId.value);
+    await refresh();
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : 'Pemeriksaan Payment Portal belum berhasil.';
+  } finally {
+    reconciling.value = false;
+  }
+};
 
 const refresh = async () => {
   if ((!orderId.value && !donationReference.value) || loading.value) return;

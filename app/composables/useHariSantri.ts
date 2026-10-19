@@ -153,6 +153,9 @@ export function useHariSantri() {
   const getPaymentStatus = (orderId: string) =>
     api<ApiResponse<HariSantriPaymentStatus>>(`/hari-santri/orders/${encodeURIComponent(orderId)}/payment-status`);
 
+  const reconcileOrderPayment = (orderId: string) =>
+    api<ApiResponse<Record<string, unknown>>>(`/hari-santri/orders/${encodeURIComponent(orderId)}/payment-reconcile`, { method: 'POST' });
+
   const createDonation = (payload: { request_id: string; donor_name: string; donor_email: string; amount: number }) =>
     api<ApiResponse<DonationCheckout>>('/donations', { method: 'POST', body: payload });
 
@@ -174,5 +177,5 @@ export function useHariSantri() {
   const getMyBazaarApplications = () =>
     api<ApiResponse<BazaarApplicationRecord[]>>('/bazaar/me/applications');
 
-  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, createDonation, getDonationStatus, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
+  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcileOrderPayment, createDonation, getDonationStatus, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
 }
