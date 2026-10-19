@@ -96,21 +96,20 @@ test('concurrent flow refreshes await the same fresh snapshot', async () => {
   assert.equal(flow.primaryStatus.value, 'payment_pending');
 });
 
-test('pending Midtrans attempt resumes with Midtrans even when the default provider is DOKU', async () => {
+test('Hari Santri resumes the same order through Payment Portal and ignores parallel clicks', async () => {
   const calls = [], redirects = [];
-  const page = evaluate(script('../app/pages/dashboard/payment.vue') + '\n;({order,orderId,activePayment,onlinePaymentDisabled,startPayment});', {
+  const page = evaluate(script('../app/pages/dashboard/payment.vue').replaceAll('import.meta.dev', 'false') + '\n;({continuePayment});', {
     definePageMeta() {}, useSeoMeta() {}, useI18n: () => ({ locale: ref('en') }), useRoute: () => ({ query: {} }),
-    usePayment: () => ({ paymentProvider: 'doku', async continueOrderPayment(id, provider) { calls.push([id, provider]); return { data: { order_status: 'pending', payment_url: 'https://app.midtrans.com/snap/existing', payment_id: 'part-1' } }; } }),
+    usePayment: () => ({}),
+    useRuntimeConfig: () => ({ public: { eventSlug: 'hari-santri-2026' } }),
+    useHariSantri: () => ({ getParticipants: async () => ({ data: [{ id: 'participant' }] }),
+      async createCheckout(id) { calls.push(id); return { data: { payment_url: 'https://bayar.example/p/PAY-SAME', payment_id: 'same-payment' } }; } }),
     useEvent: () => ({}), useRegistrationFlow: () => ({ profilePendingType: ref(null) }),
-    onMounted() {}, sessionStorage: { setItem() {} }, navigateTo() {},
+    onMounted() {}, sessionStorage: { setItem() {}, removeItem() {} }, navigateTo() {}, URL,
     window: { location: { assign(url) { redirects.push(url); } } }
   });
-  page.order.value = { ...order, allowed_actions: ['continue_payment'] };
-  page.orderId.value = order.id;
-  page.activePayment.value = { ...first, transaction_status: 'pending' };
-  assert.equal(page.onlinePaymentDisabled.value, false);
-  await page.startPayment();
-  assert.deepEqual(calls, [['order-1', 'midtrans']]);
+  await Promise.all([page.continuePayment('order-1'), page.continuePayment('order-1')]);
+  assert.deepEqual(calls, ['order-1']);
   assert.equal(redirects.length, 1);
 });
 

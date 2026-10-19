@@ -34,11 +34,13 @@ export function useHariSantriRegistration() {
       || ['draft', 'pending', 'partially_paid'].includes(entry.order.status.toLowerCase()))
   ));
   const paid = computed(() => orders.value.some(entry => isOrderFullyPaid(entry.order)));
-  const status = computed(() => pendingOrder.value ? 'payment_pending' : paid.value ? 'paid' : 'not_registered');
+  const reviewOrder = computed(() => orders.value.find(entry => entry.order.status.toLowerCase() === 'paid_needs_review'));
+  const status = computed(() => reviewOrder.value ? 'paid_needs_review' : pendingOrder.value ? 'payment_pending' : paid.value ? 'paid' : 'not_registered');
   const ctaTo = computed(() => {
     if (!auth.isAuthenticated) return '/auth/register';
     if (auth.isAdminOrOrganizer) return '/dashboard';
     if (error.value || !loaded.value) return '/dashboard/payment';
+    if (reviewOrder.value) return `/dashboard/payment?order_id=${encodeURIComponent(reviewOrder.value.order.id)}`;
     if (pendingOrder.value) return `/dashboard/payment?order_id=${encodeURIComponent(pendingOrder.value.order.id)}`;
     return paid.value ? '/dashboard/tiket' : '/daftar';
   });
@@ -47,6 +49,7 @@ export function useHariSantriRegistration() {
     if (auth.isAdminOrOrganizer) return id.value ? 'Dashboard Panitia' : 'Organizer Dashboard';
     if (loading.value || !loaded.value && !error.value) return id.value ? 'Memeriksa status…' : 'Checking status…';
     if (error.value) return id.value ? 'Periksa status pendaftaran' : 'Check registration status';
+    if (reviewOrder.value) return 'Pembayaran sedang ditinjau';
     if (pendingOrder.value) return id.value ? 'Lanjutkan Pembayaran' : 'Continue Payment';
     return paid.value ? (id.value ? 'Lihat Tiket' : 'View Tickets') : (id.value ? 'Lanjutkan Pendaftaran' : 'Continue Registration');
   });

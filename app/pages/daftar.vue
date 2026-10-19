@@ -15,15 +15,16 @@
         <div v-if="loading" class="state-note">{{ text.loading }}</div>
         <div v-else-if="loadError" class="error-note" role="alert">{{ loadError }}</div>
         <form v-else class="registration-form" @submit.prevent="submitRegistration">
+          <p v-if="resumeOrderId" class="state-note">Pesanan sudah tersimpan. Lengkapi data peserta untuk melanjutkan pesanan yang sama.</p>
           <section class="form-section">
             <div class="form-section__heading"><span>01</span><h2>{{ text.chooseActivity }}</h2></div>
             <div class="activity-picker" role="group" :aria-label="text.chooseActivity">
-              <button v-for="item in activityOptions" :key="item.code" type="button" :aria-pressed="activity === item.code" :class="{'is-selected': activity === item.code}" @click="activity = item.code">
+              <button v-for="item in activityOptions" :key="item.code" type="button" :disabled="Boolean(resumeOrderId)" :aria-pressed="activity === item.code" :class="{'is-selected': activity === item.code}" @click="activity = item.code">
                 <span>{{ item.title }}</span><small>{{ item.summary }}</small>
               </button>
             </div>
             <label class="field-label" for="package-select">{{ text.package }}</label>
-            <select id="package-select" v-model="selectedProductId" required :disabled="!activityProducts.length">
+            <select id="package-select" v-model="selectedProductId" required :disabled="Boolean(resumeOrderId) || !activityProducts.length">
               <option value="" disabled>{{ activityProducts.length ? text.choosePackage : text.packagesNotPublished }}</option>
               <option v-for="product in activityProducts" :key="product.id" :value="product.id">{{ product.name }} · {{ money(Number(product.price ?? product.amount ?? 0), product.currency) }}</option>
             </select>
@@ -80,6 +81,7 @@ const eventApi = useEvent();
 const storeApi = useStore();
 const hariSantriApi = useHariSantri();
 const registrationProgress = useHariSantriRegistration();
+const resumeOrderId = ref('');
 const loading = ref(true);
 const submitting = ref(false);
 const loadError = ref('');
@@ -134,6 +136,30 @@ watch([() => participants.value.length, packageParticipantLimit], ([count, limit
   if (count > limit.max) participants.value.splice(limit.max);
 });
 
+// Recover from server state, including reloads and a checkout completed in another tab.
+const recoverExistingOrder = async () => {
+  await registrationProgress.refresh();
+  if (registrationProgress.error.value) throw new Error('Status pesanan belum dapat diperiksa. Coba lagi sebelum membuat pesanan.');
+  const entry = registrationProgress.pendingOrder.value;
+  if (registrationProgress.status.value === 'paid' || registrationProgress.status.value === 'paid_needs_review') {
+    await navigateTo(registrationProgress.ctaTo.value, { replace: true });
+    return true;
+  }
+  if (!entry) return false;
+  const roster = await hariSantriApi.getParticipants(entry.order.id);
+  if (roster.data.length) {
+    await navigateTo(`/dashboard/payment?order_id=${encodeURIComponent(entry.order.id)}`, { replace: true });
+    return true;
+  }
+  resumeOrderId.value = entry.order.id;
+  const product = products.value.find(item => item.id === entry.items[0]?.product_id);
+  if (!product) throw new Error('Paket pesanan tersimpan tidak tersedia. Hubungi panitia; jangan membuat pesanan baru.');
+  activity.value = product.metadata_json?.activity_type as ActivityType;
+  await nextTick();
+  selectedProductId.value = product.id;
+  return false;
+};
+
 onMounted(async () => {
   try {
     const events = await eventApi.getEvents(1, 100);
@@ -146,6 +172,7 @@ onMounted(async () => {
     ]);
     products.value = productsResponse.data;
     shirtSizes.value = sizesResponse.data;
+    if (await recoverExistingOrder()) return;
     if (!selectedProductId.value || !activityProducts.value.some(item => item.id === selectedProductId.value)) {
       selectedProductId.value = activityProducts.value[0]?.id || '';
     }
@@ -157,6 +184,7 @@ onMounted(async () => {
 });
 
 const submitRegistration = async () => {
+  if (submitting.value) return;
   submitError.value = '';
   if (!termsAccepted.value || !selectedProduct.value || !availableSizes.value.length) {
     submitError.value = availableSizes.value.length ? text.value.packageNote : text.value.sizeUnavailable;
@@ -168,6 +196,9 @@ const submitRegistration = async () => {
   }
   submitting.value = true;
   try {
+    if (await recoverExistingOrder()) return;
+    let orderId = resumeOrderId.value;
+    if (!orderId) {
     const cart = await storeApi.getCart(eventId.value);
     for (const item of cart.data.items) {
       if (item.product_id !== selectedProductId.value) await storeApi.removeCartItem(eventId.value, item.product_id);
@@ -175,8 +206,10 @@ const submitRegistration = async () => {
     const selectedInCart = cart.data.items.some(item => item.product_id === selectedProductId.value);
     if (!selectedInCart) await storeApi.addCartItem(eventId.value, selectedProductId.value, 1);
     const orderResponse = await storeApi.checkout(eventId.value, termsAccepted.value);
-    const orderId = orderResponse.data.order_id || orderResponse.data.id;
+    orderId = orderResponse.data.order_id || orderResponse.data.id || '';
     if (!orderId) throw new Error('Order ID is missing from the checkout response.');
+    resumeOrderId.value = orderId;
+    }
     const roster: OrderParticipantInput[] = participants.value.map(person => ({
       full_name: person.full_name,
       birth_date: person.birth_date || null,
@@ -200,6 +233,8 @@ const submitRegistration = async () => {
     window.location.assign(paymentUrl.toString());
   } catch (error) {
     submitError.value = error instanceof Error ? error.message : text.value.paymentUrlInvalid;
+    // A timeout may happen after the server committed. Never blindly create again.
+    try { if (await recoverExistingOrder()) return; } catch { /* Keep the original error and block on next server check. */ }
     submitting.value = false;
   }
 };

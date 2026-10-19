@@ -120,7 +120,8 @@ const onSubmit = async () => {
       messageTone.value = 'success';
       await flow.refresh();
       const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '';
-      await navigateTo(redirect.startsWith('/') && !redirect.startsWith('//') && !redirect.includes('\\') ? redirect : flow.ctaTo.value);
+      const hasExistingOrder = flow.status.value !== 'not_registered';
+      await navigateTo(hasExistingOrder || flow.error.value ? flow.ctaTo.value : (redirect.startsWith('/') && !redirect.startsWith('//') && !redirect.includes('\\') ? redirect : flow.ctaTo.value));
       return;
     }
 

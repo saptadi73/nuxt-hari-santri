@@ -84,9 +84,15 @@ const loadOrders = async () => {
 };
 
 const continuePayment = async (orderId: string) => {
+  if (submittingOrderId.value) return;
   submittingOrderId.value = orderId;
   submitError.value = '';
   try {
+    const roster = await hariSantriApi.getParticipants(orderId);
+    if (!roster.data.length) {
+      await navigateTo('/daftar');
+      return;
+    }
     const checkout = (await hariSantriApi.createCheckout(orderId)).data;
     if (checkout.already_paid) {
       await navigateTo(`/dashboard/tiket?order_id=${encodeURIComponent(orderId)}`);
