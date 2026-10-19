@@ -40,7 +40,8 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 ## Release checks
 
 - [x] Deploy versi `main` (checkout donasi dan menu dropdown) sebagai situs statis pada rilis `20261019-donasi-01`; smoke test homepage, `/donasi/`, dan `/pembayaran/hasil/` berhasil (HTTP 200).
-- [ ] Pastikan backend/migration dan data master provinsi production siap; endpoint masih mengembalikan daftar kosong.
+- [x] Backend/migration production siap dan endpoint provinsi sudah mengembalikan data (34 provinsi).
+- [ ] Perbarui master wilayah ke data resmi terbaru yang mencakup 38 provinsi; empat provinsi kode Papua 93–96 masih belum tersedia.
 
 - [ ] `npx vue-tsc --noEmit` dan `npm run build` lulus.
 - [ ] Lint file Hari Santri aktif lulus; full lint legacy masih memiliki tiga error di `useMediaUrl.ts`, `useRegistrationDocuments.ts`, dan `useTicket.ts` yang dicatat pada audit.

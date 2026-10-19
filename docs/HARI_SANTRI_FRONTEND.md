@@ -47,7 +47,7 @@ Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, ha
 
 ## Donasi
 
-Status rilis per 19 Oktober 2026: frontend statis sudah dideploy dari `main` ke rilis `/var/www/nuxt-hari-santri/releases/20261019-donasi-01`; symlink `current` sudah dialihkan secara atomik. Homepage, `/donasi/`, dan `/pembayaran/hasil/` lulus HTTP 200; HTML homepage memuat dropdown Agenda Event, Tentang Event, dan tautan Donasi. Backend terbaru/migration dan data master wilayah production tetap belum diperbarui.
+Status rilis per 19 Oktober 2026: frontend statis dideploy ke `/var/www/nuxt-hari-santri/releases/20261019-donasi-01`; symlink `current` sudah dialihkan secara atomik. Backend production juga sudah memakai commit `915d1a5` dan migration donasi `202610190062`. Homepage, `/donasi/`, `/pembayaran/hasil/`, API health, CORS, dan endpoint provinsi lulus smoke test. Database saat ini memuat 34 provinsi; pemutakhiran sumber ke data Kemendagri 2025 yang mencakup 38 provinsi masih menjadi TODO.
 
 Menu **Donasi** membuka `/donasi`. Halaman publik meminta nama, email, dan nominal rupiah bulat positif yang dapat ditentukan donatur. Frontend membuat `request_id` acak dan mempertahankannya saat percobaan yang sama diulang, mengirim data ke `POST /donations`, lalu mengarahkan browser ke `payment_url` dari backend; tidak ada kredensial Payment Portal di client.
 
