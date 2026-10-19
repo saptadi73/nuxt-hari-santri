@@ -39,6 +39,8 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 
 ## Release checks
 
+- [ ] Deploy commit frontend `6aa754a` sebagai situs statis setelah backend/migrasi siap. Status 2026-10-19: belum dideploy; akses SSH production belum tersedia pada sesi ini.
+
 - [ ] `npx vue-tsc --noEmit` dan `npm run build` lulus.
 - [ ] Lint file Hari Santri aktif lulus; full lint legacy masih memiliki tiga error di `useMediaUrl.ts`, `useRegistrationDocuments.ts`, dan `useTicket.ts` yang dicatat pada audit.
 - [ ] Smoke test URL desktop/mobile, bahasa Indonesia, register, package availability, checkout link, payment result, QR, scanner, bazaar submission, admin pages.

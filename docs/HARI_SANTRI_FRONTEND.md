@@ -47,6 +47,8 @@ Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, ha
 
 ## Donasi
 
+Status rilis per 19 Oktober 2026: halaman dan integrasi sudah di-push ke branch `main` pada commit `6aa754a`, tetapi belum dideploy ke production. Deployment statis dilakukan dengan `npm run generate` setelah memastikan environment production menunjuk ke `https://api.harisantri2026.com`; unggah hasil direktori `.output/public` ke document root frontend, lalu smoke test `/donasi` dan `/pembayaran/hasil`. Migrasi database dan kesiapan backend wajib diverifikasi lebih dahulu.
+
 Menu **Donasi** membuka `/donasi`. Halaman publik meminta nama, email, dan nominal rupiah bulat positif yang dapat ditentukan donatur. Frontend membuat `request_id` acak dan mempertahankannya saat percobaan yang sama diulang, mengirim data ke `POST /donations`, lalu mengarahkan browser ke `payment_url` dari backend; tidak ada kredensial Payment Portal di client.
 
 Sebelum redirect, frontend menyimpan reference donasi pada `sessionStorage`. Return URL Payment Portal tetap memakai URL hasil pembayaran yang terdaftar; halaman `/pembayaran/hasil` mengenali reference sesi dan membaca `GET /donations/{reference_id}/status`. Status browser hanya menampilkan ledger backend dan polling berhenti pada status terminal; redirect/query tidak dapat mengubah status atau menerbitkan tiket.
