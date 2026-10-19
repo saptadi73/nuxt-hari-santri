@@ -1,7 +1,16 @@
 const isDevelopmentRuntime = process.env.npm_lifecycle_event === 'dev';
-const apiBaseUrl = process.env.NUXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000';
-const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const isStaticGeneration = process.env.npm_lifecycle_event === 'generate';
+const apiBaseUrl = process.env.NUXT_PUBLIC_API_BASE_URL || (isStaticGeneration ? '' : 'http://127.0.0.1:8000');
+const siteUrl = process.env.NUXT_PUBLIC_SITE_URL || (isStaticGeneration ? '' : 'http://localhost:3000');
 const apiBasePath = process.env.NUXT_PUBLIC_API_BASE_PATH || '/api/v1';
+const isLoopbackUrl = (value: string) => /^https?:\/\/(?:localhost|127(?:\.\d{1,3}){3}|\[::1\])(?::\d+)?(?:\/|$)/i.test(value);
+
+if (isStaticGeneration && (!apiBaseUrl || isLoopbackUrl(apiBaseUrl))) {
+  throw new Error('Static production build requires NUXT_PUBLIC_API_BASE_URL to point to the production API, not localhost.');
+}
+if (isStaticGeneration && (!siteUrl || isLoopbackUrl(siteUrl))) {
+  throw new Error('Static production build requires NUXT_PUBLIC_SITE_URL to point to the public HTTPS site, not localhost.');
+}
 
 export default defineNuxtConfig({
   hooks: {

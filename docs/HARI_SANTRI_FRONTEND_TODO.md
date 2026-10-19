@@ -25,7 +25,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Admin menyiapkan size chart, status aktif, kapasitas per ukuran; cek laporan stok vs pesanan.
 - [ ] Uji akun pemesan, cart/order, roster multianggota, ukuran berbeda, wali anak, checkout redirect, callback PAID, pending/expired, dan retry.
 - [ ] Uji ticket QR online dan check-in ganda di ponsel; callback test tidak boleh menerbitkan tiket dari redirect.
-- [ ] Atur `NUXT_PUBLIC_API_BASE_URL`, `NUXT_PUBLIC_EVENT_SLUG`, `NUXT_PUBLIC_SITE_URL`, canonical domain dan callback/return URL produksi.
+- [x] Build statis production harus menerima `NUXT_PUBLIC_API_BASE_URL` dan `NUXT_PUBLIC_SITE_URL` eksplisit; validasi menolak localhost/loopback agar URL API development tidak tertanam ke HTML.
 
 ## P1 — Konten dan operasional
 
