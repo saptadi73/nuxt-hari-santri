@@ -47,7 +47,7 @@ Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, ha
 
 ## Donasi
 
-Status rilis per 19 Oktober 2026: halaman dan integrasi sudah di-push ke branch `main` pada commit `6aa754a`, tetapi belum dideploy ke production. Deployment statis dilakukan dengan `npm run generate` setelah memastikan environment production menunjuk ke `https://api.harisantri2026.com`; unggah hasil direktori `.output/public` ke document root frontend, lalu smoke test `/donasi` dan `/pembayaran/hasil`. Migrasi database dan kesiapan backend wajib diverifikasi lebih dahulu.
+Status rilis per 19 Oktober 2026: frontend statis sudah dideploy dari `main` ke rilis `/var/www/nuxt-hari-santri/releases/20261019-donasi-01`; symlink `current` sudah dialihkan secara atomik. Homepage, `/donasi/`, dan `/pembayaran/hasil/` lulus HTTP 200; HTML homepage memuat dropdown Agenda Event, Tentang Event, dan tautan Donasi. Backend terbaru/migration dan data master wilayah production tetap belum diperbarui.
 
 Menu **Donasi** membuka `/donasi`. Halaman publik meminta nama, email, dan nominal rupiah bulat positif yang dapat ditentukan donatur. Frontend membuat `request_id` acak dan mempertahankannya saat percobaan yang sama diulang, mengirim data ke `POST /donations`, lalu mengarahkan browser ke `payment_url` dari backend; tidak ada kredensial Payment Portal di client.
 
