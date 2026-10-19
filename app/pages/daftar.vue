@@ -141,10 +141,10 @@ const recoverExistingOrder = async () => {
   await registrationProgress.refresh();
   if (registrationProgress.error.value) throw new Error('Status pesanan belum dapat diperiksa. Coba lagi sebelum membuat pesanan.');
   const entry = registrationProgress.pendingOrder.value;
-  if (registrationProgress.status.value === 'paid' || registrationProgress.status.value === 'paid_needs_review') {
-    await navigateTo(registrationProgress.ctaTo.value, { replace: true });
-    return true;
-  }
+  // Akun yang sudah memiliki order lunas tetap boleh membuat order baru
+  // untuk jenis kegiatan yang sama. Backend menolak jenis kegiatan berbeda;
+  // halaman ini tidak mengunci pendaftaran baru hanya karena tiket lama ada.
+  if (registrationProgress.status.value === 'paid' || registrationProgress.status.value === 'paid_needs_review') return false;
   if (!entry) return false;
   const roster = await hariSantriApi.getParticipants(entry.order.id);
   if (roster.data.length) {
