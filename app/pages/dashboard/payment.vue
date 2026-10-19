@@ -95,6 +95,7 @@ const continuePayment = async (orderId: string) => {
     if (!checkout.payment_url) throw new Error(id.value ? 'Tautan Portal Payment tidak tersedia.' : 'Payment Portal did not return a checkout link.');
     const url = new URL(checkout.payment_url);
     if (url.protocol !== 'https:' && !(import.meta.dev && url.hostname === 'localhost')) throw new Error(id.value ? 'Tautan pembayaran tidak valid.' : 'Invalid payment link.');
+    sessionStorage.removeItem('hari-santri-donation-reference');
     sessionStorage.setItem('hari-santri-order-id', orderId);
     window.location.assign(url.toString());
   } catch (cause) {

@@ -373,3 +373,10 @@ Tautan: Tentang · Kegiatan · Syarat & Ketentuan · Agenda · Bazar · FAQ · S
 - Daftar ukuran dan panduan ukuran kaos; tenggat perubahan.
 - Persyaratan tenant, fasilitas, biaya dan batas pendaftaran.
 - Nomor layanan resmi, kebijakan pembatalan/refund, syarat acara dan privasi.
+
+## 15. Donasi
+
+**Judul:** Dukung semangat Hari Santri 2026<br>
+**Naskah:** Donasi Anda mendukung penyelenggaraan kegiatan Hari Santri 2026. Tentukan sendiri nominal donasi, lalu lanjutkan pembayaran melalui Portal Payment. Donasi dinyatakan diterima setelah konfirmasi sistem.
+
+**Catatan UI:** Donatur mengisi nama, email, dan nominal rupiah bulat positif. Jangan menampilkan rekening atau QR pembayaran statis; pembayaran dimulai melalui tautan checkout yang dibuat backend.

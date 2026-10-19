@@ -45,6 +45,12 @@ Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, ha
 - Di halaman operasional yang sama, admin dapat memasukkan nomor referensi order untuk memicu lookup server-to-server Payment Portal saat callback terlambat; browser tidak menetapkan status pembayaran.
 - Payment status pada halaman peserta tetap hanya membaca status backend dan tidak pernah menandai order lunas berdasarkan return URL/query browser.
 
+## Donasi
+
+Menu **Donasi** membuka `/donasi`. Halaman publik meminta nama, email, dan nominal rupiah bulat positif yang dapat ditentukan donatur. Frontend membuat `request_id` acak dan mempertahankannya saat percobaan yang sama diulang, mengirim data ke `POST /donations`, lalu mengarahkan browser ke `payment_url` dari backend; tidak ada kredensial Payment Portal di client.
+
+Sebelum redirect, frontend menyimpan reference donasi pada `sessionStorage`. Return URL Payment Portal tetap memakai URL hasil pembayaran yang terdaftar; halaman `/pembayaran/hasil` mengenali reference sesi dan membaca `GET /donations/{reference_id}/status`. Status browser hanya menampilkan ledger backend dan polling berhenti pada status terminal; redirect/query tidak dapat mengubah status atau menerbitkan tiket.
+
 ## Environment dan menjalankan
 
 Frontend hanya membutuhkan konfigurasi public:

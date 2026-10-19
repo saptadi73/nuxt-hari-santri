@@ -4,7 +4,13 @@
       <p class="eyebrow">{{ id ? 'HARI SANTRI 2026' : 'HARI SANTRI 2026' }}</p>
       <h1>{{ title }}</h1>
       <p class="result-message" aria-live="polite">{{ message }}</p>
-      <dl v-if="status" class="status-list">
+      <dl v-if="donationMode && donationStatus" class="status-list">
+        <div><dt>Referensi donasi</dt><dd>{{ donationStatus.reference_id }}</dd></div>
+        <div><dt>Nominal donasi</dt><dd>{{ formatRupiah(donationStatus.amount) }}</dd></div>
+        <div><dt>Status donasi</dt><dd>{{ statusLabel(donationStatus.status) }}</dd></div>
+        <div v-if="donationStatus.payment_no"><dt>Nomor pembayaran</dt><dd>{{ donationStatus.payment_no }}</dd></div>
+      </dl>
+      <dl v-else-if="status" class="status-list">
         <div><dt>{{ id ? 'Nomor pesanan' : 'Order' }}</dt><dd>{{ status.order_id }}</dd></div>
         <div><dt>{{ id ? 'Status pesanan' : 'Order status' }}</dt><dd>{{ statusLabel(status.order_status) }}</dd></div>
         <div><dt>{{ id ? 'Status pembayaran' : 'Payment status' }}</dt><dd>{{ statusLabel(status.payment_status) }}</dd></div>
@@ -13,32 +19,44 @@
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <div class="actions">
         <button type="button" class="button button--dark" :disabled="loading" @click="refresh">{{ loading ? (id ? 'Memeriksa…' : 'Checking…') : (id ? 'Periksa status' : 'Refresh status') }}</button>
-        <NuxtLink v-if="canResumeCheckout" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="button button--dark">{{ id ? 'Lanjutkan checkout yang sama' : 'Resume the same checkout' }}</NuxtLink>
-        <NuxtLink v-if="status?.order_status === 'paid'" to="/dashboard/tiket" class="button button--gold">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
-        <NuxtLink to="/dashboard" class="text-link">{{ id ? 'Kembali ke dashboard' : 'Back to dashboard' }}</NuxtLink>
+        <NuxtLink v-if="!donationMode && canResumeCheckout" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="button button--dark">{{ id ? 'Lanjutkan checkout yang sama' : 'Resume the same checkout' }}</NuxtLink>
+        <NuxtLink v-if="!donationMode && status?.order_status === 'paid'" to="/dashboard/tiket" class="button button--gold">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
+        <NuxtLink v-if="donationMode" to="/donasi" class="text-link">Kembali ke halaman donasi</NuxtLink>
+        <NuxtLink v-else to="/dashboard" class="text-link">{{ id ? 'Kembali ke dashboard' : 'Back to dashboard' }}</NuxtLink>
       </div>
-      <p class="caution">{{ id ? 'Halaman kembali dari pembayaran bukan bukti lunas. Status resmi berasal dari konfirmasi server.' : 'Returning from checkout is not proof of payment. The server-confirmed status is authoritative.' }}</p>
+      <p class="caution">{{ donationMode ? 'Kembali dari halaman pembayaran bukan bukti donasi lunas. Status ini berasal dari konfirmasi server.' : (id ? 'Halaman kembali dari pembayaran bukan bukti lunas. Status resmi berasal dari konfirmasi server.' : 'Returning from checkout is not proof of payment. The server-confirmed status is authoritative.') }}</p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import type { HariSantriPaymentStatus } from '~/composables/useHariSantri';
+import type { DonationStatus, HariSantriPaymentStatus } from '~/composables/useHariSantri';
 
-definePageMeta({ middleware: 'auth' });
 const route = useRoute();
 const { locale } = useI18n();
 const api = useHariSantri();
+const authStore = useAuthStore();
 const id = computed(() => locale.value === 'id');
 const orderId = ref('');
+const donationReference = ref('');
+const donationMode = computed(() => Boolean(donationReference.value));
 const status = ref<HariSantriPaymentStatus | null>(null);
+const donationStatus = ref<DonationStatus | null>(null);
 const loading = ref(false);
 const error = ref('');
 let poller: ReturnType<typeof setInterval> | undefined;
-const title = computed(() => status.value?.order_status === 'paid'
-  ? (id.value ? 'Pembayaran terkonfirmasi' : 'Payment confirmed')
-  : (id.value ? 'Kami sedang memeriksa pembayaran' : 'We are checking your payment'));
+const title = computed(() => {
+  if (donationMode.value) return donationStatus.value?.status === 'PAID' ? 'Terima kasih atas donasi Anda' : 'Kami sedang memeriksa donasi';
+  return status.value?.order_status === 'paid'
+    ? (id.value ? 'Pembayaran terkonfirmasi' : 'Payment confirmed')
+    : (id.value ? 'Kami sedang memeriksa pembayaran' : 'We are checking your payment');
+});
 const message = computed(() => {
+  if (donationMode.value) {
+    if (donationStatus.value?.status === 'PAID') return 'Donasi Anda telah dikonfirmasi. Terima kasih telah mendukung kegiatan Hari Santri 2026.';
+    if (['FAILED', 'EXPIRED', 'CANCELED', 'CANCELLED'].includes(donationStatus.value?.status || '')) return 'Pembayaran donasi belum berhasil. Anda dapat kembali ke halaman donasi untuk mencoba lagi.';
+    return 'Status donasi akan diperbarui setelah sistem menerima konfirmasi dari Portal Payment.';
+  }
   if (status.value?.order_status === 'paid') return id.value
     ? 'Pembayaranmu terverifikasi. Tiket digital tersedia untuk setiap peserta.'
     : 'Your payment is verified. A digital ticket is available for each participant.';
@@ -53,15 +71,24 @@ const message = computed(() => {
     : 'Confirmation can take a little time. This page updates after the system receives the payment notification.';
 });
 const statusLabel = (value: string) => value.replaceAll('_', ' ').toUpperCase();
+const formatRupiah = (value: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value);
 const canResumeCheckout = computed(() => Boolean(orderId.value) && ['unknown', 'pending', 'created', 'initiated'].includes(status.value?.payment_status.toLowerCase() || '') && !['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || ''));
 
 const refresh = async () => {
-  if (!orderId.value || loading.value) return;
+  if ((!orderId.value && !donationReference.value) || loading.value) return;
   loading.value = true;
   error.value = '';
   try {
-    status.value = (await api.getPaymentStatus(orderId.value)).data;
-    if (['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value.order_status.toLowerCase()) && poller) {
+    if (donationReference.value) {
+      donationStatus.value = (await api.getDonationStatus(donationReference.value)).data;
+    } else {
+      if (!authStore.isAuthenticated) throw new Error('Masuk ke akun untuk melihat status pesanan.');
+      status.value = (await api.getPaymentStatus(orderId.value)).data;
+    }
+    const terminal = donationMode.value
+      ? ['PAID', 'FAILED', 'EXPIRED', 'CANCELED', 'CANCELLED'].includes(donationStatus.value?.status || '')
+      : ['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || '');
+    if (terminal && poller) {
       clearInterval(poller);
       poller = undefined;
     }
@@ -74,9 +101,15 @@ const refresh = async () => {
 
 onMounted(async () => {
   const queryOrderId = route.query.order_id;
+  const queryDonationReference = route.query.donation_reference || route.query.reference_id;
+  donationReference.value = sessionStorage.getItem('hari-santri-donation-reference')
+    || (typeof queryDonationReference === 'string' ? queryDonationReference : '');
   orderId.value = typeof queryOrderId === 'string' ? queryOrderId : sessionStorage.getItem('hari-santri-order-id') || '';
   await refresh();
-  if (orderId.value && !['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || '')) {
+  const isTerminal = donationMode.value
+    ? ['PAID', 'FAILED', 'EXPIRED', 'CANCELED', 'CANCELLED'].includes(donationStatus.value?.status || '')
+    : ['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || '');
+  if ((orderId.value || donationReference.value) && !isTerminal) {
     poller = setInterval(() => { void refresh(); }, 5000);
   }
 });

@@ -219,6 +219,7 @@ const submitRegistration = async () => {
     if (!checkout.payment_url) throw new Error(text.value.paymentUrlInvalid);
     const paymentUrl = new URL(checkout.payment_url);
     if (paymentUrl.protocol !== 'https:' && !(import.meta.dev && paymentUrl.hostname === 'localhost')) throw new Error(text.value.paymentUrlInvalid);
+    sessionStorage.removeItem('hari-santri-donation-reference');
     sessionStorage.setItem('hari-santri-order-id', orderId);
     window.location.assign(paymentUrl.toString());
   } catch (error) {

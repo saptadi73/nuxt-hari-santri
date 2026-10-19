@@ -63,6 +63,25 @@ export interface HariSantriPaymentStatus {
   payment_status: string;
 }
 
+export interface DonationCheckout {
+  id: string;
+  reference_id: string;
+  amount: number;
+  currency: 'IDR';
+  status: string;
+  payment_no: string | null;
+  payment_url: string;
+}
+
+export interface DonationStatus {
+  reference_id: string;
+  amount: number;
+  currency: 'IDR';
+  status: string;
+  payment_no: string | null;
+  paid_at: string | null;
+}
+
 export interface HariSantriTicket {
   ticket_id: string;
   ticket_number: string;
@@ -134,6 +153,12 @@ export function useHariSantri() {
   const getPaymentStatus = (orderId: string) =>
     api<ApiResponse<HariSantriPaymentStatus>>(`/hari-santri/orders/${encodeURIComponent(orderId)}/payment-status`);
 
+  const createDonation = (payload: { request_id: string; donor_name: string; donor_email: string; amount: number }) =>
+    api<ApiResponse<DonationCheckout>>('/donations', { method: 'POST', body: payload });
+
+  const getDonationStatus = (referenceId: string) =>
+    api<ApiResponse<DonationStatus>>(`/donations/${encodeURIComponent(referenceId)}/status`);
+
   const reconcilePayment = (referenceId: string) =>
     api<ApiResponse<Record<string, unknown>>>(`/admin/hari-santri/payments/${encodeURIComponent(referenceId)}/reconcile`, { method: 'POST' });
 
@@ -149,5 +174,5 @@ export function useHariSantri() {
   const getMyBazaarApplications = () =>
     api<ApiResponse<BazaarApplicationRecord[]>>('/bazaar/me/applications');
 
-  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
+  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, createDonation, getDonationStatus, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
 }

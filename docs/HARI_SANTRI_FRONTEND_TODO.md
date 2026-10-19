@@ -10,6 +10,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [x] Beranda memakai naskah CMS dan tidak menampilkan harga/jadwal/rute/hadiah/pengisi acara yang belum disahkan.
 - [x] Form peserta mengambil paket dan shirt inventory dari API; mengirim roster keluarga per orang, tanggal lahir/wali, activity, dan shirt size.
 - [x] Checkout memakai endpoint backend Hari Santri dan redirect ke `payment_url` Portal Payment; browser tidak memilih DOKU/Midtrans.
+- [x] Tambahkan menu dan halaman donasi publik dengan nominal pilihan donatur, idempotency request ID, redirect ke URL Payment Portal dari server, dan tampilan status lokal tanpa menandai lunas dari browser.
 - [x] Tampilkan state checkout UNKNOWN dengan arahan resume order yang sama; jangan buat order baru atau mengubah status dari browser.
 - [x] Tampilkan `paid_needs_review` tanpa akses tiket, dan berikan aksi rekonsiliasi callback terlambat admin berbasis nomor referensi order.
 - [x] Hasil pembayaran memeriksa status order server; dashboard menampilkan status/tiket QR per peserta.
@@ -41,3 +42,4 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] `npx vue-tsc --noEmit` dan `npm run build` lulus.
 - [ ] Lint file Hari Santri aktif lulus; full lint legacy masih memiliki tiga error di `useMediaUrl.ts`, `useRegistrationDocuments.ts`, dan `useTicket.ts` yang dicatat pada audit.
 - [ ] Smoke test URL desktop/mobile, bahasa Indonesia, register, package availability, checkout link, payment result, QR, scanner, bazaar submission, admin pages.
+- [ ] Uji donasi dengan nominal valid/invalid, redirect Payment Portal, callback terlambat/duplikat, refresh halaman hasil, dan pastikan status hanya berasal dari API backend.
