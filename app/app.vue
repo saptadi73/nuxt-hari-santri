@@ -15,8 +15,8 @@
           </span>
         </NuxtLink>
 
-      <nav class="hidden items-center gap-1 text-sm font-bold text-[#073b78] xl:ml-auto xl:flex">
-        <template v-for="item in primaryNav" :key="item.to">
+      <nav ref="desktopMenuRef" class="desktop-nav hidden items-center gap-1 text-sm font-bold text-[#073b78] xl:ml-auto xl:flex">
+        <template v-for="item in allNav" :key="item.to">
           <details v-if="item.children" class="group relative">
             <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#073b78] transition hover:bg-sky-50 hover:text-sky-700">
               {{ item.label }} <span class="ml-1 text-[9px] transition group-open:rotate-180" aria-hidden="true">▼</span>
@@ -29,12 +29,6 @@
             {{ item.label }}
           </NuxtLink>
         </template>
-          <details ref="desktopMenuRef" class="group relative" :open="desktopMenuOpen" @toggle="desktopMenuOpen = ($event.target as HTMLDetailsElement).open">
-            <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#073b78] transition hover:bg-sky-50 hover:text-sky-700">{{ locale === 'id' ? 'Lainnya' : 'More' }} <span class="ml-1 text-[9px] transition group-open:rotate-180" aria-hidden="true">▼</span></summary>
-            <div class="nav-menu-panel absolute right-0 top-12 grid w-48 gap-1 rounded-2xl border border-sky-100 bg-white/95 p-2 shadow-2xl shadow-sky-900/15 backdrop-blur-xl">
-              <NuxtLink v-for="item in secondaryNav" :key="item.to" :to="item.to" class="rounded-xl px-4 py-3 text-sm text-sky-900 transition hover:bg-sky-50 hover:text-sky-700" @click="closeMenus">{{ item.label }}</NuxtLink>
-            </div>
-          </details>
         </nav>
 
         <div class="header-actions ml-auto flex shrink-0 items-center gap-1 sm:gap-2 xl:ml-2">
@@ -498,55 +492,74 @@ const handleLogout = async () => {
   await navigateTo('/');
 };
 
-const desktopMenuOpen = ref(false);
 const mobileMenuOpen = ref(false);
 
 const closeMenus = () => {
-  desktopMenuOpen.value = false;
+  desktopMenuRef.value?.querySelectorAll('details[open]').forEach((menu) => {
+    (menu as HTMLDetailsElement).open = false;
+  });
   mobileMenuOpen.value = false;
 };
 
 type NavItem = { to: string; label: string; disabled?: boolean; children?: NavItem[] };
 
-const primaryNav = computed<NavItem[]>(() => locale.value === 'id' ? [
-  { to: '/', label: 'Beranda' },
-  { to: '/#tentang', label: 'Tentang Acara' },
-  { to: '/#kegiatan', label: 'Kegiatan & Paket' },
-  { to: '/#syarat-ketentuan', label: 'Syarat & Ketentuan' },
-  { to: '/#agenda', label: 'Agenda' },
-  { to: '/#pengisi-acara', label: 'Pengisi Acara' },
-  { to: '/#hadiah', label: 'Hadiah' },
-  { to: '/#bazar', label: 'Bazar & Voucher' },
-  { to: '/#sejarah', label: 'Sejarah Hari Santri' }
-] : [
-  { to: '/', label: 'Home' },
-  { to: '/#tentang', label: 'About' },
-  { to: '/#kegiatan', label: 'Activities & Packages' },
-  { to: '/#syarat-ketentuan', label: 'Terms & Conditions' },
-  { to: '/#agenda', label: 'Agenda' },
-  { to: '/#pengisi-acara', label: 'Performers' },
-  { to: '/#hadiah', label: 'Prizes' },
-  { to: '/#bazar', label: 'Bazaar & Vouchers' },
-  { to: '/#sejarah', label: 'Santri Day History' }
-]);
-const secondaryNav = computed<NavItem[]>(() => {
-  const items: NavItem[] = [
-    { to: '/#faq', label: 'FAQ' },
+const allNav = computed<NavItem[]>(() => {
+  const administration: NavItem[] = [
     { to: '/daftar-tenant', label: hariSantriRegistration.tenantLabel.value },
     { to: '/dashboard', label: 'Dashboard' }
   ];
 
   if (authStore.isAdminOrOrganizer) {
-    items.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
-    items.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
-    items.push({ to: '/admin/audit-vouchers', label: locale.value === 'id' ? 'Audit Voucher' : 'Voucher Audit' });
-    items.push({ to: '/admin/hari-santri-operations', label: locale.value === 'id' ? 'Operasional Callback' : 'Callback Operations' });
-    items.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
+    administration.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
+    administration.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
+    administration.push({ to: '/admin/audit-vouchers', label: locale.value === 'id' ? 'Audit Voucher' : 'Voucher Audit' });
+    administration.push({ to: '/admin/hari-santri-operations', label: locale.value === 'id' ? 'Operasional Callback' : 'Callback Operations' });
+    administration.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
   }
 
-  return items;
+  return [
+    { to: '/', label: locale.value === 'id' ? 'Beranda' : 'Home' },
+    {
+      to: 'agenda-event',
+      label: locale.value === 'id' ? 'Agenda Event' : 'Event Agenda',
+      children: locale.value === 'id' ? [
+        { to: '/#kegiatan', label: 'Kegiatan & Paket' },
+        { to: '/#agenda', label: 'Agenda' },
+        { to: '/#pengisi-acara', label: 'Pengisi Acara' },
+        { to: '/#hadiah', label: 'Hadiah' },
+        { to: '/#bazar', label: 'Bazar & Voucher' }
+      ] : [
+        { to: '/#kegiatan', label: 'Activities & Packages' },
+        { to: '/#agenda', label: 'Agenda' },
+        { to: '/#pengisi-acara', label: 'Performers' },
+        { to: '/#hadiah', label: 'Prizes' },
+        { to: '/#bazar', label: 'Bazaar & Vouchers' }
+      ]
+    },
+    {
+      to: 'tentang-event',
+      label: locale.value === 'id' ? 'Tentang Event' : 'About Event',
+      children: locale.value === 'id' ? [
+        { to: '/#tentang', label: 'Tentang Acara' },
+        { to: '/#syarat-ketentuan', label: 'Syarat & Ketentuan' },
+        { to: '/#sejarah', label: 'Sejarah Hari Santri' },
+        { to: '/#faq', label: 'FAQ' },
+        { to: '/donasi', label: 'Donasi' }
+      ] : [
+        { to: '/#tentang', label: 'About' },
+        { to: '/#syarat-ketentuan', label: 'Terms & Conditions' },
+        { to: '/#sejarah', label: 'Santri Day History' },
+        { to: '/#faq', label: 'FAQ' },
+        { to: '/donasi', label: 'Donasi' }
+      ]
+    },
+    {
+      to: 'administrasi',
+      label: locale.value === 'id' ? 'Administrasi' : 'Administration',
+      children: administration
+    }
+  ];
 });
-const allNav = computed(() => [...primaryNav.value, ...secondaryNav.value]);
 </script>
 
 <style scoped>
