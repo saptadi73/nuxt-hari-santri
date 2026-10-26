@@ -72,14 +72,21 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
+    // Rute IWBIF yang masih tersisa hanya dipertahankan sebagai alias agar
+    // bookmark/link lama tidak membuka formulir dan pembayaran legacy.
+    '/register': { redirect: { to: '/daftar', statusCode: 301 } },
+    '/register/**': { redirect: { to: '/daftar', statusCode: 301 } },
+    '/tickets': { redirect: { to: '/daftar', statusCode: 301 } },
+    '/dashboard/cart': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
+    '/dashboard/registration-status': { redirect: { to: '/dashboard', statusCode: 301 } },
+    '/dashboard/payment-status': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
+    '/dashboard/payment-qr': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
+    '/dashboard/invoice': { redirect: { to: '/dashboard', statusCode: 301 } },
     '/about': { redirect: { to: '/#tentang', statusCode: 301 } },
     '/workshops': { redirect: { to: '/#kegiatan', statusCode: 301 } },
-    // Package prices can be updated at any time. Fetch them in the browser
-    // instead of embedding the API response into the production build.
-    '/tickets': { ssr: false },
     '/partners': { redirect: { to: '/#bazar', statusCode: 301 } },
-    '/business-matching': { ssr: false },
-    '/deal-room': { prerender: true },
+    '/business-matching': { redirect: { to: '/#bazar', statusCode: 301 } },
+    '/deal-room': { redirect: { to: '/#bazar', statusCode: 301 } },
     '/participants': { redirect: { to: '/#tentang', statusCode: 301 } },
     '/exhibition': { redirect: { to: '/#bazar', statusCode: 301 } },
     '/faq': { redirect: { to: '/#faq', statusCode: 301 } },
@@ -95,8 +102,8 @@ export default defineNuxtConfig({
     // this page client-side prevents a prerendered empty query from winning
     // during hydration.
     '/auth/reset-password': { ssr: false },
-    '/speakers/**': { ssr: false },
-    '/program': { ssr: false },
+    '/program': { redirect: { to: '/#agenda', statusCode: 301 } },
+    '/speakers/**': { redirect: { to: '/#pengisi-acara', statusCode: 301 } },
     '/dashboard/**': { ssr: false },
     '/payment/**': { ssr: false },
     '/admin/**': { ssr: false }

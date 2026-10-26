@@ -33,9 +33,9 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Sambungkan CRUD agenda, performer confirmed-only, hadiah/sponsor/claim, voucher, tenant/stall, galeri/media consent, FAQ dan announcements ke CMS backend.
 - [ ] Buat halaman legal Hari Santri yang disetujui panitia; saat ini route terms/privacy yang diwarisi masih perlu audit isi.
 - [x] Sediakan aksi admin rekonsiliasi manual dari halaman operasi menggunakan nomor referensi order; lookup dilakukan backend ke Payment Portal dan status browser tidak mengubah order.
-- [ ] Lengkapi halaman dashboard profil/pesanan/email dengan data peserta Hari Santri; pensiunkan rute IWBIF yang tidak digunakan.
+- [x] Pensiunkan rute IWBIF publik dan alias dashboard legacy; bookmark `/register`, `/tickets`, `/register/*`, cart, invoice, payment-status, Business Matching, Deal Room, program, dan speakers dialihkan ke alur Hari Santri yang aktif.
 - [ ] Perluas copy/SEO/social metadata dan sitemap per route; verifikasi UI Indonesia, consent wali, keyboard, screen reader, image loading, reduced motion, dan viewport mobile.
-- [ ] Audit 44 halaman/komponen legacy IWBIF yang masih memuat salinan English/Chinese; terjemahkan seluruh alur (bukan hanya mengunci locale) sebelum portal dinyatakan sepenuhnya satu bahasa.
+- [ ] Audit 44 halaman/komponen legacy IWBIF yang masih memuat salinan English/Chinese; komponen legacy yang tidak lagi dipakai masih ada di source untuk migrasi/cleanup bertahap, tetapi route publiknya sudah dialihkan.
 - [ ] Setelah tersedia, UAT frontend dengan client Payment Portal sandbox dan fixture harga/kuota yang disetujui.
 
 ## Release checks
