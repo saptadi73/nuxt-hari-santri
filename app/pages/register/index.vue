@@ -34,6 +34,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: () => navigateTo('/daftar')
+});
+
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
 const {locale}=useI18n();

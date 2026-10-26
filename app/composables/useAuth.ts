@@ -85,9 +85,6 @@ export function useAuth() {
       authStore.setUser(result.data.user);
       authStore.hydrateUserFromToken();
     }
-    if (result.success) {
-      await registrationFlow.loadFlow(true);
-    }
     return result;
   };
 

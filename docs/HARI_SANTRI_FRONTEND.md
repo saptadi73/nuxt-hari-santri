@@ -20,6 +20,8 @@ Jika checkout timeout/hasil belum diketahui, peserta dapat membuka kembali check
 
 ### Pelacakan status akun dan tombol tindakan
 
+Alur akun baru Hari Santri wajib tetap berada pada alur paket Hari Santri. `app/pages/auth/register.vue` menggunakan `useHariSantriRegistration` dan setelah akun berhasil dibuat mengarahkan pengguna ke `/daftar`. Route legacy `/register` tidak lagi menampilkan pilihan IWBIF Delegate/Exhibitor dan diarahkan ke `/daftar`.
+
 Header, menu mobile, dan tombol mengambang menggunakan `useHariSantriRegistration`, bukan status tetap atau pelacakan paket delegate/exhibitor legacy. Status dibaca ulang saat login, navigasi, fokus tab, dan setelah penyimpanan peserta/pengajuan tenant.
 
 - Tanpa akun: **Daftar Peserta / Register Participants** menuju pembuatan akun.

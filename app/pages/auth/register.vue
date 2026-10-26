@@ -94,7 +94,7 @@ const form = reactive({
   confirmPassword: ''
 });
 const { register } = useAuth();
-const flow = useRegistrationFlow();
+const flow = useHariSantriRegistration();
 const submitting = ref(false);
 const message = ref('');
 const messageTone = ref<'neutral' | 'success' | 'error'>('neutral');
@@ -194,7 +194,7 @@ const onSubmit = async () => {
     });
 
     if (result.success) {
-      await flow.loadFlow(true);
+      await flow.refresh();
       message.value = copy.value.success;
       messageTone.value = 'success';
       await navigateTo(flow.ctaTo.value);
