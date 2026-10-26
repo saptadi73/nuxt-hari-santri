@@ -75,6 +75,8 @@ export default defineNuxtConfig({
     // Rute IWBIF yang masih tersisa hanya dipertahankan sebagai alias agar
     // bookmark/link lama tidak membuka formulir dan pembayaran legacy.
     '/register': { redirect: { to: '/daftar', statusCode: 301 } },
+    '/register/delegate': { redirect: { to: '/daftar', statusCode: 301 } },
+    '/register/exhibitor': { redirect: { to: '/daftar-tenant', statusCode: 301 } },
     '/register/**': { redirect: { to: '/daftar', statusCode: 301 } },
     '/tickets': { redirect: { to: '/daftar', statusCode: 301 } },
     '/dashboard/cart': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
