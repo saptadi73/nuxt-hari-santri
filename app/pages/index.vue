@@ -4,7 +4,7 @@
       <img
         class="hero__image"
         :src="heroImage"
-        alt="Pesepeda bergerak bersama di jalan terbuka"
+        alt="Peserta Sepeda Santai dan Jalan Sehat Keluarga dalam perayaan Harlah NU ke-101"
         fetchpriority="high"
         width="2400"
         height="1500"
@@ -12,11 +12,11 @@
       <div class="hero__shade" aria-hidden="true" />
       <div class="hero__content">
         <p class="eyebrow">{{ locale === 'id' ? 'MWC NU Tarumajaya mempersembahkan' : 'Presented by MWC NU Tarumajaya' }}</p>
-        <h1 id="hero-title">{{ locale === 'id' ? 'Sepeda Santai dan Jalan Sehat Keluarga' : 'Leisure Bike Ride & Family Fun Walk' }}</h1>
-        <p class="hero__subtitle">Hari Santri 2026</p>
-        <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan semangat santri.' : 'Move together, strengthen friendship, and celebrate the spirit of the santri.' }}</p>
+        <h1 id="hero-title">{{ locale === 'id' ? 'Dari Pesantren untuk Negeri' : 'From Pesantren for the Nation' }}</h1>
+        <p class="hero__subtitle">Harlah NU ke-101</p>
+        <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan 101 tahun khidmah Nahdlatul Ulama.' : 'Move together, strengthen friendship, and celebrate 101 years of Nahdlatul Ulama service.' }}</p>
         <div class="hero__facts">
-          <span>{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</span>
+          <span>{{ locale === 'id' ? 'Minggu, 31 Januari 2027' : 'Sunday, 31 January 2027' }}</span>
           <span>Summarecon Crown Gading</span>
           <span>Tarumajaya, Bekasi</span>
         </div>
@@ -25,18 +25,18 @@
           <a href="#kegiatan" class="text-link">{{ locale === 'id' ? 'Lihat Kegiatan' : 'Explore Activities' }} <span aria-hidden="true">↓</span></a>
         </div>
       </div>
-      <p class="hero__index" aria-hidden="true">01 / 25.10.26</p>
+      <p class="hero__index" aria-hidden="true">01 / 31.01.27</p>
     </section>
 
     <section id="tentang" class="intro band">
       <div class="content-grid">
         <p class="section-number">01 <span>/ {{ locale === 'id' ? 'Tentang Acara' : 'About' }}</span></p>
         <div>
-          <h2>{{ locale === 'id' ? 'Satu hari untuk bergerak, bertemu, dan berbagi.' : 'A day to move, meet, and share.' }}</h2>
-          <p class="lead-copy">{{ locale === 'id' ? 'Dalam rangka Hari Santri, MWC NU Tarumajaya mengajak keluarga dan warga untuk menikmati Sepeda Santai dan Jalan Sehat Keluarga di kawasan Summarecon Crown Gading. Rayakan kebersamaan, dukung bazar lokal, dan ikuti semangat belajar serta kepedulian yang diwariskan para santri.' : 'For Santri Day, MWC NU Tarumajaya welcomes families and neighbors to enjoy a leisure cycling event and family walk within Summarecon Crown Gading. Celebrate together, support local vendors, and carry forward the spirit of learning and care.' }}</p>
+          <h2>{{ locale === 'id' ? 'Merayakan 101 tahun khidmah dengan gerak dan kebersamaan.' : 'Celebrating 101 years of service through movement and togetherness.' }}</h2>
+          <p class="lead-copy">{{ locale === 'id' ? 'Harlah NU menjadi ruang silaturahmi keluarga dan warga Tarumajaya untuk menikmati Sepeda Santai dan Jalan Sehat Keluarga di kawasan Summarecon Crown Gading. Rayakan kebersamaan, dukung bazar lokal, dan teruskan semangat pesantren untuk negeri.' : 'Harlah NU brings families and neighbors together for a leisure cycling event and family walk at Summarecon Crown Gading. Celebrate together, support local vendors, and carry the pesantren spirit forward.' }}</p>
           <div class="event-facts">
             <div><span>{{ locale === 'id' ? 'Penyelenggara' : 'Organizer' }}</span><strong>MWC NU Tarumajaya</strong></div>
-            <div><span>{{ locale === 'id' ? 'Tanggal' : 'Date' }}</span><strong>{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</strong></div>
+            <div><span>{{ locale === 'id' ? 'Tanggal' : 'Date' }}</span><strong>{{ locale === 'id' ? 'Minggu, 31 Januari 2027' : 'Sunday, 31 January 2027' }}</strong></div>
             <div><span>{{ locale === 'id' ? 'Lokasi' : 'Venue' }}</span><strong>Summarecon Crown Gading, Tarumajaya, Bekasi</strong></div>
             <div><span>{{ locale === 'id' ? 'Waktu & titik kumpul' : 'Time & gathering point' }}</span><strong>{{ locale === 'id' ? 'Diumumkan panitia' : 'To be announced' }}</strong></div>
           </div>
@@ -47,7 +47,7 @@
     <section id="kegiatan" class="activities band band--paper">
       <div class="section-heading">
         <p class="section-number">02 <span>/ {{ locale === 'id' ? 'Kegiatan' : 'Activities' }}</span></p>
-        <h2>{{ locale === 'id' ? 'Pilih langkahmu untuk Hari Santri.' : 'Choose your way to celebrate.' }}</h2>
+        <h2>{{ locale === 'id' ? 'Pilih langkahmu untuk Harlah NU ke-101.' : 'Choose your way to celebrate Harlah NU 101.' }}</h2>
       </div>
       <div class="activity-grid">
         <article class="activity activity--cycle">
@@ -74,6 +74,7 @@
       <p v-if="packagesLoading" class="package-state">{{ locale === 'id' ? 'Memuat paket…' : 'Loading packages…' }}</p>
       <div v-else-if="products.length" class="package-list">
         <article v-for="item in products" :key="item.id" class="package-row">
+          <img class="package-row__image" :src="packageImage(item)" :alt="item.name" loading="lazy" decoding="async">
           <div><h4>{{ item.name }}</h4><p>{{ item.description || (locale === 'id' ? 'Rincian paket mengikuti pengumuman resmi panitia.' : 'Package details will follow the organizers’ official announcement.') }}</p></div>
           <div class="package-row__price">{{ formatPrice(Number(item.price ?? item.amount ?? 0), item.currency) }}</div>
           <NuxtLink to="/daftar" class="button button--dark">{{ locale === 'id' ? 'Pilih Paket' : 'Select Package' }}</NuxtLink>
@@ -104,7 +105,7 @@
               <li v-for="(item, index) in termsActivityItems" :key="item.title"><span>0{{ index + 1 }}</span><div><h4>{{ item.title }}</h4><p>{{ item.copy }}</p></div></li>
             </ol>
           </div>
-          <p class="terms__closing">{{ locale === 'id' ? 'Ikuti terus informasi dan pembaruan acara melalui situs web resmi HeroFunWalk.com.' : 'Follow event news and updates through the official HeroFunWalk.com website.' }}</p>
+          <p class="terms__closing">{{ locale === 'id' ? 'Ikuti terus informasi dan pembaruan acara melalui situs web resmi harlahnu.com.' : 'Follow event news and updates through the official harlahnu.com website.' }}</p>
         </div>
       </div>
     </section>
@@ -125,7 +126,7 @@
     <section id="pengisi-acara" class="performers band">
       <div class="section-heading">
         <p class="section-number">05 <span>/ {{ locale === 'id' ? 'Pengisi Acara' : 'Performers' }}</span></p>
-        <h2>{{ locale === 'id' ? 'Bertemu di panggung Hari Santri.' : 'Meet us at the Santri Day stage.' }}</h2>
+        <h2>{{ locale === 'id' ? 'Bertemu di panggung Harlah NU.' : 'Meet us at the Harlah NU stage.' }}</h2>
       </div>
       <p class="lead-copy">{{ locale === 'id' ? 'Sholawat, pesan kebersamaan, penampilan komunitas, dan hiburan keluarga akan diumumkan setelah kehadiran pengisi acara dikonfirmasi.' : 'Sholawat, messages of togetherness, community performances, and family entertainment will be announced when confirmed.' }}</p>
       <p class="performer-empty">{{ locale === 'id' ? 'Pengisi acara segera diumumkan.' : 'Performers will be announced soon.' }}</p>
@@ -156,10 +157,10 @@
 
     <section id="sejarah" class="history band">
       <div class="content-grid">
-        <p class="section-number">08 <span>/ {{ locale === 'id' ? 'Sejarah Hari Santri' : 'Santri Day History' }}</span></p>
+        <p class="section-number">08 <span>/ {{ locale === 'id' ? 'Sejarah NU & Hari Santri' : 'NU & Santri History' }}</span></p>
         <div>
-          <h2>{{ locale === 'id' ? 'Semangat santri dalam perjalanan bangsa.' : 'The santri spirit in Indonesia’s story.' }}</h2>
-          <p class="history__intro">{{ locale === 'id' ? 'Hari Santri diperingati setiap 22 Oktober untuk mengenang peran ulama dan santri dalam perjalanan bangsa. Jejak perjuangan itu terkait dengan Resolusi Jihad, perlawanan di Surabaya, dan upaya rakyat di berbagai daerah dalam mempertahankan kemerdekaan.' : 'Santri Day is observed every 22 October to remember the role of ulama and santri in Indonesia’s history. Their legacy is connected to the Resolution of Jihad, the resistance in Surabaya, and people’s efforts across the archipelago to defend independence.' }}</p>
+          <h2>{{ locale === 'id' ? 'Pesantren, rahim yang melahirkan Nahdlatul Ulama.' : 'The santri spirit in Indonesia’s story.' }}</h2>
+          <p class="history__intro">{{ locale === 'id' ? 'Nahdlatul Ulama berdiri di Surabaya pada 31 Januari 1926, bertepatan dengan 16 Rajab 1344 H. Harlah NU mengingatkan kita pada perjalanan pesantren, ulama, dan warga dalam merawat ilmu, persaudaraan, serta pengabdian untuk negeri.' : 'Nahdlatul Ulama was founded in Surabaya on 31 January 1926, corresponding to 16 Rajab 1344 H. Harlah NU recalls the journey of pesantren, ulama, and communities in serving knowledge, solidarity, and the nation.' }}</p>
           <div class="history__stories">
             <article v-for="story in historyItems" :key="story.title" class="history-story">
               <figure class="history-story__figure">
@@ -173,8 +174,9 @@
               </div>
             </article>
           </div>
-          <p class="history__closing">{{ locale === 'id' ? 'Pemerintah menetapkan 22 Oktober sebagai Hari Santri melalui Keputusan Presiden Nomor 22 Tahun 2015. Semangat santri terus hidup dalam ketekunan belajar, persaudaraan, kepedulian, dan pengabdian kepada masyarakat.' : 'The government designated 22 October as Santri Day through Presidential Decree No. 22 of 2015. The santri spirit lives on through learning, solidarity, care, and service to the community.' }}</p>
+          <p class="history__closing">{{ locale === 'id' ? 'Pada 31 Januari 2027, Nahdlatul Ulama memperingati Harlah ke-101 menurut hitungan Masehi dan ke-102 menurut hitungan Hijriah: 1926–2027 dan 1344–1447 H.' : 'On 31 January 2027, Nahdlatul Ulama commemorates its 101st anniversary in the Gregorian calendar and its 102nd anniversary in the Hijri calendar: 1926–2027 and 1344–1447 H.' }}</p>
           <div class="history__sources"><a href="https://cdn.kemenag.go.id/storage/archives/1665973491.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Kementerian Agama' : 'Ministry of Religious Affairs' }}</a><a href="https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Pedoman Hari Pahlawan' : 'Heroes’ Day guidance' }}</a></div>
+          <NuxtLink to="/sejarah-nu" class="button button--dark">{{ locale === 'id' ? 'Baca Sejarah NU Selengkapnya' : 'Read the Full NU History' }}</NuxtLink>
         </div>
       </div>
     </section>
@@ -193,11 +195,13 @@
 </template>
 
 <script setup lang="ts">
-import heroImage from '~/assets/images/hero_image_hari_santri.png';
+import heroImage from '~/assets/images/hero_harlah_nu_101.png';
 import aduDombaImage from '~/assets/images/adu domba.jpg';
 import perangDaerahImage from '~/assets/images/perang daerah.jpg';
 import resolusiJihadImage from '~/assets/images/resolusi jihad.jpg';
 import santriDanUlamaImage from '~/assets/images/santri dan ulama.jpg';
+import cyclingShirtImage from '~/assets/images/kaos-sepeda-santai.png';
+import familyWalkShirtImage from '~/assets/images/kaos-jalan-sehat.png';
 import type { StoreProduct } from '~/composables/useStore';
 
 const { locale } = useI18n();
@@ -268,13 +272,13 @@ const historyItems = computed(() => locale.value === 'id' ? [
 ]);
 
 const termsRegistrationItems = computed(() => locale.value === 'id' ? [
-  { title: 'Pendaftaran resmi', copy: 'Seluruh peserta wajib mendaftarkan diri melalui situs web resmi HeroFunWalk.com.' },
+  { title: 'Pendaftaran resmi', copy: 'Seluruh peserta wajib mendaftarkan diri melalui situs web resmi harlahnu.com.' },
   { title: 'Data registrasi', copy: 'Gunakan alamat email dan nomor HP yang aktif saat melakukan registrasi.' },
   { title: 'Pilihan paket', copy: 'Saat mendaftar, pilih salah satu paket yang tersedia: Sepeda Santai atau Jalan Sehat.' },
   { title: 'Kategori peserta', copy: 'Keikutsertaan diutamakan bersama pasangan dan keluarga untuk memupuk semangat kebersamaan.' },
   { title: 'Kehadiran hari-H', copy: 'Peserta wajib hadir pada hari pelaksanaan dan melakukan absensi kedatangan menggunakan Tanda Peserta.' }
 ] : [
-  { title: 'Official registration', copy: 'All participants must register through the official HeroFunWalk.com website.' },
+  { title: 'Official registration', copy: 'All participants must register through the official harlahnu.com website.' },
   { title: 'Registration details', copy: 'Use an active email address and mobile phone number when registering.' },
   { title: 'Choose a package', copy: 'Select one of the available packages when registering: Leisure Cycling or Family Walk.' },
   { title: 'Participant category', copy: 'Participation with a partner and family is encouraged to foster togetherness.' },
@@ -294,7 +298,7 @@ const termsActivityItems = computed(() => locale.value === 'id' ? [
 
 const agendaItems = computed(() => locale.value === 'id' ? [
   { id: 'Kedatangan & registrasi', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
-  { id: 'Pembukaan', copy: 'Kita awali perayaan Hari Santri dengan sambutan dan doa bersama.' },
+  { id: 'Pembukaan', copy: 'Kita awali perayaan Harlah NU dengan sambutan dan doa bersama.' },
   { id: 'Pelepasan kegiatan', copy: 'Bersiap di titik start dan ikuti arahan petugas untuk kegiatan pilihanmu.' },
   { id: 'Bazar & aktivitas keluarga', copy: 'Singgah di stan kuliner, buku Islam, dan produk halal pilihan.' },
   { id: 'Panggung acara', copy: 'Nikmati penampilan dari pengisi acara yang telah diumumkan.' },
@@ -308,14 +312,14 @@ const agendaItems = computed(() => locale.value === 'id' ? [
   { id: 'Prize draw & closing', copy: 'Follow the official prize announcement and closing information.' }
 ]);
 const faqItems = computed(() => locale.value === 'id' ? [
-  { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 15 November 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
+  { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 31 Januari 2027 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
   { question: 'Dapatkah saya mendaftarkan beberapa anggota keluarga?', answer: 'Ya, mengikuti batas peserta paket. Isi data dan ukuran kaos tiap anggota secara terpisah.' },
   { question: 'Bagaimana memilih ukuran kaos?', answer: 'Pilih ukuran pada formulir setiap peserta. Perubahan setelah pembayaran mengikuti tenggat dan stok panitia.' },
   { question: 'Bagaimana cara membayar?', answer: 'Pilih Lanjutkan Pembayaran untuk diarahkan ke Portal Payment. Status lunas tampil setelah konfirmasi sistem diterima.' },
   { question: 'Kapan tiket terbit?', answer: 'Tiket digital setiap peserta tersedia setelah pembayaran terverifikasi.' },
   { question: 'Bagaimana mendaftar bazar?', answer: 'Kirim pengajuan melalui halaman Daftar Tenant Bazar. Pengajuan tidak otomatis menjamin stan.' }
 ] : [
-  { question: 'When and where is the event?', answer: 'Sunday, 15 November 2026 at Summarecon Crown Gading, Tarumajaya, Bekasi. The organizers will announce the time and gathering point.' },
+  { question: 'When and where is the event?', answer: 'Sunday, 31 January 2027 at Summarecon Crown Gading, Tarumajaya, Bekasi. The organizers will announce the time and gathering point.' },
   { question: 'Can I register several family members?', answer: 'Yes, within the package limit. Enter each member’s details and shirt size separately.' },
   { question: 'How do I choose a shirt size?', answer: 'Choose a size for each participant. Post-payment changes depend on the organizer’s deadline and stock.' },
   { question: 'How do I pay?', answer: 'Continue to Payment to open the separate Payment Portal. Your status changes to paid only after system confirmation.' },
@@ -325,6 +329,7 @@ const faqItems = computed(() => locale.value === 'id' ? [
 const formatPrice = (price: number, currency: string) => new Intl.NumberFormat(locale.value === 'id' ? 'id-ID' : 'en-US', {
   style: 'currency', currency, maximumFractionDigits: 0
 }).format(price);
+const packageImage = (product: StoreProduct) => product.metadata_json?.activity_type === 'CYCLING' ? cyclingShirtImage : familyWalkShirtImage;
 
 onMounted(async () => {
   try {
@@ -340,41 +345,41 @@ onMounted(async () => {
 
 useSeoMeta({
   title: () => locale.value === 'id'
-    ? 'Hari Santri 2026 | Sepeda Santai & Jalan Sehat Keluarga'
-    : 'Hari Santri 2026 | Leisure Bike Ride & Family Fun Walk',
+    ? 'Harlah NU ke-101 | Sepeda Santai & Jalan Sehat Keluarga'
+    : 'Harlah NU ke-101 | Leisure Bike Ride & Family Fun Walk',
   description: () => locale.value === 'id'
-    ? 'Ikuti Sepeda Santai dan Jalan Sehat Keluarga Hari Santri 2026 pada 15 November di Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.'
-    : 'Join the Hari Santri 2026 leisure cycling and family walk on 15 November at Summarecon Crown Gading. Explore packages, terms, agenda, bazaar, and registration.'
+    ? 'Ikuti Sepeda Santai dan Jalan Sehat Keluarga Harlah NU ke-101 pada 31 Januari 2027 di Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.'
+    : 'Join the Harlah NU ke-101 leisure cycling and family walk on 31 January 2027 at Summarecon Crown Gading. Explore packages, terms, agenda, bazaar, and registration.'
 });
 </script>
 
 <style scoped>
-.portal-home { color: #17352c; background: #f5f5ef; }
-.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: flex-end; overflow: hidden; background: #163a30; color: #fff; }
+.portal-home { color: #2d134d; background: #faf9f5; }
+.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: flex-end; overflow: hidden; background: #2d134d; color: #fff; }
 .hero__image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
-.hero__shade { position: absolute; z-index: -1; inset: 0; background: rgba(11, 32, 26, .48); }
+.hero__shade { position: absolute; z-index: -1; inset: 0; background: rgba(45, 19, 77, .22); }
 .hero__content { width: min(100%, 1280px); margin-inline: auto; padding: 5rem clamp(1.25rem, 6vw, 6rem) 4.5rem; }
 .eyebrow,.section-number,.activity__label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .hero h1 { max-width: 19ch; margin-top: 1.2rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.8rem, 6vw, 6rem); font-weight: 700; line-height: .98; }
 .hero__subtitle { margin-top: 1.25rem; font-size: clamp(1.2rem, 2.4vw, 2rem); font-weight: 700; }
 .hero__lead { max-width: 42rem; margin-top: .8rem; color: #f2f3e9; font-size: 1rem; line-height: 1.7; }
 .hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.7rem; color: #f2f3e9; font-size: .84rem; }
-.hero__facts span + span::before { content: '·'; margin-inline: 1.2rem; color: #e7c06a; }
+.hero__facts span + span::before { content: '·'; margin-inline: 1.2rem; color: #ff8a80; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
 .button { display: inline-flex; min-height: 2.9rem; align-items: center; justify-content: center; padding: .75rem 1.1rem; font-size: .88rem; font-weight: 800; transition: background .18s ease, color .18s ease; }
-.button--light { background: #f4d578; color: #17352c; }
-.button--light:hover { background: #ffe69b; }
-.button--dark { background: #17352c; color: #fff; }
-.button--dark:hover { background: #285442; }
+.button--light { background: #ff8a80; color: #2d134d; }
+.button--light:hover { background: #ffb3ad; }
+.button--dark { background: #2d134d; color: #fff; }
+.button--dark:hover { background: #5c2b2e; }
 .text-link { display: inline-flex; align-items: center; gap: .5rem; color: inherit; font-size: .88rem; font-weight: 800; text-decoration: underline; text-underline-offset: .25rem; }
 .hero__index { position: absolute; right: clamp(1rem, 4vw, 4rem); bottom: 1.4rem; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
 .band { padding: clamp(3.5rem, 7vw, 7rem) max(1.25rem, calc((100vw - 1200px) / 2)); }
 .band--paper { background: #fff; }
-.band--green { background: #173f32; color: #fff; }
+.band--green { background: #2d134d; color: #fff; }
 .content-grid { display: grid; grid-template-columns: minmax(9rem, .35fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); max-width: 1200px; margin: 0 auto; }
 .section-heading { max-width: 1200px; margin: 0 auto 2.5rem; }
-.section-number { color: #2d7258; }
-.section-number span { color: #738278; }
+.section-number { color: #f40a08; }
+.section-number span { color: #6b6a68; }
 h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .band h2 { max-width: 18ch; margin-top: .8rem; font-size: clamp(2.1rem, 4.3vw, 4rem); line-height: 1.08; }
 .lead-copy { max-width: 58rem; margin-top: 1.3rem; color: #52665b; font-size: 1.08rem; line-height: 1.85; }
@@ -394,7 +399,8 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .package-heading h3 { margin-top: .6rem; font-size: 1.8rem; }
 .package-heading p { max-width: 26rem; }
 .package-list { max-width: 1200px; margin: 0 auto; border-top: 1px solid #d9e0d8; }
-.package-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 1.5rem; border-bottom: 1px solid #d9e0d8; padding: 1.25rem 0; }
+.package-row { display: grid; grid-template-columns: 8rem minmax(0, 1fr) auto auto; align-items: center; gap: 1.5rem; border-bottom: 1px solid #d9e0d8; padding: 1.25rem 0; }
+.package-row__image { display: block; width: 8rem; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid #d9e0d8; background: #fff; }
 .package-row h4 { font-size: 1.35rem; }
 .package-row p { margin-top: .4rem; color: #697a70; font-size: .84rem; }
 .package-row__price { font-weight: 800; white-space: nowrap; }
@@ -407,16 +413,16 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .terms__group h3 { font-size: 1.5rem; }
 .terms__list { margin-top: .8rem; border-top: 1px solid #d9e0d8; list-style: none; }
 .terms__list li { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
-.terms__list li > span { color: #2d7258; font-size: .72rem; font-weight: 800; }
+.terms__list li > span { color: #f40a08; font-size: .72rem; font-weight: 800; }
 .terms__list h4 { font-size: 1rem; }
 .terms__list p { margin-top: .35rem; color: #596d61; font-size: .9rem; line-height: 1.7; }
 .agenda-list { margin-top: 1.5rem; border-top: 1px solid #d9e0d8; list-style: none; }
 .agenda-list li { display: grid; grid-template-columns: 2rem minmax(10rem, .7fr) minmax(0, 1.2fr) auto; align-items: baseline; gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
-.agenda-list li > span { color: #2d7258; font-size: .72rem; font-weight: 800; }
+.agenda-list li > span { color: #f40a08; font-size: .72rem; font-weight: 800; }
 .agenda-list strong { font-size: .95rem; }
 .agenda-list p { color: #596d61; font-size: .86rem; line-height: 1.55; }
 .agenda-list em { color: #8a6b20; font-size: .72rem; font-style: normal; }
-.performer-empty,.prize-empty { margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1.2rem 0; color: #738278; font-weight: 700; }
+.performer-empty,.prize-empty { margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1.2rem 0; color: #6b6a68; font-weight: 700; }
 .prizes .section-number,.prizes .section-number span { color: #dbe9dc; }
 .prizes .lead-copy { color: #dbe9dc; }
 .prizes .prize-empty { border-color: rgb(255 255 255 / 24%); color: #e6d18b; }
@@ -425,13 +431,13 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .history-story { overflow: hidden; border: 1px solid #d9e0d8; background: #fff; }
 .history-story__figure { margin: 0; }
 .history-story__figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.history-story__figure figcaption { padding: .55rem 1rem 0; color: #738278; font-size: .7rem; line-height: 1.4; }
+.history-story__figure figcaption { padding: .55rem 1rem 0; color: #6b6a68; font-size: .7rem; line-height: 1.4; }
 .history-story__body { padding: 1rem; }
 .history-story__date { color: #8a6b20 !important; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .history-story__body h3 { margin-top: .4rem; font-size: 1.25rem; line-height: 1.25; }
 .history-story__body > p:last-child { margin-top: .6rem; color: #596d61; font-size: .86rem; line-height: 1.7; }
 .history__sources { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.4rem; }
-.history__sources a { color: #2d7258; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
+.history__sources a { color: #f40a08; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
 .faq-item { border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
 .faq-item:first-of-type { margin-top: 1.2rem; border-top: 1px solid #d9e0d8; }
 .faq-item summary { cursor: pointer; font-size: .98rem; font-weight: 800; }
@@ -447,7 +453,8 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
   .activity + .activity { border-left: 0; border-top: 1px solid #d9e0d8; }
   .package-heading { display: block; }
   .package-heading p { margin-top: .6rem; }
-  .package-row { grid-template-columns: minmax(0, 1fr) auto; gap: .8rem; }
+  .package-row { grid-template-columns: 5rem minmax(0, 1fr) auto; gap: .8rem; }
+  .package-row__image { width: 5rem; }
   .package-row .button { grid-column: 1 / -1; }
   .agenda-list li { grid-template-columns: 2rem minmax(0, 1fr); gap: .4rem .8rem; }
   .agenda-list p,.agenda-list em { grid-column: 2; }

@@ -47,7 +47,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Hari Santri 2026',
+      title: 'Harlah NU ke-101',
       link: [
         { rel: 'icon', type: 'image/png', href: '/logo_santri_2026.png' },
         { rel: 'apple-touch-icon', href: '/logo_santri_2026.png' }
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
       meta: [
         {
           name: 'description',
-          content: 'Portal resmi Sepeda Sehat dan Jalan Sehat Keluarga Hari Santri 2026.'
+          content: 'Portal resmi Sepeda Sehat dan Jalan Sehat Keluarga Harlah NU ke-101.'
         }
       ]
     }
@@ -65,9 +65,9 @@ export default defineNuxtConfig({
     public: {
       backendOrigin: apiBaseUrl,
       apiBasePath,
-      eventSlug: process.env.NUXT_PUBLIC_EVENT_SLUG || 'hari-santri-2026',
+      eventSlug: process.env.NUXT_PUBLIC_EVENT_SLUG || 'harlah-nu-101',
       canonicalSiteUrl: siteUrl,
-      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Hari Santri 2026'
+      appName: process.env.NUXT_PUBLIC_APP_NAME || 'Harlah NU ke-101'
     }
   },
   routeRules: {

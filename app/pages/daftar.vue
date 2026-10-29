@@ -23,6 +23,10 @@
                 <span>{{ item.title }}</span><small>{{ item.summary }}</small>
               </button>
             </div>
+            <figure class="shirt-preview">
+              <img :src="activityShirtImage" :alt="activity === 'CYCLING' ? 'Desain kaos Sepeda Santai' : 'Desain kaos Jalan Sehat Keluarga'" loading="lazy" decoding="async">
+              <figcaption>{{ activity === 'CYCLING' ? 'Desain kaos Sepeda Santai' : 'Desain kaos Jalan Sehat Keluarga' }}</figcaption>
+            </figure>
             <label class="field-label" for="package-select">{{ text.package }}</label>
             <select id="package-select" v-model="selectedProductId" required :disabled="Boolean(resumeOrderId) || !activityProducts.length">
               <option value="" disabled>{{ activityProducts.length ? text.choosePackage : text.packagesNotPublished }}</option>
@@ -71,6 +75,8 @@
 <script setup lang="ts">
 import type { StoreProduct } from '~/composables/useStore';
 import type { ActivityType, OrderParticipantInput, ShirtSizeOption } from '~/composables/useHariSantri';
+import cyclingShirtImage from '~/assets/images/kaos-sepeda-santai.png';
+import familyWalkShirtImage from '~/assets/images/kaos-jalan-sehat.png';
 
 definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
@@ -99,6 +105,7 @@ const participants = ref<ParticipantDraft[]>([newParticipant()]);
 const isIndonesian = computed(() => locale.value === 'id');
 const today = new Date().toISOString().slice(0, 10);
 const availableSizes = computed(() => shirtSizes.value.filter(size => size.active && size.available > 0));
+const activityShirtImage = computed(() => activity.value === 'CYCLING' ? cyclingShirtImage : familyWalkShirtImage);
 const activityProducts = computed(() => products.value.filter(product => product.product_type === 'hari_santri_package' && product.metadata_json?.activity_type === activity.value));
 const selectedProduct = computed(() => activityProducts.value.find(product => product.id === selectedProductId.value));
 const packageParticipantLimit = computed(() => {
@@ -239,7 +246,7 @@ const submitRegistration = async () => {
   }
 };
 
-useSeoMeta({ title: () => `${text.value.eyebrow} | Hari Santri 2026`, description: () => text.value.intro });
+useSeoMeta({ title: () => `${text.value.eyebrow} | Harlah NU ke-101`, description: () => text.value.intro });
 </script>
 
 <style scoped>
@@ -260,6 +267,9 @@ h1 { max-width: 15ch; margin-top: .75rem; font-size: clamp(2.4rem, 5vw, 4.4rem);
 .activity-picker span,.activity-picker small { display: block; }
 .activity-picker span { font-weight: 800; }
 .activity-picker small { margin-top: .45rem; color: #65756b; line-height: 1.5; }
+.shirt-preview { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); align-items: center; gap: 1rem; margin-top: 1rem; overflow: hidden; border: 1px solid #d9e0d8; background: #fff; }
+.shirt-preview img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.shirt-preview figcaption { padding: 1rem; color: #286449; font-weight: 800; }
 .field-label,.fields-grid label span { display: block; margin: 1rem 0 .4rem; font-size: .82rem; font-weight: 700; }
 select,input:not([type=checkbox]) { width: 100%; min-height: 2.8rem; border: 1px solid #cbd6ce; background: #fff; padding: .65rem .75rem; color: #17352c; }
 .field-note { margin-top: .6rem; color: #697a70; font-size: .8rem; line-height: 1.6; }
@@ -282,5 +292,5 @@ select,input:not([type=checkbox]) { width: 100%; min-height: 2.8rem; border: 1px
 .account-note,.state-note,.error-note { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1.2rem 0; }
 .error-note { color: #9a3022; }
 .text-link { color: #286449; font-weight: 800; text-decoration: underline; text-underline-offset: .2rem; }
-@media (max-width: 620px) { .activity-picker,.fields-grid { grid-template-columns: 1fr; } .summary-row { align-items: flex-start; } }
+@media (max-width: 620px) { .activity-picker,.fields-grid { grid-template-columns: 1fr; } .summary-row { align-items: flex-start; } .shirt-preview { grid-template-columns: 1fr; } .shirt-preview img { aspect-ratio: 16 / 10; } }
 </style>

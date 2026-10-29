@@ -78,7 +78,7 @@
     "organizerScope": "主办方数据仅限于 {event}。", "accessScope": "根据账户权限和所选筛选条件显示数据。", "newManualReview": "有新的交易需要人工核验（标记为“需要检查”）。", "manualReviewReduced": "同步后需要人工核验的交易数量已减少。", "manualReviewRemain": "仍有交易需要人工核验。请查看“需要检查”标记。", "checkRequired": "需要检查"
   },
   "home": {
-    "heroAlt": "IWBIF 2026 雅加达，汇聚女性商业领袖、国际合作、商务配对与投资机遇",
+    "heroAlt": "Harlah NU ke-101 雅加达，汇聚女性商业领袖、国际合作、商务配对与投资机遇",
     "mainEventAction": "活动主要操作", "whyAlt": "印度尼西亚的现代基础设施、制造业、文化遗产、自然胜地与全球贸易联系",
     "registrationOpen": "报名开放至2026年9月底", "internationalPresence": "国际影响力",
     "ecosystemTitle": "值得信赖的全球女性商业生态系统。",

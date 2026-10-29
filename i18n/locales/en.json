@@ -13,7 +13,7 @@
   "inbox": { "title": "Inbox", "activeAccount": "Active account", "loading": "Loading inbox...", "empty": "No notifications.", "unread": "Unread", "unknownUser": "Unknown user", "unknownEmail": "Unknown email" },
   "footer": {
     "summary": "Move together, strengthen friendship, and celebrate the spirit of the santri.",
-    "event": "Hari Santri 2026 — Leisure Bike Ride & Family Fun Walk", "datePlace": "Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi",
+    "event": "Harlah NU ke-101 — Leisure Bike Ride & Family Fun Walk", "datePlace": "Sunday, 25 October 2026 · Summarecon Crown Gading, Tarumajaya, Bekasi",
     "privacy": "Privacy", "terms": "Terms", "conduct": "Code of Conduct", "refunds": "Refunds",
     "copyright": "© 2026 MWC NU Tarumajaya. All rights reserved."
   },
@@ -78,7 +78,7 @@
     "organizerScope": "Organizer data is limited to {event}.", "accessScope": "Showing data according to account access and selected filters.", "newManualReview": "New transactions need manual verification (marked Check required).", "manualReviewReduced": "The number of transactions requiring manual verification decreased after synchronization.", "manualReviewRemain": "Transactions still require manual verification. Check the Check required indicator.", "checkRequired": "Check required"
   },
   "home": {
-    "heroAlt": "IWBIF 2026 Jakarta featuring women business leaders, international collaboration, business matching, and investment opportunities",
+    "heroAlt": "Harlah NU ke-101 Jakarta featuring women business leaders, international collaboration, business matching, and investment opportunities",
     "mainEventAction": "Main event action", "whyAlt": "Indonesia's modern infrastructure, manufacturing, cultural heritage, natural destinations, and global trade connections",
     "registrationOpen": "REGISTRATION OPEN UNTIL END-SEPT 2026", "internationalPresence": "International Presence",
     "ecosystemTitle": "Trusted global ecosystem of women-led business.",

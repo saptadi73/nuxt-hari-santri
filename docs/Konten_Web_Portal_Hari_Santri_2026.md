@@ -1,4 +1,4 @@
-# Konten Web Portal Hari Santri 2026
+# Konten Web Portal Harlah NU ke-101
 
 **Naskah siap masuk CMS/Nuxt · Versi 1.0 · 29 September 2026**
 
@@ -6,7 +6,7 @@
 
 ## Navigasi utama
 
-**Beranda · Tentang Acara · Kegiatan & Paket · Syarat & Ketentuan · Agenda · Pengisi Acara · Hadiah · Bazar & Voucher · Sejarah Hari Santri · FAQ**
+**Beranda · Tentang Acara · Kegiatan & Paket · Syarat & Ketentuan · Agenda · Pengisi Acara · Hadiah · Bazar & Voucher · Sejarah Harlah NU · FAQ**
 
 Tombol utama: **Daftar Peserta** · **Daftar Tenant Bazar** · **Masuk / Dashboard**
 
@@ -18,16 +18,16 @@ Tombol utama: **Daftar Peserta** · **Daftar Tenant Bazar** · **Masuk / Dashboa
 
 **Label kecil:** MWC NU Tarumajaya mempersembahkan
 
-# Hari Santri 2026
+# Harlah NU ke-101
 ## Sepeda Santai & Jalan Sehat Keluarga
 
 **English event title:** Leisure Bike Ride & Family Fun Walk
 
 **Sehat bersama, eratkan persaudaraan, rayakan semangat santri.**
 
-Mari berkumpul bersama keluarga, sahabat, dan warga Tarumajaya dalam perayaan Hari Santri yang penuh gerak, kebersamaan, dan kegembiraan. Pilih kegiatan favoritmu, nikmati suasana bazar, ikuti rangkaian acara, dan rayakan hari istimewa ini bersama.
+Mari berkumpul bersama keluarga, sahabat, dan warga Tarumajaya dalam perayaan Harlah NU yang penuh gerak, kebersamaan, dan kegembiraan. Pilih kegiatan favoritmu, nikmati suasana bazar, ikuti rangkaian acara, dan rayakan hari istimewa ini bersama.
 
-**Minggu, 15 November 2026** · **Summarecon Crown Gading, Tarumajaya, Bekasi**
+**Minggu, 31 Januari 2027** · **Summarecon Crown Gading, Tarumajaya, Bekasi**
 
 Tombol: **Daftar Sekarang** · **Lihat Kegiatan**
 
@@ -37,7 +37,7 @@ Teks pendamping: *Pendaftaran paket dan kuota dapat dilihat pada halaman kegiata
 
 **Sepeda Santai**
 
-Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ikuti petunjuk panitia dan ketentuan kegiatan untuk menikmati pagi Hari Santri dengan aman dan penuh kebersamaan.
+Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ikuti petunjuk panitia dan ketentuan kegiatan untuk menikmati pagi Harlah NU dengan aman dan penuh kebersamaan.
 
 Tombol: **Lihat Paket Sepeda** · **Syarat & Ketentuan**
 
@@ -56,7 +56,7 @@ Tombol: **Lihat Paket Jalan Sehat** · **Syarat & Ketentuan**
 
 ### Penutup beranda
 
-**Ajak keluarga. Pilih kegiatan. Rayakan Hari Santri bersama.**  
+**Ajak keluarga. Pilih kegiatan. Rayakan Harlah NU bersama.**  
 Temukan paket yang sesuai, lengkapi data peserta dan ukuran kaos, lalu simpan tiket digital untuk hari acara.
 
 Tombol: **Daftar Peserta**
@@ -65,18 +65,18 @@ Tombol: **Daftar Peserta**
 
 ## 2. Tentang acara
 
-### Judul: Merayakan Hari Santri dengan gerak dan kebersamaan
+### Judul: Merayakan Harlah NU dengan gerak dan kebersamaan
 
-Hari Santri menjadi kesempatan untuk mengenang peran ulama, pesantren, dan santri dalam perjalanan bangsa, sekaligus menghidupkan semangat belajar, kepedulian, dan persaudaraan hari ini.
+Harlah NU menjadi kesempatan untuk mengenang peran ulama, pesantren, dan santri dalam perjalanan bangsa, sekaligus menghidupkan semangat belajar, kepedulian, dan persaudaraan hari ini.
 
-Dalam rangka memperingatinya, MWC NU Tarumajaya mengajak masyarakat mengikuti **Sepeda Santai & Jalan Sehat Keluarga** pada **Minggu, 15 November 2026** di **Summarecon Crown Gading**. Acara ini dirancang sebagai ruang perjumpaan lintas generasi: bergerak bersama, menikmati hiburan, mengenal kisah perjuangan, serta mendukung pelaku bazar setempat.
+Dalam rangka memperingatinya, MWC NU Tarumajaya mengajak masyarakat mengikuti **Sepeda Santai & Jalan Sehat Keluarga** pada **Minggu, 31 Januari 2027** di **Summarecon Crown Gading**. Acara ini dirancang sebagai ruang perjumpaan lintas generasi: bergerak bersama, menikmati hiburan, mengenal kisah perjuangan, serta mendukung pelaku bazar setempat.
 
 **Informasi singkat:**
 
 | Item | Isi |
 |---|---|
 | Penyelenggara | MWC NU Tarumajaya |
-| Tanggal | Minggu, 15 November 2026 |
+| Tanggal | Minggu, 31 Januari 2027 |
 | Lokasi | Summarecon Crown Gading, Tarumajaya, Bekasi |
 | Waktu mulai dan titik kumpul | [Diisi panitia] |
 | Kontak panitia | [WhatsApp/email resmi] |
@@ -87,7 +87,7 @@ Tombol: **Lihat Agenda** · **Daftar Sekarang**
 
 ## 3. Kegiatan dan paket peserta
 
-### Judul: Pilih langkahmu untuk Hari Santri 2026
+### Judul: Pilih langkahmu untuk Harlah NU ke-101
 
 **Kartu Paket Sepeda Santai**
 
@@ -133,7 +133,7 @@ Mari meriahkan rangkaian acara di **Summarecon Crown Gading, Bekasi**. Kegiatan 
 
 #### Pendaftaran & keikutsertaan
 
-1. **Pendaftaran resmi:** Seluruh peserta wajib mendaftarkan diri melalui situs web resmi HeroFunWalk.com.
+1. **Pendaftaran resmi:** Seluruh peserta wajib mendaftarkan diri melalui situs web resmi harlahnu.com.
 2. **Data registrasi:** Proses registrasi dilakukan dengan memasukkan alamat email dan nomor HP yang aktif.
 3. **Pilihan paket:** Saat mendaftar, pilih salah satu paket yang tersedia: Sepeda Santai atau Jalan Sehat.
 4. **Kategori peserta:** Keikutsertaan diutamakan bersama pasangan dan keluarga untuk memupuk semangat kebersamaan.
@@ -146,7 +146,7 @@ Mari meriahkan rangkaian acara di **Summarecon Crown Gading, Bekasi**. Kegiatan 
 3. **Doorprize & voucher UMKM:** Peserta yang hadir berhak mengikuti kesempatan memenangkan doorprize. Penukaran doorprize dan penggunaan voucher belanja di booth UMKM acara dapat dilakukan menggunakan QR Code yang tertera di web.
 4. **Keluarga Favorit:** Panitia akan memilih tiga Keluarga Paling Favorit untuk menerima hadiah spesial.
 
-Ikuti terus informasi dan pembaruan acara melalui situs web resmi HeroFunWalk.com.
+Ikuti terus informasi dan pembaruan acara melalui situs web resmi harlahnu.com.
 
 ---
 
@@ -159,7 +159,7 @@ Ikuti terus informasi dan pembaruan acara melalui situs web resmi HeroFunWalk.co
 | Segmen | Copy kartu publik |
 |---|---|
 | Kedatangan & registrasi | Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara. |
-| Pembukaan | Kita awali perayaan Hari Santri dengan sambutan dan doa bersama. |
+| Pembukaan | Kita awali perayaan Harlah NU dengan sambutan dan doa bersama. |
 | Pelepasan Sepeda Santai | Bersiap di titik start sesuai arahan petugas dan ikuti arahan panitia. |
 | Pelepasan Jalan Sehat Keluarga | Saatnya melangkah bersama keluarga dan menikmati suasana pagi. |
 | Bazar & aktivitas keluarga | Singgah di stan kuliner, buku Islam, dan produk halal pilihan. |
@@ -174,7 +174,7 @@ Teks dinamis: *Agenda dapat disesuaikan. Perubahan terbaru diumumkan di halaman 
 
 ## 6. Pengisi acara dan tamu
 
-### Judul: Bertemu di panggung Hari Santri
+### Judul: Bertemu di panggung Harlah NU
 
 Rangkaian acara menghadirkan ruang untuk sholawat, pesan kebersamaan, penampilan komunitas, dan hiburan keluarga. Profil pengisi acara dan tamu akan diumumkan bertahap setelah kehadiran mereka dikonfirmasi.
 
@@ -204,7 +204,7 @@ Tombol: **Lihat Hadiah Terkonfirmasi** · **Daftar Peserta**
 
 ## 8. Bazar, voucher dan tenant
 
-### Halaman pengunjung: Jelajahi bazar Hari Santri
+### Halaman pengunjung: Jelajahi bazar Harlah NU
 
 Dari sajian kuliner hingga bacaan pilihan, bazar menjadi tempat bertemu para pelaku usaha dan karya komunitas. Jelajahi stan **kuliner halal**, **buku Islam**, **produk pesantren**, **busana muslim**, dan produk keluarga yang telah lolos kurasi panitia.
 
@@ -214,7 +214,7 @@ Tombol: **Lihat Tenant Bazar** · **Lihat Voucher Saya**
 
 ### Halaman pendaftaran tenant: Bawa usahamu ke tengah perayaan
 
-Punya produk kuliner halal, buku Islam, karya pesantren, atau produk keluarga yang ingin diperkenalkan kepada pengunjung? Daftarkan usahamu untuk mengikuti seleksi tenant bazar Hari Santri 2026.
+Punya produk kuliner halal, buku Islam, karya pesantren, atau produk keluarga yang ingin diperkenalkan kepada pengunjung? Daftarkan usahamu untuk mengikuti seleksi tenant bazar Harlah NU ke-101.
 
 **Tahapan:** Isi profil usaha dan produk → panitia meninjau → terima keputusan dan ketentuan stan → selesaikan persyaratan/biaya jika berlaku → lihat alokasi stan di dashboard tenant.
 
@@ -226,11 +226,11 @@ Tombol: **Daftar Tenant Bazar** · **Lihat Ketentuan Tenant**
 
 ---
 
-## 9. Sejarah Hari Santri dan Pertempuran 10 November
+## 9. Sejarah Harlah NU dan Pertempuran 10 November
 
 ### Judul: Semangat santri dalam perjalanan bangsa
 
-Hari Santri diperingati setiap **22 Oktober** untuk mengenang peran ulama dan santri dalam perjalanan bangsa. Jejak perjuangan itu terkait dengan Resolusi Jihad, perlawanan di Surabaya, dan upaya rakyat di berbagai daerah dalam mempertahankan kemerdekaan.
+Harlah NU diperingati setiap **22 Oktober** untuk mengenang peran ulama dan santri dalam perjalanan bangsa. Jejak perjuangan itu terkait dengan Resolusi Jihad, perlawanan di Surabaya, dan upaya rakyat di berbagai daerah dalam mempertahankan kemerdekaan.
 
 #### Resolusi Jihad: seruan menjaga kemerdekaan
 
@@ -248,7 +248,7 @@ Perlawanan mempertahankan kemerdekaan juga berlangsung di Palagan Ambarawa, Meda
 
 Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusantara telah menghadapi kolonialisme dan berjuang menjaga kedaulatan. Jejak panjang perlawanan itu menjadi bagian dari sejarah bangsa yang kemudian diteruskan dalam perjuangan mempertahankan kemerdekaan.
 
-**Pesan untuk hari ini:** Pemerintah menetapkan 22 Oktober sebagai Hari Santri melalui **Keputusan Presiden Nomor 22 Tahun 2015**. Semangat santri terus hidup dalam ketekunan belajar, persaudaraan, kepedulian, dan pengabdian kepada masyarakat.
+**Pesan untuk hari ini:** Pemerintah menetapkan 22 Oktober sebagai Harlah NU melalui **Keputusan Presiden Nomor 22 Tahun 2015**. Semangat santri terus hidup dalam ketekunan belajar, persaudaraan, kepedulian, dan pengabdian kepada masyarakat.
 
 **Pasangan gambar pada halaman web:**
 
@@ -261,15 +261,15 @@ Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusanta
 
 **Keterangan gambar:** Ilustrasi sejarah, bukan foto dokumentasi peristiwa.
 
-Tombol: **Ikuti Kegiatan Hari Santri**
+Tombol: **Ikuti Kegiatan Harlah NU**
 
-**Rujukan sejarah:** [Sambutan Menteri Agama, Kementerian Agama](https://cdn.kemenag.go.id/storage/archives/1665973491.pdf); [Peringatan Hari Santri, Kanwil Kemenag Jawa Tengah](https://jateng.kemenag.go.id/nuansa-pondok-pesantren-warnai-upacara-peringatan-hsn-tahun-2022/); [Pedoman Peringatan Hari Pahlawan, Kemendikbud](https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf).
+**Rujukan sejarah:** [Sambutan Menteri Agama, Kementerian Agama](https://cdn.kemenag.go.id/storage/archives/1665973491.pdf); [Peringatan Harlah NU, Kanwil Kemenag Jawa Tengah](https://jateng.kemenag.go.id/nuansa-pondok-pesantren-warnai-upacara-peringatan-hsn-tahun-2022/); [Pedoman Peringatan Hari Pahlawan, Kemendikbud](https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf).
 
 ---
 
 ## 10. Dashboard peserta: teks antarmuka
 
-**Sambutan:** Assalamu’alaikum, `[nama pemesan]`! Semua informasi pendaftaran Hari Santri keluargamu ada di sini.
+**Sambutan:** Assalamu’alaikum, `[nama pemesan]`! Semua informasi pendaftaran Harlah NU keluargamu ada di sini.
 
 | Kartu | Copy/status |
 |---|---|
@@ -309,7 +309,7 @@ Kartu: **Status Pengajuan**, **Profil Produk**, **Persyaratan/Tagihan** (jika be
 ## 12. FAQ
 
 **Kapan dan di mana acara berlangsung?**  
-Minggu, 15 November 2026 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam hadir, titik kumpul, dan peta lokasi akan diumumkan panitia.
+Minggu, 31 Januari 2027 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam hadir, titik kumpul, dan peta lokasi akan diumumkan panitia.
 
 **Apa perbedaan Sepeda Santai dan Jalan Sehat Keluarga?**
 
@@ -348,18 +348,18 @@ Hubungi panitia melalui `[nomor WhatsApp/email resmi]` dan sertakan nomor pesana
 ## 13. Footer dan metadata SEO
 
 **Footer:**  
-*Hari Santri 2026 — Sepeda Santai & Jalan Sehat Keluarga*
+*Harlah NU ke-101 — Sepeda Santai & Jalan Sehat Keluarga*
 
-*Hari Santri 2026 — Leisure Bike Ride & Family Fun Walk*
+*Harlah NU ke-101 — Leisure Bike Ride & Family Fun Walk*
 Diselenggarakan oleh **MWC NU Tarumajaya**  
-**Minggu, 15 November 2026 · Summarecon Crown Gading**
-Tautan: Tentang · Kegiatan · Syarat & Ketentuan · Agenda · Bazar · FAQ · Sejarah Hari Santri · Kebijakan Privasi · Kontak.
+**Minggu, 31 Januari 2027 · Summarecon Crown Gading**
+Tautan: Tentang · Kegiatan · Syarat & Ketentuan · Agenda · Bazar · FAQ · Sejarah Harlah NU · Kebijakan Privasi · Kontak.
 
-**Meta title beranda:** Hari Santri 2026 | Sepeda Santai & Jalan Sehat Keluarga — MWC NU Tarumajaya
+**Meta title beranda:** Harlah NU ke-101 | Sepeda Santai & Jalan Sehat Keluarga — MWC NU Tarumajaya
 
-**English meta title:** Hari Santri 2026 | Leisure Bike Ride & Family Fun Walk — MWC NU Tarumajaya
+**English meta title:** Harlah NU ke-101 | Leisure Bike Ride & Family Fun Walk — MWC NU Tarumajaya
 
-**Meta description:** Ikuti Sepeda Santai dan Jalan Sehat Keluarga Hari Santri 2026 pada 15 November di dalam kawasan Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.
+**Meta description:** Ikuti Sepeda Santai dan Jalan Sehat Keluarga Harlah NU ke-101 pada 15 November di dalam kawasan Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.
 
 **Open Graph:** judul di atas; gambar poster resmi setelah final; deskripsi singkat; tanggal/lokasi konsisten dengan CMS. Jangan masukkan harga atau pengisi acara yang belum disahkan.
 
@@ -376,7 +376,7 @@ Tautan: Tentang · Kegiatan · Syarat & Ketentuan · Agenda · Bazar · FAQ · S
 
 ## 15. Donasi
 
-**Judul:** Dukung semangat Hari Santri 2026<br>
-**Naskah:** Donasi Anda mendukung penyelenggaraan kegiatan Hari Santri 2026. Tentukan sendiri nominal donasi, lalu lanjutkan pembayaran melalui Portal Payment. Donasi dinyatakan diterima setelah konfirmasi sistem.
+**Judul:** Dukung semangat Harlah NU ke-101<br>
+**Naskah:** Donasi Anda mendukung penyelenggaraan kegiatan Harlah NU ke-101. Tentukan sendiri nominal donasi, lalu lanjutkan pembayaran melalui Portal Payment. Donasi dinyatakan diterima setelah konfirmasi sistem.
 
 **Catatan UI:** Donatur mengisi nama, email, dan nominal rupiah bulat positif. Jangan menampilkan rekening atau QR pembayaran statis; pembayaran dimulai melalui tautan checkout yang dibuat backend.

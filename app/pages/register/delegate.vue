@@ -98,7 +98,7 @@ const offlinePayment = computed(() => route.query.payment === 'offline');
 
 const messages = {
   en: {
-    eyebrow: 'Delegate Registration', title: 'Register for IWBIF 2026', description: 'Complete every required section after your package purchase is confirmed. The backend links the paid delegate order to your registration automatically.',
+    eyebrow: 'Delegate Registration', title: 'Register for Harlah NU ke-101', description: 'Complete every required section after your package purchase is confirmed. The backend links the paid delegate order to your registration automatically.',
     personalSection: '1. Personal and company information', participationSection: '2. Participation and activities', matchingSection: '3. Business matching', travelSection: '4. Travel and delegate requirements', invoiceSection: '5. Invoice and consent',
     select: 'Select', officePhone: 'Office phone', companyAddress: 'Company address', participationCategories: 'Participation categories', presentationTopic: 'Presentation topic', productsInterested: 'Products interested', investmentInterest: 'Investment interest', noActivities: 'No active activities are currently published.',
     productsServices: 'Products / services', lookingFor: 'Looking for', preferredCountries: 'Preferred countries', businessObjectives: 'Business objectives', roomPreference: 'Room preference', preferredRoommate: 'Preferred roommate', arrivalDate: 'Arrival date', departureDate: 'Departure date', airport: 'Airport', selectAirport: 'Select airport', flightNumber: 'Flight number', needPickup: 'Need airport pickup?', dietary: 'Dietary restrictions', medical: 'Medical condition', assistance: 'Special assistance',
@@ -106,7 +106,7 @@ const messages = {
     fields: ['Full name', 'Title', 'Job title', 'Company / organization', 'Nationality', 'Business sector', 'Email', 'Company website', 'LinkedIn'], noEvent: 'No IWBIF event is currently published.', loadError: 'Existing delegate profile could not be loaded.', saveError: 'Registration could not be saved.', saved: 'Registration {number} saved successfully.', offlineTitle: 'Offline payment selected.', offlineDescription: 'Complete and submit this registration. After the organizer receives your cash, transfer, EDC, or other approved offline payment, an admin will create the payment using your registration ID and issue the ticket only after full settlement.'
   },
   zh: {
-    eyebrow: '代表注册', title: '注册参加 IWBIF 2026', description: '请在套餐付款确认后填写所有必填信息。系统会自动将已付款的代表订单关联到您的注册资料。',
+    eyebrow: '代表注册', title: '注册参加 Harlah NU ke-101', description: '请在套餐付款确认后填写所有必填信息。系统会自动将已付款的代表订单关联到您的注册资料。',
     personalSection: '1. 个人及公司信息', participationSection: '2. 参与类别与活动', matchingSection: '3. 商务配对', travelSection: '4. 行程及代表需求', invoiceSection: '5. 发票与同意事项',
     select: '请选择', officePhone: '办公电话', companyAddress: '公司地址', participationCategories: '参与类别', presentationTopic: '演讲主题', productsInterested: '感兴趣的产品', investmentInterest: '投资意向', noActivities: '目前尚未发布任何有效活动。',
     productsServices: '产品／服务', lookingFor: '希望寻找', preferredCountries: '意向国家', businessObjectives: '商务目标', roomPreference: '房型偏好', preferredRoommate: '首选室友', arrivalDate: '抵达日期', departureDate: '离开日期', airport: '机场', selectAirport: '请选择机场', flightNumber: '航班号', needPickup: '是否需要机场接送？', dietary: '饮食限制', medical: '健康状况', assistance: '特殊协助需求',
@@ -118,7 +118,7 @@ const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : mes
 const validationCopy = computed(() => String(locale.value) === 'zh-CN'
   ? { required: '请填写所有必填字段并选择所需选项。', email: '请输入有效的电子邮箱地址。', url: '请输入包含 http:// 或 https:// 的有效网站地址。', dates: '离开日期不得早于抵达日期。', consent: '请确认信息准确性、接受条款并同意商务配对数据处理。' }
   : { required: 'Complete all required fields and selections.', email: 'Enter a valid email address.', url: 'Enter a valid website address beginning with http:// or https://.', dates: 'The departure date cannot be earlier than the arrival date.', consent: 'Confirm the information accuracy, accept the terms, and provide business matching consent.' });
-useSeoMeta({ title: () => `${copy.value.eyebrow} | Hari Santri 2026`, description: () => copy.value.description });
+useSeoMeta({ title: () => `${copy.value.eyebrow} | Harlah NU ke-101`, description: () => copy.value.description });
 
 const { getEvents, getEventActivities } = useEvent();
 const { createRegistration, getMyRegistrations, getRegistration, updateRegistration, submitRegistration, uploadPassport, getRegistrationDocuments } = useRegistration();

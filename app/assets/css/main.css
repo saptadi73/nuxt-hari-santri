@@ -5,20 +5,20 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --bg-primary: #04152d;
-  --bg-secondary: #071d3a;
-  --bg-alt: #0b2447;
-  --bg-panel: rgba(11, 36, 71, 0.68);
-  --line-soft: rgba(255, 255, 255, 0.12);
-  --text-muted: #cbd2dc;
-  --text-soft: #f8f6f1;
-  --cyan-glow: rgba(8, 36, 67, 0.24);
-  --gold-glow: rgba(216, 172, 89, 0.22);
-  --premium-gold: #d8ac59;
-  --premium-gold-soft: #e6c477;
-  --deep-blue: #00102a;
-  --deep-navy: #071d3a;
+  color-scheme: light;
+  --bg-primary: #faf9f5;
+  --bg-secondary: #f5f4ef;
+  --bg-alt: #2d134d;
+  --bg-panel: rgba(45, 19, 77, 0.92);
+  --line-soft: rgba(45, 19, 77, 0.14);
+  --text-muted: #6b6a68;
+  --text-soft: #1f1e1d;
+  --cyan-glow: rgba(244, 10, 8, 0.12);
+  --gold-glow: rgba(255, 138, 128, 0.22);
+  --premium-gold: #f40a08;
+  --premium-gold-soft: #ff8a80;
+  --deep-blue: #2d134d;
+  --deep-navy: #2a1215;
 }
 
 @layer base {
@@ -45,11 +45,11 @@
     min-height: 100vh;
     overflow-x: hidden;
     background:
-      radial-gradient(circle at 0% 15%, rgba(11, 36, 71, 0.78), transparent 40%),
-      radial-gradient(circle at 86% 18%, rgba(232, 198, 125, 0.16), transparent 30%),
-      radial-gradient(circle at 12% 88%, rgba(7, 29, 58, 0.45), transparent 42%),
-      linear-gradient(180deg, var(--bg-primary) 0%, #010f2a 46%, var(--bg-secondary) 100%);
-    color: white;
+      radial-gradient(circle at 0% 15%, rgba(244, 10, 8, 0.08), transparent 40%),
+      radial-gradient(circle at 86% 18%, rgba(255, 138, 128, 0.16), transparent 30%),
+      radial-gradient(circle at 12% 88%, rgba(45, 19, 77, 0.08), transparent 42%),
+      linear-gradient(180deg, var(--bg-primary) 0%, #fff 46%, var(--bg-secondary) 100%);
+    color: var(--text-soft);
     font-family: 'Plus Jakarta Sans', sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

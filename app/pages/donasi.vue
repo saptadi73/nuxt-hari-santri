@@ -1,9 +1,9 @@
 <template>
   <main class="donation-page">
     <section class="donation-card">
-      <p class="eyebrow">HARI SANTRI 2026</p>
-      <h1>Dukung semangat Hari Santri</h1>
-      <p class="intro">Donasi Anda mendukung penyelenggaraan kegiatan Hari Santri 2026. Masukkan nominal donasi yang ingin diberikan.</p>
+      <p class="eyebrow">HARLAH NU KE-101</p>
+      <h1>Dukung semangat Harlah NU</h1>
+      <p class="intro">Donasi Anda mendukung penyelenggaraan kegiatan Harlah NU ke-101. Masukkan nominal donasi yang ingin diberikan.</p>
 
       <form class="donation-form" @submit.prevent="submitDonation">
         <label>
@@ -73,8 +73,8 @@ const submitDonation = async () => {
 };
 
 useSeoMeta({
-  title: 'Donasi | Hari Santri 2026',
-  description: 'Dukung kegiatan Hari Santri 2026 melalui donasi dengan nominal pilihan Anda.'
+  title: 'Donasi | Harlah NU ke-101',
+  description: 'Dukung kegiatan Harlah NU ke-101 melalui donasi dengan nominal pilihan Anda.'
 });
 </script>
 
