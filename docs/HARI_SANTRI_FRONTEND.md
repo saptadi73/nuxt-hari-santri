@@ -67,6 +67,8 @@ NUXT_PUBLIC_SITE_URL=http://localhost:3000
 NUXT_PUBLIC_APP_NAME=Hari Santri 2026
 ```
 
+Untuk rilis Harlah NU, gunakan `NUXT_PUBLIC_API_BASE_URL=https://api.harlahnu.com` dan `NUXT_PUBLIC_SITE_URL=https://harlahnu.com` saat menjalankan `npm run generate`. Domain Hari Santri lama dipertahankan sebagai alias selama masa transisi, bukan sebagai API base URL build baru.
+
 Jalankan `npm install`, `npm run dev`, lalu buka `http://localhost:3000`. Production wajib mengisi domain API/site yang benar; secret Portal Payment hanya berada pada backend Event/Payment Portal.
 
 ## Implementasi sekarang dan gap

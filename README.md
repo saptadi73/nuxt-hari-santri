@@ -16,7 +16,7 @@ Buka `http://localhost:3000`. Pastikan API FastAPI berjalan dan event ber-slug `
 
 Atur `NUXT_PUBLIC_API_BASE_URL`, `NUXT_PUBLIC_API_BASE_PATH`, `NUXT_PUBLIC_EVENT_SLUG`, `NUXT_PUBLIC_SITE_URL`, dan `NUXT_PUBLIC_APP_NAME`. Credential OAuth dan callback Payment Portal **tidak boleh** disimpan di frontend build atau browser; semuanya dikonfigurasi pada backend/server.
 
-Untuk situs statis production, set `NUXT_PUBLIC_API_BASE_URL=https://api.harisantri2026.com` dan `NUXT_PUBLIC_SITE_URL=https://harisantri2026.com` pada environment proses sebelum `npm run generate`. Build akan ditolak jika kedua nilai masih kosong atau menunjuk ke localhost/loopback; `.env` lokal untuk development tidak boleh dipakai sebagai konfigurasi build production.
+Untuk situs statis production Harlah NU, set `NUXT_PUBLIC_API_BASE_URL=https://api.harlahnu.com` dan `NUXT_PUBLIC_SITE_URL=https://harlahnu.com` pada environment proses sebelum `npm run generate`. Build akan ditolak jika kedua nilai masih kosong atau menunjuk ke localhost/loopback; `.env` lokal untuk development tidak boleh dipakai sebagai konfigurasi build production. Selama masa transisi, domain lama tetap aktif sebagai alias dan tidak boleh dipakai sebagai API base URL build baru.
 
 Bahasa aktif portal Hari Santri adalah Bahasa Indonesia (`id`) saja. Pemilihan bahasa browser dinonaktifkan dan permintaan API selalu memakai `id`. Browser dialihkan ke hosted checkout URL yang diberikan backend. Frontend tidak memilih gateway, tidak menghitung nominal final, dan tidak menetapkan order sebagai lunas berdasarkan redirect.
 
