@@ -59,20 +59,28 @@
     <div
       v-if="qr.ticket_id && qr.imageUrl && !paymentRequired"
       ref="ticketCardRef"
-      class="print-ticket relative mt-10 overflow-hidden rounded-lg border border-emerald-900/15 bg-white p-5 shadow-xl shadow-emerald-950/5 sm:p-6"
+      class="print-ticket relative mt-10 overflow-hidden rounded-[2rem] border border-[#d4af37]/60 bg-[#fffdf7] p-5 shadow-2xl shadow-[#2d134d]/15 sm:p-8"
     >
-      <div class="absolute -left-4 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-left-5 sm:h-10 sm:w-10"></div>
-      <div class="absolute -right-4 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-right-5 sm:h-10 sm:w-10"></div>
-      <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(23,63,50,0.035),transparent)]"></div>
-      <div class="pointer-events-none absolute inset-y-6 right-[18rem] hidden border-r border-dashed border-emerald-900/20 lg:block"></div>
-      <div class="pointer-events-none absolute right-4 top-4 rounded-full border border-emerald-800/15 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.35em] text-emerald-900 sm:right-6 sm:top-6">
+      <div class="ticket-orbit pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[18px] border-[#d4af37]/15"></div>
+      <div class="ticket-pattern pointer-events-none absolute inset-0 opacity-70"></div>
+      <div class="ticket-notch ticket-notch-left absolute top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-left-5"></div>
+      <div class="ticket-notch ticket-notch-right absolute top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-right-5"></div>
+      <div class="pointer-events-none absolute inset-y-8 right-[18rem] hidden border-r border-dashed border-[#2d134d]/25 lg:block"></div>
+      <div class="relative mb-7 flex flex-wrap items-start justify-between gap-4 border-b border-[#d4af37]/45 pb-5">
+        <div>
+          <p class="text-[11px] font-black uppercase tracking-[0.42em] text-[#f40a08]">Harlah Nahdlatul Ulama</p>
+          <p class="mt-2 text-2xl font-black tracking-tight text-[#2d134d]">KE-101 <span class="text-[#d4af37]">•</span> 1926—2027</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#496255]">Dari pesantren untuk negeri</p>
+        </div>
+        <div class="rounded-full border border-[#d4af37]/70 bg-[#fff7d6] px-3 py-2 text-[10px] font-black uppercase tracking-[0.28em] text-[#6b4b00]">
         {{ copy.vipAccess }}
+      </div>
       </div>
       <div class="relative grid gap-8 lg:grid-cols-[1.35fr_280px] lg:items-center">
         <div>
           <div class="flex flex-wrap items-center gap-3 pr-20">
-            <p class="text-xs uppercase tracking-[0.45em] text-emerald-800 sm:text-sm">{{ copy.officialPass }}</p>
-            <span class="rounded-full border border-emerald-700/20 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-900">
+            <p class="text-xs uppercase tracking-[0.45em] text-[#2d7258] sm:text-sm">{{ copy.officialPass }}</p>
+            <span class="rounded-full border border-[#2d7258]/25 bg-[#eaf5ed] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#23553f]">
               {{ copy.confirmed }}
             </span>
           </div>
@@ -80,37 +88,37 @@
             <div class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-2 sm:h-20 sm:w-20">
               <img
                 src="/logo_santri_2026.png"
-                alt="Logo Hari Santri 2026"
+                alt="Logo Harlah NU ke-101"
                 class="h-full w-full object-contain"
               />
             </div>
             <div>
-              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#17352c] sm:text-base">Hari Santri 2026</p>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#2d134d] sm:text-base">Harlah NU ke-101</p>
             </div>
           </div>
-          <h2 class="mt-3 max-w-2xl text-3xl font-black leading-tight text-[#17352c] sm:text-4xl">
-            {{ locale === 'id' ? 'Tiket peserta terverifikasi' : 'Your participant ticket is verified' }}
+          <h2 class="mt-3 max-w-2xl text-3xl font-black leading-tight text-[#2d134d] sm:text-4xl">
+            {{ locale === 'id' ? 'Tiket resmi untuk langkah kebersamaan' : 'Your participant ticket is verified' }}
           </h2>
           <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
             {{ locale === 'id' ? 'Tunjukkan kode QR ini saat registrasi ulang dan pemeriksaan tiket di lokasi acara.' : 'Present this QR code for registration confirmation and ticket validation at the venue.' }}
           </p>
 
           <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <div class="rounded-md border border-slate-200 bg-[#f8faf8] px-4 py-3">
+            <div class="ticket-detail rounded-md border border-[#d8e5db] bg-[#f7fbf5] px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.3em] text-emerald-800">{{ copy.participant }}</p>
               <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-base sm:leading-8">{{ participantName }}</p>
             </div>
-            <div class="rounded-md border border-slate-200 bg-[#f8faf8] px-4 py-3">
+            <div class="ticket-detail rounded-md border border-[#d8e5db] bg-[#f7fbf5] px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.3em] text-emerald-800">{{ copy.event }}</p>
-              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-base sm:leading-8">Hari Santri 2026</p>
+              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-base sm:leading-8">Harlah NU ke-101</p>
             </div>
-            <div class="rounded-md border border-slate-200 bg-[#f8faf8] px-4 py-3">
+            <div class="ticket-detail rounded-md border border-[#d8e5db] bg-[#f7fbf5] px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.3em] text-emerald-800">{{ copy.ticketNumber }}</p>
               <p class="mt-2 break-words text-sm font-semibold leading-7 text-slate-900 sm:text-[15px] sm:leading-8">{{ qr.ticket_number }}</p>
             </div>
-            <div class="rounded-md border border-slate-200 bg-[#f8faf8] px-4 py-3">
+            <div class="ticket-detail rounded-md border border-[#d8e5db] bg-[#f7fbf5] px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.3em] text-emerald-800">{{ copy.dateVenue }}</p>
-              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-[15px]">{{ locale === 'id' ? 'Minggu, 15 November 2026' : 'Sunday, 15 November 2026' }}</p>
+              <p class="mt-2 text-sm font-semibold leading-7 text-slate-900 sm:text-[15px]">{{ locale === 'id' ? 'Minggu, 31 Januari 2027' : 'Sunday, 31 January 2027' }}</p>
               <p class="mt-1 text-xs leading-5 text-slate-600 sm:leading-6">Summarecon Crown Gading, Tarumajaya, Bekasi</p>
             </div>
           </div>
@@ -129,7 +137,7 @@
         </div>
 
         <div class="relative">
-          <div class="mx-auto max-w-[220px] rounded-[1.75rem] border border-white/15 bg-white p-3 shadow-2xl sm:max-w-[250px] sm:p-4">
+          <div class="qr-frame mx-auto max-w-[220px] rounded-[1.75rem] border-[6px] border-[#2d134d] bg-white p-3 shadow-2xl sm:max-w-[250px] sm:p-4">
             <img
               v-if="qr.imageUrl"
               :src="qr.imageUrl"
@@ -138,9 +146,10 @@
               @error="qr.imageError = copy.qrRenderError"
             />
           </div>
-          <p class="mt-4 text-center text-xs uppercase tracking-[0.35em] text-emerald-800">
+          <p class="mt-4 text-center text-xs font-black uppercase tracking-[0.35em] text-[#2d134d]">
             {{ copy.scan }}
           </p>
+          <p class="mt-2 text-center text-[11px] leading-5 text-slate-500">Satu tiket, satu pengalaman Harlah NU ke-101.</p>
         </div>
       </div>
 
@@ -163,7 +172,7 @@ const messages = {
 } as const;
 const copy = computed(() => messages[String(locale.value) === 'id' ? 'id' : 'en']);
 const statusLabel = (status: string) => (copy.value.statuses as Record<string, string>)[status.toLowerCase()] || status;
-useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Harlah NU ke-101` });
 
 const authStore = useAuthStore();
 const { getMyTickets, getQrByTicket, reissueTicket } = useTicket();
@@ -291,6 +300,21 @@ const reissue = async (ticketId: string) => {
 </script>
 
 <style scoped>
+.print-ticket {
+  isolation: isolate;
+}
+
+.ticket-pattern {
+  background-image: radial-gradient(circle at 18% 20%, rgba(244, 10, 8, .08) 0 2px, transparent 2.5px), radial-gradient(circle at 80% 75%, rgba(45, 19, 77, .08) 0 2px, transparent 2.5px), linear-gradient(135deg, transparent 42%, rgba(212, 175, 55, .08) 43% 44%, transparent 45%);
+  background-size: 24px 24px, 28px 28px, 52px 52px;
+  z-index: -1;
+}
+
+.ticket-orbit { z-index: -1; }
+.ticket-notch { z-index: 2; }
+.ticket-notch-left { left: -1.25rem; }
+.ticket-notch-right { right: -1.25rem; }
+
 .ticket-exporting {
   box-shadow: none !important;
 }
@@ -312,11 +336,13 @@ const reissue = async (ticketId: string) => {
 
   .print-ticket {
     margin-top: 0 !important;
-    border: 1px solid #cbd5e1 !important;
-    background: #ffffff !important;
+    border: 1px solid #d4af37 !important;
+    background: #fffdf7 !important;
     box-shadow: none !important;
     color: #0f172a !important;
     break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   .print-ticket * {
@@ -327,6 +353,8 @@ const reissue = async (ticketId: string) => {
     border: 1px solid #e2e8f0;
     background: #ffffff !important;
   }
+
+  .ticket-pattern { opacity: .45 !important; }
 
   .print-ticket a {
     display: none !important;
