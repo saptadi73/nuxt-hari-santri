@@ -32,7 +32,7 @@ const messages = {
   id: { eyebrow: 'Pemulihan kata sandi', title: 'Lupa kata sandi?', intro: 'Masukkan email akun. Jika email terdaftar, instruksi untuk mengatur ulang kata sandi akan dikirimkan.', email: 'Email', submit: 'Kirim instruksi reset', sending: 'Mengirim…', invalidEmail: 'Masukkan alamat email yang valid.', neutral: 'Jika email terdaftar, instruksi reset kata sandi akan segera dikirim.', back: 'Kembali ke halaman masuk' }
 } as const;
 const copy = computed(() => messages[String(locale.value) === 'id' ? 'id' : 'en']);
-useSeoMeta({ title: () => `${copy.value.title} | Hari Santri 2026`, description: () => copy.value.intro });
+useSeoMeta({ title: () => `${copy.value.title} | Harlah NU ke-101`, description: () => copy.value.intro });
 
 const email = ref('');
 const submitting = ref(false);

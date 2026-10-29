@@ -1,7 +1,7 @@
 <template>
   <section class="tenant-page">
     <div class="tenant-inner">
-      <p class="eyebrow">HARI SANTRI 2026 / BAZAR</p>
+      <p class="eyebrow">HARLAH NU KE-101 / BAZAR</p>
       <h1>{{ id ? 'Bawa usahamu ke tengah perayaan.' : 'Bring your business to the celebration.' }}</h1>
       <p class="intro">{{ id ? 'Ajukan usaha kuliner halal, buku Islam, produk pesantren, atau produk keluarga untuk mengikuti seleksi tenant bazar.' : 'Apply to bring halal food, Islamic books, pesantren products, or family goods to the bazaar.' }}</p>
 
@@ -97,7 +97,7 @@ watch(() => auth.isAuthenticated, (authenticated) => {
   if (authenticated) void loadApplications();
   else { applications.value = []; error.value = ''; }
 });
-useSeoMeta({ title: () => `${id.value ? 'Daftar Tenant Bazar' : 'Bazaar Tenant Application'} | Hari Santri 2026`, description: () => id.value ? 'Ajukan usaha untuk bazar Hari Santri 2026.' : 'Apply to join the Hari Santri 2026 bazaar.' });
+useSeoMeta({ title: () => `${id.value ? 'Daftar Tenant Bazar' : 'Bazaar Tenant Application'} | Harlah NU ke-101`, description: () => id.value ? 'Ajukan usaha untuk bazar Harlah NU ke-101.' : 'Apply to join the Harlah NU ke-101 bazaar.' });
 </script>
 
 <style scoped>

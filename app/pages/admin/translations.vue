@@ -44,7 +44,7 @@
 import { useAdminContent, type TranslatableEntityDefinition, type TranslatableEntityType } from '~/composables/useAdminContent';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Terjemahan Konten Indonesia | Hari Santri 2026' });
+useSeoMeta({ title: 'Terjemahan Konten Indonesia | Harlah NU ke-101' });
 
 const fallbackDefinitions: TranslatableEntityDefinition[] = [
   { entity_type: 'event', fields: ['name', 'description', 'venue_name'] },

@@ -520,7 +520,7 @@ onMounted(async () => {
 });
 
 definePageMeta({ middleware: ['auth', 'admin'] });
-useSeoMeta({ title: 'Attendance Scanner | Hari Santri 2026' });
+useSeoMeta({ title: 'Attendance Scanner | Harlah NU ke-101' });
 
 const isOrganizer = computed(() => authStore.isAdminOrOrganizer || authStore.userRole === 'organizer');
 if (!isOrganizer.value) {

@@ -188,7 +188,7 @@ import { useEvent, type EventItem } from '~/composables/useEvent';
 
 definePageMeta({ middleware: ['auth', 'admin'] });
 const { locale, t, te } = useI18n();
-useSeoMeta({ title: () => `${t('nav.emailNotifications')} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${t('nav.emailNotifications')} | Harlah NU ke-101` });
 
 type Section = 'general' | 'account' | 'history';
 type PreferenceChoice = 'default' | 'enabled' | 'disabled';
@@ -255,7 +255,7 @@ const variableLabel = (variable: string) => {
 const preferenceChoice = (value: boolean | null): PreferenceChoice => value === null ? 'default' : value ? 'enabled' : 'disabled';
 const choiceValue = (value: PreferenceChoice): boolean | null => value === 'default' ? null : value === 'enabled';
 const effectiveFor = (preference: EmailAccountPreference) => preference.global_enabled && preferenceDraft[preference.trigger] !== 'disabled';
-const selectedEventName = () => events.value.find(event => event.id === eventId.value)?.name || 'IWBIF 2026';
+const selectedEventName = () => events.value.find(event => event.id === eventId.value)?.name || 'Harlah NU ke-101';
 const sampleVariables = () => ({
   participant_name: 'Siti Rahma', event_name: selectedEventName(), login_url: 'https://iwbif.id/auth/login', registration_number: 'IWBIF-2026-001',
   package_name: 'Package A', package_code: 'A', amount: '10.000', currency: 'IDR', order_number: 'ORD-IWBIF-001', paid_at: '23 Agustus 2026, 14.30',

@@ -1,7 +1,7 @@
 <template>
   <section class="packages-page">
     <div class="packages-inner">
-      <p class="eyebrow">ADMIN REGISTRASI / HARI SANTRI 2026</p>
+      <p class="eyebrow">ADMIN REGISTRASI / HARLAH NU KE-101</p>
       <h1>{{ id ? 'Paket & pendaftaran' : 'Packages & registration' }}</h1>
       <p class="intro">{{ id ? 'Harga, kegiatan, batas peserta, kuota pembelian, dan status publikasi ditetapkan panitia.' : 'Organizers control prices, activity type, participant limits, purchase capacity, and publication.' }}</p>
 
@@ -71,7 +71,7 @@ const load = async () => {
     if (!auth.isAdminOrOrganizer) throw new Error(id.value ? 'Halaman ini khusus admin registrasi.' : 'This page is restricted to registration administrators.');
     const events = await eventApi.getEvents(1, 100);
     const event = events.data.find(item => item.slug === runtime.public.eventSlug);
-    if (!event) throw new Error(id.value ? 'Event Hari Santri belum dibuat.' : 'The Hari Santri event has not been created.');
+    if (!event) throw new Error(id.value ? 'Event Harlah NU belum dibuat.' : 'The Harlah NU event has not been created.');
     eventId.value = event.id;
     products.value = (await storeApi.getAdminProducts(event.id)).data.filter(item => item.product_type === 'hari_santri_package');
     for (const product of products.value) {
@@ -132,7 +132,7 @@ const create = async () => {
 };
 
 onMounted(() => { void load(); });
-useSeoMeta({ title: () => `${id.value ? 'Paket Hari Santri' : 'Hari Santri Packages'} | 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Paket Harlah NU' : 'Harlah NU Packages'} | 2026` });
 </script>
 
 <style scoped>

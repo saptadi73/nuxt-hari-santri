@@ -71,7 +71,7 @@ export function useHariSantriRegistration() {
     const request = (async () => {
       try {
         const event = (await events.getEvents(1, 100)).data.find(item => item.slug === runtime.public.eventSlug);
-        if (!event) throw new Error(id.value ? 'Event Hari Santri belum tersedia.' : 'The Hari Santri event is not available.');
+        if (!event) throw new Error(id.value ? 'Event Harlah NU belum tersedia.' : 'The Harlah NU event is not available.');
         const [records, tenants] = await Promise.all([
           (async () => {
             const result: PendingOrderRecord[] = [];

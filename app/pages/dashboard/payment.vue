@@ -1,21 +1,21 @@
 <template>
   <section class="payment-page">
     <div class="payment-inner">
-      <p class="eyebrow">HARI SANTRI 2026 / {{ id ? 'PESANAN' : 'ORDERS' }}</p>
+      <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'PESANAN' : 'ORDERS' }}</p>
       <h1>{{ id ? 'Pesanan & pembayaran' : 'Orders & payment' }}</h1>
       <p class="intro">{{ id ? 'Periksa pesanan keluarga. Pembayaran dilanjutkan melalui Portal Payment terpisah.' : 'Review your family order. Payment continues in the separate Payment Portal.' }}</p>
 
       <p v-if="loading" class="state">{{ id ? 'Memuat pesanan…' : 'Loading orders…' }}</p>
       <p v-else-if="error" class="error" role="alert">{{ error }}</p>
       <p v-else-if="!orders.length" class="state">
-        {{ id ? 'Belum ada pesanan Hari Santri.' : 'You do not have a Hari Santri order yet.' }}
+        {{ id ? 'Belum ada pesanan Harlah NU.' : 'You do not have a Harlah NU order yet.' }}
         <NuxtLink to="/daftar" class="text-link">{{ id ? 'Mulai pendaftaran' : 'Start registration' }} →</NuxtLink>
       </p>
       <div v-else class="order-list">
         <article v-for="entry in orders" :key="entry.order.id" class="order-row">
           <div class="order-row__body">
             <p class="order-kicker">{{ entry.order.order_number }}</p>
-            <h2>{{ entry.items[0]?.product_name || (id ? 'Paket Hari Santri' : 'Hari Santri package') }}</h2>
+            <h2>{{ entry.items[0]?.product_name || (id ? 'Paket Harlah NU' : 'Harlah NU package') }}</h2>
             <p>{{ entry.items.reduce((count, item) => count + item.quantity, 0) }} {{ id ? 'paket' : 'package(s)' }} · {{ money(entry.order.total_amount, entry.order.currency) }}</p>
             <span class="status" :class="`status--${entry.order.status}`">{{ statusLabel(entry.order.status) }}</span>
           </div>
@@ -111,7 +111,7 @@ const continuePayment = async (orderId: string) => {
 };
 
 onMounted(() => { void loadOrders(); });
-useSeoMeta({ title: () => `${id.value ? 'Pesanan & Pembayaran' : 'Orders & Payment'} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Pesanan & Pembayaran' : 'Orders & Payment'} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

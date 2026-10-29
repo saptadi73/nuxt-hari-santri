@@ -1,7 +1,7 @@
 <template>
   <main class="audit-page">
     <div class="audit-inner">
-      <p class="eyebrow">ADMIN / HARI SANTRI 2026</p>
+      <p class="eyebrow">ADMIN / HARLAH NU KE-101</p>
       <h1>Audit voucher & settlement</h1>
       <p class="intro">Riwayat penerbitan voucher, scan, penyesuaian saldo, dan settlement. Token QR dan password tidak ditampilkan pada audit.</p>
       <div class="filters">
@@ -45,7 +45,7 @@ const load = async () => {
 };
 watch([action, limit], () => { void load(); });
 onMounted(() => { void load(); });
-useSeoMeta({ title: 'Audit Voucher | Hari Santri 2026' });
+useSeoMeta({ title: 'Audit Voucher | Harlah NU ke-101' });
 </script>
 
 <style scoped>

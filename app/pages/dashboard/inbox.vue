@@ -35,7 +35,7 @@ const messages = {
   en: { eyebrow: 'Inbox', title: 'Messages & notifications', description: 'Order updates and event information are collected here.', refresh: 'Refresh', refreshing: 'Refreshing…', loading: 'Loading inbox…', empty: 'There are no notifications yet.', notification: 'Notification', openDetails: 'Open to view details.', new: 'New', error: 'Unable to load inbox.', seo: 'Inbox' }
 } as const;
 const copy = computed(() => messages.id);
-useSeoMeta({ title: () => `${copy.value.seo} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${copy.value.seo} | Harlah NU ke-101` });
 const communication = useCommunication();
 const { getEvents } = useEvent();
 const notifications = ref<NotificationItem[]>([]);

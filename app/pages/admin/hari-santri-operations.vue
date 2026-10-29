@@ -1,6 +1,6 @@
 <template>
   <main class="ops-page"><div class="ops-inner">
-    <p class="eyebrow">ADMIN / HARI SANTRI 2026</p><h1>Operasional callback pembayaran</h1>
+    <p class="eyebrow">ADMIN / HARLAH NU KE-101</p><h1>Operasional callback pembayaran</h1>
     <p class="intro">Pantau callback terverifikasi yang sedang dicoba ulang atau masuk dead-letter. Retry manual akan mencatat actor dan request ID pada audit trail.</p>
     <section class="reconcile-card"><div><h2>Rekonsiliasi callback terlambat</h2><p>Masukkan nomor referensi order. Backend memeriksa status langsung ke Payment Portal menggunakan kredensial server; status dari browser tidak digunakan.</p></div><form @submit.prevent="reconcile"><label>Nomor referensi order<input v-model.trim="referenceId" required maxlength="100" autocomplete="off" placeholder="Contoh: HS26-REG-000123"></label><button class="button" :disabled="reconciling || !referenceId">{{ reconciling ? 'Memeriksa…' : 'Periksa Payment Portal' }}</button></form></section>
     <div class="toolbar"><label>Status<select v-model="status"><option value="">Semua status</option><option value="pending">Menunggu retry</option><option value="processing">Diproses</option><option value="completed">Selesai</option><option value="dead">Perlu pemeriksaan</option></select></label><button class="button" :disabled="loading" @click="load">{{ loading ? 'Memuat…' : 'Muat ulang' }}</button></div>
@@ -58,7 +58,7 @@ const reconcile = async () => {
 };
 watch(status, () => { void load(); });
 onMounted(() => { void load(); });
-useSeoMeta({ title: 'Operasional Callback | Hari Santri 2026' });
+useSeoMeta({ title: 'Operasional Callback | Harlah NU ke-101' });
 </script>
 
 <style scoped>

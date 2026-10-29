@@ -30,7 +30,7 @@
 import { useTableReload } from '~/composables/useTableReload';
 import { useAdminContent, type CommitteeMemberMutationPayload } from '~/composables/useAdminContent';
 import { useEvent, type CommitteeMemberItem, type EventItem } from '~/composables/useEvent';
-definePageMeta({ middleware:['auth','admin'] }); useSeoMeta({ title:'Manage Hosts | Hari Santri 2026' });
+definePageMeta({ middleware:['auth','admin'] }); useSeoMeta({ title:'Manage Hosts | Harlah NU ke-101' });
 const admin=useAdminContent(); const {getEvents}=useEvent(); const {mediaUrl}=useMediaUrl();
 const {data:eventResponse}=await useAsyncData('admin-host-events',()=>getEvents(1,100)); const events=computed<EventItem[]>(()=>eventResponse.value?.data||[]); const selectedEventId=ref(''); const members=ref<CommitteeMemberItem[]>([]),loading=ref(false),search=ref(''),feedback=ref(''),feedbackTone=ref<'success'|'error'>('success');
 const filteredMembers=computed(()=>members.value);

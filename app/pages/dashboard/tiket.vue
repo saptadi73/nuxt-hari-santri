@@ -1,7 +1,7 @@
 <template>
   <section class="tickets-page">
     <div class="tickets-inner">
-      <p class="eyebrow">HARI SANTRI 2026 / {{ id ? 'TIKET' : 'TICKETS' }}</p>
+      <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'TIKET' : 'TICKETS' }}</p>
       <h1>{{ id ? 'Tiket peserta' : 'Participant tickets' }}</h1>
       <p class="intro">{{ id ? 'Setiap peserta memiliki tiket QR sendiri. Tunjukkan saat check-in dan jangan bagikan QR secara publik.' : 'Each participant has an individual QR ticket. Show it at check-in and do not share it publicly.' }}</p>
       <p v-if="loading" class="state">{{ id ? 'Memuat tiket…' : 'Loading tickets…' }}</p>
@@ -52,7 +52,7 @@ const loadTickets = async () => {
   }
 };
 onMounted(() => { void loadTickets(); });
-useSeoMeta({ title: () => `${id.value ? 'Tiket Peserta' : 'Participant Tickets'} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Tiket Peserta' : 'Participant Tickets'} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

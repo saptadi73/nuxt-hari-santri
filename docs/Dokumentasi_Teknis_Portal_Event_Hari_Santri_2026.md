@@ -1,10 +1,10 @@
-# Dokumentasi Teknis Portal Event Hari Santri 2026
+# Dokumentasi Teknis Portal Event Harlah NU ke-101
 
 **Versi:** 1.0 · **Tanggal:** 29 September 2026 · **Status:** acuan implementasi
 
 ## 1. Ringkasan dan batas sistem
 
-Portal untuk **Sepeda Santai dan Jalan Sehat Keluarga** (**Leisure Bike Ride & Family Fun Walk**), diselenggarakan **MWC NU Tarumajaya**, Minggu **15 November 2026** di **Summarecon Crown Gading, Tarumajaya, Bekasi**. Jam, titik kumpul, arahan kegiatan, harga, kuota, dan daftar pengisi acara harus ditetapkan panitia di CMS; jangan mengambilnya sebagai fakta operasional dari poster ilustratif.
+Portal untuk **Sepeda Santai dan Jalan Sehat Keluarga** (**Leisure Bike Ride & Family Fun Walk**), diselenggarakan **MWC NU Tarumajaya**, Minggu **31 Januari 2027** di **Summarecon Crown Gading, Tarumajaya, Bekasi**. Jam, titik kumpul, arahan kegiatan, harga, kuota, dan daftar pengisi acara harus ditetapkan panitia di CMS; jangan mengambilnya sebagai fakta operasional dari poster ilustratif.
 
 Stack: Nuxt 3 (TypeScript) untuk situs publik dan dashboard, FastAPI untuk API bisnis, PostgreSQL untuk data, Redis dan worker untuk antrean serta cache, object storage untuk gambar/dokumen. Konvensi waktu tampilan `Asia/Jakarta`; simpan timestamp `timestamptz` UTC. Nominal IDR sebagai integer rupiah.
 
@@ -22,7 +22,7 @@ Portal Event mengelola paket, peserta, pemesanan, tiket QR, check-in, konten, da
 | Admin keuangan | Membaca status dan ringkasan pembayaran, mencocokkan dengan Portal Payment, menangani pengecualian |
 | Super admin | Pengguna, peran, konfigurasi, audit dan integrasi |
 
-Fitur publik: beranda, tentang Hari Santri dan sejarah singkat Pertempuran 10 November (konten editorial dengan sumber), dua kegiatan, paket/harga/kuota, agenda, pengisi acara/hadir (hanya yang telah dikonfirmasi), hadiah dan mekanisme doorprize, peta dua rute, bazar kuliner/buku Islam/makanan halal, voucher dengan syarat yang jelas, FAQ, kontak, sponsor, syarat dan privasi. Pendaftaran tenant bazar adalah alur tersendiri: formulir, kategori produk, kebutuhan stan, status seleksi, biaya stan opsional melalui order terpisah jika diaktifkan.
+Fitur publik: beranda, tentang Harlah NU dan sejarah singkat Pertempuran 10 November (konten editorial dengan sumber), dua kegiatan, paket/harga/kuota, agenda, pengisi acara/hadir (hanya yang telah dikonfirmasi), hadiah dan mekanisme doorprize, peta dua rute, bazar kuliner/buku Islam/makanan halal, voucher dengan syarat yang jelas, FAQ, kontak, sponsor, syarat dan privasi. Pendaftaran tenant bazar adalah alur tersendiri: formulir, kategori produk, kebutuhan stan, status seleksi, biaya stan opsional melalui order terpisah jika diaktifkan.
 
 ## 3. Adaptasi dari pola IWBIF
 
@@ -54,7 +54,7 @@ Contoh payload initiate (nilai contoh, bukan harga resmi):
   "service_code": "HARI_SANTRI_2026",
   "organizer_code": "MWC_NU_TARUMAJAYA",
   "reference_id": "HS26-REG-000123",
-  "description": "Paket Jalan Sehat Keluarga Hari Santri 2026",
+  "description": "Paket Jalan Sehat Keluarga Harlah NU ke-101",
   "amount": 200000,
   "currency": "IDR",
   "customer": {"name": "Nama Pemesan", "email": "peserta@example.com", "phone": "+628123456789"},
@@ -111,7 +111,7 @@ Base `/api/v1`; pagination `page`, `page_size`; response error `{ "error": { "co
 
 | Area | Endpoint | Catatan |
 |---|---|---|
-| Publik | `GET /events/hari-santri-2026`, `/packages`, `/routes?activity_type=...`, `/agenda`, `/performers`, `/prizes`, `/articles`, `/faqs`, `/bazaar` | Hanya konten terbit; harga/kuota diambil dari server |
+| Publik | `GET /events/harlah-nu-101`, `/packages`, `/routes?activity_type=...`, `/agenda`, `/performers`, `/prizes`, `/articles`, `/faqs`, `/bazaar` | Hanya konten terbit; harga/kuota diambil dari server |
 | Akun | `POST /auth/register`, `/auth/login`, `/auth/refresh`, `/auth/logout`; `GET/PATCH /me` | Rate limit; refresh rotation; cookie HttpOnly bila satu origin |
 | Pesanan | `POST /orders`, `GET /me/orders`, `GET /me/orders/{id}`, `POST /orders/{id}/checkout` | Pastikan buyer pemilik; checkout kembali `payment_url` |
 | Peserta | `GET/PATCH /me/orders/{id}/participants/{id}`, `GET /shirt-sizes`, `GET /me/tickets`, `GET /me/tickets/{id}` | Edit dibatasi status dan deadline; ukuran kaos diperlukan |

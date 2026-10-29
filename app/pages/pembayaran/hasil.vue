@@ -1,7 +1,7 @@
 <template>
   <section class="result-page">
     <div class="result-content">
-      <p class="eyebrow">{{ id ? 'HARI SANTRI 2026' : 'HARI SANTRI 2026' }}</p>
+      <p class="eyebrow">{{ id ? 'HARLAH NU KE-101' : 'HARLAH NU KE-101' }}</p>
       <h1>{{ title }}</h1>
       <p class="result-message" aria-live="polite">{{ message }}</p>
       <dl v-if="donationMode && donationStatus" class="status-list">
@@ -55,7 +55,7 @@ const title = computed(() => {
 });
 const message = computed(() => {
   if (donationMode.value) {
-    if (donationStatus.value?.status === 'PAID') return 'Donasi Anda telah dikonfirmasi. Terima kasih telah mendukung kegiatan Hari Santri 2026.';
+    if (donationStatus.value?.status === 'PAID') return 'Donasi Anda telah dikonfirmasi. Terima kasih telah mendukung kegiatan Harlah NU ke-101.';
     if (['FAILED', 'EXPIRED', 'CANCELED', 'CANCELLED'].includes(donationStatus.value?.status || '')) return 'Pembayaran donasi belum berhasil. Anda dapat kembali ke halaman donasi untuk mencoba lagi.';
     return 'Status donasi akan diperbarui setelah sistem menerima konfirmasi dari Portal Payment.';
   }
@@ -131,7 +131,7 @@ onMounted(async () => {
   }
 });
 onBeforeUnmount(() => { if (poller) clearInterval(poller); });
-useSeoMeta({ title: () => `${title.value} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${title.value} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

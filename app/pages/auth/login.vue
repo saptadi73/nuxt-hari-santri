@@ -43,14 +43,14 @@
 const {locale}=useI18n();
 const messages = {
   en: {
-    member: 'Participant access', title: 'Log in to Hari Santri 2026', intro: 'Manage your registration, ticket, payment status, and event updates.', email: 'Email', password: 'Password', passwordPlaceholder: 'Enter your password', forgotPassword: 'Forgot password?', resetSuccess: 'Your password has been reset. You can now log in with your new password.', login: 'Log in', needAccount: 'Need an account?', create: 'Create one', input: 'Input', invalid: 'Invalid value', processError: 'Login could not be processed.', required: 'Enter your email address and password.', invalidEmail: 'Enter a valid email address.', passwordLength: 'Password must be at least 8 characters long.', submitting: 'Signing in...', success: 'Login successful.', failed: 'Failed'
+    member: 'Participant access', title: 'Log in to Harlah NU ke-101', intro: 'Manage your registration, ticket, payment status, and event updates.', email: 'Email', password: 'Password', passwordPlaceholder: 'Enter your password', forgotPassword: 'Forgot password?', resetSuccess: 'Your password has been reset. You can now log in with your new password.', login: 'Log in', needAccount: 'Need an account?', create: 'Create one', input: 'Input', invalid: 'Invalid value', processError: 'Login could not be processed.', required: 'Enter your email address and password.', invalidEmail: 'Enter a valid email address.', passwordLength: 'Password must be at least 8 characters long.', submitting: 'Signing in...', success: 'Login successful.', failed: 'Failed'
   },
   id: {
-    member: 'Akses peserta', title: 'Masuk ke Hari Santri 2026', intro: 'Kelola pendaftaran, tiket, status pembayaran, dan informasi acara.', email: 'Email', password: 'Kata sandi', passwordPlaceholder: 'Masukkan kata sandi', forgotPassword: 'Lupa kata sandi?', resetSuccess: 'Kata sandi berhasil diubah. Silakan masuk dengan kata sandi baru.', login: 'Masuk', needAccount: 'Belum punya akun?', create: 'Daftar sekarang', input: 'Input', invalid: 'Nilai tidak valid', processError: 'Login tidak dapat diproses.', required: 'Masukkan email dan kata sandi.', invalidEmail: 'Masukkan alamat email yang valid.', passwordLength: 'Kata sandi minimal 8 karakter.', submitting: 'Sedang masuk...', success: 'Berhasil masuk.', failed: 'Gagal'
+    member: 'Akses peserta', title: 'Masuk ke Harlah NU ke-101', intro: 'Kelola pendaftaran, tiket, status pembayaran, dan informasi acara.', email: 'Email', password: 'Kata sandi', passwordPlaceholder: 'Masukkan kata sandi', forgotPassword: 'Lupa kata sandi?', resetSuccess: 'Kata sandi berhasil diubah. Silakan masuk dengan kata sandi baru.', login: 'Masuk', needAccount: 'Belum punya akun?', create: 'Daftar sekarang', input: 'Input', invalid: 'Nilai tidak valid', processError: 'Login tidak dapat diproses.', required: 'Masukkan email dan kata sandi.', invalidEmail: 'Masukkan alamat email yang valid.', passwordLength: 'Kata sandi minimal 8 karakter.', submitting: 'Sedang masuk...', success: 'Berhasil masuk.', failed: 'Gagal'
   }
 } as const;
 const copy = computed(() => messages[String(locale.value) === 'id' ? 'id' : 'en']);
-useSeoMeta({ title: () => `${copy.value.login} | Hari Santri 2026`, description: () => copy.value.intro });
+useSeoMeta({ title: () => `${copy.value.login} | Harlah NU ke-101`, description: () => copy.value.intro });
 const form = reactive({ email: '', password: '' });
 const { login } = useAuth();
 const flow = useHariSantriRegistration();

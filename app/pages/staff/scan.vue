@@ -1,7 +1,7 @@
 <template>
   <section class="scan-page">
     <div class="scan-inner">
-      <p class="eyebrow">HARI SANTRI 2026 / CHECK-IN</p>
+      <p class="eyebrow">HARLAH NU KE-101 / CHECK-IN</p>
       <h1>{{ id ? 'Pindai tiket peserta' : 'Scan participant ticket' }}</h1>
       <p class="intro">{{ id ? 'Tiket diperiksa langsung ke server. Setiap tiket hanya dapat digunakan satu kali.' : 'Tickets are checked online. Each ticket can only be used once.' }}</p>
 
@@ -89,7 +89,7 @@ const stopCamera = () => {
 };
 const submitManual = () => submitToken(manualToken.value);
 onBeforeUnmount(stopCamera);
-useSeoMeta({ title: () => `${id.value ? 'Check-in Peserta' : 'Participant Check-in'} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Check-in Peserta' : 'Participant Check-in'} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

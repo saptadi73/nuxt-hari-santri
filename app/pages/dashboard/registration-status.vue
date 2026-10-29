@@ -76,7 +76,7 @@ const messages = {
   }
 };
 const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.title} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${copy.value.title} | Harlah NU ke-101` });
 
 const participation = computed(() => (['delegate', 'exhibitor'] as PurchaseType[]).map(type => {
   const c = copy.value;

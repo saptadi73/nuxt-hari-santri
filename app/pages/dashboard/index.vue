@@ -1,14 +1,14 @@
 <template>
   <section class="dashboard-page">
     <div class="dashboard-inner">
-      <p class="eyebrow">HARI SANTRI 2026 / {{ id ? 'DASHBOARD' : 'DASHBOARD' }}</p>
+      <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'DASHBOARD' : 'DASHBOARD' }}</p>
       <div class="heading-row">
         <div><h1>{{ id ? `Assalamu’alaikum, ${userName}` : `Welcome, ${userName}` }}</h1><p>{{ id ? 'Pesanan keluarga, tiket, dan informasi acara dalam satu tempat.' : 'Family orders, tickets, and event information in one place.' }}</p></div>
         <div class="countdown"><span>{{ id ? 'MENUJU HARI ACARA' : 'UNTIL EVENT DAY' }}</span><strong>{{ daysUntil }}</strong><small>{{ id ? 'hari' : 'days' }}</small></div>
       </div>
 
       <div v-if="!isOrganizer" class="status-grid">
-        <article><span>{{ id ? 'PESANAN' : 'ORDERS' }}</span><strong>{{ orders.length }}</strong><p>{{ id ? 'Pesanan Hari Santri' : 'Hari Santri orders' }}</p></article>
+        <article><span>{{ id ? 'PESANAN' : 'ORDERS' }}</span><strong>{{ orders.length }}</strong><p>{{ id ? 'Pesanan Harlah NU' : 'Harlah NU orders' }}</p></article>
         <article><span>{{ id ? 'PESERTA' : 'PARTICIPANTS' }}</span><strong>{{ participantCount }}</strong><p>{{ id ? 'Anggota keluarga' : 'Family members' }}</p></article>
         <article><span>{{ id ? 'TIKET' : 'TICKETS' }}</span><strong>{{ tickets.length }}</strong><p>{{ id ? 'Tiket digital tersedia' : 'Digital tickets available' }}</p></article>
       </div>
@@ -79,7 +79,7 @@ onMounted(async () => {
     error.value = cause instanceof Error ? cause.message : (id.value ? 'Informasi dashboard belum dapat dimuat.' : 'Dashboard information could not be loaded.');
   }
 });
-useSeoMeta({ title: () => `${id.value ? 'Dashboard Peserta' : 'Participant Dashboard'} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Dashboard Peserta' : 'Participant Dashboard'} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <section class="inventory-page">
     <div class="inventory-inner">
-      <p class="eyebrow">ADMIN REGISTRASI / HARI SANTRI 2026</p>
+      <p class="eyebrow">ADMIN REGISTRASI / HARLAH NU KE-101</p>
       <h1>{{ id ? 'Ukuran & inventori kaos' : 'Shirt sizes & inventory' }}</h1>
       <p class="intro">{{ id ? 'Atur ukuran dan jumlah stok. Stok yang sudah dipesan atau dialokasikan tidak dapat dikurangi.' : 'Manage shirt sizes and stock. Reserved or allocated units cannot be removed.' }}</p>
 
@@ -55,7 +55,7 @@ const load = async () => {
     if (!auth.isAdminOrOrganizer) throw new Error(id.value ? 'Halaman ini khusus admin registrasi.' : 'This page is restricted to registration administrators.');
     const events = await eventApi.getEvents(1, 100);
     const event = events.data.find(item => item.slug === runtime.public.eventSlug);
-    if (!event) throw new Error(id.value ? 'Event Hari Santri belum dibuat.' : 'The Hari Santri event has not been created.');
+    if (!event) throw new Error(id.value ? 'Event Harlah NU belum dibuat.' : 'The Harlah NU event has not been created.');
     eventId.value = event.id;
     sizes.value = (await hariSantriApi.getAdminShirtSizes(event.id)).data;
     for (const size of sizes.value) drafts[size.id] = { active: size.active, capacity: size.capacity };
@@ -99,7 +99,7 @@ const saveSize = async (sizeId: string) => {
 };
 
 onMounted(() => { void load(); });
-useSeoMeta({ title: () => `${id.value ? 'Inventori Kaos' : 'Shirt Inventory'} | Hari Santri 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Inventori Kaos' : 'Shirt Inventory'} | Harlah NU ke-101` });
 </script>
 
 <style scoped>

@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { useTableReload } from '~/composables/useTableReload';
 import { useSpeaker } from '~/composables/useSpeaker'; import { useAdminContent, type SpeakerMutationPayload } from '~/composables/useAdminContent'; import { useEvent, type EventItem, type SpeakerItem } from '~/composables/useEvent';
-definePageMeta({ middleware: ['auth','admin'] }); useSeoMeta({ title:'Manage Speakers | Hari Santri 2026' });
+definePageMeta({ middleware: ['auth','admin'] }); useSeoMeta({ title:'Manage Speakers | Harlah NU ke-101' });
 const {getSpeakers,uploadSpeakerPhoto}=useSpeaker(); const adminApi=useAdminContent(); const {getEvents}=useEvent(); const {mediaUrl}=useMediaUrl();
 const pending=ref(false); const speakers=ref<SpeakerItem[]>([]); const {data:eventResponse}=useAsyncData('admin-speaker-events',()=>getEvents(1,100)); const events=computed<EventItem[]>(()=>eventResponse.value?.data||[]); const selectedEventId=ref('');
 const search=ref(''); const filteredSpeakers=computed(()=>speakers.value);

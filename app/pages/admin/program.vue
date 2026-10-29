@@ -54,7 +54,7 @@
 import { useTableReload } from '~/composables/useTableReload';
 import { useEvent, type EventItem, type SessionItem } from '~/composables/useEvent';
 import { useAdminContent, type SessionMutationPayload } from '~/composables/useAdminContent';
-definePageMeta({ middleware: ['auth', 'admin'] }); useSeoMeta({ title: 'Manage Program | Hari Santri 2026' });
+definePageMeta({ middleware: ['auth', 'admin'] }); useSeoMeta({ title: 'Manage Program | Harlah NU ke-101' });
 const { getEvents } = useEvent(); const adminApi = useAdminContent();
 const { data: eventResponse } = await useAsyncData('admin-program-events', () => getEvents(1, 100));
 const events = computed<EventItem[]>(() => eventResponse.value?.data || []); const selectedEventId = ref(events.value[0]?.id || ''); const selectedEvent = computed(() => events.value.find(item => item.id === selectedEventId.value));
