@@ -112,9 +112,9 @@
         <p class="section-number">04 <span>/ {{ locale === 'id' ? 'Agenda' : 'Agenda' }}</span></p>
         <div>
           <h2>{{ locale === 'id' ? 'Satu hari, banyak momen bersama.' : 'One day, many moments together.' }}</h2>
-          <p class="small-note">{{ locale === 'id' ? 'Daftar ini adalah susunan segmen CMS, bukan jadwal jam yang telah ditetapkan. Jam dan lokasi diterbitkan setelah terkonfirmasi.' : 'These are CMS program segments, not confirmed times. Times and locations will be published when confirmed.' }}</p>
+          <p class="small-note">{{ locale === 'id' ? 'Berikut susunan waktu acara. Peserta diharapkan hadir tepat waktu dan mengikuti arahan panitia.' : 'Here is the event schedule. Participants are encouraged to arrive on time and follow the organizers’ guidance.' }}</p>
           <ol class="agenda-list">
-            <li v-for="(item, index) in agendaItems" :key="item.id"><span>0{{ index + 1 }}</span><strong>{{ item.id }}</strong><p>{{ item.copy }}</p><em>{{ locale === 'id' ? 'Waktu diumumkan' : 'Time to be announced' }}</em></li>
+            <li v-for="(item, index) in agendaItems" :key="item.id"><span>0{{ index + 1 }}</span><strong>{{ item.id }}</strong><p>{{ item.copy }}</p><em>{{ item.time }}</em></li>
           </ol>
         </div>
       </div>
@@ -316,19 +316,19 @@ const prizeCategories = [
 ];
 
 const agendaItems = computed(() => locale.value === 'id' ? [
-  { id: 'Kedatangan & registrasi', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
-  { id: 'Pembukaan', copy: 'Kita awali perayaan Harlah NU dengan sambutan dan doa bersama.' },
-  { id: 'Pelepasan kegiatan', copy: 'Bersiap di titik start dan ikuti arahan petugas untuk kegiatan pilihanmu.' },
-  { id: 'Bazar & aktivitas keluarga', copy: 'Singgah di stan kuliner, buku Islam, dan produk halal pilihan.' },
-  { id: 'Panggung acara', copy: 'Nikmati penampilan dari pengisi acara yang telah diumumkan.' },
-  { id: 'Doorprize & penutupan', copy: 'Simak pengumuman hadiah dan informasi penutup dari panitia.' }
+  { id: 'Kedatangan & Registrasi Ulang', time: '05:00 - 05:45', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
+  { id: 'Pembukaan', time: '05:45', copy: 'Kita awali perayaan Harlah NU dengan sambutan dan doa bersama.' },
+  { id: 'Pelepasan Kegiatan', time: '06:00', copy: 'Bersiap di titik start dan ikuti arahan petugas untuk kegiatan pilihanmu.' },
+  { id: 'Bazar dan Aktivitas Keluarga', time: '06:00 - 08:00', copy: 'Singgah di stan kuliner, buku Islam, dan produk halal pilihan.' },
+  { id: 'Panggung Acara', time: '08:00 - 10:00', copy: 'Nikmati penampilan dari pengisi acara yang telah diumumkan.' },
+  { id: 'Doorprize, Pembagian Hadiah dan Penutupan', time: '10:00 - 11:00', copy: 'Simak pengumuman hadiah dan informasi penutup dari panitia.' }
 ] : [
-  { id: 'Arrival & registration', copy: 'Arrive early, prepare your digital ticket, and follow signs to the event area.' },
-  { id: 'Opening', copy: 'We begin the Santri Day celebration with welcomes and prayers.' },
-  { id: 'Activity starts', copy: 'Gather at the start point and follow marshal guidance for your activity.' },
-  { id: 'Bazaar & family activities', copy: 'Visit halal food, Islamic books, and selected local products.' },
-  { id: 'Stage program', copy: 'Enjoy performances from announced guests and performers.' },
-  { id: 'Prize draw & closing', copy: 'Follow the official prize announcement and closing information.' }
+  { id: 'Arrival & re-registration', time: '05:00 - 05:45', copy: 'Arrive early, prepare your digital ticket, and follow signs to the event area.' },
+  { id: 'Opening', time: '05:45', copy: 'We begin the Harlah NU celebration with welcomes and prayers.' },
+  { id: 'Activity start', time: '06:00', copy: 'Gather at the start point and follow marshal guidance for your activity.' },
+  { id: 'Bazaar and family activities', time: '06:00 - 08:00', copy: 'Visit halal food, Islamic books, and selected local products.' },
+  { id: 'Stage program', time: '08:00 - 10:00', copy: 'Enjoy performances from announced guests and performers.' },
+  { id: 'Lucky draw, prize distribution and closing', time: '10:00 - 11:00', copy: 'Follow the official prize announcement and closing information.' }
 ]);
 const faqItems = computed(() => locale.value === 'id' ? [
   { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 31 Januari 2027 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
