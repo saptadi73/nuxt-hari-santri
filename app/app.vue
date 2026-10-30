@@ -790,10 +790,6 @@ summary::-webkit-details-marker {
 }
 
 @media (max-width: 639px) {
-  .mobile-register-cta {
-    display: none;
-  }
-
   .partner-logos {
     display: flex;
     flex-shrink: 0;
