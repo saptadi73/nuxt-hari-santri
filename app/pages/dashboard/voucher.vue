@@ -70,23 +70,23 @@ useSeoMeta({ title: 'Voucher Belanja | Harlah NU ke-101' });
 .voucher-card::before { width:14rem; height:14rem; right:-6rem; top:-7rem; }
 .voucher-card::after { width:9rem; height:9rem; left:-5rem; bottom:-5rem; }
 .voucher-pattern { position:absolute; inset:0; z-index:-1; opacity:.65; background-image:radial-gradient(circle at 15% 25%,rgba(244,10,8,.07) 0 2px,transparent 2.5px),linear-gradient(135deg,transparent 45%,rgba(45,19,77,.06) 46% 47%,transparent 48%); background-size:25px 25px,50px 50px; }
-.voucher-brand { display:flex; align-items:center; gap:.65rem; color:#2d134d; font-weight:900; font-size:.9rem; line-height:1.25; text-transform:uppercase; letter-spacing:.08em; margin-bottom:1.4rem; }
+.voucher-brand { display:flex; align-items:center; gap:.65rem; color:#075b36; font-weight:900; font-size:.9rem; line-height:1.25; text-transform:uppercase; letter-spacing:.08em; margin-bottom:1.4rem; }
 .voucher-brand small { color:#496255; font-size:.58rem; letter-spacing:.1em; }
-.brand-mark { display:grid; place-items:center; width:2.35rem; height:2.35rem; border-radius:50%; background:#2d134d; color:#d4af37; font-size:.7rem; letter-spacing:0; }
-.voucher-copy h2 { color:#2d134d; font:900 2.5rem Georgia,serif; margin:.6rem 0; }
+.brand-mark { display:grid; place-items:center; width:2.35rem; height:2.35rem; border-radius:50%; background:#075b36; color:#d4af37; font-size:.7rem; letter-spacing:0; }
+.voucher-copy h2 { color:#075b36; font:900 2.5rem Georgia,serif; margin:.6rem 0; }
 .voucher-copy p { color:#65776b; }
 .voucher-status { display:inline-block; border-radius:999px; background:#fff0d7; color:#865318 !important; padding:.3rem .65rem; font-size:.8rem; }
 .voucher-meta { font-size:.9rem; margin-top:.35rem; }
 .voucher-note { max-width:34rem; border-top:1px solid rgba(45,19,77,.15); margin-top:1rem; padding-top:.8rem; font-size:.78rem; line-height:1.6; }
-.voucher-qr { display:grid; place-items:center; gap:.7rem; color:#2d134d; font-size:.65rem; font-weight:900; letter-spacing:.22em; }
-.qr-frame { border:6px solid #2d134d; border-radius:1.25rem; background:#fff; padding:.65rem; box-shadow:0 8px 0 #d4af37; }
+.voucher-qr { display:grid; place-items:center; gap:.7rem; color:#075b36; font-size:.65rem; font-weight:900; letter-spacing:.22em; }
+.qr-frame { border:6px solid #075b36; border-radius:1.25rem; background:#fff; padding:.65rem; box-shadow:0 8px 0 #d4af37; }
 .voucher-qr img { display:block; width:12.5rem; height:12.5rem; }
 .panel { background:#fff; border:1px solid #d9e0d8; padding:1.25rem; }
 .panel-heading { display:flex; justify-content:space-between; gap:1rem; align-items:center; }
 .panel-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
 .panel h2 { font:1.35rem Georgia,serif; }
 .button { border:1px solid #b8c9bd; border-radius:.5rem; padding:.65rem .9rem; font-weight:800; background:#fff; cursor:pointer; }
-.secondary { color:#275d46; }.primary { border-color:#2d134d; background:#2d134d; color:#fff; }
+.secondary { color:#275d46; }.primary { border-color:#075b36; background:#075b36; color:#fff; }
 .state,.empty,.error,.success { margin-top:1.2rem; padding:1rem; border-block:1px solid #d9e0d8; }
 .error { color:#9a3022; }.success { color:#21623b; }
 .table-wrap { overflow:auto; } table { width:100%; border-collapse:collapse; } th,td { text-align:left; padding:.75rem; border-bottom:1px solid #edf1ed; } th { font-size:.7rem; letter-spacing:.1em; color:#6c7e72; }

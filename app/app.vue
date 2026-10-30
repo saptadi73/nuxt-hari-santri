@@ -10,15 +10,15 @@
             <img :src="siteLogo" alt="Logo Harlah NU ke-101">
           </span>
           <span class="brand-copy hidden sm:block">
-            <span class="brand-kicker block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.18em] text-[#2d134d]">MWC NU TARUMAJAYA</span>
-            <span class="brand-name block whitespace-nowrap text-base font-extrabold tracking-[0.04em] text-[#2d134d]">Harlah NU ke-101</span>
+            <span class="brand-kicker block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.18em] text-[#075b36]">MWC NU TARUMAJAYA</span>
+            <span class="brand-name block whitespace-nowrap text-base font-extrabold tracking-[0.04em] text-[#075b36]">Harlah NU ke-101</span>
           </span>
         </NuxtLink>
 
-      <nav ref="desktopMenuRef" class="desktop-nav hidden items-center gap-1 text-sm font-bold text-[#2d134d] xl:ml-auto xl:flex">
+      <nav ref="desktopMenuRef" class="desktop-nav hidden items-center gap-1 text-sm font-bold text-[#075b36] xl:ml-auto xl:flex">
         <template v-for="item in allNav" :key="item.to">
           <details v-if="item.children" class="group relative">
-            <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#2d134d] transition hover:bg-red-50 hover:text-red-700">
+            <summary class="nav-link inline-flex cursor-pointer list-none items-center whitespace-nowrap rounded-full px-3 py-2 uppercase tracking-[0.12em] text-[11px] leading-none text-[#075b36] transition hover:bg-emerald-50 hover:text-emerald-800">
               {{ item.label }} <span class="ml-1 text-[9px] transition group-open:rotate-180" aria-hidden="true">▼</span>
             </summary>
             <div class="nav-menu-panel absolute left-0 top-10 grid w-52 gap-1 rounded-2xl border border-red-100 bg-white/95 p-2 shadow-2xl shadow-red-900/15 backdrop-blur-xl">
@@ -161,7 +161,7 @@
       <NuxtPage />
     </main>
 
-    <footer class="relative z-10 border-t border-emerald-900/10 bg-[#faf9f5] text-[#2d134d]">
+    <footer class="relative z-10 border-t border-emerald-900/10 bg-[#faf9f5] text-[#075b36]">
       <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1fr_1fr_1.35fr] lg:px-8">
         <div>
           <p class="text-xs uppercase tracking-[0.3em] text-emerald-800">Harlah NU ke-101</p>
@@ -584,7 +584,7 @@ const allNav = computed<NavItem[]>(() => {
   border-radius: 999px;
   background: #fff;
   padding: 0 .65rem;
-  color: #2d134d;
+  color: #075b36;
   font-size: .7rem;
   font-weight: 800;
 }
@@ -688,7 +688,7 @@ const allNav = computed<NavItem[]>(() => {
 
 .brand-fallback {
   line-height: 1;
-  color: #2d134d;
+  color: #075b36;
   font-size: 0.65rem;
   font-size: clamp(0.62rem, 1.8vw, 0.75rem);
 }
@@ -747,7 +747,7 @@ const allNav = computed<NavItem[]>(() => {
 }
 
 .nav-link {
-  color: #2d134d;
+  color: #075b36;
   font-weight: 800;
   letter-spacing: 0.08em;
   font-size: 12px;

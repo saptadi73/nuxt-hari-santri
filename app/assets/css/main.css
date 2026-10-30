@@ -8,17 +8,17 @@
   color-scheme: light;
   --bg-primary: #faf9f5;
   --bg-secondary: #f5f4ef;
-  --bg-alt: #2d134d;
-  --bg-panel: rgba(45, 19, 77, 0.92);
-  --line-soft: rgba(45, 19, 77, 0.14);
+  --bg-alt: #075b36;
+  --bg-panel: rgba(7, 91, 54, 0.92);
+  --line-soft: rgba(7, 91, 54, 0.14);
   --text-muted: #6b6a68;
   --text-soft: #1f1e1d;
-  --cyan-glow: rgba(244, 10, 8, 0.12);
-  --gold-glow: rgba(255, 138, 128, 0.22);
-  --premium-gold: #f40a08;
-  --premium-gold-soft: #ff8a80;
-  --deep-blue: #2d134d;
-  --deep-navy: #2a1215;
+  --cyan-glow: rgba(132, 190, 54, 0.12);
+  --gold-glow: rgba(248, 184, 21, 0.22);
+  --premium-gold: #f8b815;
+  --premium-gold-soft: #ffe18a;
+  --deep-blue: #075b36;
+  --deep-navy: #06472c;
 }
 
 @layer base {

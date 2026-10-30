@@ -59,17 +59,17 @@
     <div
       v-if="qr.ticket_id && qr.imageUrl && !paymentRequired"
       ref="ticketCardRef"
-      class="print-ticket relative mt-10 overflow-hidden rounded-[2rem] border border-[#d4af37]/60 bg-[#fffdf7] p-5 shadow-2xl shadow-[#2d134d]/15 sm:p-8"
+      class="print-ticket relative mt-10 overflow-hidden rounded-[2rem] border border-[#d4af37]/60 bg-[#fffdf7] p-5 shadow-2xl shadow-[#075b36]/15 sm:p-8"
     >
       <div class="ticket-orbit pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[18px] border-[#d4af37]/15"></div>
       <div class="ticket-pattern pointer-events-none absolute inset-0 opacity-70"></div>
       <div class="ticket-notch ticket-notch-left absolute top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-left-5"></div>
       <div class="ticket-notch ticket-notch-right absolute top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-[#f5f5ef] sm:-right-5"></div>
-      <div class="pointer-events-none absolute inset-y-8 right-[18rem] hidden border-r border-dashed border-[#2d134d]/25 lg:block"></div>
+      <div class="pointer-events-none absolute inset-y-8 right-[18rem] hidden border-r border-dashed border-[#075b36]/25 lg:block"></div>
       <div class="relative mb-7 flex flex-wrap items-start justify-between gap-4 border-b border-[#d4af37]/45 pb-5">
         <div>
           <p class="text-[11px] font-black uppercase tracking-[0.42em] text-[#f40a08]">Harlah Nahdlatul Ulama</p>
-          <p class="mt-2 text-2xl font-black tracking-tight text-[#2d134d]">KE-101 <span class="text-[#d4af37]">•</span> 1926—2027</p>
+          <p class="mt-2 text-2xl font-black tracking-tight text-[#075b36]">KE-101 <span class="text-[#d4af37]">•</span> 1926—2027</p>
           <p class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#496255]">Dari pesantren untuk negeri</p>
         </div>
         <div class="rounded-full border border-[#d4af37]/70 bg-[#fff7d6] px-3 py-2 text-[10px] font-black uppercase tracking-[0.28em] text-[#6b4b00]">
@@ -93,10 +93,10 @@
               />
             </div>
             <div>
-              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#2d134d] sm:text-base">Harlah NU ke-101</p>
+              <p class="text-sm font-semibold uppercase tracking-[0.12em] text-[#075b36] sm:text-base">Harlah NU ke-101</p>
             </div>
           </div>
-          <h2 class="mt-3 max-w-2xl text-3xl font-black leading-tight text-[#2d134d] sm:text-4xl">
+          <h2 class="mt-3 max-w-2xl text-3xl font-black leading-tight text-[#075b36] sm:text-4xl">
             {{ locale === 'id' ? 'Tiket resmi untuk langkah kebersamaan' : 'Your participant ticket is verified' }}
           </h2>
           <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
@@ -137,7 +137,7 @@
         </div>
 
         <div class="relative">
-          <div class="qr-frame mx-auto max-w-[220px] rounded-[1.75rem] border-[6px] border-[#2d134d] bg-white p-3 shadow-2xl sm:max-w-[250px] sm:p-4">
+          <div class="qr-frame mx-auto max-w-[220px] rounded-[1.75rem] border-[6px] border-[#075b36] bg-white p-3 shadow-2xl sm:max-w-[250px] sm:p-4">
             <img
               v-if="qr.imageUrl"
               :src="qr.imageUrl"
@@ -146,7 +146,7 @@
               @error="qr.imageError = copy.qrRenderError"
             />
           </div>
-          <p class="mt-4 text-center text-xs font-black uppercase tracking-[0.35em] text-[#2d134d]">
+          <p class="mt-4 text-center text-xs font-black uppercase tracking-[0.35em] text-[#075b36]">
             {{ copy.scan }}
           </p>
           <p class="mt-2 text-center text-[11px] leading-5 text-slate-500">Satu tiket, satu pengalaman Harlah NU ke-101.</p>
