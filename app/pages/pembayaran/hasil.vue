@@ -18,7 +18,7 @@
       </dl>
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       <div class="actions">
-        <button type="button" class="button button--dark" :disabled="loading" @click="refresh">{{ loading ? (id ? 'Memeriksa…' : 'Checking…') : (id ? 'Periksa status' : 'Refresh status') }}</button>
+        <button type="button" class="button button--dark" :disabled="loading" @click="refresh(true)">{{ loading ? (id ? 'Memeriksa…' : 'Checking…') : (id ? 'Periksa status' : 'Refresh status') }}</button>
         <button v-if="!donationMode && orderId && canReconcile" type="button" class="button button--gold" :disabled="reconciling" @click="reconcileNow">{{ reconciling ? 'Memeriksa Payment Portal…' : 'Periksa ke Payment Portal' }}</button>
         <NuxtLink v-if="!donationMode && canResumeCheckout" :to="`/dashboard/payment?order_id=${encodeURIComponent(orderId)}`" class="button button--dark">{{ id ? 'Lanjutkan checkout yang sama' : 'Resume the same checkout' }}</NuxtLink>
         <NuxtLink v-if="!donationMode && status?.order_status === 'paid'" to="/dashboard/tiket" class="button button--gold">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
@@ -91,7 +91,7 @@ const reconcileNow = async () => {
   }
 };
 
-const refresh = async () => {
+const refresh = async (lookupPaymentPortal = false) => {
   if ((!orderId.value && !donationReference.value) || loading.value) return;
   loading.value = true;
   error.value = '';
@@ -100,6 +100,7 @@ const refresh = async () => {
       donationStatus.value = (await api.getDonationStatus(donationReference.value)).data;
     } else {
       if (!authStore.isAuthenticated) throw new Error('Masuk ke akun untuk melihat status pesanan.');
+      if (lookupPaymentPortal) await api.reconcileOrderPayment(orderId.value);
       status.value = (await api.getPaymentStatus(orderId.value)).data;
     }
     const terminal = donationMode.value
@@ -122,7 +123,8 @@ onMounted(async () => {
   donationReference.value = sessionStorage.getItem('hari-santri-donation-reference')
     || (typeof queryDonationReference === 'string' ? queryDonationReference : '');
   orderId.value = typeof queryOrderId === 'string' ? queryOrderId : sessionStorage.getItem('hari-santri-order-id') || '';
-  await refresh();
+  // Inquiry server-to-server sekali saat kembali dari Payment Portal.
+  await refresh(true);
   const isTerminal = donationMode.value
     ? ['PAID', 'FAILED', 'EXPIRED', 'CANCELED', 'CANCELLED'].includes(donationStatus.value?.status || '')
     : ['paid', 'paid_needs_review', 'expired', 'canceled'].includes(status.value?.order_status.toLowerCase() || '');
