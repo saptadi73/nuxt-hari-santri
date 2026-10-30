@@ -21,7 +21,8 @@
           <NuxtLink to="/dashboard/payment"><span>02</span><strong>{{ id ? 'Pesanan & Pembayaran' : 'Orders & Payment' }}</strong><p>{{ id ? 'Lanjutkan pembayaran melalui Portal Payment.' : 'Continue payment through the Payment Portal.' }}</p></NuxtLink>
           <NuxtLink to="/dashboard/tiket"><span>03</span><strong>{{ id ? 'Tiket Digital' : 'Digital Tickets' }}</strong><p>{{ id ? 'Satu QR untuk setiap peserta.' : 'One QR ticket per participant.' }}</p></NuxtLink>
           <NuxtLink to="/dashboard/voucher"><span>04</span><strong>{{ id ? 'Voucher Bazar' : 'Bazaar Vouchers' }}</strong><p>{{ id ? 'QR voucher, saldo, dan riwayat belanja.' : 'Voucher QR, balance, and spending history.' }}</p></NuxtLink>
-          <NuxtLink to="/#agenda"><span>04</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/donasi"><span>05</span><strong>{{ id ? 'Riwayat Donasi' : 'Donation History' }}</strong><p>{{ id ? 'Lihat donasi dan status konfirmasi pembayaran.' : 'View donations and their confirmation status.' }}</p></NuxtLink>
+          <NuxtLink to="/#agenda"><span>06</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
         </div>
       </section>
 
@@ -29,6 +30,7 @@
         <p class="eyebrow">{{ id ? 'OPERASIONAL' : 'OPERATIONS' }}</p>
         <h2>{{ id ? 'Kelola acara' : 'Manage the event' }}</h2>
         <div class="admin-links">
+          <NuxtLink to="/admin/harlah-reports">{{ id ? 'Pembayaran & donasi' : 'Payments & donations' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/admin/paket-hari-santri">{{ id ? 'Jenis Kegiatan & Biaya' : 'Activity types & fees' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/admin/kaos">{{ id ? 'Ukuran & inventori kaos' : 'Shirt sizes & inventory' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/admin/participants-report">{{ id ? 'Peserta & laporan' : 'Participants & reports' }} <span aria-hidden="true">→</span></NuxtLink>

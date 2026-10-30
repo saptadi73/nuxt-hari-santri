@@ -1,5 +1,6 @@
 import type { useApi, ApiResponse } from '~/composables/useApi';
 import { getPaymentProviderConfig } from '~/config/payment';
+import type { HarlahFinanceReport } from '~/types/harlahReports';
 
 export interface PaymentReportSummary {
   total_transactions: number;
@@ -215,6 +216,15 @@ export function useAdminReport() {
   const downloadParticipantReport = (params: Record<string, string | number | undefined> = {}) =>
     api<Blob>(`/admin/reports/participants.csv${buildQuery(params)}`, { responseType: 'blob' });
 
+  const getHarlahPaymentReport = (params: Record<string, string | number | undefined> = {}) =>
+    api<ApiResponse<HarlahFinanceReport>>('/admin/hari-santri/reports/payments' + buildQuery(params));
+  const downloadHarlahPaymentReport = (params: Record<string, string | number | undefined> = {}) =>
+    api<Blob>('/admin/hari-santri/reports/payments.csv' + buildQuery(params), { responseType: 'blob' });
+  const getHarlahDonationReport = (params: Record<string, string | number | undefined> = {}) =>
+    api<ApiResponse<HarlahFinanceReport>>('/admin/hari-santri/reports/donations' + buildQuery(params));
+  const downloadHarlahDonationReport = (params: Record<string, string | number | undefined> = {}) =>
+    api<Blob>('/admin/hari-santri/reports/donations.csv' + buildQuery(params), { responseType: 'blob' });
+
   return {
     getReport,
     getAdminTransactions,
@@ -227,6 +237,10 @@ export function useAdminReport() {
     downloadManualProof,
     getParticipantReport,
     downloadParticipantReport,
+    getHarlahPaymentReport,
+    downloadHarlahPaymentReport,
+    getHarlahDonationReport,
+    downloadHarlahDonationReport,
     isMidtransReport: paymentProvider.isMidtrans
   };
 }

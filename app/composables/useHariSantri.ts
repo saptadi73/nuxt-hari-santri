@@ -1,4 +1,5 @@
 import type { useApi, ApiResponse } from '~/composables/useApi';
+import type { HarlahFinanceReport } from '~/types/harlahReports';
 
 export type ActivityType = 'CYCLING' | 'FAMILY_WALK';
 
@@ -162,6 +163,9 @@ export function useHariSantri() {
   const getDonationStatus = (referenceId: string) =>
     api<ApiResponse<DonationStatus>>(`/donations/${encodeURIComponent(referenceId)}/status`);
 
+  const getMyDonations = (page = 1, size = 20) =>
+    api<ApiResponse<HarlahFinanceReport>>('/hari-santri/me/donations', { query: { page, size } });
+
   const reconcilePayment = (referenceId: string) =>
     api<ApiResponse<Record<string, unknown>>>(`/admin/hari-santri/payments/${encodeURIComponent(referenceId)}/reconcile`, { method: 'POST' });
 
@@ -177,5 +181,5 @@ export function useHariSantri() {
   const getMyBazaarApplications = () =>
     api<ApiResponse<BazaarApplicationRecord[]>>('/bazaar/me/applications');
 
-  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcileOrderPayment, createDonation, getDonationStatus, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
+  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcileOrderPayment, createDonation, getDonationStatus, getMyDonations, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
 }

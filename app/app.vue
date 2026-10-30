@@ -512,6 +512,7 @@ const allNav = computed<NavItem[]>(() => {
   if (authStore.isAdminOrOrganizer) {
     administration.push({ to: '/admin/packages', label: locale.value === 'id' ? 'Kelola Paket' : 'Manage Packages' });
     administration.push({ to: '/admin/participants-report', label: locale.value === 'id' ? 'Laporan Peserta' : 'Participant Reports' });
+    administration.push({ to: '/admin/harlah-reports', label: locale.value === 'id' ? 'Laporan Pembayaran & Donasi' : 'Payment & Donation Reports' });
     administration.push({ to: '/admin/audit-vouchers', label: locale.value === 'id' ? 'Audit Voucher' : 'Voucher Audit' });
     administration.push({ to: '/admin/hari-santri-operations', label: locale.value === 'id' ? 'Operasional Callback' : 'Callback Operations' });
     administration.push({ to: '/admin/announcements', label: locale.value === 'id' ? 'Pengumuman' : 'Announcements' });
