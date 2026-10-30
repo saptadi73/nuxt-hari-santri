@@ -23,19 +23,21 @@ Aset desain kaos peserta:
 - Sepeda Santai: `app/assets/images/kaos-sepeda-santai.png`
 - Jalan Sehat Keluarga: `app/assets/images/kaos-jalan-sehat.png`
 
-Harga paket yang harus dikonfigurasi pada server dan tampil pada pendaftaran:
+Biaya pendaftaran yang harus dikonfigurasi pada server dan tampil pada pemilihan jenis kegiatan:
 
 - Sepeda Santai: Rp75.000
 - Jalan Sehat Keluarga: Rp25.000
+
+Istilah publik yang digunakan pada beranda, formulir, dashboard, dan admin adalah **Jenis Kegiatan** dan **Biaya Pendaftaran**. Field API `price` serta tipe internal `hari_santri_package` dipertahankan demi kompatibilitas.
 
 Seeder backend yang idempotent untuk memperbarui harga dan mengaktifkan paket:
 `fastapi-hari-santri/scripts/seed_harlah_nu_101_packages.py`.
 
 Palet utama mengikuti dokumentasi `fastapi-hari-santri/docs/Tema Web Harlah NU ke-101.pdf`:
 
-- Plum utama: `#2d134d`
-- Merah aksen: `#f40a08`
-- Aksen coral: `#ff8a80`
+- Hijau tua utama: `#075b36`
+- Hijau muda aksen: `#85be36`
+- Emas aksen: `#f8b815`
 - Latar terang: `#faf9f5`
 
 ## Aturan konten
