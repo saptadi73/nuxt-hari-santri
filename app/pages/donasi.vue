@@ -44,6 +44,13 @@ const formatRupiah = (value: number) => new Intl.NumberFormat('id-ID', {
   maximumFractionDigits: 0
 }).format(value);
 const amountPreview = computed(() => amount.value && amount.value > 0 ? formatRupiah(amount.value) : '');
+const checkoutUrl = (value: string, paymentNo?: string | null) => {
+  const url = new URL(value);
+  if (paymentNo && url.protocol === 'https:' && url.hostname === 'bayar.gagakrimang.web.id' && (!url.pathname || url.pathname === '/')) {
+    url.pathname = `/p/${encodeURIComponent(paymentNo)}`;
+  }
+  return url.toString();
+};
 
 const submitDonation = async () => {
   if (loading.value) return;
@@ -64,7 +71,7 @@ const submitDonation = async () => {
     });
     sessionStorage.removeItem('hari-santri-order-id');
     sessionStorage.setItem('hari-santri-donation-reference', response.data.reference_id);
-    window.location.assign(response.data.payment_url);
+    window.location.assign(checkoutUrl(response.data.payment_url, response.data.payment_no));
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : 'Pembayaran donasi belum dapat disiapkan. Silakan coba kembali.';
   } finally {
