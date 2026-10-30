@@ -27,12 +27,12 @@
               <img :src="activityShirtImage" :alt="activity === 'CYCLING' ? 'Desain kaos Sepeda Santai' : 'Desain kaos Jalan Sehat Keluarga'" loading="lazy" decoding="async">
               <figcaption>{{ activity === 'CYCLING' ? 'Desain kaos Sepeda Santai' : 'Desain kaos Jalan Sehat Keluarga' }}</figcaption>
             </figure>
-            <label class="field-label" for="package-select">{{ text.package }}</label>
+            <label class="field-label" for="package-select">{{ text.activityType }}</label>
             <select id="package-select" v-model="selectedProductId" required :disabled="Boolean(resumeOrderId) || !activityProducts.length">
-              <option value="" disabled>{{ activityProducts.length ? text.choosePackage : text.packagesNotPublished }}</option>
+              <option value="" disabled>{{ activityProducts.length ? text.chooseActivityType : text.activityTypesNotPublished }}</option>
               <option v-for="product in activityProducts" :key="product.id" :value="product.id">{{ product.name }} · {{ money(Number(product.price ?? product.amount ?? 0), product.currency) }}</option>
             </select>
-            <p class="field-note">{{ text.packageNote }}</p>
+            <p class="field-note">{{ text.activityTypeNote }}</p>
           </section>
 
           <section class="form-section">
@@ -55,7 +55,7 @@
 
           <section class="form-section order-summary">
             <div class="form-section__heading"><span>03</span><h2>{{ text.review }}</h2></div>
-            <div class="summary-row"><span>{{ text.selectedPackage }}</span><strong>{{ selectedProduct?.name || text.notSelected }}</strong></div>
+            <div class="summary-row"><span>{{ text.selectedActivityType }}</span><strong>{{ selectedProduct?.name || text.notSelected }}</strong></div>
             <div class="summary-row"><span>{{ text.participants }}</span><strong>{{ participants.length }}</strong></div>
             <div class="summary-row summary-row--total"><span>{{ text.total }}</span><strong>{{ selectedProduct ? money(Number(selectedProduct.price ?? selectedProduct.amount ?? 0), selectedProduct.currency) : '—' }}</strong></div>
             <p class="field-note">{{ text.paymentNote }}</p>
@@ -114,7 +114,7 @@ const packageParticipantLimit = computed(() => {
 });
 const activityOptions = computed(() => isIndonesian.value ? [
   { code: 'CYCLING' as const, title: 'Sepeda Santai', summary: 'Kayuh bersama di dalam kawasan acara sesuai arahan panitia.' },
-  { code: 'FAMILY_WALK' as const, title: 'Jalan Sehat Keluarga', summary: 'Berjalan bersama keluarga sesuai ketentuan paket.' }
+  { code: 'FAMILY_WALK' as const, title: 'Jalan Sehat Keluarga', summary: 'Berjalan bersama keluarga sesuai ketentuan kegiatan.' }
 ] : [
   { code: 'CYCLING' as const, title: 'Leisure Bike Ride', summary: 'Ride together within the event area and follow the organizers’ guidance.' },
   { code: 'FAMILY_WALK' as const, title: 'Family Fun Walk', summary: 'Walk together within the event area and follow the organizers’ guidance.' }
@@ -123,7 +123,17 @@ const copy = {
   id: { eyebrow: 'PENDAFTARAN PESERTA', title: 'Ajak keluarga, pilih kegiatan.', intro: 'Pilih paket yang tersedia, isi data peserta dan ukuran kaos sebelum melanjutkan pembayaran.', accountRequired: 'Masuk ke akun pemesan untuk mengelola pesanan dan tiket keluarga.', signIn: 'Masuk', createAccount: 'Buat akun', loading: 'Memuat paket dan ukuran kaos…', chooseActivity: 'Pilih kegiatan', package: 'Paket', choosePackage: 'Pilih paket', packagesNotPublished: 'Paket resmi belum diterbitkan', packageNote: 'Harga, manfaat, dan kuota yang berlaku ditetapkan panitia dan berasal dari server.', participants: 'Data peserta', person: 'Peserta', remove: 'Hapus', fullName: 'Nama lengkap', birthDate: 'Tanggal lahir (opsional)', shirtSize: 'Ukuran kaos', selectSize: 'Pilih ukuran', left: 'tersedia', guardianName: 'Nama orang tua/wali', guardianContact: 'Kontak orang tua/wali', addParticipant: 'Tambah peserta', familyNote: 'Wilayah tempat tinggal menggunakan data akun pemesan yang diisi saat pertama mendaftar.', review: 'Periksa pesanan', selectedPackage: 'Paket', notSelected: 'Belum dipilih', total: 'Total pesanan', paymentNote: 'Pembayaran diproses oleh Portal Payment terpisah. Tiket terbit setelah status lunas diverifikasi oleh sistem.', acceptTerms: 'Saya menyetujui syarat pendaftaran dan kebijakan privasi.', submitting: 'Menyiapkan pesanan…', payButton: 'Lanjutkan ke Pembayaran', sizeUnavailable: 'Ukuran kaos belum tersedia. Silakan hubungi panitia.', noEvent: 'Pendaftaran belum dibuka. Event belum diterbitkan panitia.', paymentUrlInvalid: 'Tautan pembayaran tidak valid. Hubungi panitia.' },
   en: { eyebrow: 'PARTICIPANT REGISTRATION', title: 'Bring your family. Choose your activity.', intro: 'Choose an available package, enter each participant and shirt size, then continue to payment.', accountRequired: 'Sign in to the order owner account to manage family orders and tickets.', signIn: 'Sign in', createAccount: 'Create account', loading: 'Loading packages and shirt sizes…', chooseActivity: 'Choose an activity', package: 'Package', choosePackage: 'Choose a package', packagesNotPublished: 'Official packages are not published yet', packageNote: 'Prices, inclusions, and capacity are set by organizers and loaded from the server.', participants: 'Participant details', person: 'Participant', remove: 'Remove', fullName: 'Full name', birthDate: 'Date of birth (optional)', shirtSize: 'Shirt size', selectSize: 'Select size', left: 'available', guardianName: 'Parent/guardian name', guardianContact: 'Parent/guardian contact', addParticipant: 'Add participant', familyNote: 'The residential area uses the order owner’s account details entered during the first registration.', review: 'Review your order', selectedPackage: 'Package', notSelected: 'Not selected', total: 'Order total', paymentNote: 'Payment is handled by a separate Payment Portal. Tickets are issued after the system verifies payment.', acceptTerms: 'I agree to the registration terms and privacy policy.', submitting: 'Preparing order…', payButton: 'Continue to Payment', sizeUnavailable: 'Shirt sizes are not available yet. Contact the organizers.', noEvent: 'Registration is not open. The organizers have not published the event.', paymentUrlInvalid: 'The payment link is invalid. Contact the organizers.' }
 } as const;
-const text = computed(() => isIndonesian.value ? copy.id : copy.en);
+const text = computed(() => {
+  const base = isIndonesian.value ? copy.id : copy.en;
+  return {
+    ...base,
+    activityType: isIndonesian.value ? 'Jenis Kegiatan' : 'Activity type',
+    chooseActivityType: isIndonesian.value ? 'Pilih jenis kegiatan' : 'Choose an activity type',
+    activityTypesNotPublished: isIndonesian.value ? 'Jenis kegiatan resmi belum tersedia' : 'Official activity types are not available yet',
+    activityTypeNote: isIndonesian.value ? 'Biaya pendaftaran, manfaat, dan kuota ditetapkan panitia serta dimuat dari server.' : 'Registration fees, inclusions, and capacity are set by organizers and loaded from the server.',
+    selectedActivityType: isIndonesian.value ? 'Jenis Kegiatan' : 'Activity type'
+  };
+});
 const money = (value: number, currency: string) => new Intl.NumberFormat(isIndonesian.value ? 'id-ID' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(value);
 const isMinor = (birthDate: string) => {
   if (!birthDate) return false;
@@ -160,7 +170,7 @@ const recoverExistingOrder = async () => {
   }
   resumeOrderId.value = entry.order.id;
   const product = products.value.find(item => item.id === entry.items[0]?.product_id);
-  if (!product) throw new Error('Paket pesanan tersimpan tidak tersedia. Hubungi panitia; jangan membuat pesanan baru.');
+  if (!product) throw new Error('Jenis kegiatan pada pesanan tersimpan tidak tersedia. Hubungi panitia; jangan membuat pesanan baru.');
   activity.value = product.metadata_json?.activity_type as ActivityType;
   await nextTick();
   selectedProductId.value = product.id;
@@ -194,7 +204,7 @@ const submitRegistration = async () => {
   if (submitting.value) return;
   submitError.value = '';
   if (!termsAccepted.value || !selectedProduct.value || !availableSizes.value.length) {
-    submitError.value = availableSizes.value.length ? text.value.packageNote : text.value.sizeUnavailable;
+    submitError.value = availableSizes.value.length ? text.value.activityTypeNote : text.value.sizeUnavailable;
     return;
   }
   if (participants.value.some(person => !person.shirt_size_code || !availableSizes.value.some(size => size.code === person.shirt_size_code))) {

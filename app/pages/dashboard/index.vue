@@ -29,7 +29,7 @@
         <p class="eyebrow">{{ id ? 'OPERASIONAL' : 'OPERATIONS' }}</p>
         <h2>{{ id ? 'Kelola acara' : 'Manage the event' }}</h2>
         <div class="admin-links">
-          <NuxtLink to="/admin/paket-hari-santri">{{ id ? 'Paket & harga' : 'Packages & prices' }} <span aria-hidden="true">→</span></NuxtLink>
+          <NuxtLink to="/admin/paket-hari-santri">{{ id ? 'Jenis Kegiatan & Biaya' : 'Activity types & fees' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/admin/kaos">{{ id ? 'Ukuran & inventori kaos' : 'Shirt sizes & inventory' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/admin/participants-report">{{ id ? 'Peserta & laporan' : 'Participants & reports' }} <span aria-hidden="true">→</span></NuxtLink>
           <NuxtLink to="/staff/scan">{{ id ? 'Check-in tiket' : 'Ticket check-in' }} <span aria-hidden="true">→</span></NuxtLink>

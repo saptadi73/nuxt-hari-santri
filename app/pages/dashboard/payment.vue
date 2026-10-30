@@ -18,7 +18,7 @@
         <div class="empty-icon" aria-hidden="true">✦</div>
         <div>
           <strong>{{ id ? 'Belum ada pesanan Harlah NU.' : 'You do not have a Harlah NU order yet.' }}</strong>
-          <p>{{ id ? 'Pilih paket kegiatan dan daftarkan keluarga untuk memulai.' : 'Choose an activity package and register your family to get started.' }}</p>
+          <p>{{ id ? 'Pilih jenis kegiatan dan daftarkan keluarga untuk memulai.' : 'Choose an activity type and register your family to get started.' }}</p>
         <NuxtLink to="/daftar" class="text-link">{{ id ? 'Mulai pendaftaran' : 'Start registration' }} →</NuxtLink>
         </div>
       </div>
@@ -26,8 +26,8 @@
         <article v-for="entry in orders" :key="entry.order.id" class="order-row">
           <div class="order-row__body">
             <p class="order-kicker">{{ entry.order.order_number }}</p>
-            <h2>{{ entry.items[0]?.product_name || (id ? 'Paket Harlah NU' : 'Harlah NU package') }}</h2>
-            <p>{{ entry.items.reduce((count, item) => count + item.quantity, 0) }} {{ id ? 'paket' : 'package(s)' }} · {{ money(entry.order.total_amount, entry.order.currency) }}</p>
+            <h2>{{ entry.items[0]?.product_name || (id ? 'Jenis Kegiatan Harlah NU' : 'Harlah NU activity') }}</h2>
+            <p>{{ entry.items.reduce((count, item) => count + item.quantity, 0) }} {{ id ? 'peserta' : 'participant(s)' }} · {{ money(entry.order.total_amount, entry.order.currency) }}</p>
             <span class="status" :class="`status--${entry.order.status}`">{{ statusLabel(entry.order.status) }}</span>
           </div>
           <div class="order-actions">

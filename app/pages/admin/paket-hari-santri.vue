@@ -2,44 +2,44 @@
   <section class="packages-page">
     <div class="packages-inner">
       <p class="eyebrow">ADMIN REGISTRASI / HARLAH NU KE-101</p>
-      <h1>{{ id ? 'Paket & pendaftaran' : 'Packages & registration' }}</h1>
-      <p class="intro">{{ id ? 'Harga, kegiatan, batas peserta, kuota pembelian, dan status publikasi ditetapkan panitia.' : 'Organizers control prices, activity type, participant limits, purchase capacity, and publication.' }}</p>
+      <h1>{{ id ? 'Jenis Kegiatan & pendaftaran' : 'Activity types & registration' }}</h1>
+      <p class="intro">{{ id ? 'Biaya pendaftaran, jenis kegiatan, batas peserta, kuota pembelian, dan status publikasi ditetapkan panitia.' : 'Organizers control registration fees, activity type, participant limits, purchase capacity, and publication.' }}</p>
 
       <p v-if="error" class="error" role="alert">{{ error }}</p>
-      <p v-if="loading" class="state">{{ id ? 'Memuat paket…' : 'Loading packages…' }}</p>
+      <p v-if="loading" class="state">{{ id ? 'Memuat jenis kegiatan…' : 'Loading activity types…' }}</p>
       <div v-else class="product-list">
         <article v-for="product in products" :key="product.id" class="product-row">
           <div class="product-heading"><div><span>{{ product.metadata_json?.activity_type }}</span><h2>{{ product.name }}</h2><p>{{ product.code }} · {{ money(Number(product.price ?? product.amount ?? 0), product.currency) }}</p></div><label class="active-toggle"><input v-model="drafts[product.id]!.is_active" type="checkbox"><span>{{ id ? 'Terbit' : 'Published' }}</span></label></div>
           <div class="product-fields">
-            <label><span>{{ id ? 'Nama paket' : 'Package name' }}</span><input v-model.trim="drafts[product.id]!.name"></label>
-            <label><span>{{ id ? 'Harga (IDR)' : 'Price (IDR)' }}</span><input v-model.number="drafts[product.id]!.price" type="number" min="0" step="1"></label>
+            <label><span>{{ id ? 'Nama jenis kegiatan' : 'Activity type name' }}</span><input v-model.trim="drafts[product.id]!.name"></label>
+            <label><span>{{ id ? 'Biaya pendaftaran (IDR)' : 'Registration fee (IDR)' }}</span><input v-model.number="drafts[product.id]!.price" type="number" min="0" step="1"></label>
             <label><span>{{ id ? 'Jumlah minimum peserta' : 'Minimum participants' }}</span><input v-model.number="drafts[product.id]!.min_participants" type="number" min="1" max="99"></label>
             <label><span>{{ id ? 'Jumlah maksimum peserta' : 'Maximum participants' }}</span><input v-model.number="drafts[product.id]!.max_participants" type="number" min="1" max="99"></label>
-            <label><span>{{ id ? 'Kuota paket' : 'Package capacity' }}</span><input v-model.number="drafts[product.id]!.max_quantity" type="number" min="1"></label>
+            <label><span>{{ id ? 'Kuota jenis kegiatan' : 'Activity type capacity' }}</span><input v-model.number="drafts[product.id]!.max_quantity" type="number" min="1"></label>
             <label><span>{{ id ? 'Kuota orang untuk kegiatan' : 'Activity people capacity' }}</span><input v-model.number="drafts[product.id]!.capacity_people" type="number" min="0"></label>
-            <label class="description"><span>{{ id ? 'Deskripsi paket' : 'Package description' }}</span><textarea v-model.trim="drafts[product.id]!.description" rows="2" /></label>
+            <label class="description"><span>{{ id ? 'Deskripsi jenis kegiatan' : 'Activity type description' }}</span><textarea v-model.trim="drafts[product.id]!.description" rows="2" /></label>
           </div>
           <button type="button" class="button" :disabled="savingId === product.id" @click="save(product)">{{ savingId === product.id ? (id ? 'Menyimpan…' : 'Saving…') : (id ? 'Simpan perubahan' : 'Save changes') }}</button>
         </article>
-        <p v-if="!products.length" class="state">{{ id ? 'Belum ada paket untuk event ini.' : 'No packages are configured for this event yet.' }}</p>
+        <p v-if="!products.length" class="state">{{ id ? 'Belum ada jenis kegiatan untuk event ini.' : 'No activity types are configured for this event yet.' }}</p>
       </div>
 
       <form class="new-product" @submit.prevent="create">
-        <h2>{{ id ? 'Buat paket baru' : 'Create a package' }}</h2>
+        <h2>{{ id ? 'Buat jenis kegiatan baru' : 'Create an activity type' }}</h2>
         <div class="product-fields">
-          <label><span>{{ id ? 'Kode paket' : 'Package code' }}</span><input v-model.trim="form.code" required maxlength="60" placeholder="WALK-FAMILY"></label>
-          <label><span>{{ id ? 'Nama paket' : 'Package name' }}</span><input v-model.trim="form.name" required maxlength="180"></label>
+          <label><span>{{ id ? 'Kode jenis kegiatan' : 'Activity type code' }}</span><input v-model.trim="form.code" required maxlength="60" placeholder="WALK-FAMILY"></label>
+          <label><span>{{ id ? 'Nama jenis kegiatan' : 'Activity type name' }}</span><input v-model.trim="form.name" required maxlength="180"></label>
           <label><span>{{ id ? 'Kegiatan' : 'Activity' }}</span><select v-model="form.activity_type"><option value="CYCLING">CYCLING</option><option value="FAMILY_WALK">FAMILY_WALK</option></select></label>
-          <label><span>{{ id ? 'Harga resmi (IDR)' : 'Official price (IDR)' }}</span><input v-model.number="form.price" type="number" min="0" step="1" required></label>
+          <label><span>{{ id ? 'Biaya pendaftaran resmi (IDR)' : 'Official registration fee (IDR)' }}</span><input v-model.number="form.price" type="number" min="0" step="1" required></label>
           <label><span>{{ id ? 'Minimum peserta' : 'Minimum participants' }}</span><input v-model.number="form.min_participants" type="number" min="1" max="99" required></label>
           <label><span>{{ id ? 'Maksimum peserta' : 'Maximum participants' }}</span><input v-model.number="form.max_participants" type="number" min="1" max="99" required></label>
-          <label><span>{{ id ? 'Kuota paket' : 'Package capacity' }}</span><input v-model.number="form.max_quantity" type="number" min="1" required></label>
+          <label><span>{{ id ? 'Kuota jenis kegiatan' : 'Activity type capacity' }}</span><input v-model.number="form.max_quantity" type="number" min="1" required></label>
           <label><span>{{ id ? 'Kuota orang untuk kegiatan' : 'Activity people capacity' }}</span><input v-model.number="form.capacity_people" type="number" min="0" required></label>
           <label class="description"><span>{{ id ? 'Deskripsi & manfaat' : 'Description & inclusions' }}</span><textarea v-model.trim="form.description" rows="2" /></label>
         </div>
-        <label class="active-toggle"><input v-model="form.is_active" type="checkbox"><span>{{ id ? 'Terbitkan paket' : 'Publish package' }}</span></label>
-        <p class="field-note">{{ id ? 'Paket dapat diterbitkan setelah harga, kuota, manfaat, dan aturan peserta disahkan panitia.' : 'Publish only after organizers approve price, capacity, inclusions, and participant rules.' }}</p>
-        <button type="submit" class="button" :disabled="savingId === 'new'">{{ savingId === 'new' ? (id ? 'Menyimpan…' : 'Saving…') : (id ? 'Buat paket' : 'Create package') }}</button>
+        <label class="active-toggle"><input v-model="form.is_active" type="checkbox"><span>{{ id ? 'Terbitkan jenis kegiatan' : 'Publish activity type' }}</span></label>
+        <p class="field-note">{{ id ? 'Jenis kegiatan dapat diterbitkan setelah biaya pendaftaran, kuota, manfaat, dan aturan peserta disahkan panitia.' : 'Publish only after organizers approve the registration fee, capacity, inclusions, and participant rules.' }}</p>
+        <button type="submit" class="button" :disabled="savingId === 'new'">{{ savingId === 'new' ? (id ? 'Menyimpan…' : 'Saving…') : (id ? 'Buat jenis kegiatan' : 'Create activity type') }}</button>
       </form>
     </div>
   </section>
@@ -132,7 +132,7 @@ const create = async () => {
 };
 
 onMounted(() => { void load(); });
-useSeoMeta({ title: () => `${id.value ? 'Paket Harlah NU' : 'Harlah NU Packages'} | 2026` });
+useSeoMeta({ title: () => `${id.value ? 'Jenis Kegiatan Harlah NU' : 'Harlah NU Activity Types'} | 2027` });
 </script>
 
 <style scoped>

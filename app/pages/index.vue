@@ -50,7 +50,7 @@
         <article class="activity activity--cycle">
           <p class="activity__label">01 / CYCLING</p>
           <h3>{{ locale === 'id' ? 'Sepeda Santai' : 'Leisure Bike Ride' }}</h3>
-          <p>{{ locale === 'id' ? 'Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ketentuan peserta dan paket resmi tersedia sebelum mendaftar.' : 'Ride with family and friends within Summarecon Crown Gading. Participant terms and official packages are available before registration.' }}</p>
+          <p>{{ locale === 'id' ? 'Kayuh bersama keluarga dan sahabat di dalam kawasan Summarecon Crown Gading. Ketentuan peserta dan jenis kegiatan resmi tersedia sebelum mendaftar.' : 'Ride with family and friends within Summarecon Crown Gading. Participant terms and official activity types are available before registration.' }}</p>
           <a href="#syarat-ketentuan" class="text-link">{{ locale === 'id' ? 'Baca syarat & ketentuan' : 'Read terms & conditions' }} <span aria-hidden="true">→</span></a>
         </article>
         <article class="activity activity--walk">
@@ -63,25 +63,25 @@
 
       <div class="package-heading">
         <div>
-          <p class="section-number">{{ locale === 'id' ? 'PAKET PESERTA' : 'PARTICIPANT PACKAGES' }}</p>
-          <h3>{{ locale === 'id' ? 'Harga dan kuota resmi' : 'Official prices and availability' }}</h3>
+          <p class="section-number">{{ locale === 'id' ? 'JENIS KEGIATAN PESERTA' : 'PARTICIPANT ACTIVITIES' }}</p>
+          <h3>{{ locale === 'id' ? 'Biaya pendaftaran dan kuota resmi' : 'Official registration fees and availability' }}</h3>
         </div>
-        <p>{{ locale === 'id' ? 'Harga, manfaat, periode, dan kuota ditentukan panitia dan dimuat dari server.' : 'Prices, inclusions, sales period, and capacity are managed by the organizers and loaded from the server.' }}</p>
+        <p>{{ locale === 'id' ? 'Biaya pendaftaran, manfaat, periode, dan kuota ditentukan panitia dan dimuat dari server.' : 'Registration fees, inclusions, sales period, and capacity are managed by the organizers and loaded from the server.' }}</p>
       </div>
-      <p v-if="packagesLoading" class="package-state">{{ locale === 'id' ? 'Memuat paket…' : 'Loading packages…' }}</p>
+      <p v-if="packagesLoading" class="package-state">{{ locale === 'id' ? 'Memuat jenis kegiatan…' : 'Loading activity types…' }}</p>
       <div v-else-if="products.length" class="package-list">
         <article v-for="item in products" :key="item.id" class="package-row">
           <img class="package-row__image" :src="packageImage(item)" :alt="item.name" loading="lazy" decoding="async">
-          <div><h4>{{ item.name }}</h4><p>{{ item.description || (locale === 'id' ? 'Rincian paket mengikuti pengumuman resmi panitia.' : 'Package details will follow the organizers’ official announcement.') }}</p></div>
+          <div><h4>{{ item.name }}</h4><p>{{ item.description || (locale === 'id' ? 'Rincian jenis kegiatan mengikuti pengumuman resmi panitia.' : 'Activity details will follow the organizers’ official announcement.') }}</p></div>
           <div class="package-row__price">{{ formatPrice(Number(item.price ?? item.amount ?? 0), item.currency) }}</div>
-          <NuxtLink to="/daftar" class="button button--dark">{{ locale === 'id' ? 'Pilih Paket' : 'Select Package' }}</NuxtLink>
+          <NuxtLink to="/daftar" class="button button--dark">{{ locale === 'id' ? 'Pilih Jenis Kegiatan' : 'Select Activity' }}</NuxtLink>
         </article>
       </div>
       <div v-else class="package-state">
-        <p>{{ locale === 'id' ? 'Paket resmi, harga, isi, dan kuota akan diumumkan panitia.' : 'Official packages, prices, inclusions, and capacity will be announced by the organizers.' }}</p>
+        <p>{{ locale === 'id' ? 'Jenis kegiatan resmi, biaya pendaftaran, isi, dan kuota akan diumumkan panitia.' : 'Official activity types, registration fees, inclusions, and capacity will be announced by the organizers.' }}</p>
         <NuxtLink to="/daftar" class="text-link">{{ locale === 'id' ? 'Lihat formulir pendaftaran' : 'Open registration' }} <span aria-hidden="true">→</span></NuxtLink>
       </div>
-      <p class="small-note">{{ locale === 'id' ? 'Setiap peserta memilih ukuran kaos secara terpisah. Harga yang berlaku adalah harga pada ringkasan pesanan sebelum pembayaran.' : 'Each participant selects a shirt size separately. The price shown in the server-side order summary is final.' }}</p>
+      <p class="small-note">{{ locale === 'id' ? 'Setiap peserta memilih ukuran kaos secara terpisah. Biaya pendaftaran yang berlaku adalah biaya pada ringkasan pesanan sebelum pembayaran.' : 'Each participant selects a shirt size separately. The registration fee shown in the server-side order summary is final.' }}</p>
     </section>
 
     <section id="syarat-ketentuan" class="terms band">
@@ -284,13 +284,13 @@ const historyItems = computed(() => locale.value === 'id' ? [
 const termsRegistrationItems = computed(() => locale.value === 'id' ? [
   { title: 'Pendaftaran resmi', copy: 'Seluruh peserta wajib mendaftarkan diri melalui situs web resmi harlahnu.com.' },
   { title: 'Data registrasi', copy: 'Gunakan alamat email dan nomor HP yang aktif saat melakukan registrasi.' },
-  { title: 'Pilihan paket', copy: 'Saat mendaftar, pilih salah satu paket yang tersedia: Sepeda Santai atau Jalan Sehat.' },
+  { title: 'Pilihan jenis kegiatan', copy: 'Saat mendaftar, pilih salah satu jenis kegiatan yang tersedia: Sepeda Santai atau Jalan Sehat Keluarga.' },
   { title: 'Kategori peserta', copy: 'Keikutsertaan diutamakan bersama pasangan dan keluarga untuk memupuk semangat kebersamaan.' },
   { title: 'Kehadiran hari-H', copy: 'Peserta wajib hadir pada hari pelaksanaan dan melakukan absensi kedatangan menggunakan Tanda Peserta.' }
 ] : [
   { title: 'Official registration', copy: 'All participants must register through the official harlahnu.com website.' },
   { title: 'Registration details', copy: 'Use an active email address and mobile phone number when registering.' },
-  { title: 'Choose a package', copy: 'Select one of the available packages when registering: Leisure Cycling or Family Walk.' },
+  { title: 'Choose an activity type', copy: 'Select one of the available activity types when registering: Leisure Cycling or Family Walk.' },
   { title: 'Participant category', copy: 'Participation with a partner and family is encouraged to foster togetherness.' },
   { title: 'Event-day attendance', copy: 'Participants must attend on event day and record their arrival using their Participant Pass.' }
 ]);
@@ -332,7 +332,7 @@ const agendaItems = computed(() => locale.value === 'id' ? [
 ]);
 const faqItems = computed(() => locale.value === 'id' ? [
   { question: 'Kapan dan di mana acara berlangsung?', answer: 'Minggu, 31 Januari 2027 di Summarecon Crown Gading, Tarumajaya, Bekasi. Jam dan titik kumpul diumumkan panitia.' },
-  { question: 'Dapatkah saya mendaftarkan beberapa anggota keluarga?', answer: 'Ya, mengikuti batas peserta paket. Isi data dan ukuran kaos tiap anggota secara terpisah.' },
+  { question: 'Dapatkah saya mendaftarkan beberapa anggota keluarga?', answer: 'Ya, mengikuti batas peserta pada jenis kegiatan. Isi data dan ukuran kaos tiap anggota secara terpisah.' },
   { question: 'Bagaimana memilih ukuran kaos?', answer: 'Pilih ukuran pada formulir setiap peserta. Perubahan setelah pembayaran mengikuti tenggat dan stok panitia.' },
   { question: 'Bagaimana cara membayar?', answer: 'Pilih Lanjutkan Pembayaran untuk diarahkan ke Portal Payment. Status lunas tampil setelah konfirmasi sistem diterima.' },
   { question: 'Kapan tiket terbit?', answer: 'Tiket digital setiap peserta tersedia setelah pembayaran terverifikasi.' },
@@ -367,8 +367,8 @@ useSeoMeta({
     ? 'Harlah NU ke-101 | Sepeda Santai & Jalan Sehat Keluarga'
     : 'Harlah NU ke-101 | Leisure Bike Ride & Family Fun Walk',
   description: () => locale.value === 'id'
-    ? 'Ikuti Sepeda Santai dan Jalan Sehat Keluarga Harlah NU ke-101 pada 31 Januari 2027 di Summarecon Crown Gading. Lihat paket, syarat dan ketentuan, agenda, bazar, dan daftar peserta.'
-    : 'Join the Harlah NU ke-101 leisure cycling and family walk on 31 January 2027 at Summarecon Crown Gading. Explore packages, terms, agenda, bazaar, and registration.'
+    ? 'Ikuti Sepeda Santai dan Jalan Sehat Keluarga Harlah NU ke-101 pada 31 Januari 2027 di Summarecon Crown Gading. Lihat jenis kegiatan, syarat dan ketentuan, agenda, bazar, dan daftar peserta.'
+    : 'Join the Harlah NU ke-101 leisure cycling and family walk on 31 January 2027 at Summarecon Crown Gading. Explore activity types, terms, agenda, bazaar, and registration.'
 });
 </script>
 
