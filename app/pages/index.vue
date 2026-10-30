@@ -1,31 +1,28 @@
 <template>
   <div class="portal-home">
     <section class="hero" aria-labelledby="hero-title">
-      <img
-        class="hero__image"
-        :src="heroImage"
-        alt="Peserta Sepeda Santai dan Jalan Sehat Keluarga dalam perayaan Harlah NU ke-101"
-        fetchpriority="high"
-        width="2400"
-        height="1500"
-      >
-      <div class="hero__shade" aria-hidden="true" />
       <div class="hero__content">
-        <p class="eyebrow">{{ locale === 'id' ? 'MWC NU Tarumajaya mempersembahkan' : 'Presented by MWC NU Tarumajaya' }}</p>
+        <p class="hero__eyebrow">HARLAH KE-101 NAHDLATUL ULAMA · 31 JANUARI 2027</p>
         <h1 id="hero-title">{{ locale === 'id' ? 'Dari Pesantren untuk Negeri' : 'From Pesantren for the Nation' }}</h1>
-        <p class="hero__subtitle">Harlah NU ke-101</p>
-        <p class="hero__lead">{{ locale === 'id' ? 'Sehat bersama, eratkan persaudaraan, rayakan 101 tahun khidmah Nahdlatul Ulama.' : 'Move together, strengthen friendship, and celebrate 101 years of Nahdlatul Ulama service.' }}</p>
-        <div class="hero__facts">
-          <span>{{ locale === 'id' ? 'Minggu, 31 Januari 2027' : 'Sunday, 31 January 2027' }}</span>
-          <span>Summarecon Crown Gading</span>
-          <span>Tarumajaya, Bekasi</span>
-        </div>
+        <p class="hero__lead">{{ locale === 'id' ? 'Sepeda Santai & Jalan Sehat Keluarga. Silaturahmi akbar warga Tarumajaya di Summarecon Crown Gading.' : 'Leisure cycling and a family walk. A great gathering for Tarumajaya residents at Summarecon Crown Gading.' }}</p>
         <div class="hero__actions">
-          <NuxtLink to="/daftar" class="button button--light">{{ locale === 'id' ? 'Daftar Peserta' : 'Register Participants' }}</NuxtLink>
-          <a href="#kegiatan" class="text-link">{{ locale === 'id' ? 'Lihat Kegiatan' : 'Explore Activities' }} <span aria-hidden="true">↓</span></a>
+          <NuxtLink to="/daftar" class="button button--gold">{{ locale === 'id' ? 'Daftar Peserta' : 'Register Participants' }}</NuxtLink>
+          <NuxtLink to="/sejarah-nu" class="button button--outline">{{ locale === 'id' ? 'Baca Sejarahnya' : 'Read Our History' }}</NuxtLink>
         </div>
       </div>
-      <p class="hero__index" aria-hidden="true">01 / 31.01.27</p>
+      <div class="hero__visual">
+        <div class="hero__visual-frame">
+          <img
+            class="hero__image"
+            :src="heroImage"
+            alt="Peserta Sepeda Santai dan Jalan Sehat Keluarga dalam perayaan Harlah NU ke-101"
+            fetchpriority="high"
+            width="2400"
+            height="1500"
+          >
+        </div>
+        <p class="hero__index" aria-hidden="true">01 / 31.01.27</p>
+      </div>
     </section>
 
     <section id="tentang" class="intro band">
@@ -355,24 +352,30 @@ useSeoMeta({
 
 <style scoped>
 .portal-home { color: #2d134d; background: #faf9f5; }
-.hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 5rem)); align-items: flex-end; overflow: hidden; background: #2d134d; color: #fff; }
-.hero__image { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
-.hero__shade { position: absolute; z-index: -1; inset: 0; background: rgba(45, 19, 77, .22); }
-.hero__content { width: min(100%, 1280px); margin-inline: auto; padding: 5rem clamp(1.25rem, 6vw, 6rem) 4.5rem; }
+.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); min-height: min(640px, calc(100svh - 5rem)); overflow: hidden; padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 8vw, 8rem); background: #075b36; color: #fff; }
+.hero::before { position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 85% 15%, rgba(132, 190, 54, .2), transparent 32%), radial-gradient(circle at 20% 100%, rgba(248, 184, 21, .12), transparent 30%); content: ''; }
+.hero__content { width: auto; max-width: 34rem; margin: 0; padding: 0; }
+.hero__eyebrow { color: #f7bf16; font-size: .72rem; font-weight: 800; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
 .eyebrow,.section-number,.activity__label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.hero h1 { max-width: 19ch; margin-top: 1.2rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.8rem, 6vw, 6rem); font-weight: 700; line-height: .98; }
-.hero__subtitle { margin-top: 1.25rem; font-size: clamp(1.2rem, 2.4vw, 2rem); font-weight: 700; }
-.hero__lead { max-width: 42rem; margin-top: .8rem; color: #f2f3e9; font-size: 1rem; line-height: 1.7; }
+.hero h1 { max-width: 10ch; margin: 1.5rem 0 1.35rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3.1rem, 5.8vw, 5.7rem); font-weight: 700; line-height: .98; }
+.hero__lead { max-width: 34rem; color: #d9f0dc; font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.65; }
 .hero__facts { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-top: 1.7rem; color: #f2f3e9; font-size: .84rem; }
 .hero__facts span + span::before { content: '·'; margin-inline: 1.2rem; color: #ff8a80; }
-.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2rem; }
-.button { display: inline-flex; min-height: 2.9rem; align-items: center; justify-content: center; padding: .75rem 1.1rem; font-size: .88rem; font-weight: 800; transition: background .18s ease, color .18s ease; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; margin-top: 2.2rem; }
+.button { display: inline-flex; min-height: 2.9rem; align-items: center; justify-content: center; padding: .75rem 1.1rem; font-size: .88rem; font-weight: 800; transition: background .18s ease, color .18s ease, border-color .18s ease; }
+.button--gold { border: 1px solid #f8b815; background: #f8b815; color: #17352c; }
+.button--gold:hover { background: #ffd35a; border-color: #ffd35a; }
+.button--outline { border: 1px solid #85be36; background: transparent; color: #fff; }
+.button--outline:hover { background: rgba(133, 190, 54, .18); border-color: #b1dd66; }
 .button--light { background: #ff8a80; color: #2d134d; }
 .button--light:hover { background: #ffb3ad; }
 .button--dark { background: #2d134d; color: #fff; }
 .button--dark:hover { background: #5c2b2e; }
 .text-link { display: inline-flex; align-items: center; gap: .5rem; color: inherit; font-size: .88rem; font-weight: 800; text-decoration: underline; text-underline-offset: .25rem; }
-.hero__index { position: absolute; right: clamp(1rem, 4vw, 4rem); bottom: 1.4rem; font-size: .68rem; font-weight: 800; letter-spacing: .12em; }
+.hero__visual { position: relative; min-width: 0; }
+.hero__visual-frame { position: relative; overflow: hidden; aspect-ratio: 1.8 / 1; border: 1px solid rgba(255, 255, 255, .14); border-radius: 1.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, .22); }
+.hero__image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__index { margin: .8rem .15rem 0 auto; color: #f7bf16; font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-align: right; }
 .band { padding: clamp(3.5rem, 7vw, 7rem) max(1.25rem, calc((100vw - 1200px) / 2)); }
 .band--paper { background: #fff; }
 .band--green { background: #2d134d; color: #fff; }
@@ -444,10 +447,11 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .faq-item p { margin-top: .75rem; color: #596d61; line-height: 1.7; }
 .faq .button { margin-top: 1.8rem; }
 @media (max-width: 760px) {
-  .hero { min-height: 68svh; }
-  .hero__content { padding-top: 7rem; padding-bottom: 4rem; }
-  .hero__facts { display: grid; gap: .45rem; }
-  .hero__facts span + span::before { content: none; }
+  .hero { grid-template-columns: 1fr; gap: 2.5rem; min-height: auto; padding: 3.5rem 1.25rem 2.5rem; }
+  .hero__content { max-width: 32rem; }
+  .hero h1 { max-width: 12ch; font-size: clamp(3rem, 14vw, 4.8rem); }
+  .hero__visual { width: 100%; }
+  .hero__visual-frame { border-radius: 1.1rem; }
   .content-grid { grid-template-columns: 1fr; gap: 1.4rem; }
   .activity-grid { grid-template-columns: 1fr; }
   .activity + .activity { border-left: 0; border-top: 1px solid #d9e0d8; }
