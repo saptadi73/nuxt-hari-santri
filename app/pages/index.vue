@@ -134,8 +134,16 @@
         <p class="section-number">06 <span>/ {{ locale === 'id' ? 'Hadiah' : 'Prizes' }}</span></p>
         <div>
           <h2>{{ locale === 'id' ? 'Kejutan menyenangkan sepanjang acara.' : 'A little excitement throughout the day.' }}</h2>
-          <p class="lead-copy">{{ locale === 'id' ? 'Hadiah, sponsor, jumlah, mekanisme pengundian, dan batas klaim akan ditampilkan setelah dikonfirmasi. Tiket tidak menjamin hadiah untuk setiap peserta.' : 'Prizes, sponsors, quantities, draw rules, and claim deadlines will be shown once confirmed. A ticket does not guarantee a prize.' }}</p>
-          <p class="prize-empty">{{ locale === 'id' ? 'Hadiah terkonfirmasi akan diumumkan di sini.' : 'Confirmed prizes will be listed here.' }}</p>
+          <p class="lead-copy">{{ locale === 'id' ? 'Banyak hadiah menarik yang bisa diperebutkan peserta dan keluarga. Siapkan semangat, ikuti rangkaian acara, dan jangan lewatkan doorprize.' : 'Many exciting prizes are available for participants and families. Bring your spirit, enjoy the activities, and do not miss the lucky draws.' }}</p>
+          <div class="prize-showcase">
+            <img :src="prizeImage" alt="Beragam hadiah Harlah NU berupa sepeda, sepeda listrik, piala, perlengkapan rumah, dan doorprize" loading="lazy">
+            <div class="prize-showcase__copy">
+              <p class="prize-showcase__label">{{ locale === 'id' ? 'Hadiah utama & doorprize' : 'Main prizes & lucky draws' }}</p>
+              <ul class="prize-list">
+                <li v-for="prize in prizeCategories" :key="prize.id">{{ locale === 'id' ? prize.id : prize.en }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -199,6 +207,7 @@ import resolusiJihadImage from '~/assets/images/resolusi jihad.jpg';
 import santriDanUlamaImage from '~/assets/images/santri dan ulama.jpg';
 import cyclingShirtImage from '~/assets/images/kaos-sepeda-santai.png';
 import familyWalkShirtImage from '~/assets/images/kaos-jalan-sehat.png';
+import prizeImage from '~/assets/images/hadiah-harlah-nu.png';
 import type { StoreProduct } from '~/composables/useStore';
 
 const { locale } = useI18n();
@@ -292,6 +301,15 @@ const termsActivityItems = computed(() => locale.value === 'id' ? [
   { title: 'Door prizes & MSME vouchers', copy: 'Attending participants are eligible for a chance to win door prizes. Door prizes and shopping vouchers at event MSME booths can be redeemed using the QR Code shown on the website.' },
   { title: 'Favorite Families', copy: 'The organizers will select three Favorite Families to receive special prizes.' }
 ]);
+const prizeCategories = [
+  { id: 'Keluarga Sehat Favorite', en: 'Favorite Healthy Family' },
+  { id: 'Keluarga Ceria', en: 'Cheerful Family' },
+  { id: 'Keluarga Sehat', en: 'Healthy Family' },
+  { id: 'Keluarga Aktif', en: 'Active Family' },
+  { id: 'Goweser Aktif', en: 'Active Cyclist' },
+  { id: 'Goweser Ceria', en: 'Cheerful Cyclist' },
+  { id: 'Banyak Doorprize Menarik', en: 'Many Exciting Lucky Draws' }
+];
 
 const agendaItems = computed(() => locale.value === 'id' ? [
   { id: 'Kedatangan & registrasi', copy: 'Datang lebih awal, siapkan tiket digital, dan ikuti petunjuk menuju area acara.' },
@@ -429,6 +447,13 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .prizes .section-number,.prizes .section-number span { color: #dbe9dc; }
 .prizes .lead-copy { color: #dbe9dc; }
 .prizes .prize-empty { border-color: rgb(255 255 255 / 24%); color: #e6d18b; }
+.prize-showcase { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); gap: 1.25rem; margin-top: 2rem; overflow: hidden; border: 1px solid rgb(255 255 255 / 18%); border-radius: 1.25rem; background: rgb(0 34 19 / 28%); }
+.prize-showcase > img { display: block; width: 100%; height: 100%; min-height: 16rem; object-fit: cover; }
+.prize-showcase__copy { padding: 1.25rem 1.25rem 1.4rem; }
+.prize-showcase__label { color: #f8b815; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.prize-list { display: grid; gap: .65rem; margin-top: 1rem; padding: 0; list-style: none; }
+.prize-list li { position: relative; padding-left: 1.1rem; color: #f4f8e8; font-size: .95rem; font-weight: 700; line-height: 1.4; }
+.prize-list li::before { position: absolute; top: .55em; left: 0; width: .42rem; height: .42rem; border-radius: 50%; background: #84be36; content: ''; }
 .history__intro,.history__closing { margin-top: 1rem; color: #596d61; line-height: 1.75; }
 .history__stories { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.8rem; }
 .history-story { overflow: hidden; border: 1px solid #d9e0d8; background: #fff; }
@@ -452,6 +477,8 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
   .hero h1 { max-width: 12ch; font-size: clamp(3rem, 14vw, 4.8rem); }
   .hero__visual { width: 100%; }
   .hero__visual-frame { border-radius: 1.1rem; }
+  .prize-showcase { grid-template-columns: 1fr; }
+  .prize-showcase > img { min-height: 0; aspect-ratio: 16 / 10; }
   .content-grid { grid-template-columns: 1fr; gap: 1.4rem; }
   .activity-grid { grid-template-columns: 1fr; }
   .activity + .activity { border-left: 0; border-top: 1px solid #d9e0d8; }
