@@ -1,16 +1,27 @@
 <template>
   <section class="payment-page">
     <div class="payment-inner">
-      <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'PESANAN' : 'ORDERS' }}</p>
-      <h1>{{ id ? 'Pesanan & pembayaran' : 'Orders & payment' }}</h1>
-      <p class="intro">{{ id ? 'Periksa pesanan keluarga. Pembayaran dilanjutkan melalui Portal Payment terpisah.' : 'Review your family order. Payment continues in the separate Payment Portal.' }}</p>
+      <div class="payment-hero">
+        <div class="payment-hero__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 7h22a3 3 0 0 1 3 3v29l-4-2-4 2-4-2-4 2-4-2-4 2V10a3 3 0 0 1 3-3Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M17 16h14M17 22h14M17 28h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'PESANAN' : 'ORDERS' }}</p>
+          <h1>{{ id ? 'Pesanan & pembayaran' : 'Orders & payment' }}</h1>
+          <p class="intro">{{ id ? 'Periksa pesanan keluarga. Pembayaran dilanjutkan melalui Portal Payment terpisah.' : 'Review your family order. Payment continues in the separate Payment Portal.' }}</p>
+        </div>
+      </div>
 
       <p v-if="loading" class="state">{{ id ? 'Memuat pesanan…' : 'Loading orders…' }}</p>
       <p v-else-if="error" class="error" role="alert">{{ error }}</p>
-      <p v-else-if="!orders.length" class="state">
-        {{ id ? 'Belum ada pesanan Harlah NU.' : 'You do not have a Harlah NU order yet.' }}
+      <div v-else-if="!orders.length" class="state state--empty">
+        <div class="empty-icon" aria-hidden="true">✦</div>
+        <div>
+          <strong>{{ id ? 'Belum ada pesanan Harlah NU.' : 'You do not have a Harlah NU order yet.' }}</strong>
+          <p>{{ id ? 'Pilih paket kegiatan dan daftarkan keluarga untuk memulai.' : 'Choose an activity package and register your family to get started.' }}</p>
         <NuxtLink to="/daftar" class="text-link">{{ id ? 'Mulai pendaftaran' : 'Start registration' }} →</NuxtLink>
-      </p>
+        </div>
+      </div>
       <div v-else class="order-list">
         <article v-for="entry in orders" :key="entry.order.id" class="order-row">
           <div class="order-row__body">
@@ -115,13 +126,21 @@ useSeoMeta({ title: () => `${id.value ? 'Pesanan & Pembayaran' : 'Orders & Payme
 </script>
 
 <style scoped>
-.payment-page { min-height: 72vh; background: #f5f5ef; color: #17352c; padding: 3rem max(1rem, calc((100vw - 1000px) / 2)); }
-.payment-inner { max-width: 1000px; margin-inline: auto; }
+.payment-page { position: relative; isolation: isolate; min-height: 72vh; overflow: hidden; background: radial-gradient(circle at 92% 8%, rgba(132,190,54,.16), transparent 20rem), radial-gradient(circle at 4% 42%, rgba(248,184,21,.09), transparent 18rem), #f5f5ef; color: #17352c; padding: 3rem max(1rem, calc((100vw - 1000px) / 2)); }
+.payment-page::before { position: absolute; z-index: -1; top: 8rem; right: -7rem; width: 18rem; height: 18rem; border: 1px solid rgba(7,91,54,.12); border-radius: 50%; box-shadow: 0 0 0 2rem rgba(7,91,54,.035), 0 0 0 4rem rgba(7,91,54,.025); content: ''; }
+.payment-inner { position: relative; max-width: 1000px; margin-inline: auto; }
+.payment-hero { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: start; gap: 1.35rem; }
+.payment-hero__icon { display: grid; width: 4.5rem; height: 4.5rem; place-items: center; border: 1px solid rgba(248,184,21,.65); border-radius: 1.35rem; background: linear-gradient(145deg, #075b36, #0b7448); color: #f8c841; box-shadow: 0 12px 24px rgba(7,91,54,.16); }
+.payment-hero__icon svg { width: 2.25rem; height: 2.25rem; }
 .eyebrow { color: #2d7258; font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
 h1,h2 { font-family: Georgia, 'Times New Roman', serif; }
 h1 { margin-top: .7rem; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; }
 .intro { max-width: 42rem; margin-top: .8rem; color: #596d61; line-height: 1.7; }
 .state,.error { margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1rem 0; color: #697a70; }
+.state--empty { display: flex; align-items: center; gap: 1rem; border: 1px solid #d9e0d8; border-radius: 1rem; background: rgba(255,255,255,.58); padding: 1.25rem 1.4rem; box-shadow: 0 10px 28px rgba(7,91,54,.05); }
+.state--empty strong { display: block; color: #17352c; font-size: 1.05rem; }
+.state--empty p { margin-top: .25rem; color: #697a70; font-size: .88rem; }
+.empty-icon { display: grid; width: 2.75rem; height: 2.75rem; flex: none; place-items: center; border-radius: 50%; background: #e8f2df; color: #75a92f; font-size: 1.25rem; }
 .error { color: #9a3022; }
 .order-list { margin-top: 2rem; border-top: 1px solid #d9e0d8; }
 .order-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; border-bottom: 1px solid #d9e0d8; padding: 1.25rem 0; }
@@ -136,5 +155,5 @@ h1 { margin-top: .7rem; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; 
 .button:disabled { opacity: .55; }
 .privacy-note { margin-top: 2rem; color: #77857c; font-size: .8rem; line-height: 1.6; }
 .text-link { display: inline-block; margin-left: .5rem; color: #286449; font-weight: 800; text-decoration: underline; text-underline-offset: .2rem; }
-@media (max-width: 620px) { .order-row { align-items: flex-start; flex-direction: column; } .order-actions,.order-actions .button { width: 100%; } }
+@media (max-width: 620px) { .payment-hero { grid-template-columns: 1fr; gap: 1rem; } .payment-hero__icon { width: 3.7rem; height: 3.7rem; border-radius: 1.1rem; } .payment-hero__icon svg { width: 1.9rem; height: 1.9rem; } .state--empty { align-items: flex-start; padding: 1rem; } .order-row { align-items: flex-start; flex-direction: column; } .order-actions,.order-actions .button { width: 100%; } }
 </style>
