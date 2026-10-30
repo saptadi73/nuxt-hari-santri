@@ -47,6 +47,10 @@
       <article id="walisongo" class="history-content__wide walisongo-feature">
         <p class="section-label">06 / Wali Songo dan NU</p>
         <h2>Wali Songo: teladan dakwah dan akar keislaman Nusantara</h2>
+        <figure class="walisongo-figure">
+          <img :src="walisongoImage" alt="Siluet Wali Songo dengan latar budaya Jawa, Menara Kudus, pesantren, gamelan, dan peta Jawa" loading="lazy" />
+          <figcaption>Jejak dakwah Wali Songo dalam ruang budaya dan keislaman Nusantara.</figcaption>
+        </figure>
         <p>Dalam pandangan tradisi NU, Wali Songo bukan hanya tokoh sejarah penyebaran Islam, tetapi juga teladan penting dalam menerjemahkan ajaran Ahlussunnah wal Jama'ah ke dalam kehidupan masyarakat Nusantara. Jejak itu tampak pada perpaduan ilmu pesantren, keteladanan akhlak, penghormatan terhadap budaya, serta dakwah yang dilakukan dengan hikmah dan kesantunan.</p>
         <p>Karena itu, NU sering dipahami sebagai kelanjutan dari mata rantai perjuangan ulama Aswaja di Nusantara. Bentuk gerakannya berubah mengikuti zaman—dari jaringan pesantren dan dakwah para wali menjadi organisasi—namun ikhtiarnya tetap sama: merawat ajaran Islam, membina umat, dan menjaga kemaslahatan bangsa.</p>
         <p>Warisan Wali Songo memberi pelajaran bahwa dakwah yang kuat tidak harus berjarak dari kebudayaan masyarakat. Nilai-nilai Islam dapat disampaikan secara ramah, dialogis, dan membumi, selama prinsip keagamaan tetap dijaga. Semangat inilah yang terus dihidupkan NU melalui pesantren, pendidikan, kaderisasi, dan pengabdian sosial.</p>
@@ -72,6 +76,7 @@
 
 <script setup lang="ts">
 import foundersImage from '~/assets/images/sejarah-nu-pendiri-pesantren.png';
+import walisongoImage from '~/assets/images/nu-dakwah-walisongo.png';
 
 useSeoMeta({
   title: 'Sejarah NU | Harlah NU ke-101',
@@ -101,6 +106,9 @@ h1 { max-width: 15ch; margin-top: 1rem; font-size: clamp(2.8rem, 7vw, 6rem); }
 .history-content article { padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid rgba(45,19,77,.12); border-radius: 1.25rem; background: #fff; box-shadow: 0 18px 40px rgba(45,19,77,.06); }
 .history-content__wide { grid-column: 1 / -1; background: #fff1f0 !important; }
 .walisongo-feature { background: #f4f0e8 !important; }
+.walisongo-figure { margin: 1.5rem 0 2rem; overflow: hidden; border: 1px solid rgba(7,91,54,.2); border-radius: 1.25rem; background: #075b36; box-shadow: 0 18px 40px rgba(7,91,54,.14); }
+.walisongo-figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.walisongo-figure figcaption { padding: .75rem 1rem .9rem; color: #365444; font-size: .82rem; line-height: 1.5; }
 .walisongo-feature .editorial-source { margin-top: 1.5rem; font-weight: 800; color: #075b36; }
 .source-list { display: grid; gap: .55rem; margin-top: .75rem; padding-left: 1.2rem; color: #5d5b5a; line-height: 1.6; }
 .source-list a { color: #075b36; text-decoration: underline; text-underline-offset: .15em; }
