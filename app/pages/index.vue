@@ -126,7 +126,10 @@
         <h2>{{ locale === 'id' ? 'Bertemu di panggung Harlah NU.' : 'Meet us at the Harlah NU stage.' }}</h2>
       </div>
       <p class="lead-copy">{{ locale === 'id' ? 'Sholawat, pesan kebersamaan, penampilan komunitas, dan hiburan keluarga akan diumumkan setelah kehadiran pengisi acara dikonfirmasi.' : 'Sholawat, messages of togetherness, community performances, and family entertainment will be announced when confirmed.' }}</p>
-      <p class="performer-empty">{{ locale === 'id' ? 'Pengisi acara segera diumumkan.' : 'Performers will be announced soon.' }}</p>
+      <figure class="performer-showcase">
+        <img :src="stageImage" alt="Ilustrasi panggung hiburan Harlah NU dengan pertunjukan seni dan penonton" loading="lazy">
+        <figcaption>{{ locale === 'id' ? 'Panggung hiburan, seni budaya, sholawat, dan kebersamaan warga NU.' : 'Live entertainment, cultural arts, sholawat, and NU community togetherness.' }}</figcaption>
+      </figure>
     </section>
 
     <section id="hadiah" class="prizes band band--green">
@@ -208,6 +211,7 @@ import santriDanUlamaImage from '~/assets/images/santri dan ulama.jpg';
 import cyclingShirtImage from '~/assets/images/kaos-sepeda-santai.png';
 import familyWalkShirtImage from '~/assets/images/kaos-jalan-sehat.png';
 import prizeImage from '~/assets/images/hadiah-harlah-nu.png';
+import stageImage from '~/assets/images/panggung-harlah-nu.png';
 import type { StoreProduct } from '~/composables/useStore';
 
 const { locale } = useI18n();
@@ -444,6 +448,9 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .agenda-list p { color: #596d61; font-size: .86rem; line-height: 1.55; }
 .agenda-list em { color: #8a6b20; font-size: .72rem; font-style: normal; }
 .performer-empty,.prize-empty { margin-top: 2rem; border-block: 1px solid #d9e0d8; padding: 1.2rem 0; color: #6b6a68; font-weight: 700; }
+.performer-showcase { margin-top: 2rem; overflow: hidden; border: 1px solid #d9e0d8; border-radius: 1.25rem; background: #fff; box-shadow: 0 18px 40px rgba(7,91,54,.12); }
+.performer-showcase img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
+.performer-showcase figcaption { padding: .8rem 1rem 1rem; color: #596d61; font-size: .85rem; line-height: 1.5; }
 .prizes .section-number,.prizes .section-number span { color: #dbe9dc; }
 .prizes .lead-copy { color: #dbe9dc; }
 .prizes .prize-empty { border-color: rgb(255 255 255 / 24%); color: #e6d18b; }
