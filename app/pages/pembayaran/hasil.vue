@@ -1,9 +1,27 @@
 <template>
   <section class="result-page">
     <div class="result-content">
-      <p class="eyebrow">{{ id ? 'HARLAH NU KE-101' : 'HARLAH NU KE-101' }}</p>
-      <h1>{{ title }}</h1>
-      <p class="result-message" aria-live="polite">{{ message }}</p>
+      <div v-if="donationMode" class="thankyou-hero">
+        <div class="thankyou-glow thankyou-glow--one" aria-hidden="true"></div>
+        <div class="thankyou-glow thankyou-glow--two" aria-hidden="true"></div>
+        <div class="brand-lockup">
+          <img src="/logo_santri_2026.png" alt="Logo Harlah NU ke-101" class="event-logo">
+          <div>
+            <p class="brand-kicker">MWC NU TARUMAJAYA</p>
+            <p class="brand-title">Harlah NU ke-101</p>
+          </div>
+        </div>
+        <p class="eyebrow">TERIMA KASIH, KELUARGA NU</p>
+        <div class="thankyou-mark" aria-hidden="true">✦</div>
+        <h1>{{ title }}</h1>
+        <p class="result-message" aria-live="polite">{{ message }}</p>
+        <div class="thankyou-event">Sehat bersama · Eratkan persaudaraan · Rayakan 101 tahun khidmah</div>
+      </div>
+      <template v-else>
+        <p class="eyebrow">{{ id ? 'HARLAH NU KE-101' : 'HARLAH NU KE-101' }}</p>
+        <h1>{{ title }}</h1>
+        <p class="result-message" aria-live="polite">{{ message }}</p>
+      </template>
       <dl v-if="donationMode && donationStatus" class="status-list">
         <div><dt>Referensi donasi</dt><dd>{{ donationStatus.reference_id }}</dd></div>
         <div><dt>Nominal donasi</dt><dd>{{ formatRupiah(donationStatus.amount) }}</dd></div>
@@ -137,19 +155,45 @@ useSeoMeta({ title: () => `${title.value} | Harlah NU ke-101` });
 </script>
 
 <style scoped>
-.result-page { min-height: 72vh; display: grid; place-items: center; background: #f5f5ef; color: #17352c; padding: 2rem 1rem; }
-.result-content { width: min(100%, 48rem); }
-.eyebrow { color: #2d7258; font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
-h1 { max-width: 14ch; margin-top: .8rem; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; }
-.result-message { margin-top: 1rem; color: #596d61; line-height: 1.7; }
-.status-list { margin-top: 2rem; border-top: 1px solid #d9e0d8; }
-.status-list div { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: .85rem 0; }
+.result-page { min-height: 72vh; display: grid; place-items: center; background: #f3f7f0; color: #17352c; padding: 2.5rem 1rem 3.5rem; }
+.result-content { width: min(100%, 54rem); }
+.thankyou-hero { position: relative; overflow: hidden; border-radius: 1.5rem; padding: clamp(1.5rem, 5vw, 3.5rem); color: #f8fff5; background: linear-gradient(135deg, #063f2b 0%, #087044 48%, #164c36 100%); box-shadow: 0 24px 60px rgb(15 75 50 / 18%); }
+.thankyou-hero::after { position: absolute; inset: auto 0 0; height: 7rem; background: linear-gradient(180deg, transparent, rgb(2 37 25 / 28%)); content: ''; pointer-events: none; }
+.thankyou-glow { position: absolute; border: 1px solid rgb(244 213 120 / 35%); border-radius: 50%; pointer-events: none; }
+.thankyou-glow--one { width: 24rem; height: 24rem; right: -10rem; top: -12rem; box-shadow: 0 0 0 2rem rgb(244 213 120 / 5%), 0 0 0 4rem rgb(244 213 120 / 4%); }
+.thankyou-glow--two { width: 14rem; height: 14rem; left: -8rem; bottom: -8rem; border-color: rgb(255 255 255 / 14%); }
+.brand-lockup, .thankyou-hero > *:not(.thankyou-glow) { position: relative; z-index: 1; }
+.brand-lockup { display: flex; align-items: center; gap: .8rem; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.event-logo { width: 3.6rem; height: 3.6rem; border-radius: 1rem; background: #fff; padding: .35rem; object-fit: contain; }
+.brand-kicker { color: #f4d578; font-size: .68rem; font-weight: 850; letter-spacing: .15em; }
+.brand-title { margin-top: .2rem; font-size: 1.05rem; font-weight: 800; }
+.eyebrow { color: #f4d578; font-size: .72rem; font-weight: 850; letter-spacing: .14em; }
+.thankyou-mark { margin-top: .7rem; color: #f4d578; font-size: 2rem; line-height: 1; }
+h1 { max-width: 14ch; margin-top: .45rem; color: #fff; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.6rem, 7vw, 5.2rem); line-height: .98; }
+.result-message { max-width: 48rem; margin-top: 1.2rem; color: rgb(239 250 239 / 86%); line-height: 1.7; }
+.thankyou-event { display: inline-block; margin-top: 1.5rem; border: 1px solid rgb(244 213 120 / 55%); border-radius: 999px; padding: .55rem .85rem; color: #fff4c7; font-size: .75rem; font-weight: 700; }
+.status-list { margin-top: 1.5rem; border: 1px solid #d9e4d8; border-radius: 1rem; background: rgb(255 255 255 / 88%); box-shadow: 0 16px 35px rgb(15 75 50 / 7%); overflow: hidden; }
+.status-list div { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid #d9e0d8; padding: 1rem 1.2rem; }
+.status-list div:last-child { border-bottom: 0; }
 dt { color: #697a70; font-size: .82rem; } dd { overflow-wrap: anywhere; font-size: .88rem; font-weight: 700; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.5rem; }
 .button { display: inline-flex; min-height: 2.8rem; align-items: center; justify-content: center; border: 0; padding: .7rem 1rem; font-size: .85rem; font-weight: 800; }
 .button--dark { background: #17352c; color: #fff; } .button--gold { background: #f4d578; color: #17352c; }
 .button:disabled { opacity: .55; }
 .text-link { color: #286449; font-size: .88rem; font-weight: 800; text-decoration: underline; text-underline-offset: .2rem; }
-.caution { margin-top: 2rem; color: #77857c; font-size: .78rem; line-height: 1.6; }
+.caution { margin-top: 1.5rem; color: #77857c; font-size: .78rem; line-height: 1.6; }
 .error { margin-top: 1rem; color: #9a3022; }
+@media (max-width: 640px) {
+  .result-page { padding: 1rem .75rem 2.5rem; }
+  .thankyou-hero { border-radius: 1.1rem; padding: 1.35rem 1.1rem 1.5rem; }
+  .brand-lockup { margin-bottom: 2.5rem; }
+  .event-logo { width: 3rem; height: 3rem; border-radius: .8rem; }
+  .brand-title { font-size: .95rem; }
+  .thankyou-event { border-radius: .7rem; line-height: 1.45; }
+  .status-list { margin-top: 1rem; }
+  .status-list div { grid-template-columns: 1fr; gap: .25rem; padding: .85rem 1rem; }
+  .actions { align-items: stretch; gap: .7rem; }
+  .button { width: 100%; }
+  .text-link { display: block; width: 100%; text-align: center; }
+}
 </style>
