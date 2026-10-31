@@ -9,7 +9,8 @@ Portal ini menggunakan tema web Harlah NU ke-101 untuk acara Sepeda Santai dan J
 - Penyelenggara: MWC NU Tarumajaya
 - Tanggal: Minggu, 31 Januari 2027
 - Lokasi: Summarecon Crown Gading, Tarumajaya, Bekasi
-- Rentang usia: 1926–2027 Masehi dan 1344–1447 H
+- Rentang usia: 1926–2027 Masehi (Harlah ke-101) dan 1344–1448 H (Harlah ke-104 Hijriah)
+- Peringatan Hijriah: 16 Rajab 1448 H, bertepatan dengan 25–26 Desember 2026
 - Domain: `https://harlahnu.com`
 - API: `https://api.harlahnu.com`
 - Slug event: `harlah-nu-101`

@@ -4,10 +4,10 @@
       <div class="history-hero__inner">
         <p class="eyebrow">SEJARAH NU</p>
         <h1>Pesantren, rahim yang melahirkan Nahdlatul Ulama.</h1>
-        <p>Nahdlatul Ulama berdiri di Surabaya pada 31 Januari 1926, bertepatan dengan 16 Rajab 1344 H. Harlah NU ke-101 menjadi momentum untuk mengenang perjalanan khidmah ulama, pesantren, dan warga untuk negeri.</p>
+        <p>Nahdlatul Ulama berdiri di Surabaya pada 31 Januari 1926, bertepatan dengan 16 Rajab 1344 H. Pada 16 Rajab 1448 H, bertepatan dengan 25–26 Desember 2026, NU memperingati Harlah ke-104 menurut hitungan Hijriah; sementara 31 Januari 2027 menandai Harlah ke-101 menurut hitungan Masehi.</p>
         <div class="history-facts">
           <div><strong>1926–2027</strong><span>101 tahun Masehi</span></div>
-          <div><strong>1344–1447 H</strong><span>102 tahun Hijriah</span></div>
+          <div><strong>1344–1448 H</strong><span>104 tahun Hijriah</span></div>
           <div><strong>Surabaya</strong><span>Tempat lahir NU</span></div>
         </div>
         <figure class="founders-figure">

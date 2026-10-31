@@ -182,7 +182,7 @@
               </div>
             </article>
           </div>
-          <p class="history__closing">{{ locale === 'id' ? 'Pada 31 Januari 2027, Nahdlatul Ulama memperingati Harlah ke-101 menurut hitungan Masehi dan ke-102 menurut hitungan Hijriah: 1926–2027 dan 1344–1447 H.' : 'On 31 January 2027, Nahdlatul Ulama commemorates its 101st anniversary in the Gregorian calendar and its 102nd anniversary in the Hijri calendar: 1926–2027 and 1344–1447 H.' }}</p>
+          <p class="history__closing">{{ locale === 'id' ? 'Nahdlatul Ulama memperingati Harlah ke-104 menurut hitungan Hijriah pada 16 Rajab 1448 H, bertepatan dengan 25–26 Desember 2026. Menurut hitungan Masehi, 31 Januari 2027 tetap merupakan Harlah NU ke-101: 1926–2027.' : 'Nahdlatul Ulama commemorates its 104th anniversary in the Hijri calendar on 16 Rajab 1448 H, corresponding to 25–26 December 2026. In the Gregorian calendar, 31 January 2027 remains NU\'s 101st anniversary: 1926–2027.' }}</p>
           <div class="history__sources"><a href="https://cdn.kemenag.go.id/storage/archives/1665973491.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Kementerian Agama' : 'Ministry of Religious Affairs' }}</a><a href="https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Pedoman Hari Pahlawan' : 'Heroes’ Day guidance' }}</a></div>
           <NuxtLink to="/sejarah-nu" class="button button--dark">{{ locale === 'id' ? 'Baca Sejarah NU Selengkapnya' : 'Read the Full NU History' }}</NuxtLink>
         </div>
