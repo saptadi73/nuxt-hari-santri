@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,19 +6,28 @@
 
 :root {
   color-scheme: light;
-  --bg-primary: #faf9f5;
-  --bg-secondary: #f5f4ef;
-  --bg-alt: #075b36;
-  --bg-panel: rgba(7, 91, 54, 0.92);
-  --line-soft: rgba(7, 91, 54, 0.14);
-  --text-muted: #6b6a68;
-  --text-soft: #1f1e1d;
-  --cyan-glow: rgba(132, 190, 54, 0.12);
-  --gold-glow: rgba(248, 184, 21, 0.22);
-  --premium-gold: #f8b815;
-  --premium-gold-soft: #ffe18a;
-  --deep-blue: #075b36;
-  --deep-navy: #06472c;
+  --nu-khidmah: #0a4a28;
+  --nu-emerald: #13803e;
+  --nu-gold: #f2b01e;
+  --nu-sunset: #b04f08;
+  --nu-sunset-bright: #f27b21;
+  --nu-leaf: #7dbf45;
+  --nu-mist: #f1f7ee;
+  --nu-pucuk: #d6ebd0;
+  --nu-ink: #12261a;
+  --bg-primary: #f1f7ee;
+  --bg-secondary: #f1f7ee;
+  --bg-alt: var(--nu-khidmah);
+  --bg-panel: rgb(10 74 40 / 92%);
+  --line-soft: var(--nu-pucuk);
+  --text-muted: rgb(18 38 26 / 72%);
+  --text-soft: var(--nu-ink);
+  --cyan-glow: rgb(125 191 69 / 14%);
+  --gold-glow: rgb(242 176 30 / 22%);
+  --premium-gold: var(--nu-gold);
+  --premium-gold-soft: var(--nu-pucuk);
+  --deep-blue: var(--nu-khidmah);
+  --deep-navy: #07241a;
 }
 
 @layer base {
@@ -27,7 +36,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--premium-gold, #d8ac59);
+    outline: 2px solid var(--premium-gold, #f2b01e);
     outline-offset: 3px;
   }
 
@@ -36,18 +45,18 @@
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    outline: 2px solid var(--premium-gold, #d8ac59);
+    outline: 2px solid var(--premium-gold, #f2b01e);
     outline-offset: 3px;
-    box-shadow: 0 0 0 3px rgba(216, 172, 89, 0.25);
+    box-shadow: 0 0 0 3px rgb(242 176 30 / 28%);
   }
 
   body {
     min-height: 100vh;
     overflow-x: hidden;
     background:
-      radial-gradient(circle at 0% 15%, rgba(244, 10, 8, 0.08), transparent 40%),
-      radial-gradient(circle at 86% 18%, rgba(255, 138, 128, 0.16), transparent 30%),
-      radial-gradient(circle at 12% 88%, rgba(45, 19, 77, 0.08), transparent 42%),
+      radial-gradient(circle at 0% 15%, rgb(19 128 62 / 6%), transparent 40%),
+      radial-gradient(circle at 86% 18%, rgb(242 176 30 / 10%), transparent 30%),
+      radial-gradient(circle at 12% 88%, rgb(125 191 69 / 7%), transparent 42%),
       linear-gradient(180deg, var(--bg-primary) 0%, #fff 46%, var(--bg-secondary) 100%);
     color: var(--text-soft);
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -58,8 +67,8 @@
   }
 
   ::selection {
-    background: rgba(216, 172, 89, 0.42);
-    color: #fffaf0;
+    background: var(--nu-gold);
+    color: var(--nu-ink);
   }
 
   main {
@@ -74,7 +83,7 @@
   h4,
   h5,
   h6 {
-    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-family: 'Lora', Georgia, 'Times New Roman', serif;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
@@ -97,8 +106,6 @@
     font-weight: 700;
   }
 
-  p,
-  li,
   span,
   label,
   input,
@@ -107,6 +114,12 @@
   button,
   summary {
     font-size: clamp(0.94rem, 0.86rem + 0.22vw, 1.05rem);
+  }
+
+  p,
+  li {
+    font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+    line-height: 1.65;
   }
 
   a {
@@ -176,11 +189,11 @@
 
   .glass-card {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: linear-gradient(180deg, rgba(11, 36, 71, 0.8), rgba(11, 36, 71, 0.52));
+    background: linear-gradient(180deg, rgb(10 74 40 / 92%), rgb(19 128 62 / 72%));
     box-shadow:
       0 30px 80px rgba(2, 10, 24, 0.45),
       inset 0 1px rgba(255, 255, 255, 0.04),
-      0 0 0 1px rgba(216, 172, 89, 0.04);
+      0 0 0 1px rgb(125 191 69 / 18%);
     backdrop-filter: blur(16px);
     border-radius: 2rem;
   }
@@ -199,7 +212,7 @@
     left: -100px;
     height: 280px;
     width: 280px;
-    background: rgba(11, 36, 71, 0.35);
+    background: rgb(19 128 62 / 20%);
   }
 
   .ambient-two {
@@ -207,6 +220,6 @@
     top: 340px;
     height: 320px;
     width: 320px;
-    background: rgba(216, 172, 89, 0.2);
+    background: rgb(242 176 30 / 22%);
   }
 }

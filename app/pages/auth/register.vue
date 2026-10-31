@@ -1,43 +1,43 @@
 <template>
   <main class="auth-shell text-[#17352c]">
     <section class="mx-auto max-w-5xl px-3 py-10 sm:px-6 lg:px-8">
-      <div class="auth-card mx-auto max-w-md rounded-lg border border-emerald-950/10 bg-white p-5 shadow-xl shadow-emerald-950/5 sm:p-8">
-        <div class="mb-4 inline-flex rounded border border-emerald-800/15 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-emerald-900">{{ copy.create }}</div>
+      <div class="auth-card mx-auto max-w-md rounded-3xl border border-emerald-950/10 bg-white p-5 shadow-xl shadow-emerald-950/5 sm:p-8">
+        <div class="mb-4 inline-flex rounded-lg border border-emerald-800/15 bg-emerald-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[.28em] text-emerald-900">{{ copy.create }}</div>
         <h1 class="mt-3 text-3xl font-black text-[#17352c] sm:text-4xl">{{ copy.title }}</h1>
         <p class="mt-3 text-sm leading-7 text-slate-600">{{ copy.intro }}</p>
 
         <form class="mt-6 space-y-4" novalidate @submit.prevent="onSubmit">
           <label class="block">
             <span class="mb-2 block text-sm text-slate-700">{{ copy.fullName }}</span>
-            <input v-model="form.full_name" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.fullNamePlaceholder" required />
+            <input v-model="form.full_name" class="registration-input" :placeholder="copy.fullNamePlaceholder" autocomplete="name" required>
           </label>
 
           <label class="block">
             <span class="mb-2 block text-sm text-slate-700">{{ copy.email }}</span>
-            <input v-model.trim="form.email" type="email" autocomplete="email" class="w-full rounded-md border bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:outline-none focus:ring-2" :class="emailError ? 'border-red-400 focus:border-red-500 focus:ring-red-500/15' : 'border-slate-300 focus:border-emerald-700 focus:ring-emerald-700/15'" :aria-invalid="emailError ? 'true' : undefined" placeholder="you@example.com" required />
+            <input v-model.trim="form.email" type="email" autocomplete="email" class="registration-input" :class="emailError ? 'is-invalid' : ''" :aria-invalid="emailError ? 'true' : undefined" placeholder="you@example.com" required>
           </label>
 
           <div class="space-y-4">
             <div class="grid gap-4 sm:grid-cols-2">
-              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.province }}</span><select v-model="form.province_code" class="registration-field w-full" required @change="changeRegion('province')"><option value="" disabled>{{ copy.selectProvince }}</option><option v-for="region in regions.province" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
-              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.regency }}</span><select v-model="form.regency_code" class="registration-field w-full" :disabled="!form.province_code" required @change="changeRegion('regency')"><option value="" disabled>{{ copy.selectRegency }}</option><option v-for="region in regions.regency" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
-              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.district }}</span><select v-model="form.district_code" class="registration-field w-full" :disabled="!form.regency_code" required @change="changeRegion('district')"><option value="" disabled>{{ copy.selectDistrict }}</option><option v-for="region in regions.district" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
-              <label class="block"><span class="mb-2 block text-sm text-slate-700">{{ copy.village }}</span><select v-model="form.village_code" class="registration-field w-full" :disabled="!form.district_code" required><option value="" disabled>{{ copy.selectVillage }}</option><option v-for="region in regions.village" :key="region.code" :value="region.code">{{ region.name }}</option></select></label>
+              <label class="block"><span class="mb-2 block text-sm font-medium text-slate-700">{{ copy.province }}</span><span class="select-wrap"><select v-model="form.province_code" class="registration-field" required @change="changeRegion('province')"><option value="" disabled>{{ copy.selectProvince }}</option><option v-for="region in regions.province" :key="region.code" :value="region.code">{{ region.name }}</option></select><svg class="select-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span></label>
+              <label class="block"><span class="mb-2 block text-sm font-medium text-slate-700">{{ copy.regency }}</span><span class="select-wrap"><select v-model="form.regency_code" class="registration-field" :disabled="!form.province_code" required @change="changeRegion('regency')"><option value="" disabled>{{ copy.selectRegency }}</option><option v-for="region in regions.regency" :key="region.code" :value="region.code">{{ region.name }}</option></select><svg class="select-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span></label>
+              <label class="block"><span class="mb-2 block text-sm font-medium text-slate-700">{{ copy.district }}</span><span class="select-wrap"><select v-model="form.district_code" class="registration-field" :disabled="!form.regency_code" required @change="changeRegion('district')"><option value="" disabled>{{ copy.selectDistrict }}</option><option v-for="region in regions.district" :key="region.code" :value="region.code">{{ region.name }}</option></select><svg class="select-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span></label>
+              <label class="block"><span class="mb-2 block text-sm font-medium text-slate-700">{{ copy.village }}</span><span class="select-wrap"><select v-model="form.village_code" class="registration-field" :disabled="!form.district_code" required><option value="" disabled>{{ copy.selectVillage }}</option><option v-for="region in regions.village" :key="region.code" :value="region.code">{{ region.name }}</option></select><svg class="select-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span></label>
             </div>
             <p class="text-xs text-slate-600">{{ copy.regionHelp }}</p>
             <label class="block">
               <span class="mb-2 block text-sm text-slate-700">{{ copy.phone }}</span>
-              <div class="phone-field flex overflow-hidden rounded-md border border-slate-300 bg-white transition focus-within:border-emerald-700 focus-within:ring-2 focus-within:ring-emerald-700/15">
-                <select v-model="form.phoneCountryIso" :aria-label="copy.phoneCode" class="phone-country min-w-32 border-r border-slate-200 bg-white px-3 py-3 text-slate-900 focus:outline-none">
+              <div class="phone-field flex overflow-hidden rounded-xl border border-slate-300 bg-slate-50 transition focus-within:border-emerald-700 focus-within:ring-4 focus-within:ring-emerald-700/10">
+                <span class="phone-country-wrap"><select v-model="form.phoneCountryIso" :aria-label="copy.phoneCode" class="phone-country">
                   <optgroup :label="copy.mostSelected">
                     <option v-for="country in priorityCountries" :key="country.iso" :value="country.iso">{{ countryFlag(country.iso) }} {{ country.iso }} {{ country.dialCode }}</option>
                   </optgroup>
                   <optgroup label="──────────">
                     <option v-for="country in otherCountries" :key="country.iso" :value="country.iso">{{ countryFlag(country.iso) }} {{ country.iso }} {{ country.dialCode }}</option>
                   </optgroup>
-                </select>
-                <span class="flex items-center pl-3 text-sm font-semibold text-slate-600">{{ selectedPhoneCountry.dialCode }}</span>
-                <input v-model.trim="form.phoneLocal" type="tel" inputmode="numeric" autocomplete="tel-national" minlength="5" class="min-w-0 flex-1 bg-transparent px-3 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none" placeholder="812 3456 7890" required />
+                </select><svg class="select-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 7.5 5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+                <span class="flex shrink-0 items-center border-l border-slate-200 pl-3 text-sm font-semibold text-slate-600">{{ selectedPhoneCountry.dialCode }}</span>
+                <input v-model.trim="form.phoneLocal" type="tel" inputmode="numeric" autocomplete="tel-national" minlength="5" class="registration-phone-input" placeholder="812 3456 7890" required>
               </div>
               <span class="mt-1.5 block text-xs text-slate-600">{{ copy.phoneHelp }}</span>
             </label>
@@ -45,15 +45,15 @@
 
           <label class="block">
             <span class="mb-2 block text-sm text-slate-700">{{ copy.password }}</span>
-            <input v-model="form.password" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.passwordPlaceholder" required />
+            <input v-model="form.password" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="registration-input" :placeholder="copy.passwordPlaceholder" required>
           </label>
 
           <label class="block">
             <span class="mb-2 block text-sm text-slate-700">{{ copy.confirmPassword }}</span>
-            <input v-model="form.confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="w-full rounded-md border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 transition focus:border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/15" :placeholder="copy.confirmPlaceholder" required />
+            <input v-model="form.confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" class="registration-input" :placeholder="copy.confirmPlaceholder" required>
           </label>
 
-          <button type="submit" class="w-full rounded-md bg-[#173f32] px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-[#285442] active:scale-[0.99]" :disabled="submitting">
+          <button type="submit" class="registration-submit" :disabled="submitting">
             {{ submitting ? copy.creating : copy.create }}
           </button>
         </form>
@@ -218,22 +218,88 @@ const onSubmit = async () => {
   min-height: calc(100vh - 140px);
   background: #f5f5ef;
 }
+
 .auth-card {
-  box-shadow: 0 18px 48px rgba(23, 63, 50, 0.08);
+  box-shadow: 0 24px 64px rgba(23, 63, 50, 0.09);
 }
-.registration-field {
+
+.registration-input {
+  width: 100%;
+  min-height: 3.5rem;
   border: 1px solid #cbd5e1;
-  border-radius: .375rem;
-  background: #fff;
-  padding: .75rem 1rem;
+  border-radius: .75rem;
+  background: #f8fafc;
+  padding: .875rem 1rem;
   color: #0f172a;
-  transition: border-color .2s ease, box-shadow .2s ease;
+  font-size: 1rem;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
-.registration-field:focus {
+
+.registration-input::placeholder,
+.registration-phone-input::placeholder {
+  color: #94a3b8;
+}
+
+.registration-input:hover,
+.registration-field:hover {
+  border-color: #94a3b8;
+}
+
+.registration-input:focus,
+.registration-field:focus,
+.phone-country:focus {
   border-color: #047857;
   outline: none;
-  box-shadow: 0 0 0 2px rgb(4 120 87 / 15%);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(4 120 87 / 10%);
 }
+
+.registration-input.is-invalid {
+  border-color: #f87171;
+}
+
+.registration-input.is-invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgb(239 68 68 / 10%);
+}
+
+.select-wrap,
+.phone-country-wrap {
+  position: relative;
+  display: block;
+}
+
+.registration-field {
+  width: 100%;
+  min-height: 3.5rem;
+  appearance: none;
+  border: 1px solid #cbd5e1;
+  border-radius: .75rem;
+  background-color: #f8fafc;
+  padding: .875rem 2.75rem .875rem 1rem;
+  color: #0f172a;
+  font-size: 1rem;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.registration-field:disabled {
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+  background-color: #f1f5f9;
+  color: #94a3b8;
+}
+
+.select-chevron {
+  position: absolute;
+  top: 50%;
+  right: .875rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: #64748b;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
 .registration-field option,
 .registration-field optgroup,
 .phone-country option,
@@ -242,13 +308,79 @@ const onSubmit = async () => {
   color: #0f172a;
 }
 
+.phone-country-wrap {
+  flex: 0 0 8.5rem;
+  border-right: 1px solid #e2e8f0;
+}
+
+.phone-country {
+  width: 100%;
+  height: 100%;
+  min-height: 3.5rem;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: .75rem 2rem .75rem .875rem;
+  color: #0f172a;
+  font-size: .9rem;
+  transition: box-shadow .2s ease;
+}
+
+.phone-country:focus {
+  position: relative;
+  z-index: 1;
+}
+
+.phone-country-wrap .select-chevron {
+  right: .55rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.registration-phone-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  flex: 1;
+  background: transparent;
+  padding: .75rem;
+  color: #0f172a;
+  font-size: 1rem;
+  outline: none;
+}
+
+.registration-submit {
+  min-height: 3.25rem;
+  width: 100%;
+  border-radius: .75rem;
+  background: #173f32;
+  padding: .75rem 1rem;
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 700;
+  transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.registration-submit:hover:not(:disabled) {
+  background: #285442;
+  box-shadow: 0 8px 20px rgb(23 63 50 / 18%);
+}
+
+.registration-submit:active:not(:disabled) {
+  transform: scale(.99);
+}
+
+.registration-submit:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
 @media (max-width: 767px) {
   .auth-shell {
     padding-inline: 0.75rem;
   }
 
   .auth-card {
-    border-radius: 1.5rem;
     padding: 1.1rem 1rem;
   }
 
@@ -257,13 +389,32 @@ const onSubmit = async () => {
     line-height: 1.08;
   }
 
-  .auth-card input,
-  .auth-card button {
-    font-size: 1rem;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .auth-card .space-y-4 > .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .auth-card .space-y-4 > .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .phone-country-wrap {
+    flex-basis: 7.25rem;
   }
 
-  .auth-card .grid {
-    grid-template-columns: 1fr;
+  .phone-country {
+    padding-left: .65rem;
+    font-size: .82rem;
+  }
+
+  .registration-phone-input {
+    padding-inline: .55rem;
   }
 }
 </style>
