@@ -3,7 +3,7 @@
     <div class="tickets-inner">
       <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'TIKET' : 'TICKETS' }}</p>
       <h1>{{ id ? 'Tiket peserta' : 'Participant tickets' }}</h1>
-      <p class="intro">{{ id ? 'Setiap peserta memiliki tiket QR sendiri. Tunjukkan saat check-in dan jangan bagikan QR secara publik.' : 'Each participant has an individual QR ticket. Show it at check-in and do not share it publicly.' }}</p>
+      <p class="intro">{{ id ? 'Setiap tiket memiliki QR tersendiri, dan satu peserta dapat memiliki beberapa tiket. Tunjukkan QR tiket yang sesuai saat check-in dan jangan bagikan secara publik.' : 'Each ticket has its own QR, and one participant may have multiple tickets. Show the correct ticket QR at check-in and do not share it publicly.' }}</p>
       <p v-if="loading" class="state">{{ id ? 'Memuat tiket…' : 'Loading tickets…' }}</p>
       <p v-else-if="error" class="error" role="alert">{{ error }}</p>
       <p v-else-if="!tickets.length" class="state">{{ id ? 'Tiket akan muncul setelah pembayaran terverifikasi.' : 'Tickets appear after payment is verified.' }}</p>
@@ -17,9 +17,9 @@
             <div class="ticket__activity">{{ ticket.activity_type === 'CYCLING' ? (id ? 'SEPEDA SANTAI' : 'LEISURE CYCLING') : (id ? 'JALAN SEHAT KELUARGA' : 'FAMILY WALK') }}</div>
             <h2>{{ ticket.participant_name }}</h2>
             <div class="ticket__number">{{ ticket.ticket_number }}</div>
-            <div class="ticket__rule"></div>
+            <div class="ticket__rule" />
             <small>{{ id ? 'Tiket diterbitkan' : 'Ticket issued' }} · {{ formatDate(ticket.issued_at) }}</small>
-            <p class="ticket__hint">{{ id ? 'Tunjukkan QR ini saat registrasi ulang. Tiket berlaku untuk pemiliknya.' : 'Show this QR at registration. This ticket is personal.' }}</p>
+            <p class="ticket__hint">{{ id ? 'Tunjukkan QR tiket ini saat registrasi ulang. Setiap tiket dipindai secara terpisah.' : 'Show this ticket QR at check-in. Each ticket is scanned separately.' }}</p>
           </div>
           <div class="ticket__qr">
             <span class="ticket__qr-label">SCAN UNTUK CHECK-IN</span>
@@ -29,7 +29,7 @@
           </div>
         </article>
       </div>
-      <button type="button" class="refresh" :disabled="loading" @click="loadTickets">{{ id ? 'Muat ulang tiket' : 'Refresh tickets' }}</button>
+      <div class="ticket-actions print-hide"><button type="button" class="refresh" :disabled="loading" @click="loadTickets">{{ id ? 'Muat ulang tiket' : 'Refresh tickets' }}</button><button v-if="tickets.length" type="button" class="print-button" @click="printTickets">{{ id ? 'Cetak / Simpan PDF' : 'Print / Save PDF' }}</button></div>
     </div>
   </section>
 </template>
@@ -46,6 +46,7 @@ const tickets = ref<HariSantriTicket[]>([]);
 const qrByTicket = reactive<Record<string, string>>({});
 const loading = ref(false);
 const error = ref('');
+const printTickets = () => window.print();
 const formatDate = (value: string) => new Intl.DateTimeFormat(id.value ? 'id-ID' : 'en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value));
 const loadTickets = async () => {
   loading.value = true;
@@ -94,8 +95,9 @@ h1 { margin-top: .7rem; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; 
 .ticket__qr > span:not(.ticket__qr-label):not(.ticket__qr-caption) { color:#697a70; font-size:.78rem; }
 .ticket__qr-caption { color:#6b7a6f; font-size:.62rem; letter-spacing:.08em; }
 .refresh { margin-top: 1.5rem; border: 1px solid #b9c9be; padding: .7rem 1rem; font-size: .85rem; font-weight: 800; }
+.ticket-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}.ticket-actions .refresh{margin-top:0}.print-button{border:0;background:#f1bd2d;color:#17352c;padding:.7rem 1rem;font-size:.85rem;font-weight:800}
 .refresh:disabled { opacity: .5; }
 @media (max-width: 640px) { .tickets-page { padding-top:2rem; padding-bottom:2rem; } .ticket { grid-template-columns:1fr; gap:1rem; padding:1.1rem; } .ticket__brand { align-items:flex-start; margin-bottom:1.15rem; } .ticket__brand img { width:2.6rem; height:2.6rem; flex:none; } .ticket__brand strong { font-size:.66rem; letter-spacing:.12em; } .ticket__brand small { font-size:.48rem; line-height:1.35; letter-spacing:.05em; } .ticket__qr { width:min(100%,15rem); justify-self:center; } .ticket__qr img { width:11rem; height:11rem; } }
 @media (max-width: 360px) { .ticket { padding:.9rem; border-radius:1rem; } .ticket__brand { gap:.5rem; } .ticket__brand img { width:2.35rem; height:2.35rem; } .ticket__brand strong { font-size:.58rem; } .ticket__brand small { font-size:.43rem; } .ticket__details h2 { font-size:1.65rem; } .ticket__number { font-size:.82rem; letter-spacing:.05em; } .ticket__qr { width:100%; padding:.75rem; } .ticket__qr img { width:min(68vw,11rem); height:min(68vw,11rem); } }
-@media print { .tickets-page { background:#fff; padding:0; } .tickets-inner > :not(.ticket-list) { display:none!important; } .ticket-list { margin:0; } .ticket { break-inside:avoid; box-shadow:none; print-color-adjust:exact; -webkit-print-color-adjust:exact; } }
+@media print { .tickets-page { background:#fff; padding:0; } .tickets-inner > :not(.ticket-list) { display:none!important; } .ticket-list { margin:0; } .ticket { break-inside:avoid; box-shadow:none; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .print-hide{display:none!important} }
 </style>

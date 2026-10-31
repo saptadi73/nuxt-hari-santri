@@ -15,6 +15,9 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [x] Tampilkan state checkout UNKNOWN dengan arahan resume order yang sama; jangan buat order baru atau mengubah status dari browser.
 - [x] Tampilkan `paid_needs_review` tanpa akses tiket, dan berikan aksi rekonsiliasi callback terlambat admin berbasis nomor referensi order.
 - [x] Hasil pembayaran memeriksa status order server; dashboard menampilkan status/tiket QR per peserta.
+- [x] Dashboard pembayaran, invoice, dan tiket mendukung beberapa order dalam satu akun tanpa hanya mengambil order terbaru.
+- [x] Halaman `/dashboard/invoice` memakai `GET /hari-santri/me/invoices`, menampilkan rincian per order, dan menyediakan cetak/simpan PDF.
+- [x] Halaman `/dashboard/tiket` menyediakan tampilan QR responsif yang dapat dicetak atau disimpan sebagai PDF.
 - [x] Admin mengelola kapasitas size dan metadata paket; halaman bazar mengirim pengajuan terpisah.
 - [x] Scanner check-in memakai kamera dengan fallback input manual dan validasi online.
 
@@ -33,7 +36,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [ ] Sambungkan CRUD agenda, performer confirmed-only, hadiah/sponsor/claim, voucher, tenant/stall, galeri/media consent, FAQ dan announcements ke CMS backend.
 - [ ] Buat halaman legal Harlah NU yang disetujui panitia; saat ini route terms/privacy yang diwarisi masih perlu audit isi.
 - [x] Sediakan aksi admin rekonsiliasi manual dari halaman operasi menggunakan nomor referensi order; lookup dilakukan backend ke Payment Portal dan status browser tidak mengubah order.
-- [x] Pensiunkan rute IWBIF publik dan alias dashboard legacy; bookmark `/register`, `/tickets`, `/register/*`, cart, invoice, payment-status, Business Matching, Deal Room, program, dan speakers dialihkan ke alur Harlah NU yang aktif.
+- [x] Pensiunkan rute IWBIF publik dan alias dashboard legacy; bookmark `/register`, `/tickets`, `/register/*`, cart, payment-status, Business Matching, Deal Room, program, dan speakers dialihkan ke alur Harlah NU yang aktif. `/dashboard/invoice` tetap menjadi halaman aktif Harlah NU.
 - [ ] Perluas copy/SEO/social metadata dan sitemap per route; verifikasi UI Indonesia, consent wali, keyboard, screen reader, image loading, reduced motion, dan viewport mobile.
 - [ ] Audit 44 halaman/komponen legacy IWBIF yang masih memuat salinan English/Chinese; komponen legacy yang tidak lagi dipakai masih ada di source untuk migrasi/cleanup bertahap, tetapi route publiknya sudah dialihkan.
 - [ ] Setelah tersedia, UAT frontend dengan client Payment Portal sandbox dan fixture harga/kuota yang disetujui.

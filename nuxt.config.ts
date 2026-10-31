@@ -83,7 +83,6 @@ export default defineNuxtConfig({
     '/dashboard/registration-status': { redirect: { to: '/dashboard', statusCode: 301 } },
     '/dashboard/payment-status': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
     '/dashboard/payment-qr': { redirect: { to: '/dashboard/payment', statusCode: 301 } },
-    '/dashboard/invoice': { redirect: { to: '/dashboard', statusCode: 301 } },
     '/about': { redirect: { to: '/#tentang', statusCode: 301 } },
     '/workshops': { redirect: { to: '/#kegiatan', statusCode: 301 } },
     '/partners': { redirect: { to: '/#bazar', statusCode: 301 } },

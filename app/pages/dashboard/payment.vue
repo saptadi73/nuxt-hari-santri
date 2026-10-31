@@ -31,6 +31,7 @@
             <span class="status" :class="`status--${entry.order.status}`">{{ statusLabel(entry.order.status) }}</span>
           </div>
           <div class="order-actions">
+            <NuxtLink :to="`/dashboard/invoice?order_id=${encodeURIComponent(entry.order.id)}`" class="button button--outline">{{ id ? 'Invoice' : 'Invoice' }}</NuxtLink>
             <NuxtLink v-if="entry.order.status === 'paid'" :to="`/dashboard/tiket?order_id=${encodeURIComponent(entry.order.id)}`" class="button button--light">{{ id ? 'Lihat tiket' : 'View tickets' }}</NuxtLink>
             <span v-else-if="entry.order.status === 'paid_needs_review'" class="action-note">{{ id ? 'Pembayaran diterima; menunggu pemeriksaan panitia. Tiket belum diterbitkan.' : 'Payment received; awaiting organizer review. Tickets are not issued yet.' }}</span>
             <span v-else-if="['expired', 'canceled'].includes(entry.order.status.toLowerCase())" class="action-note">{{ id ? 'Pesanan sudah ditutup. Hubungi panitia bila pembayaran telah dilakukan.' : 'This order is closed. Contact the organizer if you already paid.' }}</span>
@@ -148,10 +149,11 @@ h1 { margin-top: .7rem; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.05; 
 .order-row h2 { margin-top: .4rem; font-size: 1.5rem; }
 .order-row__body > p:not(.order-kicker) { margin-top: .45rem; color: #65756b; font-size: .87rem; }
 .status { display: inline-block; margin-top: .65rem; border: 1px solid #b9c9be; padding: .25rem .5rem; color: #286449; font-size: .7rem; font-weight: 800; }
-.order-actions { flex-shrink: 0; }
+.order-actions { display:flex; flex-shrink:0; flex-wrap:wrap; justify-content:flex-end; gap:.5rem; }
 .button { display: inline-flex; min-height: 2.8rem; align-items: center; justify-content: center; border: 0; padding: .7rem 1rem; font-size: .84rem; font-weight: 800; }
 .action-note { max-width: 22rem; color: #795d17; font-size: .82rem; line-height: 1.55; }
 .button--dark { background: #17352c; color: #fff; } .button--light { background: #f4d578; color: #17352c; }
+.button--outline { border:1px solid #8ca79a; background:#fff; color:#17352c; }
 .button:disabled { opacity: .55; }
 .privacy-note { margin-top: 2rem; color: #77857c; font-size: .8rem; line-height: 1.6; }
 .text-link { display: inline-block; margin-left: .5rem; color: #286449; font-weight: 800; text-decoration: underline; text-underline-offset: .2rem; }

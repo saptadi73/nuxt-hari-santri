@@ -19,10 +19,11 @@
         <div class="quick-grid">
           <NuxtLink to="/daftar"><span>01</span><strong>{{ id ? 'Daftar Peserta' : 'Register Participants' }}</strong><p>{{ id ? 'Pilih kegiatan dan isi data keluarga.' : 'Choose an activity and enter your family details.' }}</p></NuxtLink>
           <NuxtLink to="/dashboard/payment"><span>02</span><strong>{{ id ? 'Pesanan & Pembayaran' : 'Orders & Payment' }}</strong><p>{{ id ? 'Lanjutkan pembayaran melalui Portal Payment.' : 'Continue payment through the Payment Portal.' }}</p></NuxtLink>
-          <NuxtLink to="/dashboard/tiket"><span>03</span><strong>{{ id ? 'Tiket Digital' : 'Digital Tickets' }}</strong><p>{{ id ? 'Satu QR untuk setiap peserta.' : 'One QR ticket per participant.' }}</p></NuxtLink>
-          <NuxtLink to="/dashboard/voucher"><span>04</span><strong>{{ id ? 'Voucher Bazar' : 'Bazaar Vouchers' }}</strong><p>{{ id ? 'QR voucher, saldo, dan riwayat belanja.' : 'Voucher QR, balance, and spending history.' }}</p></NuxtLink>
-          <NuxtLink to="/dashboard/donasi"><span>05</span><strong>{{ id ? 'Riwayat Donasi' : 'Donation History' }}</strong><p>{{ id ? 'Lihat donasi dan status konfirmasi pembayaran.' : 'View donations and their confirmation status.' }}</p></NuxtLink>
-          <NuxtLink to="/#agenda"><span>06</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/tiket"><span>03</span><strong>{{ id ? 'Tiket Digital' : 'Digital Tickets' }}</strong><p>{{ id ? 'Setiap tiket memiliki QR; satu peserta dapat memiliki beberapa tiket.' : 'Each ticket has its own QR; one participant may have multiple tickets.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/invoice"><span>04</span><strong>{{ id ? 'Invoice' : 'Invoices' }}</strong><p>{{ id ? 'Lihat dan unduh seluruh invoice PDF.' : 'View and download all invoice PDFs.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/voucher"><span>05</span><strong>{{ id ? 'Voucher Bazar' : 'Bazaar Vouchers' }}</strong><p>{{ id ? 'QR voucher, saldo, dan riwayat belanja.' : 'Voucher QR, balance, and spending history.' }}</p></NuxtLink>
+          <NuxtLink to="/dashboard/donasi"><span>06</span><strong>{{ id ? 'Riwayat Donasi' : 'Donation History' }}</strong><p>{{ id ? 'Lihat donasi dan status konfirmasi pembayaran.' : 'View donations and their confirmation status.' }}</p></NuxtLink>
+          <NuxtLink to="/#agenda"><span>07</span><strong>{{ id ? 'Agenda & Rute' : 'Agenda & Routes' }}</strong><p>{{ id ? 'Lihat pembaruan resmi panitia.' : 'Read official organizer updates.' }}</p></NuxtLink>
         </div>
       </section>
 
@@ -46,7 +47,7 @@
 
 <script setup lang="ts">
 import type { PendingOrderRecord } from '~/composables/usePayment';
-import type { HariSantriTicket } from '~/composables/useHariSantri';
+import type { HariSantriInvoice, HariSantriTicket } from '~/composables/useHariSantri';
 
 definePageMeta({ middleware: 'auth' });
 const { locale } = useI18n();
@@ -60,26 +61,35 @@ const paymentApi = usePayment();
 const hariSantriApi = useHariSantri();
 const orders = ref<PendingOrderRecord[]>([]);
 const tickets = ref<HariSantriTicket[]>([]);
+const invoices = ref<HariSantriInvoice[]>([]);
 const error = ref('');
-const eventDate = new Date('2026-11-15T07:00:00+07:00');
-const daysUntil = computed(() => Math.max(0, Math.ceil((eventDate.getTime() - Date.now()) / 86400000)));
-const participantCount = computed(() => orders.value.reduce((count, entry) => count + (entry.items[0]?.quantity || 0), 0));
+const eventDate = new Date('2027-01-31T07:00:00+07:00');
+const now = ref(Date.now());
+const daysUntil = computed(() => Math.max(0, Math.ceil((eventDate.getTime() - now.value) / 86400000)));
+const participantCount = computed(() => invoices.value.reduce((count, invoice) => count + invoice.participants.filter(participant => ['reserved', 'confirmed'].includes(participant.status)).length, 0));
+let countdownTimer: ReturnType<typeof setInterval> | undefined;
 
 onMounted(async () => {
+  countdownTimer = setInterval(() => { now.value = Date.now(); }, 60000);
   if (isOrganizer) return;
   try {
     const eventList = await eventsApi.getEvents(1, 100);
     const event = eventList.data.find(item => item.slug === runtime.public.eventSlug);
     if (!event) return;
-    const [orderList, ticketList] = await Promise.all([
+    const [orderList, ticketList, invoiceList] = await Promise.all([
       paymentApi.getPendingOrders(event.id, 1, 100),
-      hariSantriApi.getMyTickets()
+      hariSantriApi.getMyTickets(),
+      hariSantriApi.getMyInvoices()
     ]);
     orders.value = orderList.data.filter(item => item.order.event_id === event.id);
     tickets.value = ticketList.data;
+    invoices.value = invoiceList.data;
   } catch (cause) {
     error.value = cause instanceof Error ? cause.message : (id.value ? 'Informasi dashboard belum dapat dimuat.' : 'Dashboard information could not be loaded.');
   }
+});
+onUnmounted(() => {
+  if (countdownTimer) clearInterval(countdownTimer);
 });
 useSeoMeta({ title: () => `${id.value ? 'Dashboard Peserta' : 'Participant Dashboard'} | Harlah NU ke-101` });
 </script>

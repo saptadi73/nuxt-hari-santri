@@ -52,7 +52,8 @@ Build production ditolak jika API atau site URL masih menunjuk ke localhost. Tok
 | Dashboard peserta | `/dashboard` | Ringkasan pesanan, peserta, tiket, voucher, donasi, dan akses cepat. |
 | Pendaftaran peserta | `/daftar` | Jenis Kegiatan, peserta keluarga, ukuran kaos, dan wilayah. |
 | Pesanan dan pembayaran | `/dashboard/payment`, `/pembayaran/hasil` | Hosted checkout Payment Portal dan pemeriksaan hasil server. |
-| Tiket | `/dashboard/tiket` | Tiket digital dan QR per peserta setelah pembayaran terkonfirmasi. |
+| Invoice | `/dashboard/invoice` | Seluruh invoice per order, rincian peserta dan pembayaran, serta cetak/simpan PDF. |
+| Tiket | `/dashboard/tiket` | Seluruh tiket digital dan QR per peserta dari setiap order lunas, termasuk tampilan cetak/PDF. |
 | Donasi | `/donasi`, `/dashboard/donasi` | Membuat donasi dan melihat riwayat serta status konfirmasi. |
 | Bazar | `/daftar-tenant` | Pengajuan exhibitor dapat berdiri sendiri atau bersama pendaftaran peserta. |
 | Voucher peserta | `/dashboard/voucher` | QR voucher, saldo, dan riwayat transaksi. |
@@ -137,8 +138,9 @@ Alur berlaku: frontend → backend event → Payment Portal → DOKU/Midtrans. F
 | `GET` | `/orders/{order_id}` | Ringkasan order. |
 | `GET` | `/orders/{order_id}/detail` | Detail item dan attempt pembayaran. |
 | `GET` | `/payments/{payment_id}` | Status payment tertentu. |
-| `GET` | `/payments/me/invoices` | Invoice akun. |
-| `GET` | `/payments/registrations/{registration_ref}/invoice` | Invoice registrasi. |
+| `GET` | `/hari-santri/me/invoices` | Daftar invoice Harlah NU milik akun, dikelompokkan per order beserta item, peserta, dan pembayaran. |
+| `GET` | `/payments/me/invoices` | Invoice pembayaran generik/legacy akun. |
+| `GET` | `/payments/registrations/{registration_ref}/invoice` | Invoice registrasi generik/legacy. |
 
 Catatan:
 
@@ -146,6 +148,8 @@ Catatan:
 - Checkout gateway langsung dan webhook gateway tidak diekspos oleh router portal event; semuanya dikelola Payment Portal.
 - Redirect sukses bukan bukti lunas. Halaman hasil memanggil status server dan dapat menjalankan reconcile.
 - Callback wajib idempoten agar tidak menerbitkan tiket ganda.
+- Satu akun boleh memiliki beberapa order untuk keluarga dan/atau exhibitor. Dashboard tidak boleh hanya mengambil order terbaru.
+- Invoice Harlah NU mengikuti satu order. Tombol **Cetak / Simpan PDF** memakai dialog cetak browser sehingga peserta dapat memilih printer atau `Save as PDF` tanpa mengubah status transaksi.
 
 ## API donasi
 
@@ -172,7 +176,7 @@ Dashboard donasi menampilkan jumlah record, jumlah terkonfirmasi, total nominal 
 | `POST` | `/attendance/scan` | Scan kehadiran event. |
 | `GET` | `/attendance/events/{event_id}/report` | Laporan peserta terdaftar dan hadir. |
 
-Tiket dirender setelah backend menerima konfirmasi lunas. Satu peserta memperoleh satu tiket dan satu QR unik.
+Tiket dirender setelah backend menerima konfirmasi lunas. Satu peserta memperoleh satu tiket dan satu QR unik. Halaman tiket menggabungkan tiket dari seluruh order lunas milik akun dan menyediakan layout responsif yang dapat dicetak atau disimpan sebagai PDF.
 
 ## API bazar, voucher, dan settlement
 
@@ -227,7 +231,7 @@ Filter laporan Harlah: `search`, `status`, `date_from`, `date_to`, `page`, dan `
 
 - `useApi.ts`: base URL, token, locale, error normalization, dan refresh session.
 - `useAuth.ts`: login, registrasi, forgot/reset password, dan perubahan password.
-- `useHariSantri.ts`: peserta, checkout, status, reconcile, donasi, tiket, dan bazar.
+- `useHariSantri.ts`: peserta, checkout, status, reconcile, invoice, donasi, tiket, dan bazar.
 - `useAdminReport.ts`: pembayaran, donasi, peserta, transaksi, dan CSV.
 - `useVoucherWallet.ts`: voucher, transfer, exhibitor wallet, settlement, audit, dan callback outbox.
 - `HarlahFinanceTable.vue`: tabel reusable pembayaran/donasi peserta dan admin.
@@ -260,9 +264,11 @@ Pemeriksaan minimum:
 3. Checkout membuka Payment Portal, bukan gateway langsung.
 4. Halaman hasil memeriksa status server dan reconcile dapat dijalankan.
 5. Tiket QR muncul setelah order terkonfirmasi lunas.
-6. Riwayat donasi dan laporan pembayaran/donasi admin dapat dimuat.
-7. Ekspor CSV mengikuti filter.
-8. Callback outbox dapat di-retry tanpa transaksi atau tiket ganda.
-9. Halaman desktop dan mobile tidak overflow pada tabel, QR, atau tombol.
+6. Beberapa order dalam satu akun tetap tampil seluruhnya pada pembayaran, invoice, dan tiket.
+7. `/dashboard/invoice` dapat berpindah antar-invoice dan menghasilkan cetakan/PDF dengan rincian yang sesuai order.
+8. Riwayat donasi dan laporan pembayaran/donasi admin dapat dimuat.
+9. Ekspor CSV mengikuti filter.
+10. Callback outbox dapat di-retry tanpa transaksi atau tiket ganda.
+11. Halaman desktop dan mobile tidak overflow pada tabel, QR, invoice, atau tombol.
 
 OpenAPI backend adalah sumber kebenaran terakhir untuk schema request/response. Dokumen ini menjelaskan kontrak yang dipakai frontend dan harus diperbarui bersama perubahan backend berikutnya.

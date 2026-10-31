@@ -93,6 +93,26 @@ export interface HariSantriTicket {
   issued_at: string;
 }
 
+export interface HariSantriInvoice {
+  order_id: string;
+  order_number: string;
+  invoice_number: string;
+  event_name: string;
+  customer_name: string;
+  customer_email: string;
+  status: string;
+  subtotal: number;
+  discount_amount: number;
+  tax_amount: number;
+  service_fee: number;
+  total_amount: number;
+  currency: string;
+  created_at: string;
+  items: Array<{ product_name: string; product_type: string; quantity: number; unit_price: number; line_total: number; currency: string }>;
+  participants: Array<{ participant_number: number; full_name: string; activity_type: ActivityType; shirt_size_code: string | null; status: string }>;
+  payment: { reference_id: string; payment_no: string | null; status: string; amount: number; currency: string; confirmed_at: string | null } | null;
+}
+
 export interface HariSantriCheckinResult {
   ticket_number: string;
   participant_name: string;
@@ -172,6 +192,9 @@ export function useHariSantri() {
   const getMyTickets = () =>
     api<ApiResponse<HariSantriTicket[]>>('/hari-santri/me/tickets');
 
+  const getMyInvoices = () =>
+    api<ApiResponse<HariSantriInvoice[]>>('/hari-santri/me/invoices');
+
   const checkinTicket = (qrToken: string) =>
     api<ApiResponse<HariSantriCheckinResult>>('/hari-santri/staff/checkins', { method: 'POST', body: { qr_token: qrToken } });
 
@@ -181,5 +204,5 @@ export function useHariSantri() {
   const getMyBazaarApplications = () =>
     api<ApiResponse<BazaarApplicationRecord[]>>('/bazaar/me/applications');
 
-  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcileOrderPayment, createDonation, getDonationStatus, getMyDonations, reconcilePayment, getMyTickets, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
+  return { getShirtSizes, getRegions, getAdminShirtSizes, createShirtSize, updateShirtSize, saveParticipants, getParticipants, createCheckout, getPaymentStatus, reconcileOrderPayment, createDonation, getDonationStatus, getMyDonations, reconcilePayment, getMyTickets, getMyInvoices, checkinTicket, submitBazaarApplication, getMyBazaarApplications };
 }

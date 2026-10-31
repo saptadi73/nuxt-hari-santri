@@ -1,298 +1,43 @@
 <template>
-  <section class="mx-auto max-w-4xl px-3 py-10 sm:px-6">
-    <p class="text-sm uppercase tracking-[.35em] text-cyan-200">{{ copy.eyebrow }}</p>
-    <h1 class="mt-3 text-3xl font-black sm:text-4xl">{{ copy.title }}</h1>
-
-    <div v-if="pending" class="glass-card mt-8 rounded-[2rem] p-7 text-slate-300">{{ copy.loading }}</div>
-    <div v-else-if="errorMessage" class="mt-8 rounded-3xl border border-red-400/30 bg-red-950/30 p-6 text-red-100">{{ errorMessage }}</div>
-    <div v-else-if="!invoice" class="glass-card mt-8 rounded-[2rem] p-7">
-      <p class="text-lg font-semibold">{{ copy.noInvoice }}</p>
-      <p class="mt-2 text-slate-400">{{ emptyInvoiceMessage }}</p>
-      <p v-if="contextMismatchMessage" class="mt-2 text-amber-200/80">{{ contextMismatchMessage }}</p>
-      <NuxtLink :to="emptyInvoiceTo" class="mt-6 inline-flex rounded-full bg-cyan-400 px-5 py-3 font-semibold text-slate-950">{{ emptyInvoiceAction }}</NuxtLink>
-    </div>
-    <article v-else id="invoice" ref="invoiceElement" class="glass-card mt-8 rounded-[2rem] p-5 sm:p-7">
-      <div class="flex flex-wrap justify-between gap-5 border-b border-white/10 pb-6">
-        <div class="flex min-w-0 items-center gap-4">
-          <img src="/logo_santri_2026.png" alt="Harlah NU ke-101" class="h-16 w-16 shrink-0 object-contain" data-invoice-logo>
-          <div class="min-w-0"><p class="break-words text-sm text-slate-400">{{ invoice.registration.event_name }}</p><p class="mt-1 break-words font-semibold">{{ copy.invoice }} {{ invoice.order.order_number }}</p></div>
-        </div>
-        <span class="h-fit rounded-full bg-emerald-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-emerald-200">{{ copy.paid }}</span>
+  <section class="invoice-page"><div class="invoice-inner">
+    <p class="eyebrow">HARLAH NU KE-101 / {{ id ? 'INVOICE' : 'INVOICES' }}</p>
+    <h1>{{ id ? 'Invoice pendaftaran' : 'Registration invoices' }}</h1>
+    <p class="intro">{{ id ? 'Seluruh invoice dari pesanan keluarga Anda tersimpan di sini dan dapat diunduh sebagai PDF.' : 'All invoices from your family orders are kept here and can be downloaded as PDF.' }}</p>
+    <p v-if="loading" class="state">{{ id ? 'Memuat invoice…' : 'Loading invoices…' }}</p>
+    <p v-else-if="error" class="error" role="alert">{{ error }}</p>
+    <div v-else-if="!invoices.length" class="empty"><strong>{{ id ? 'Belum ada invoice.' : 'No invoices yet.' }}</strong><p>{{ id ? 'Invoice akan muncul setelah pesanan pendaftaran dibuat.' : 'An invoice appears after a registration order is created.' }}</p><NuxtLink to="/daftar" class="button button--gold">{{ id ? 'Mulai pendaftaran' : 'Register now' }}</NuxtLink></div>
+    <template v-else>
+      <div class="invoice-picker print-hide" aria-label="Daftar invoice">
+        <button v-for="invoice in invoices" :key="invoice.order_id" type="button" :class="{ active: selected?.order_id === invoice.order_id }" @click="selected = invoice"><span>{{ invoice.invoice_number }}</span><strong>{{ activityLabel(invoice) }}</strong><small>{{ money(invoice.total_amount, invoice.currency) }} · {{ statusLabel(invoice.status) }}</small></button>
       </div>
-      <dl class="mt-6 grid gap-5 sm:grid-cols-2">
-        <div><dt class="text-xs uppercase tracking-[.2em] text-slate-500">{{ copy.registrationNumber }}</dt><dd class="mt-2 break-words text-lg font-semibold">{{ invoice.registration.registration_number }}</dd></div>
-        <div><dt class="text-xs uppercase tracking-[.2em] text-slate-500">{{ copy.participant }}</dt><dd class="mt-2 break-words text-lg font-semibold">{{ invoice.participant.full_name }}</dd><p class="break-words text-sm text-slate-400">{{ invoice.participant.email }}</p></div>
-        <div><dt class="text-xs uppercase tracking-[.2em] text-slate-500">{{ copy.delegatePackage }}</dt><dd class="mt-2 text-lg font-semibold">{{ invoice.registration.delegate_package_name || invoice.registration.ticket_type_name || '-' }}</dd></div>
-        <div><dt class="text-xs uppercase tracking-[.2em] text-slate-500">{{ copy.paymentStatus }}</dt><dd class="mt-2 text-lg font-semibold text-emerald-300">{{ copy.paid }}</dd><p class="text-sm text-slate-400">{{ formatDate(invoice.payment.paid_at) }}</p></div>
-      </dl>
-      <ul v-if="orderItems.length" class="mt-7 space-y-2 border-t border-white/10 pt-6"><li v-for="item in orderItems" :key="item.id" class="flex justify-between gap-3 text-sm"><span class="min-w-0 break-words text-slate-300">{{ item.product_name }} × {{ item.quantity }}</span><strong class="shrink-0 text-white">{{ money(item.line_total, item.currency) }}</strong></li></ul>
-      <div class="mt-7 space-y-4 border-t border-white/10 pt-6">
-        <div class="flex flex-wrap items-center justify-between gap-2"><span class="text-slate-400">{{ amountCopy.orderTotal }}</span><strong class="text-white">{{ money(invoiceOrder?.total_amount, invoiceOrder?.currency) }}</strong></div>
-        <div class="flex flex-wrap items-center justify-between gap-2"><span class="text-slate-300">{{ amountCopy.totalPaid }}</span><strong class="break-words text-2xl text-cyan-200">{{ money(totalPaid, invoiceOrder?.currency) }}</strong></div>
-        <div v-if="Number(invoiceOrder?.remaining_amount) > 0" class="flex flex-wrap items-center justify-between gap-2"><span class="text-slate-400">{{ amountCopy.remaining }}</span><strong class="text-white">{{ money(invoiceOrder?.remaining_amount, invoiceOrder?.currency) }}</strong></div>
-      </div>
-      <button class="mt-7 w-full rounded-full bg-cyan-400 px-5 py-3 font-semibold text-slate-950 disabled:cursor-not-allowed disabled:opacity-60 print:hidden sm:w-auto" :disabled="downloading" @click="downloadInvoice">{{ downloading ? copy.preparingPdf : copy.downloadPdf }}</button>
-      <p v-if="exportError" role="alert" class="mt-3 text-sm text-red-300" data-pdf-exclude>{{ exportError }}</p>
-    </article>
-  </section>
+      <article v-if="selected" ref="invoiceElement" class="invoice-document">
+        <header><div class="brand"><img src="/logo_santri_2026.png" alt="Logo Harlah NU ke-101" data-invoice-logo><div><span>MWC NU TARUMAJAYA</span><strong>HARLAH NU KE-101</strong><small>31 JANUARI 2027 · SUMMARECON CROWN GADING</small></div></div><div class="invoice-heading"><span>INVOICE</span><strong>{{ selected.invoice_number }}</strong><small>{{ formatDate(selected.created_at) }}</small></div></header>
+        <div class="invoice-status" :class="`invoice-status--${selected.status}`">{{ statusLabel(selected.status) }}</div>
+        <dl class="identity-grid"><div><dt>{{ id ? 'Ditagihkan kepada' : 'Billed to' }}</dt><dd>{{ selected.customer_name }}</dd><small>{{ selected.customer_email }}</small></div><div><dt>{{ id ? 'Nomor pesanan' : 'Order number' }}</dt><dd>{{ selected.order_number }}</dd><small>{{ selected.event_name }}</small></div></dl>
+        <section class="document-section"><h2>{{ id ? 'Rincian pesanan' : 'Order details' }}</h2><div class="table-wrap"><table><thead><tr><th>Item</th><th>{{ id ? 'Jumlah' : 'Qty' }}</th><th>{{ id ? 'Biaya' : 'Amount' }}</th></tr></thead><tbody><tr v-for="item in selected.items" :key="`${item.product_name}-${item.product_type}`"><td>{{ item.product_name }}</td><td>{{ item.quantity }}</td><td>{{ money(item.line_total, item.currency) }}</td></tr></tbody></table></div></section>
+        <section class="document-section"><h2>{{ id ? 'Peserta dalam invoice ini' : 'Participants in this invoice' }}</h2><ol class="participant-list"><li v-for="participant in selected.participants" :key="participant.participant_number"><span>{{ participant.participant_number }}</span><div><strong>{{ participant.full_name }}</strong><small>{{ participant.activity_type === 'CYCLING' ? (id ? 'Sepeda Santai' : 'Leisure Cycling') : (id ? 'Jalan Sehat Keluarga' : 'Family Walk') }} · {{ id ? 'Kaos' : 'Shirt' }} {{ participant.shirt_size_code || '-' }}</small></div></li></ol></section>
+        <div class="summary"><div><span>Subtotal</span><strong>{{ money(selected.subtotal, selected.currency) }}</strong></div><div v-if="selected.service_fee"><span>{{ id ? 'Biaya layanan' : 'Service fee' }}</span><strong>{{ money(selected.service_fee, selected.currency) }}</strong></div><div class="summary__total"><span>Total</span><strong>{{ money(selected.total_amount, selected.currency) }}</strong></div></div>
+        <footer><div><span>{{ id ? 'Referensi pembayaran' : 'Payment reference' }}</span><strong>{{ selected.payment?.payment_no || selected.payment?.reference_id || '-' }}</strong></div><p>{{ id ? 'Invoice elektronik ini diterbitkan oleh sistem pendaftaran Harlah NU ke-101.' : 'This electronic invoice is issued by the Harlah NU registration system.' }}</p></footer>
+        <button type="button" class="button button--gold print-hide" :disabled="downloading" data-pdf-exclude @click="downloadPdf">{{ downloading ? (id ? 'Menyiapkan PDF…' : 'Preparing PDF…') : (id ? 'Unduh PDF invoice' : 'Download invoice PDF') }}</button><p v-if="exportError" class="error print-hide" data-pdf-exclude>{{ exportError }}</p>
+      </article>
+    </template>
+  </div></section>
 </template>
 
 <script setup lang="ts">
-import { normalizeInvoices, usePayment, type Invoice, type PendingOrderProductItem, type OrderItem } from '~/composables/usePayment';
-import { useRegistration } from '~/composables/useRegistration';
-import { useTicket } from '~/composables/useTicket';
-
+import type { HariSantriInvoice } from '~/composables/useHariSantri';
 definePageMeta({ middleware: 'auth' });
-const { locale } = useI18n();
-const messages = {
-  en: { eyebrow: 'Payment and Invoice', title: 'Registration invoice', loading: 'Loading invoice…', noInvoice: 'No invoice is available yet.', invoice: 'Invoice', paid: 'Paid', registrationNumber: 'Registration number', participant: 'Participant', delegatePackage: 'Delegate package', paymentStatus: 'Payment status', packageTotal: 'Package total', paymentAmountGateway: 'Shown by payment gateway', preparingPdf: 'Preparing PDF…', downloadPdf: 'Download invoice PDF', finishProfile: 'Your payment is complete. Finish your profile so the backend can link this order to your registration and generate the invoice.', awaitingInvoice: 'Your invoice will appear after your payment and registration have been confirmed.', mismatchProfile: 'No invoice was found for this payment context yet. Please complete your profile if it is still pending.', mismatch: 'No invoice was found for this specific payment context yet.', completeExhibitor: 'Complete Exhibitor Profile', completeDelegate: 'Complete Delegate Profile', checkStatus: 'Check payment status', goPayment: 'Go to payment', unavailable: 'Your invoice is not available yet. Please contact the event organizer if your payment has already been confirmed.', exportError: 'The PDF export could not be prepared. Please try again.', invoiceSuffix: 'Invoice', seo: 'Invoice' },
-  zh: { eyebrow: '付款与发票', title: '注册发票', loading: '正在加载发票…', noInvoice: '目前尚无可用发票。', invoice: '发票', paid: '已付款', registrationNumber: '注册编号', participant: '参与者', delegatePackage: '代表套餐', paymentStatus: '付款状态', packageTotal: '套餐总额', paymentAmountGateway: '由支付网关显示', preparingPdf: '正在准备 PDF…', downloadPdf: '下载发票 PDF', finishProfile: '您的付款已完成。请完善个人资料，以便后端将此订单关联到您的注册并生成发票。', awaitingInvoice: '付款和注册确认后，您的发票将显示在此处。', mismatchProfile: '尚未找到与此次付款对应的发票。如果资料仍未完成，请先完善资料。', mismatch: '尚未找到与此次付款信息对应的发票。', completeExhibitor: '完善参展商资料', completeDelegate: '完善代表资料', checkStatus: '查看付款状态', goPayment: '前往付款', unavailable: '您的发票目前尚不可用。如果付款已确认，请联系活动主办方。', exportError: '无法准备 PDF 导出，请重试。', invoiceSuffix: '发票', seo: '发票' }
-} as const;
-const copy = computed(() => String(locale.value) === 'zh-CN' ? messages.zh : messages.en);
-useSeoMeta({ title: () => `${copy.value.seo} | Harlah NU ke-101` });
-
-const paymentApi = usePayment();
-const { getMyInvoices, getInvoiceByRegistration } = paymentApi;
-const registrationFlow = useRegistrationFlow();
-const { getRegistration } = useRegistration();
-const { getMyTickets } = useTicket();
-const route = useRoute();
-const invoice = ref<Invoice | null>(null);
-const orderItems = ref<PendingOrderProductItem[]>([]);
-const orderDetail = ref<OrderItem | null>(null);
-const invoiceElement = ref<HTMLElement | null>(null);
-const currentInvoice = useState<Invoice | null>('current-invoice', () => null);
-const pending = ref(true);
-const downloading = ref(false);
-const exportError = ref('');
-const errorMessage = ref('');
-const pendingProfileType = computed(() => registrationFlow.profilePendingType.value);
-const emptyInvoiceMessage = computed(() => pendingProfileType.value
-  ? copy.value.finishProfile
-  : copy.value.awaitingInvoice);
-const hasInvoiceContext = computed(() => Boolean(
-  getOrderIdFromQuery().trim() ||
-  getRegistrationIdFromQuery().trim() ||
-  (typeof window !== 'undefined' ? sessionStorage.getItem('iwbif-store-order-id') : '')
-));
-const contextMismatchMessage = computed(() => {
-  if (!hasInvoiceContext.value) return '';
-  return pendingProfileType.value
-    ? copy.value.mismatchProfile
-    : copy.value.mismatch;
-});
-const emptyInvoiceAction = computed(() => {
-  if (pendingProfileType.value) return pendingProfileType.value === 'exhibitor' ? copy.value.completeExhibitor : copy.value.completeDelegate;
-  if (hasInvoiceContext.value) return copy.value.checkStatus;
-  return copy.value.goPayment;
-});
-const emptyInvoiceTo = computed(() => {
-  if (pendingProfileType.value) return `/register/${pendingProfileType.value}`;
-  if (hasInvoiceContext.value) return '/dashboard/payment-status';
-  return '/dashboard/payment';
-});
-const LAST_REGISTRATION_KEY = 'last-paid-registration-id';
-const CURRENT_INVOICE_KEY = 'current-invoice';
-const getOrderIdFromQuery = () => {
-  const queryValue = route.query.order_id ?? route.query.orderId ?? '';
-  if (Array.isArray(queryValue)) return queryValue[0] || '';
-  return typeof queryValue === 'string' ? queryValue : '';
-};
-
-const getRegistrationIdFromQuery = () => {
-  const queryValue = route.query.registration_id ?? route.query.registrationId ?? '';
-  if (Array.isArray(queryValue)) return queryValue[0] || '';
-  return typeof queryValue === 'string' ? queryValue : '';
-};
-
-const rememberRegistration = (id: string) => {
-  const trimmed = id.trim();
-  if (!trimmed) return;
-  sessionStorage.setItem(LAST_REGISTRATION_KEY, trimmed);
-};
-
-const matchesContext = (candidate: Invoice, orderId: string, registrationId: string) => {
-  const normalizedOrderId = orderId.trim();
-  const normalizedRegistrationId = registrationId.trim();
-  if (!normalizedOrderId && !normalizedRegistrationId) return true;
-  if (normalizedOrderId && candidate.order?.id === normalizedOrderId) return true;
-  if (normalizedRegistrationId) {
-    return candidate.registration?.id === normalizedRegistrationId
-      || candidate.registration?.registration_number === normalizedRegistrationId;
-  }
-  return false;
-};
-
-const persistCurrentInvoice = (value: Invoice | null) => {
-  if (!value) {
-    currentInvoice.value = null;
-    sessionStorage.removeItem(CURRENT_INVOICE_KEY);
-    return;
-  }
-  currentInvoice.value = value;
-  sessionStorage.setItem(CURRENT_INVOICE_KEY, JSON.stringify(value));
-};
-
-const amountCopy = computed(() => String(locale.value) === 'zh-CN' ? {
-  orderTotal: '订单总额', totalPaid: '已付总额', remaining: '剩余应付金额', unavailable: '金额暂不可用'
-} : {
-  orderTotal: 'Order total', totalPaid: 'Total paid', remaining: 'Remaining balance', unavailable: 'Amount unavailable'
-});
-const invoiceOrder = computed(() => orderDetail.value || invoice.value?.order);
-const totalPaid = computed(() => {
-  const order = invoiceOrder.value;
-  if (!order) return null;
-  // Use the backend aggregate, not the latest child payment of a split order.
-  if (order.paid_amount != null) return order.paid_amount;
-  if (order.status?.toLowerCase() === 'paid' || order.is_payment_complete === true) return order.total_amount;
-  return null;
-});
-const money = (amount: number | null | undefined, currency?: string) => {
-  if (amount == null || !Number.isFinite(Number(amount)) || !currency) return amountCopy.value.unavailable;
-  return new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'id-ID', { style: 'currency', currency }).format(Number(amount));
-};
-const loadInvoiceContext = async () => {
-  if (!invoice.value?.order?.id) return;
-  try {
-    const detail = (await paymentApi.getOrderDetail(invoice.value.order.id)).data;
-    if (detail.order.id !== invoice.value.order.id) return;
-    orderItems.value = detail.items || [];
-    orderDetail.value = { ...invoice.value.order, ...detail.order };
-  } catch {
-    // The invoice's saved order totals remain available if item lookup fails.
-  }
-};
-
-const tryInvoiceByIdentifier = async (identifier: string) => {
-  const trimmed = identifier.trim();
-  if (!trimmed) return null;
-
-  try {
-    const response = await getInvoiceByRegistration(trimmed);
-    rememberRegistration(trimmed);
-    return response.data;
-  } catch {
-    try {
-      const registrationResponse = await getRegistration(trimmed);
-      const registrationNumber = registrationResponse.data.registration_number?.trim();
-      if (!registrationNumber) return null;
-
-      const response = await getInvoiceByRegistration(registrationNumber);
-      rememberRegistration(registrationNumber);
-      return response.data;
-    } catch {
-      return null;
-    }
-  }
-};
-
-onMounted(async () => {
-  const queryOrderId = getOrderIdFromQuery() || sessionStorage.getItem('iwbif-store-order-id') || '';
-  const queryRegistrationId = getRegistrationIdFromQuery();
-
-  try {
-    await registrationFlow.loadFlow(true);
-  } catch {
-    // Invoice lookup can still continue when progress bootstrap is unavailable.
-  }
-  invoice.value = currentInvoice.value;
-  if (invoice.value && !matchesContext(invoice.value, queryOrderId, queryRegistrationId)) {
-    invoice.value = null;
-    persistCurrentInvoice(null);
-  } else {
-    try {
-      const storedInvoice = sessionStorage.getItem(CURRENT_INVOICE_KEY);
-      if (storedInvoice) invoice.value = JSON.parse(storedInvoice) as Invoice;
-    } catch {
-      sessionStorage.removeItem(CURRENT_INVOICE_KEY);
-    }
-  }
-  if (invoice.value && !matchesContext(invoice.value, queryOrderId, queryRegistrationId)) {
-    invoice.value = null;
-    persistCurrentInvoice(null);
-  }
-
-  try {
-    try {
-      const response = await getMyInvoices();
-      const invoices = normalizeInvoices(response.data);
-      const matchedInvoice = queryOrderId
-        ? invoices.find((item) => item.order.id === queryOrderId) || null
-        : queryRegistrationId
-          ? (invoices.find((item) => item.registration?.id === queryRegistrationId || item.registration?.registration_number === queryRegistrationId) || null)
-          : null;
-      if (matchedInvoice) {
-        invoice.value = matchedInvoice;
-      } else if (!queryOrderId && !queryRegistrationId) {
-        const paidInvoice = invoices.find((item) => item.order.status?.toLowerCase() === 'paid') || null;
-        invoice.value = paidInvoice || invoices[0] || null;
-      } else {
-        const fallbackInvoice = invoices.find((item) => matchesContext(item, queryOrderId, queryRegistrationId)) || null;
-        if (fallbackInvoice) invoice.value = fallbackInvoice;
-      }
-    } catch {
-      // Try the registration invoice endpoint using the user's ticket below.
-    }
-
-    if (!invoice.value) {
-      if (queryRegistrationId) {
-        invoice.value = await tryInvoiceByIdentifier(queryRegistrationId);
-      }
-    }
-
-    if (!invoice.value) {
-      const storedRegistrationId = sessionStorage.getItem(LAST_REGISTRATION_KEY);
-      if (storedRegistrationId) {
-        invoice.value = await tryInvoiceByIdentifier(storedRegistrationId);
-      }
-    }
-
-    if (!invoice.value) {
-      try {
-        const tickets = await getMyTickets();
-        const ticketItems = Array.isArray(tickets.data) ? tickets.data : [];
-        const ticket = ticketItems[0];
-        if (ticket) {
-          invoice.value = await tryInvoiceByIdentifier(ticket.registration_id);
-        }
-      } catch {
-        // Ticket-based fallback failed.
-      }
-    }
-
-    if (invoice.value) {
-      persistCurrentInvoice(invoice.value);
-      if (invoice.value.registration?.id) rememberRegistration(invoice.value.registration.id);
-      await loadInvoiceContext();
-    }
-  } catch {
-    if (!invoice.value) {
-      errorMessage.value = copy.value.unavailable;
-    }
-  } finally {
-    pending.value = false;
-  }
-  if (!invoice.value) {
-    persistCurrentInvoice(null);
-  }
-});
-
-const formatDate = (value?: string | null) => value ? new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'id-ID', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(value)) : '-';
-
-const downloadInvoice = async () => {
-  if (downloading.value || !invoiceElement.value || !invoice.value) return;
-
-  downloading.value = true;
-  exportError.value = '';
-
-  try {
-    const { downloadInvoicePdf } = await import('~/utils/invoicePdf');
-    const identifier = invoice.value.registration.registration_number || invoice.value.order.order_number;
-    await downloadInvoicePdf(invoiceElement.value, `${identifier}-${copy.value.invoiceSuffix}`);
-  } catch {
-    exportError.value = copy.value.exportError;
-  } finally {
-    downloading.value = false;
-  }
-};
+const { locale } = useI18n(); const route = useRoute(); const id = computed(() => locale.value === 'id'); const api = useHariSantri();
+const invoices = ref<HariSantriInvoice[]>([]); const selected = ref<HariSantriInvoice | null>(null); const invoiceElement = ref<HTMLElement | null>(null); const loading = ref(true); const downloading = ref(false); const error = ref(''); const exportError = ref('');
+const money = (amount: number, currency: string) => new Intl.NumberFormat(id.value ? 'id-ID' : 'en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(Number(amount || 0));
+const formatDate = (value: string) => new Intl.DateTimeFormat(id.value ? 'id-ID' : 'en-US', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(value));
+const statusLabel = (status: string) => ({ paid: id.value ? 'LUNAS' : 'PAID', pending: id.value ? 'MENUNGGU PEMBAYARAN' : 'PAYMENT PENDING', partially_paid: id.value ? 'DIBAYAR SEBAGIAN' : 'PARTIALLY PAID', expired: id.value ? 'KEDALUWARSA' : 'EXPIRED', canceled: id.value ? 'DIBATALKAN' : 'CANCELLED' }[status.toLowerCase()] || status.toUpperCase());
+const activityLabel = (invoice: HariSantriInvoice) => invoice.items.some(item => item.product_type === 'exhibitor') && !invoice.participants.length ? (id.value ? 'Tenant Bazar' : 'Bazaar Tenant') : invoice.participants[0]?.activity_type === 'CYCLING' ? (id.value ? 'Sepeda Santai' : 'Leisure Cycling') : (id.value ? 'Jalan Sehat Keluarga' : 'Family Walk');
+onMounted(async () => { try { invoices.value = (await api.getMyInvoices()).data; const orderId = typeof route.query.order_id === 'string' ? route.query.order_id : ''; selected.value = invoices.value.find(invoice => invoice.order_id === orderId) || invoices.value[0] || null; } catch (cause) { error.value = cause instanceof Error ? cause.message : (id.value ? 'Invoice belum dapat dimuat.' : 'Invoices could not be loaded.'); } finally { loading.value = false; } });
+const downloadPdf = async () => { if (!invoiceElement.value || !selected.value || downloading.value) return; downloading.value = true; exportError.value = ''; try { const { downloadInvoicePdf } = await import('~/utils/invoicePdf'); await downloadInvoicePdf(invoiceElement.value, selected.value.invoice_number); } catch { exportError.value = id.value ? 'PDF belum dapat dibuat. Silakan coba kembali.' : 'The PDF could not be created. Please try again.'; } finally { downloading.value = false; } };
+useSeoMeta({ title: () => `${id.value ? 'Invoice Pendaftaran' : 'Registration Invoices'} | Harlah NU ke-101` });
 </script>
+
+<style scoped>
+.invoice-page{min-height:72vh;background:radial-gradient(circle at 90% 5%,rgba(132,190,54,.16),transparent 22rem),#f5f5ef;color:#17352c;padding:3rem max(1rem,calc((100vw - 1050px)/2))}.invoice-inner{max-width:1050px;margin:auto}.eyebrow{color:#2d7258;font-size:.72rem;font-weight:800;letter-spacing:.12em}h1,h2{font-family:Georgia,'Times New Roman',serif}h1{margin-top:.7rem;font-size:clamp(2.5rem,5vw,4rem);line-height:1.05}.intro{max-width:48rem;margin-top:.8rem;color:#596d61;line-height:1.7}.state,.error,.empty{margin-top:2rem;border:1px solid #d9e0d8;padding:1.25rem}.error{color:#9a3022}.empty p{margin:.4rem 0 1rem;color:#697a70}.invoice-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-top:2rem}.invoice-picker button{display:grid;text-align:left;border:1px solid #cad7cc;border-radius:1rem;background:#fff;padding:1rem;color:#17352c}.invoice-picker button.active{border-color:#d4a938;background:#fff9e8;box-shadow:0 8px 24px rgba(7,91,54,.09)}.invoice-picker span,.invoice-picker small{color:#687a70;font-size:.72rem}.invoice-picker strong{margin:.35rem 0}.invoice-document{position:relative;margin-top:1.5rem;overflow:hidden;border:1px solid #d4af37;border-radius:1.3rem;background:#fff;padding:2rem;box-shadow:0 18px 45px rgba(7,91,54,.12)}.invoice-document::before{position:absolute;inset:0 0 auto;height:.55rem;background:linear-gradient(90deg,#063d28,#0b7448 68%,#e8b632);content:''}.invoice-document header{display:flex;justify-content:space-between;gap:2rem;border-bottom:1px solid #dce5de;padding:1rem 0 1.5rem}.brand{display:flex;align-items:center;gap:.8rem}.brand img{width:4rem;height:4rem;object-fit:contain}.brand span,.brand strong,.brand small{display:block}.brand span{color:#9a7418;font-size:.65rem;font-weight:900;letter-spacing:.13em}.brand strong{margin:.2rem 0;color:#075b36}.brand small{color:#6a796f;font-size:.65rem}.invoice-heading{text-align:right}.invoice-heading span,.invoice-heading strong,.invoice-heading small{display:block}.invoice-heading span{color:#9a7418;font-size:.7rem;font-weight:900;letter-spacing:.2em}.invoice-heading strong{margin:.3rem 0;font-size:1rem}.invoice-heading small{color:#6a796f;font-size:.72rem}.invoice-status{display:inline-block;margin-top:1.4rem;border:1px solid #d4af37;background:#fff7d9;padding:.35rem .65rem;color:#765813;font-size:.7rem;font-weight:900;letter-spacing:.08em}.invoice-status--paid{border-color:#8bc49f;background:#e9f8ed;color:#176238}.identity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin-top:1.5rem}.identity-grid dt,.document-section h2{color:#2d7258;font-size:.7rem;font-family:Arial,sans-serif;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.identity-grid dd{margin-top:.4rem;font-size:1.1rem;font-weight:800}.identity-grid small{color:#697a70}.document-section{margin-top:1.7rem;border-top:1px solid #dce5de;padding-top:1.2rem}.table-wrap{overflow-x:auto}table{width:100%;margin-top:.7rem;border-collapse:collapse}th,td{border-bottom:1px solid #e1e7e2;padding:.65rem;text-align:left}th{color:#64736a;font-size:.68rem;text-transform:uppercase}th:last-child,td:last-child{text-align:right}.participant-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin-top:.8rem;list-style:none}.participant-list li{display:flex;align-items:center;gap:.7rem;border:1px solid #e1e7e2;border-radius:.7rem;padding:.7rem}.participant-list li>span{display:grid;width:1.7rem;height:1.7rem;flex:none;place-items:center;border-radius:50%;background:#075b36;color:#fff;font-size:.7rem}.participant-list strong,.participant-list small{display:block}.participant-list small{margin-top:.15rem;color:#697a70;font-size:.7rem}.summary{width:min(100%,25rem);margin:1.7rem 0 0 auto;border-top:1px solid #dce5de;padding-top:.8rem}.summary div{display:flex;justify-content:space-between;gap:1rem;padding:.35rem 0}.summary__total{margin-top:.35rem;border-top:2px solid #075b36;padding-top:.8rem!important;font-size:1.2rem}.invoice-document footer{display:flex;justify-content:space-between;gap:2rem;margin-top:1.7rem;border-top:1px solid #dce5de;padding-top:1rem;color:#697a70;font-size:.7rem}.invoice-document footer span,.invoice-document footer strong{display:block}.invoice-document footer strong{margin-top:.2rem;color:#17352c}.button{display:inline-flex;margin-top:1.4rem;align-items:center;justify-content:center;border:0;padding:.8rem 1rem;font-weight:800}.button--gold{background:#f1bd2d;color:#17352c}.button:disabled{opacity:.55}@media(max-width:640px){.invoice-page{padding-top:2rem}.invoice-document{padding:1.1rem}.invoice-document header,.invoice-document footer{flex-direction:column}.invoice-heading{text-align:left}.identity-grid,.participant-list{grid-template-columns:1fr}.brand img{width:3.2rem;height:3.2rem}.brand small{line-height:1.35}.invoice-document footer{gap:.7rem}.button{width:100%}}@media print{.invoice-page{background:#fff;padding:0}.invoice-inner>:not(.invoice-document){display:none!important}.invoice-document{margin:0;border:0;border-radius:0;box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}.print-hide{display:none!important}}
+</style>

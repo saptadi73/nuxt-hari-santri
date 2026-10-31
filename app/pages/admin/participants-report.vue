@@ -1,191 +1,95 @@
 <template>
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-    <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <header class="mb-8">
       <div>
-        <p class="text-xs uppercase tracking-[0.28em] text-amber-200">{{ t('adminParticipants.panel') }}</p>
-        <h1 class="mt-3 text-3xl font-black sm:text-4xl">{{ t('adminParticipants.title') }}</h1>
-        <p class="mt-2 text-xs text-slate-400">{{ t('adminParticipants.lastUpdated', { value: lastUpdatedLabel }) }}</p>
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-800">{{ t('adminParticipants.panel') }}</p>
+        <h1 class="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">{{ t('adminParticipants.title') }}</h1>
+        <p class="mt-2 text-sm text-slate-600">{{ t('adminParticipants.lastUpdated', { value: lastUpdatedLabel }) }}</p>
       </div>
-      <div class="rounded-full border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-sm font-medium text-amber-100">
-        {{ t('adminParticipants.role', { value: authStore.userRole || t('adminParticipants.notAvailable') }) }}
-      </div>
-    </div>
+    </header>
 
-    <div class="report-filters mb-6 grid gap-3 rounded-3xl border border-amber-300/20 bg-white/5 p-4 sm:grid-cols-[1fr_1fr_1fr_auto]">
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.event') }}</span>
-        <select v-model="eventFilter" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none" :disabled="eventsLoading">
-          <option value="">{{ t('adminParticipants.allEvents') }}</option>
-          <option v-for="event in events" :key="event.id" :value="event.id">
-            {{ event.name }}
-          </option>
+    <div class="report-filters mb-6 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-end sm:justify-between">
+      <label class="grid w-full gap-2 text-sm sm:max-w-xl">
+        <span class="font-semibold text-slate-700">{{ t('adminParticipants.search') }}</span>
+        <input v-model="searchTerm" type="search" :placeholder="t('adminParticipants.searchPlaceholder')" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15">
+      </label>
+      <label class="grid shrink-0 gap-2 text-sm">
+        <span class="font-semibold text-slate-700">{{ t('adminParticipants.perPage') }}</span>
+        <select v-model.number="pageSize" class="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm text-slate-900 outline-none focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15">
+          <option :value="10">10</option>
+          <option :value="20">20</option>
+          <option :value="50">50</option>
+          <option :value="100">100</option>
         </select>
       </label>
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.package') }}</span>
-        <select v-model="packageIdFilter" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none" :disabled="!eventFilter || packageLoading">
-          <option value="" :disabled="packageLoading">{{ packageLoading ? t('adminParticipants.loadingPackages') : t('adminParticipants.allPackages') }}</option>
-          <option v-for="option in packageOptions" :key="option.id" :value="option.id">
-            {{ option.name }}
-          </option>
-        </select>
-      </label>
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.paymentStatus') }}</span>
-        <select v-model="paymentStatusFilter" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none">
-          <option value="">{{ t('adminParticipants.allStatuses') }}</option>
-          <option value="created">created</option>
-          <option value="pending">pending</option>
-          <option value="success">success</option>
-          <option value="failed">failed</option>
-          <option value="expired">expired</option>
-          <option value="refunded">refunded</option>
-        </select>
-      </label>
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.profileStatus') }}</span>
-        <select v-model="profileStatusFilter" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none">
-          <option value="">{{ t('adminParticipants.allStatuses') }}</option>
-          <option v-for="status in profileStatuses" :key="status" :value="status">{{ t(`adminParticipants.profile_${status}`) }}</option>
-        </select>
-      </label>
-      <div class="flex items-end gap-2">
-        <button :disabled="loading || !hasActiveFilters" class="rounded-full border border-white/20 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50" @click="resetFilters">
-          {{ t('adminParticipants.reset') }}
-        </button>
-      </div>
-
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.paidFrom') }}</span>
-        <input v-model="dateFrom" type="date" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none" >
-      </label>
-      <label class="grid gap-2 text-sm">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.paidUntil') }}</span>
-        <input v-model="dateTo" type="date" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none" >
-      </label>
-      <label class="grid gap-2 text-sm sm:col-span-2">
-        <span class="text-xs uppercase tracking-[0.2em] text-slate-400">{{ t('adminParticipants.search') }}</span>
-        <input v-model="searchTerm" type="text" :placeholder="t('adminParticipants.searchPlaceholder')" class="rounded-full border border-white/15 bg-slate-900 px-4 py-3 text-sm text-white outline-none" >
-      </label>
-
-      <p class="text-xs text-slate-400 sm:col-span-6">
-        {{ t('adminParticipants.filterHelp') }} {{ t('adminParticipants.profileHelp') }}
-      </p>
-      <p v-if="hasDateRangeInvalid" class="text-xs text-rose-300 sm:col-span-6">
-        {{ t('adminParticipants.invalidDateRange') }}
-      </p>
     </div>
 
     <div v-if="pending" class="grid gap-4">
-      <div v-for="n in 4" :key="n" class="h-24 animate-pulse rounded-3xl bg-white/5" />
+      <div v-for="n in 4" :key="n" class="h-24 animate-pulse rounded-2xl bg-slate-200" />
     </div>
 
-    <div v-else-if="errorMessage" class="rounded-3xl border border-rose-400/40 bg-rose-500/10 p-5 text-sm text-rose-100">
+    <div v-else-if="errorMessage" class="rounded-2xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-800">
       {{ errorMessage }}
     </div>
 
     <div v-else class="space-y-6">
-      <article class="glass-card rounded-3xl p-5">
+      <article class="report-card rounded-2xl border border-slate-200 bg-white p-4 text-slate-800 shadow-sm sm:p-6">
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h2 class="text-lg font-bold">{{ t('adminParticipants.participants') }}</h2>
-          <button :disabled="csvLoading" class="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-cyan-100" @click="downloadCsv">{{ t('adminParticipants.downloadCsv') }}</button>
+          <h2 class="text-lg font-bold text-slate-900">{{ t('adminParticipants.participants') }}</h2>
+          <button :disabled="csvLoading" class="rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-900 disabled:cursor-wait disabled:opacity-60" @click="downloadCsv">{{ t('adminParticipants.downloadCsv') }}</button>
         </div>
 
-        <p v-if="csvError" role="alert" class="mb-3 text-sm text-rose-300">{{ csvError }}</p>
-        <div class="mb-3 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
-          <span>{{ t('adminParticipants.resultCount', { filtered: filteredParticipants.length, total: totalParticipants, page: currentPage }) }}</span>
-          <label class="flex items-center gap-2">
-            <span class="text-xs uppercase tracking-[0.16em] text-slate-500">{{ t('adminParticipants.perPage') }}</span>
-            <select v-model.number="pageSize" class="rounded-full border border-white/15 bg-slate-900 px-3 py-2 text-sm text-white outline-none">
-              <option :value="10">10</option>
-              <option :value="20">20</option>
-              <option :value="50">50</option>
-              <option :value="100">100</option>
-            </select>
-          </label>
+        <p v-if="csvError" role="alert" class="mb-3 text-sm text-rose-700">{{ csvError }}</p>
+        <div class="mb-3 text-sm text-slate-600">
+          {{ t('adminParticipants.resultCount', { total: totalParticipants, page: currentPage, pages: totalPages }) }}
         </div>
 
         <div class="report-table-shell overflow-x-auto">
-          <table class="min-w-full text-left text-sm text-slate-300">
+          <table class="min-w-full text-left text-sm text-slate-700">
             <thead>
-              <tr class="border-b border-white/10 text-xs uppercase tracking-[0.18em] text-slate-400">
-                <th class="py-3 pr-4">{{ t('adminParticipants.participant') }}</th>
-                <th class="py-3 pr-4">{{ t('adminParticipants.organization') }}</th>
-                <th class="py-3 pr-4">{{ t('adminParticipants.profileStatus') }}</th>
-                <th class="py-3 pr-4">{{ t('adminParticipants.registration') }}</th>
-                <th class="py-3 pr-4">{{ t('adminParticipants.packages') }}</th>
-                <th class="py-3 pr-4">{{ t('adminParticipants.profileDetails') }}</th>
+              <tr class="border-b border-slate-200 text-xs uppercase tracking-[0.12em] text-slate-500">
+                <th scope="col" class="py-3 pr-4">{{ t('adminParticipants.email') }}</th>
+                <th scope="col" class="py-3 pr-4">{{ t('adminParticipants.joinedAt') }}</th>
+                <th scope="col" class="py-3 pr-4">{{ t('adminParticipants.originRegion') }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in filteredParticipants" :key="item.user_id || item.participant_id || item.email" class="border-b border-white/5 last:border-0">
-                <td class="py-3 pr-4" :data-label="t('adminParticipants.participant')">
-                  <p class="font-semibold text-white">{{ item.full_name || t('adminParticipants.notAvailable') }}</p>
-                  <p class="text-xs text-slate-400">{{ item.email || t('adminParticipants.notAvailable') }}</p>
-                  <p class="text-xs text-slate-500">{{ item.phone || '' }}</p>
-                </td>
-                <td class="py-3 pr-4" :data-label="t('adminParticipants.organization')">{{ item.organization_name || t('adminParticipants.notAvailable') }}</td>
-                <td class="py-3 pr-4" :data-label="t('adminParticipants.profileStatus')">
-                  <span class="inline-flex rounded-full px-2 py-1 text-xs" :class="item.profile_status === 'complete' ? 'status-success' : 'status-pending'">
-                    {{ t(`adminParticipants.profile_${item.profile_status || 'unknown'}`) }}
-                  </span>
-                </td>
-                <td class="py-3 pr-4" :data-label="t('adminParticipants.registration')">
-                  <span class="inline-flex rounded-full border border-white/15 px-2 py-1 text-xs">{{ item.registration_status || t('adminParticipants.notAvailable') }}</span>
-                </td>
-                <td class="cell-packages py-3 pr-4" :data-label="t('adminParticipants.packages')">
-                  <div v-if="visiblePackages(item).length" class="grid gap-2">
-                    <div v-for="pkg in visiblePackages(item)" :key="`${item.participant_id}-${pkg.package_id}-${pkg.order_id}`" class="rounded-2xl border border-white/10 bg-slate-950/50 p-2 text-xs">
-                      <div class="flex items-start justify-between gap-2">
-                        <span class="min-w-0 break-words font-semibold text-white">{{ pkg.package_name || pkg.package_code || t('adminParticipants.packageFallback') }}</span>
-                        <span :class="paymentStatusClass(pkg.payment_status)" class="inline-flex shrink-0 rounded-full px-2 py-0.5 font-bold">
-                          {{ pkg.payment_status || t('adminParticipants.notAvailable') }}
-                        </span>
-                      </div>
-                      <p class="mt-1 text-slate-400">{{ pkg.order_number || pkg.order_id || t('adminParticipants.notAvailable') }} &middot; {{ formatCurrency(pkg.line_total || 0) }}</p>
-                      <p class="mt-0.5 text-slate-500">{{ pkg.paid_at ? t('adminParticipants.paid', { value: formatDateTime(pkg.paid_at) }) : t('adminParticipants.unpaid') }}</p>
-                    </div>
-                  </div>
-                  <span v-else class="text-slate-500">{{ t('adminParticipants.noPackage') }}</span>
-                </td>
-                <td class="py-3 pr-4" :data-label="t('adminParticipants.profileDetails')">
-                  <button v-if="item.profile_status === 'complete' && item.participant_id" class="rounded-full border border-cyan-300/40 px-3 py-2 text-xs font-bold text-cyan-100" @click="selectedProfile = item">{{ t('adminParticipants.viewProfile') }}</button>
-                  <span v-else class="text-slate-500">—</span>
-                </td>
+              <tr v-for="item in participants" :key="item.user_id || item.participant_id || item.email" class="border-b border-slate-100 last:border-0">
+                <td class="break-all py-4 pr-4 font-medium text-slate-900" :data-label="t('adminParticipants.email')">{{ item.email || t('adminParticipants.notAvailable') }}</td>
+                <td class="py-4 pr-4" :data-label="t('adminParticipants.joinedAt')">{{ formatJoinedAt(item) }}</td>
+                <td class="py-4 pr-4" :data-label="t('adminParticipants.originRegion')">{{ formatOriginRegion(item) }}</td>
               </tr>
-              <tr v-if="!filteredParticipants.length">
-                <td colspan="6" class="py-6 text-center text-slate-500" data-label="">{{ t('adminParticipants.noData') }}</td>
+              <tr v-if="!participants.length">
+                <td colspan="3" class="py-8 text-center text-slate-500" data-label="">{{ t('adminParticipants.noData') }}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div v-if="totalPages > 1" class="mt-4 flex flex-wrap items-center justify-between gap-2">
-          <button :disabled="currentPage <= 1" class="rounded-full border border-white/20 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage = 1">
+        <nav v-if="totalPages > 1" :aria-label="t('adminParticipants.pagination')" class="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-4">
+          <button :disabled="currentPage <= 1" class="rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage = 1">
             {{ t('adminParticipants.first') }}
           </button>
           <div class="flex items-center gap-2">
-            <button :disabled="currentPage <= 1" class="rounded-full border border-white/20 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage--">
+            <button :disabled="currentPage <= 1" class="rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage--">
               {{ t('adminParticipants.previous') }}
             </button>
-            <span class="text-xs text-slate-300">{{ t('adminParticipants.page', { current: currentPage, total: totalPages }) }}</span>
-            <button :disabled="currentPage >= totalPages" class="rounded-full border border-white/20 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage++">
+            <span class="text-xs text-slate-600">{{ t('adminParticipants.page', { current: currentPage, total: totalPages }) }}</span>
+            <button :disabled="currentPage >= totalPages" class="rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage++">
               {{ t('adminParticipants.next') }}
             </button>
           </div>
-          <button :disabled="currentPage >= totalPages" class="rounded-full border border-white/20 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage = totalPages">
+          <button :disabled="currentPage >= totalPages" class="rounded-xl border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50" @click="currentPage = totalPages">
             {{ t('adminParticipants.last') }}
           </button>
-        </div>
+        </nav>
       </article>
     </div>
-    <ParticipantProfileDialog v-if="selectedProfile" :key="selectedProfile.participant_id || ''" :participant="selectedProfile" @close="selectedProfile = null" />
   </section>
 </template>
 
 <script setup lang="ts">
-import { useAdminReport, type ParticipantReportItem, type ParticipantReportPackage } from '~/composables/useAdminReport';
-import { useEvent, type DelegatePackageItem, type EventItem } from '~/composables/useEvent';
+import { useAdminReport, type ParticipantReportItem } from '~/composables/useAdminReport';
 
 const route = useRoute();
 const router = useRouter();
@@ -194,21 +98,10 @@ const { locale, t } = useI18n();
 definePageMeta({ middleware: ['auth', 'admin'] });
 useSeoMeta({ title: 'Participants Report | Harlah NU ke-101' });
 
-const authStore = useAuthStore();
-const selectedProfile = ref<ParticipantReportItem | null>(null);
 const { getParticipantReport, downloadParticipantReport } = useAdminReport();
-const { getEvents, getEventDelegatePackages } = useEvent();
-
-const eventFilter = ref('');
-const packageIdFilter = ref('');
-const paymentStatusFilter = ref('');
-const profileStatuses: readonly string[] = ['not_started', 'partial', 'complete'];
-const profileStatusFilter = ref('');
 const csvLoading = ref(false);
 const csvError = ref('');
 const searchTerm = ref('');
-const dateFrom = ref('');
-const dateTo = ref('');
 const currentPage = ref(1);
 const pageSize = ref(20);
 const totalParticipants = ref(0);
@@ -218,30 +111,14 @@ const loading = ref(false);
 const pending = computed(() => loading.value);
 const errorMessage = ref('');
 const lastUpdated = ref<Date | null>(null);
-const eventsLoading = ref(false);
-const packageLoading = ref(false);
-const events = ref<Array<EventItem>>([]);
-const packageOptions = ref<Array<{ id: string; name: string }>>([]);
 const participants = ref<ParticipantReportItem[]>([]);
 const routeReady = ref(false);
 const autoReloadTimer = ref<ReturnType<typeof setTimeout> | null>(null);
+let reportRequest = 0;
 
 const lastUpdatedLabel = computed(() => {
   if (!lastUpdated.value) return t('adminParticipants.notLoaded');
-  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(lastUpdated.value);
-});
-
-const hasDateRangeInvalid = computed(() => Boolean(dateFrom.value && dateTo.value && dateFrom.value > dateTo.value));
-const hasActiveFilters = computed(() => {
-  return (
-    !!eventFilter.value ||
-    !!packageIdFilter.value ||
-    !!paymentStatusFilter.value ||
-    !!profileStatusFilter.value ||
-    !!searchTerm.value ||
-    !!dateFrom.value ||
-    !!dateTo.value
-  );
+  return new Intl.DateTimeFormat(String(locale.value) === 'id' ? 'id-ID' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(lastUpdated.value);
 });
 
 const buildReportParams = () => {
@@ -250,10 +127,6 @@ const buildReportParams = () => {
     size: pageSize.value
   };
 
-  if (eventFilter.value) params.event_id = eventFilter.value;
-  if (packageIdFilter.value) params.package_id = packageIdFilter.value;
-  if (paymentStatusFilter.value) params.payment_status = paymentStatusFilter.value;
-  if (profileStatusFilter.value) params.profile_status = profileStatusFilter.value;
   if (searchTerm.value.trim()) params.search = searchTerm.value.trim();
 
   return params;
@@ -268,30 +141,17 @@ const readFiltersFromQuery = () => {
     return '';
   };
 
-  eventFilter.value = getQueryString(q.event_id);
-  packageIdFilter.value = getQueryString(q.package_id);
-  paymentStatusFilter.value = getQueryString(q.payment_status);
-  const profileStatus = getQueryString(q.profile_status);
-  profileStatusFilter.value = profileStatuses.includes(profileStatus) ? profileStatus : '';
   searchTerm.value = getQueryString(q.search);
-  dateFrom.value = getQueryString(q.date_from);
-  dateTo.value = getQueryString(q.date_to);
 
   const pageValue = Number(getQueryString(q.page));
   if (pageValue > 0) currentPage.value = pageValue;
 
   const sizeValue = Number(getQueryString(q.size));
-  if (sizeValue > 0) pageSize.value = sizeValue;
+  if ([10, 20, 50, 100].includes(sizeValue)) pageSize.value = sizeValue;
 };
 
 const buildQueryState = () => ({
-  event_id: eventFilter.value || undefined,
-  package_id: packageIdFilter.value || undefined,
-  payment_status: paymentStatusFilter.value || undefined,
-  profile_status: profileStatusFilter.value || undefined,
   search: searchTerm.value || undefined,
-  date_from: dateFrom.value || undefined,
-  date_to: dateTo.value || undefined,
   page: String(currentPage.value),
   size: String(pageSize.value)
 });
@@ -330,90 +190,25 @@ const downloadCsv = async () => {
   }
 };
 
-const csvFileName = computed(() => {
-  const selectedEvent = events.value.find((item) => item.id === eventFilter.value);
-  const eventName = (selectedEvent?.name || 'all-events').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const fallbackDate = formatDateOnly(new Date());
-  return `participants-report-${eventName}-${fallbackDate}.csv`;
-});
-
-const formatDateOnly = (value: Date) => {
-  const year = value.getFullYear();
-  const month = `${value.getMonth() + 1}`.padStart(2, '0');
-  const day = `${value.getDate()}`.padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
+const csvFileName = computed(() => `participants-report-${new Date().toISOString().slice(0, 10)}.csv`);
 
 const loadReport = async () => {
-  if (loading.value) return;
-  if (hasDateRangeInvalid.value) {
-    errorMessage.value = t('adminParticipants.invalidDateRange');
-    return;
-  }
-
+  const requestId = ++reportRequest;
   loading.value = true;
   errorMessage.value = '';
   try {
     const response = await getParticipantReport(buildReportParams());
+    if (requestId !== reportRequest) return;
     participants.value = response.data || [];
     totalParticipants.value = response.meta?.total ?? participants.value.length;
     totalPages.value = response.meta?.pages ?? 1;
     lastUpdated.value = new Date();
   } catch (error) {
+    if (requestId !== reportRequest) return;
     errorMessage.value = t('adminParticipants.loadError');
     console.error(error);
   } finally {
-    loading.value = false;
-  }
-};
-
-const resetFilters = () => {
-  eventFilter.value = '';
-  packageIdFilter.value = '';
-  paymentStatusFilter.value = '';
-  profileStatusFilter.value = '';
-  searchTerm.value = '';
-  dateFrom.value = '';
-  dateTo.value = '';
-  packageOptions.value = [];
-  currentPage.value = 1;
-  scheduleAutoReload();
-};
-
-const loadEvents = async () => {
-  if (eventsLoading.value) return;
-  eventsLoading.value = true;
-  try {
-    const response = await getEvents(1, 100);
-    events.value = response.data || [];
-  } finally {
-    eventsLoading.value = false;
-  }
-};
-
-const loadPackagesByEvent = async (clearSelected = true) => {
-  packageOptions.value = [];
-  if (clearSelected) {
-    packageIdFilter.value = '';
-  }
-  if (!eventFilter.value) return;
-
-  packageLoading.value = true;
-  try {
-    const response = await getEventDelegatePackages(eventFilter.value);
-    const packages = response.data || [];
-    packageOptions.value = packages.map((item: DelegatePackageItem) => ({
-      id: item.id,
-      name: item.name || item.code
-    }));
-    if (packageIdFilter.value && !packageOptions.value.find((item) => item.id === packageIdFilter.value)) {
-      packageIdFilter.value = '';
-    }
-  } catch {
-    packageOptions.value = [];
-    packageIdFilter.value = '';
-  } finally {
-    packageLoading.value = false;
+    if (requestId === reportRequest) loading.value = false;
   }
 };
 
@@ -424,81 +219,58 @@ const scheduleAutoReload = () => {
     autoReloadTimer.value = null;
   }
   autoReloadTimer.value = setTimeout(() => {
-    if (!hasDateRangeInvalid.value) {
-      loadReport();
-    }
+    loadReport();
   }, 350);
 };
 
-// The endpoint does not accept a date range, so the period input filters the
-// packages already returned for the current page by their paid_at value.
-const isPackageInDateRange = (pkg: ParticipantReportPackage) => {
-  if (!dateFrom.value && !dateTo.value) return true;
-  if (!pkg.paid_at) return false;
-  const paidDate = formatDateOnly(new Date(pkg.paid_at));
-  if (dateFrom.value && paidDate < dateFrom.value) return false;
-  if (dateTo.value && paidDate > dateTo.value) return false;
-  return true;
-};
-
-const visiblePackages = (item: ParticipantReportItem) => {
-  if (!dateFrom.value && !dateTo.value) return item.packages;
-  return item.packages.filter(isPackageInDateRange);
-};
-
-const filteredParticipants = computed(() => {
-  if (!dateFrom.value && !dateTo.value) return participants.value;
-  return participants.value.filter((item) => item.packages.length === 0 || visiblePackages(item).length > 0);
-});
-
-const formatCurrency = (value: number) => {
-  return new Intl.NumberFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(value || 0));
-};
-
-const formatDateTime = (value: string) => {
+const formatJoinedAt = (item: ParticipantReportItem) => {
+  const value = item.created_at || item.registered_at || item.registration_created_at || item.account_created_at ||
+    item.registration?.created_at || item.registrations?.[0]?.created_at || item.account?.created_at;
+  if (!value) return t('adminParticipants.notAvailable');
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(String(locale.value) === 'zh-CN' ? 'zh-CN' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+  return new Intl.DateTimeFormat(String(locale.value) === 'id' ? 'id-ID' : 'en-GB', { dateStyle: 'medium' }).format(date);
 };
 
-const paymentStatusClass = (status?: string | null) => {
-  const value = (status || '').toLowerCase();
-  if (value === 'success') return 'status-success';
-  if (value === 'pending' || value === 'created') return 'status-pending';
-  if (value === 'failed' || value === 'expired' || value === 'refunded') return 'status-danger';
-  return 'status-pending';
+const formatOriginRegion = (item: ParticipantReportItem) => {
+  const records = [item, item.registration, ...(item.registrations || []), item.account]
+    .filter((record): record is NonNullable<typeof record> => Boolean(record));
+  const directRegion = records.find(record => record.origin_region || record.region_name || record.region);
+  const directRegionName = directRegion?.origin_region || directRegion?.region_name || directRegion?.region;
+  if (directRegionName?.trim()) return directRegionName.trim();
+
+  const namedRegions = records.flatMap(record => [record.district_name || record.district, record.regency_name || record.regency, record.province_name || record.province])
+    .filter((region): region is string => Boolean(region?.trim()))
+    .map(region => region.trim());
+  if (namedRegions.length) return [...new Set(namedRegions)].join(', ');
+
+  const regionCodes = records.flatMap(record => [record.district_code, record.regency_code, record.province_code])
+    .filter((code): code is string => Boolean(code));
+  if (regionCodes.length) return [...new Set(regionCodes)].join(', ');
+
+  const country = records.find(record => record.country)?.country;
+  return country || t('adminParticipants.notAvailable');
 };
+
+onBeforeUnmount(() => {
+  if (autoReloadTimer.value) clearTimeout(autoReloadTimer.value);
+});
 
 readFiltersFromQuery();
-await loadEvents();
-if (eventFilter.value) {
-  await loadPackagesByEvent(false);
-}
 await loadReport();
 routeReady.value = true;
 syncFiltersToUrl();
 
-watch(eventFilter, async () => {
-  currentPage.value = 1;
-  await loadPackagesByEvent();
-  syncFiltersToUrl();
-  scheduleAutoReload();
-});
-
-watch([packageIdFilter, paymentStatusFilter, profileStatusFilter, searchTerm], () => {
+watch(searchTerm, () => {
   currentPage.value = 1;
   syncFiltersToUrl();
   scheduleAutoReload();
-});
-
-watch([dateFrom, dateTo], () => {
-  syncFiltersToUrl();
 });
 
 watch(pageSize, () => {
   currentPage.value = 1;
   syncFiltersToUrl();
-  loadReport();
+  scheduleAutoReload();
 });
 
 watch(currentPage, () => {
@@ -512,41 +284,7 @@ watch(currentPage, () => {
   font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
 }
 
-.status-success {
-  background: rgba(16, 185, 129, 0.18);
-  color: rgb(134, 239, 172);
-}
-
-.status-pending {
-  background: rgba(250, 204, 21, 0.2);
-  color: rgb(254, 240, 138);
-}
-
-.status-danger {
-  background: rgba(244, 63, 94, 0.18);
-  color: rgb(254, 202, 202);
-}
-
-.report-table-shell {
-  border-radius: 1.5rem;
-}
-
-.report-filters {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 @media (max-width: 767px) {
-  .report-filters {
-    grid-template-columns: 1fr;
-    padding: 0.9rem;
-  }
-
-  .report-filters button,
-  .report-filters select,
-  .report-filters input {
-    width: 100%;
-  }
-
   .report-table-shell {
     overflow: visible;
   }
@@ -572,9 +310,9 @@ watch(currentPage, () => {
   }
 
   .report-table-shell tr {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1.25rem;
-    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: #fff;
     padding: 0.9rem;
   }
 
@@ -585,33 +323,32 @@ watch(currentPage, () => {
     align-items: flex-start;
     justify-content: space-between;
     gap: 0.75rem;
-    color: rgb(203 213 225);
+    color: #334155;
     font-size: 0.82rem;
   }
 
   .report-table-shell td::before {
     content: attr(data-label);
-    color: rgb(148 163 184);
+    color: #64748b;
     font-size: 0.68rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     flex-shrink: 0;
-    width: 36%;
+    width: 34%;
+  }
+
+  .report-table-shell td[colspan] {
+    display: block;
+    text-align: center;
+  }
+
+  .report-table-shell td[colspan]::before {
+    content: none;
   }
 
   .report-table-shell td > * {
     flex: 1;
     min-width: 0;
-  }
-
-  .report-table-shell td.cell-packages {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .report-table-shell td.cell-packages::before {
-    width: 100%;
-    margin-bottom: 0.25rem;
   }
 }
 </style>

@@ -123,7 +123,27 @@ export interface ParticipantReportPackage {
   paid_at?: string | null;
 }
 
-export interface ParticipantReportItem {
+interface ParticipantReportDetails {
+  country?: string | null;
+  created_at?: string | null;
+  registered_at?: string | null;
+  registration_created_at?: string | null;
+  account_created_at?: string | null;
+  origin_region?: string | null;
+  region_name?: string | null;
+  region?: string | null;
+  district_name?: string | null;
+  district?: string | null;
+  district_code?: string | null;
+  regency_name?: string | null;
+  regency?: string | null;
+  regency_code?: string | null;
+  province_name?: string | null;
+  province?: string | null;
+  province_code?: string | null;
+}
+
+export interface ParticipantReportItem extends ParticipantReportDetails {
   participant_id: string | null;
   profile_status?: 'not_started' | 'partial' | 'complete';
   profile_missing_fields?: string[];
@@ -133,7 +153,9 @@ export interface ParticipantReportItem {
   full_name?: string;
   email?: string;
   phone?: string;
-  country?: string;
+  registration?: ParticipantReportDetails | null;
+  registrations?: ParticipantReportDetails[];
+  account?: ParticipantReportDetails | null;
   organization_name?: string;
   registration_status?: string;
   packages: ParticipantReportPackage[];

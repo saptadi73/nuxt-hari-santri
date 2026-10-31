@@ -197,14 +197,14 @@
             <div class="history-anniversary__dates">
               <article class="history-anniversary__date">
                 <p class="history-anniversary__calendar">{{ locale === 'id' ? 'Kalender Hijriah' : 'Hijri calendar' }}</p>
-                <p class="history-anniversary__number">104<sup>{{ locale === 'id' ? 'ke' : 'th' }}</sup></p>
+                <p class="history-anniversary__number"><span v-if="locale === 'id'" class="history-anniversary__ordinal-prefix">ke-</span>104<sup v-if="locale !== 'id'">th</sup></p>
                 <p class="history-anniversary__title">{{ locale === 'id' ? 'Harlah NU' : 'NU anniversary' }}</p>
                 <p class="history-anniversary__day">16 Rajab 1448 H</p>
                 <p class="history-anniversary__equivalent">{{ locale === 'id' ? '25–26 Desember 2026' : '25–26 December 2026' }}</p>
               </article>
               <article class="history-anniversary__date">
                 <p class="history-anniversary__calendar">{{ locale === 'id' ? 'Kalender Masehi' : 'Gregorian calendar' }}</p>
-                <p class="history-anniversary__number">101<sup>{{ locale === 'id' ? 'ke' : 'st' }}</sup></p>
+                <p class="history-anniversary__number"><span v-if="locale === 'id'" class="history-anniversary__ordinal-prefix">ke-</span>101<sup v-if="locale !== 'id'">st</sup></p>
                 <p class="history-anniversary__title">{{ locale === 'id' ? 'Harlah NU' : 'NU anniversary' }}</p>
                 <p class="history-anniversary__day">{{ locale === 'id' ? '31 Januari 2027' : '31 January 2027' }}</p>
                 <p class="history-anniversary__equivalent">1926–2027</p>
@@ -501,26 +501,27 @@ h2,h3,h4 { font-family: 'Lora', Georgia, 'Times New Roman', serif; font-weight: 
 .history-anniversary {
   margin-top: 1.8rem;
   overflow: hidden;
-  border: 1px solid rgb(10 74 40 / 12%);
+  border: 1px solid #dce8d7;
   border-radius: 1.25rem;
   padding: clamp(1.25rem, 3vw, 2rem);
   background:
-    radial-gradient(ellipse at 100% 0%, rgb(125 191 69 / 20%), transparent 42%),
-    linear-gradient(135deg, #0a4a28, #07391f);
-  box-shadow: 0 18px 40px rgb(10 74 40 / 14%);
-  color: #fff;
+    radial-gradient(ellipse at 100% 0%, rgb(242 176 30 / 12%), transparent 42%),
+    linear-gradient(135deg, #fffdf7, #f3f7ef);
+  box-shadow: 0 16px 36px rgb(28 60 39 / 8%);
 }
 .history-anniversary__heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; }
-.history-anniversary__heading > p:last-child { color: rgb(255 255 255 / 76%); font-size: .88rem; }
-.history-anniversary__eyebrow { color: #f2b01e; font-size: .72rem; font-weight: 900; letter-spacing: .12em; }
+.history .history-anniversary p { margin: 0; color: #254a34; line-height: 1.5; }
+.history .history-anniversary__heading > p:last-child { color: #526659; font-size: .88rem; }
+.history .history-anniversary__eyebrow { color: #a65c12; font-size: .7rem; font-weight: 900; letter-spacing: .12em; }
 .history-anniversary__dates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin-top: 1.2rem; }
-.history-anniversary__date { border: 1px solid rgb(255 255 255 / 18%); border-radius: .9rem; padding: 1rem 1.1rem; background: rgb(255 255 255 / 7%); }
-.history-anniversary__calendar { color: #d6ebd0; font-size: .78rem; font-weight: 800; }
-.history-anniversary__number { margin-top: .35rem; color: #f2b01e; font-size: clamp(3rem, 7vw, 4.5rem); font-weight: 900; letter-spacing: -.07em; line-height: 1; }
-.history-anniversary__number sup { margin-left: .2rem; font-size: .27em; letter-spacing: 0; vertical-align: super; }
-.history-anniversary__title { margin-top: .25rem; color: #fff; font-size: .9rem; font-weight: 800; }
-.history-anniversary__day { margin-top: .85rem; color: #fff; font-size: 1rem; font-weight: 800; }
-.history-anniversary__equivalent { margin-top: .15rem; color: rgb(255 255 255 / 72%); font-size: .82rem; }
+.history-anniversary__date { border: 1px solid #dce8d7; border-left: 3px solid #d6a53a; border-radius: .9rem; padding: 1rem 1.1rem; background: rgb(255 255 255 / 82%); }
+.history .history-anniversary__calendar { color: #526659; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.history .history-anniversary__number { margin-top: .45rem; color: #0a4a28; font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: clamp(3.2rem, 7vw, 4.6rem); font-weight: 700; letter-spacing: -.07em; line-height: 1; }
+.history .history-anniversary__number sup { margin-left: .2rem; color: #a65c12; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .23em; font-weight: 800; letter-spacing: 0; vertical-align: super; }
+.history .history-anniversary__ordinal-prefix { margin-right: .18em; color: #a65c12; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .36em; font-weight: 800; letter-spacing: -.03em; vertical-align: .28em; }
+.history .history-anniversary__title { margin-top: .4rem; color: #315940; font-size: .82rem; font-weight: 800; }
+.history .history-anniversary__day { margin-top: .85rem; color: #173d27; font-family: 'Lora', Georgia, 'Times New Roman', serif; font-size: 1.05rem; font-weight: 700; }
+.history .history-anniversary__equivalent { margin-top: .15rem; color: #647568; font-size: .8rem; }
 .history-anniversary + .button { margin-top: 1.2rem; }
 .history-story { overflow: hidden; border: 1px solid #d6ebd0; background: #f1f7ee; }
 .history-story__figure { margin: 0; }
