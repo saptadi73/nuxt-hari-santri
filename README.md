@@ -30,6 +30,8 @@ npm run build
 
 Gunakan dokumentasi pada folder `docs` sebagai kontrak Portal Harlah NU. Dokumen lama dan integrasi gateway langsung tidak lagi menjadi bagian dari proyek ini.
 
+Dokumentasi utama integrasi frontend, daftar halaman, kontrak API aktif, alur pembayaran, donasi, tiket, bazar, voucher, laporan admin, dan operasi callback tersedia di [docs/HARLAH_NU_FRONTEND.md](docs/HARLAH_NU_FRONTEND.md). Jika dokumentasi lama bertentangan dengan dokumen tersebut, gunakan `HARLAH_NU_FRONTEND.md` dan OpenAPI backend sebagai acuan.
+
 ## Wallet voucher bazar
 
 Halaman yang tersedia:

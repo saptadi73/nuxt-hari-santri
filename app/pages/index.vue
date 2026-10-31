@@ -186,7 +186,6 @@
             </article>
           </div>
           <p class="history__closing">{{ locale === 'id' ? 'Nahdlatul Ulama memperingati Harlah ke-104 menurut hitungan Hijriah pada 16 Rajab 1448 H, bertepatan dengan 25–26 Desember 2026. Menurut hitungan Masehi, 31 Januari 2027 tetap merupakan Harlah NU ke-101: 1926–2027.' : 'Nahdlatul Ulama commemorates its 104th anniversary in the Hijri calendar on 16 Rajab 1448 H, corresponding to 25–26 December 2026. In the Gregorian calendar, 31 January 2027 remains NU\'s 101st anniversary: 1926–2027.' }}</p>
-          <div class="history__sources"><a href="https://cdn.kemenag.go.id/storage/archives/1665973491.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Kementerian Agama' : 'Ministry of Religious Affairs' }}</a><a href="https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf" target="_blank" rel="noreferrer">{{ locale === 'id' ? 'Pedoman Hari Pahlawan' : 'Heroes’ Day guidance' }}</a></div>
           <NuxtLink to="/sejarah-nu" class="button button--dark">{{ locale === 'id' ? 'Baca Sejarah NU Selengkapnya' : 'Read the Full NU History' }}</NuxtLink>
         </div>
       </div>
@@ -483,8 +482,6 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .history-story__body h3 { margin-top: .4rem; font-size: 1.25rem; line-height: 1.25; }
 .history-story__copy { margin-top: .6rem; color: #596d61; font-size: .86rem; line-height: 1.7; }
 .history-story__link { display: inline-flex; margin-top: .9rem; color: #075b36; font-size: .82rem; font-weight: 900; text-decoration: underline; text-underline-offset: .2em; }
-.history__sources { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.4rem; }
-.history__sources a { color: #f40a08; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
 .faq-item { border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
 .faq-item:first-of-type { margin-top: 1.2rem; border-top: 1px solid #d9e0d8; }
 .faq-item summary { cursor: pointer; font-size: .98rem; font-weight: 800; }

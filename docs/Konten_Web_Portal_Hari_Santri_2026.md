@@ -263,7 +263,7 @@ Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusanta
 
 Tombol: **Ikuti Kegiatan Harlah NU**
 
-**Rujukan sejarah:** [Sambutan Menteri Agama, Kementerian Agama](https://cdn.kemenag.go.id/storage/archives/1665973491.pdf); [Peringatan Harlah NU, Kanwil Kemenag Jawa Tengah](https://jateng.kemenag.go.id/nuansa-pondok-pesantren-warnai-upacara-peringatan-hsn-tahun-2022/); [Pedoman Peringatan Hari Pahlawan, Kemendikbud](https://bpmpkaltara.kemdikbud.go.id/wp-content/uploads/2022/11/Pedoman-Peringatan-Hari-Pahlawan-Tahun-2022.pdf).
+**Rujukan sejarah:** [Peringatan Harlah NU, Kanwil Kemenag Jawa Tengah](https://jateng.kemenag.go.id/nuansa-pondok-pesantren-warnai-upacara-peringatan-hsn-tahun-2022/).
 
 ---
 
