@@ -33,7 +33,7 @@
         <p class="resolution-card__date">22 Oktober 1945</p>
         <h2>Resolusi Jihad menggerakkan santri</h2>
         <p>Rapat konsul Nahdlatul Ulama se-Jawa dan Madura di Surabaya melahirkan Resolusi Jihad. Seruan untuk mempertahankan Republik sebagai perjuangan di jalan Allah menggerakkan ulama, santri, dan masyarakat untuk menjaga kemerdekaan.</p>
-        <NuxtLink to="/#sejarah">Baca rangkaian sejarah di beranda →</NuxtLink>
+        <NuxtLink to="/resolusi-jihad">Baca artikel Resolusi Jihad →</NuxtLink>
       </aside>
 
       <h2>Pertempuran pertama dan tewasnya Mallaby</h2>

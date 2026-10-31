@@ -230,6 +230,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'Resolusi Jihad: seruan menjaga kemerdekaan',
     image: resolusiJihadImage,
     alt: 'Ilustrasi pertemuan ulama dan santri pada masa perjuangan kemerdekaan',
+    href: '/resolusi-jihad',
     copy: 'Setelah Proklamasi 17 Agustus 1945, kedatangan Sekutu yang disertai NICA membuat keadaan di Indonesia kembali genting. Pada 21–22 Oktober 1945, para ulama dan wakil cabang NU bermusyawarah di Surabaya. Resolusi Jihad yang diserukan pada 22 Oktober mengajak umat dan masyarakat untuk mempertahankan kemerdekaan.'
   },
   {
@@ -261,6 +262,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'The Resolution of Jihad: a call to defend independence',
     image: resolusiJihadImage,
     alt: 'Illustration of ulama and santri meeting during the struggle for independence',
+    href: '/resolusi-jihad',
     copy: 'After the Proclamation of 17 August 1945, the arrival of Allied forces accompanied by the NICA made the situation tense again. On 21–22 October 1945, ulama and NU branch representatives met in Surabaya. The Resolution of Jihad, proclaimed on 22 October, called on the community to defend independence.'
   },
   {
