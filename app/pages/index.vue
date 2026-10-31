@@ -237,6 +237,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'Pertempuran Surabaya',
     image: pertempuranSurabayaImage,
     alt: 'Ilustrasi pejuang Surabaya pada November 1945',
+    href: '/pertempuran-surabaya',
     copy: 'Ketegangan meningkat setelah Brigadir Jenderal A.W.S. Mallaby tewas dalam insiden pada 30 Oktober. Ultimatum Sekutu agar rakyat menyerahkan senjata ditolak, lalu pertempuran besar pecah pada 10 November. Bung Tomo mengobarkan semangat melalui siaran radio, sementara Gubernur Suryo menegaskan sikap rakyat Surabaya.'
   },
   {
@@ -267,6 +268,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'The Battle of Surabaya',
     image: pertempuranSurabayaImage,
     alt: 'Illustration of Surabaya fighters in November 1945',
+    href: '/pertempuran-surabaya',
     copy: 'Tensions escalated after Brigadier General A.W.S. Mallaby was killed in an incident on 30 October. The Allied ultimatum demanding that residents surrender their weapons was rejected, and a major battle broke out on 10 November. Bung Tomo rallied people through radio broadcasts, while Governor Suryo voiced the people of Surabaya’s resolve.'
   },
   {
