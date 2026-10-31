@@ -178,7 +178,10 @@
               <div class="history-story__body">
                 <p class="history-story__date">{{ story.date }}</p>
                 <h3>{{ story.title }}</h3>
-                <p>{{ story.copy }}</p>
+                <p class="history-story__copy">{{ story.copy }}</p>
+                <NuxtLink v-if="story.href" :to="story.href" class="history-story__link">
+                  {{ locale === 'id' ? 'Baca artikel' : 'Read article' }} →
+                </NuxtLink>
               </div>
             </article>
           </div>
@@ -247,6 +250,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'Jejak perlawanan di Nusantara',
     image: perangDaerahImage,
     alt: 'Ilustrasi perlawanan masyarakat Nusantara terhadap kolonialisme',
+    href: '/divide-et-impera',
     copy: 'Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusantara telah menghadapi kolonialisme dan berjuang menjaga kedaulatan. Jejak panjang perlawanan itu menjadi bagian dari sejarah bangsa yang kemudian diteruskan dalam perjuangan mempertahankan kemerdekaan.'
   }
 ] : [
@@ -276,6 +280,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'A legacy of resistance across the archipelago',
     image: perangDaerahImage,
     alt: 'Illustration of people across the archipelago resisting colonialism',
+    href: '/divide-et-impera',
     copy: 'Long before independence was proclaimed, people in many parts of the archipelago faced colonialism and fought to protect their sovereignty. This long history of resistance became part of the national story carried forward in the struggle to defend independence.'
   }
 ]);
@@ -469,7 +474,8 @@ h2,h3,h4 { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
 .history-story__body { padding: 1rem; }
 .history-story__date { color: #8a6b20 !important; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .history-story__body h3 { margin-top: .4rem; font-size: 1.25rem; line-height: 1.25; }
-.history-story__body > p:last-child { margin-top: .6rem; color: #596d61; font-size: .86rem; line-height: 1.7; }
+.history-story__copy { margin-top: .6rem; color: #596d61; font-size: .86rem; line-height: 1.7; }
+.history-story__link { display: inline-flex; margin-top: .9rem; color: #075b36; font-size: .82rem; font-weight: 900; text-decoration: underline; text-underline-offset: .2em; }
 .history__sources { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.4rem; }
 .history__sources a { color: #f40a08; font-size: .82rem; font-weight: 700; text-decoration: underline; text-underline-offset: .2rem; }
 .faq-item { border-bottom: 1px solid #d9e0d8; padding: 1rem 0; }
