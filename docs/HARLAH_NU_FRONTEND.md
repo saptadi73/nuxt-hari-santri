@@ -203,14 +203,16 @@ Admin mengelola voucher melalui `/admin/hari-santri/vouchers`, peserta eligible 
 | `GET` | `/admin/hari-santri/reports/payments.csv` | CSV pembayaran pendaftaran. |
 | `GET` | `/admin/hari-santri/reports/donations` | Donasi peserta dan publik. |
 | `GET` | `/admin/hari-santri/reports/donations.csv` | CSV donasi. |
-| `GET` | `/admin/reports/participants` | Profil, registrasi, jenis kegiatan, order, dan payment. |
-| `GET` | `/admin/reports/participants.csv` | CSV peserta. |
+| `GET` | `/admin/reports/participants` | Profil, tanggal masuk, daerah asal, registrasi, jenis kegiatan, order, dan payment. |
+| `GET` | `/admin/reports/participants.csv` | CSV peserta dengan kontrak tanggal dan wilayah yang sama. |
 | `GET` | `/admin/transactions` | Transaksi lintas provider, read-only di portal event. |
 | `GET` | `/admin/hari-santri/audit-logs` | Audit voucher, settlement, dan operasi. |
 | `GET` | `/admin/hari-santri/operations/callback-outbox` | Callback tertunda atau gagal. |
 | `POST` | `/admin/hari-santri/operations/callback-outbox/{outbox_id}/retry` | Mengulang callback secara aman. |
 
 Filter laporan Harlah: `search`, `status`, `date_from`, `date_to`, `page`, dan `size`. Ringkasan memuat total record, paid, pending, dan total nominal terkonfirmasi.
+
+Laporan peserta menampilkan **Tanggal masuk** dari `registered_at` (tanggal order/pendaftaran pertama), dengan `account_created_at` sebagai fallback. **Daerah asal** memakai `origin_region` dengan hierarki nama `desa/kelurahan, kecamatan, kabupaten/kota` dari master wilayah backend. Field rinci yang tersedia adalah pasangan kode/nama `village`, `district`, `regency`, dan `province`. Nilai negara seperti `Indonesia` tidak dipakai sebagai pengganti alamat wilayah yang belum lengkap. Bila wilayah kosong, UI menampilkan **Belum tersedia**. Kontrak yang sama digunakan pada ekspor CSV dan dijelaskan lengkap di `fastapi-hari-santri/docs/PARTICIPANT_REPORTING.md`.
 
 ## API konten dan operasional admin
 

@@ -38,6 +38,10 @@ Dashboard peserta mendukung beberapa pesanan, invoice, dan tiket dalam satu akun
 - `/dashboard/invoice`: pilihan invoice per order, rincian kegiatan/peserta/pembayaran, serta cetak atau simpan PDF.
 - `/dashboard/tiket`: seluruh tiket QR dari semua order lunas, termasuk tampilan siap cetak/PDF.
 
+## Laporan peserta admin
+
+Halaman `/admin/participants-report` memakai `GET /api/v1/admin/reports/participants` dan ekspor `.csv`. **Tanggal masuk** berasal dari order/pendaftaran pertama dengan fallback tanggal akun. **Daerah asal** ditampilkan sebagai `desa/kelurahan, kecamatan, kabupaten/kota`; nilai negara seperti `Indonesia` tidak digunakan sebagai fallback. Kontrak backend lengkap tersedia di `fastapi-hari-santri/docs/PARTICIPANT_REPORTING.md`.
+
 ## Wallet voucher bazar
 
 Halaman yang tersedia:

@@ -50,6 +50,15 @@ Data berasal dari `GET /events`, `GET /orders?event_id=...` (seluruh halaman, ha
 - Di halaman operasional yang sama, admin dapat memasukkan nomor referensi order untuk memicu lookup server-to-server Payment Portal saat callback terlambat; browser tidak menetapkan status pembayaran.
 - Payment status pada halaman peserta tetap hanya membaca status backend dan tidak pernah menandai order lunas berdasarkan return URL/query browser.
 
+## Laporan peserta admin
+
+- `/admin/participants-report` membaca `GET /admin/reports/participants`; ekspor memakai `GET /admin/reports/participants.csv` dengan filter yang sama.
+- Kolom **Tanggal masuk** mengutamakan `registered_at`, yaitu tanggal order/pendaftaran pertama. `account_created_at` dipakai bila akun belum memiliki order.
+- Kolom **Daerah asal** mengutamakan `origin_region` dari backend dan berurutan `desa/kelurahan, kecamatan, kabupaten/kota`.
+- Fallback nama memakai `village_name`, `district_name`, dan `regency_name`; kode hanya untuk kompatibilitas klien lama.
+- `country`/`Indonesia` bukan daerah asal. Jika wilayah tidak lengkap, tampilkan **Belum tersedia**.
+- Tabel dan CSV wajib memakai definisi tanggal dan wilayah yang sama. Kontrak sumber ada di `fastapi-hari-santri/docs/PARTICIPANT_REPORTING.md`.
+
 ## Donasi
 
 Status rilis per 19 Oktober 2026: frontend statis dideploy ke `/var/www/nuxt-hari-santri/releases/20261019-donasi-01`; symlink `current` sudah dialihkan secara atomik. Backend production juga sudah memakai commit `915d1a5` dan migration donasi `202610190062`. Homepage, `/donasi/`, `/pembayaran/hasil/`, API health, CORS, dan endpoint provinsi lulus smoke test. Database saat ini memuat 34 provinsi; pemutakhiran sumber ke data Kemendagri 2025 yang mencakup 38 provinsi masih menjadi TODO.

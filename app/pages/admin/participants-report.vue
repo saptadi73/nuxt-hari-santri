@@ -224,7 +224,7 @@ const scheduleAutoReload = () => {
 };
 
 const formatJoinedAt = (item: ParticipantReportItem) => {
-  const value = item.created_at || item.registered_at || item.registration_created_at || item.account_created_at ||
+  const value = item.registered_at || item.created_at || item.registration_created_at || item.account_created_at ||
     item.registration?.created_at || item.registrations?.[0]?.created_at || item.account?.created_at;
   if (!value) return t('adminParticipants.notAvailable');
   const date = new Date(value);
@@ -239,17 +239,16 @@ const formatOriginRegion = (item: ParticipantReportItem) => {
   const directRegionName = directRegion?.origin_region || directRegion?.region_name || directRegion?.region;
   if (directRegionName?.trim()) return directRegionName.trim();
 
-  const namedRegions = records.flatMap(record => [record.district_name || record.district, record.regency_name || record.regency, record.province_name || record.province])
+  const namedRegions = records.flatMap(record => [record.village_name || record.village, record.district_name || record.district, record.regency_name || record.regency])
     .filter((region): region is string => Boolean(region?.trim()))
     .map(region => region.trim());
   if (namedRegions.length) return [...new Set(namedRegions)].join(', ');
 
-  const regionCodes = records.flatMap(record => [record.district_code, record.regency_code, record.province_code])
+  const regionCodes = records.flatMap(record => [record.village_code, record.district_code, record.regency_code])
     .filter((code): code is string => Boolean(code));
   if (regionCodes.length) return [...new Set(regionCodes)].join(', ');
 
-  const country = records.find(record => record.country)?.country;
-  return country || t('adminParticipants.notAvailable');
+  return t('adminParticipants.notAvailable');
 };
 
 onBeforeUnmount(() => {

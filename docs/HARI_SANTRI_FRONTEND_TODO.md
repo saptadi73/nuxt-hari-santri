@@ -18,6 +18,7 @@ Frontend spesifik repo `nuxt-hari-santri`. Backlog gabungan acceptance ada di [T
 - [x] Dashboard pembayaran, invoice, dan tiket mendukung beberapa order dalam satu akun tanpa hanya mengambil order terbaru.
 - [x] Halaman `/dashboard/invoice` memakai `GET /hari-santri/me/invoices`, menampilkan rincian per order, dan menyediakan cetak/simpan PDF.
 - [x] Halaman `/dashboard/tiket` menyediakan tampilan QR responsif yang dapat dicetak atau disimpan sebagai PDF.
+- [x] Laporan peserta admin menampilkan tanggal masuk dari order pertama (fallback tanggal akun) dan daerah asal `desa/kelurahan, kecamatan, kabupaten/kota`; CSV memakai kontrak yang sama tanpa fallback negara.
 - [x] Admin mengelola kapasitas size dan metadata paket; halaman bazar mengirim pengajuan terpisah.
 - [x] Scanner check-in memakai kamera dengan fallback input manual dan validasi online.
 

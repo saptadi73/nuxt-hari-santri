@@ -118,7 +118,7 @@ Base `/api/v1`; pagination `page`, `page_size`; response error `{ "error": { "co
 | Callback | `POST /integrations/payment-portal/callback`, `GET /orders/{id}/payment-status` | Callback hanya S2S; status browser diturunkan dari database Event |
 | Bazar | `POST /bazaar/applications`, `GET /me/bazaar/applications` | Anti-spam, upload berukuran terbatas, moderasi |
 | Admin | CRUD `/admin/events`, `/admin/packages`, `/admin/shirt-sizes`, `/admin/shirt-inventory`, `/admin/routes`, `/admin/agenda`, `/admin/performers`, `/admin/prizes`, `/admin/content`, `/admin/bazaar` | RBAC, audit dan draft/publish |
-| Admin registrasi | `GET /admin/orders`, `/admin/participants`, `/admin/reports/shirts`, `/admin/reports/registrations`, `/admin/reports/payments`, `POST /admin/exports` | CSV aman; filter event/paket/status; nilai pembayaran dari callback dan rekonsiliasi |
+| Admin registrasi | `GET /admin/orders`, `/admin/participants`, `/admin/reports/participants`, `/admin/reports/participants.csv`, `/admin/reports/shirts`, `/admin/reports/registrations`, `/admin/reports/payments`, `POST /admin/exports` | Tanggal masuk berasal dari order pertama; daerah asal berurutan desa/kelurahan, kecamatan, kabupaten/kota; CSV memakai kontrak yang sama |
 | Operasional | `POST /staff/checkins`, `GET /staff/checkins/{ticket_no}`, `GET /admin/audit-logs` | Scanner memvalidasi token di backend, bukan data QR saja |
 
 Contoh create order:
@@ -169,6 +169,8 @@ Struktur saran: `pages/index.vue`, `pages/kegiatan/[slug].vue`, `pages/rute/[act
 Admin melihat KPI pesanan, peserta lunas, reservasi, kapasitas per kegiatan, distribusi ukuran kaos, check-in, status payment bermasalah, tenant bazar. Filter dan ekspor dengan identitas minimal. Editor mengatur draft, preview, publish, penjadwalan, revisi dan atribusi media. Agenda berisi waktu mulai/selesai, panggung, pembicara/pengisi acara, deskripsi. Hadiah menampilkan sponsor, jumlah, syarat klaim dan status pengumuman; mekanisme pengundian dan pencatatan pemenang harus diaudit jika fitur undian digital diaktifkan.
 
 Laporan pembayaran Event adalah rekap berdasarkan order/paket/status dari callback dan hasil rekonsiliasi; laporan settlement dan gateway tetap bersumber dari Portal Payment. Dashboard menautkan `reference_id` dan `payment_id` agar selisih dapat ditelusuri.
+
+Laporan peserta pada `/admin/participants-report` membaca `registered_at` untuk **Tanggal masuk** dan `origin_region` untuk **Daerah asal**. Urutan wilayah adalah desa/kelurahan, kecamatan, kabupaten/kota. `account_created_at` menjadi fallback tanggal, sedangkan negara tidak menjadi fallback wilayah. Ekspor CSV mengikuti kontrak identik dari backend.
 
 ## 10. Keamanan, privasi, dan operasi
 

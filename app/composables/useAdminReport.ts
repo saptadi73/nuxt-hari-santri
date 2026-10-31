@@ -130,6 +130,9 @@ interface ParticipantReportDetails {
   registration_created_at?: string | null;
   account_created_at?: string | null;
   origin_region?: string | null;
+  village_name?: string | null;
+  village?: string | null;
+  village_code?: string | null;
   region_name?: string | null;
   region?: string | null;
   district_name?: string | null;
