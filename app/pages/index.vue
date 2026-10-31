@@ -246,6 +246,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'Perjuangan berlanjut di berbagai daerah',
     image: santriDanUlamaImage,
     alt: 'Ilustrasi perjuangan rakyat di berbagai daerah untuk mempertahankan kemerdekaan',
+    href: '/perjuangan-kemerdekaan',
     copy: 'Perlawanan mempertahankan kemerdekaan juga berlangsung di Palagan Ambarawa, Medan Area, dan Bandung. Perjuangan berlanjut menghadapi Agresi Militer Belanda I dan II. Di tengah peristiwa-peristiwa itu, jalur diplomasi dan perjuangan rakyat sama-sama menjadi bagian dari upaya menjaga kedaulatan.'
   },
   {
@@ -278,6 +279,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
     title: 'The struggle continued across the archipelago',
     image: santriDanUlamaImage,
     alt: 'Illustration of people across the archipelago defending independence',
+    href: '/perjuangan-kemerdekaan',
     copy: 'The struggle to defend independence also took place at Ambarawa, Medan Area, and Bandung. It continued through the First and Second Dutch Military Aggressions. Throughout these events, diplomacy and popular resistance both formed part of the effort to safeguard sovereignty.'
   },
   {

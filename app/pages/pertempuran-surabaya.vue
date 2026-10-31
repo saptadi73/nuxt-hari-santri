@@ -113,7 +113,7 @@
 
       <div class="article-actions">
         <NuxtLink to="/#sejarah" class="button button--primary">Kembali ke Beranda</NuxtLink>
-        <NuxtLink to="/divide-et-impera" class="button button--secondary">Jejak Perlawanan Nusantara</NuxtLink>
+        <NuxtLink to="/perjuangan-kemerdekaan" class="button button--secondary">Perjuangan Berlanjut</NuxtLink>
       </div>
     </article>
   </main>
