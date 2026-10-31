@@ -204,7 +204,6 @@
 
 <script setup lang="ts">
 import heroImage from '~/assets/images/hero_harlah_nu_101.png';
-import aduDombaImage from '~/assets/images/adu domba.jpg';
 import perangDaerahImage from '~/assets/images/perang daerah.jpg';
 import resolusiJihadImage from '~/assets/images/resolusi jihad.jpg';
 import santriDanUlamaImage from '~/assets/images/santri dan ulama.jpg';
@@ -246,7 +245,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
   {
     date: 'Sebelum 17 Agustus 1945',
     title: 'Jejak perlawanan di Nusantara',
-    image: aduDombaImage,
+    image: perangDaerahImage,
     alt: 'Ilustrasi perlawanan masyarakat Nusantara terhadap kolonialisme',
     copy: 'Jauh sebelum kemerdekaan diproklamasikan, masyarakat di berbagai wilayah Nusantara telah menghadapi kolonialisme dan berjuang menjaga kedaulatan. Jejak panjang perlawanan itu menjadi bagian dari sejarah bangsa yang kemudian diteruskan dalam perjuangan mempertahankan kemerdekaan.'
   }
@@ -275,7 +274,7 @@ const historyItems = computed(() => locale.value === 'id' ? [
   {
     date: 'Before 17 August 1945',
     title: 'A legacy of resistance across the archipelago',
-    image: aduDombaImage,
+    image: perangDaerahImage,
     alt: 'Illustration of people across the archipelago resisting colonialism',
     copy: 'Long before independence was proclaimed, people in many parts of the archipelago faced colonialism and fought to protect their sovereignty. This long history of resistance became part of the national story carried forward in the struggle to defend independence.'
   }
